@@ -1,0 +1,33 @@
+{% extends 'shop/shop_base.html' %}
+{% load render_bundle from webpack_loader %}
+
+{% block title %}
+  {{ block.super }} - Products
+{% endblock title %}
+
+{% block meta_description %}
+  <meta name="description" content="TODO SEO description">
+{% endblock %}
+
+{% block scripts %}
+{% endblock scripts %}
+
+{% block content %}
+  {% for product in product_list %}
+    <div>
+      <div>
+        {{ product.name }}
+      </div>
+      <div>
+        {{ product.description }}
+      </div>
+      <div>
+        {{ product.price }}
+      </div>
+      <img src={{ product.image.url }}>
+    </div>
+  {% endfor %}
+{% endblock content %}
+
+{% block body_scripts %}
+{% endblock body_scripts %}
