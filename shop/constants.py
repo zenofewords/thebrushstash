@@ -1,3 +1,5 @@
+exchange_rate_url = 'http://api.hnb.hr/tecajn/v2?valuta=EUR&valuta=USD&valuta=CHF'
+
 country_name_list = (
     'Afghanistan',
     'Albania',

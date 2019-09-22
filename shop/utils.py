@@ -8,12 +8,12 @@ def get_default_prodcut_type():
     return ProductType.objects.get(slug=defaultProductType).pk
 
 
-def update_prices_for_product(product):
+def update_product_prices(product):
     ExchangeRate = apps.get_model('shop', 'ExchangeRate')
-    exchage_rates = ExchangeRate.objects.all()
+    exchange_rates = ExchangeRate.objects.all()
 
-    if product.price_hrk and exchage_rates.count() > 0:
+    if product.price_hrk and exchange_rates.count() > 0:
         price = product.price_hrk
 
-        for exr in exchage_rates:
-            setattr(product, 'price_{}'.format(exr.currency.lower()), price / exr.middle_rate)
+        for er in exchange_rates:
+            setattr(product, 'price_{}'.format(er.currency.lower()), price / er.middle_rate)

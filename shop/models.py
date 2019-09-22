@@ -6,7 +6,7 @@ from shop.mixins import (
 )
 from shop.utils import (
     get_default_prodcut_type,
-    update_prices_for_product,
+    update_product_prices,
 )
 
 
@@ -71,7 +71,7 @@ class Product(ShopObjectMixin, TimeStampMixin):
         return self.name
 
     def save(self, *args, **kwargs):
-        update_prices_for_product(self)
+        update_product_prices(self)
         super().save(*args, **kwargs)
 
 

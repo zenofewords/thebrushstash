@@ -16,20 +16,25 @@ class CountryAdmin(admin.ModelAdmin):
     list_editable = ('published', )
 
 
+class ExchangeRateAdmin(admin.ModelAdmin):
+    list_display = ('currency', 'modified_at', 'buying_rate', 'middle_rate', 'selling_rate',)
+    readonly_fields = ('created_at', 'modified_at', )
+
+
 class OrderAdmin(admin.ModelAdmin):
     list_display_links = ('product', )
-    list_display = ('product', 'created', 'first_name', 'last_name', 'status', 'paid', )
+    list_display = ('product', 'created_at', 'first_name', 'last_name', 'status', 'paid', )
     list_editable = ('status', 'paid', )
     list_filter = ('status', )
-    readonly_fields = ('created', 'modified', )
-    search_fields = ('created', 'first_name', 'last_name', )
+    readonly_fields = ('created_at', 'modified_at', )
+    search_fields = ('created_at', 'first_name', 'last_name', )
 
 
 class ProductAdmin(admin.ModelAdmin):
     list_display_links = ('name', )
     list_display = ('name', 'price_hrk', 'ordering', 'published', 'image_preview_thumbnail', )
     list_editable = ('price_hrk', 'ordering', 'published', )
-    readonly_fields = ('image_preview', )
+    readonly_fields = ('image_preview', 'created_at', 'modified_at', )
 
     def crop_image(self, image, max_width):
         original_width = image.width
@@ -51,11 +56,11 @@ class ProductAdmin(admin.ModelAdmin):
         return self.crop_image(obj.image, 800)
 
     def image_preview_thumbnail(self, obj):
-        return self.crop_image(obj.image, 150)
+        return self.crop_image(obj.image, 50)
 
 
 admin.site.register(Country, CountryAdmin)
-admin.site.register(ExchangeRate)
+admin.site.register(ExchangeRate, ExchangeRateAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductType)
