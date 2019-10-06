@@ -52,8 +52,8 @@ class Product(ShopObjectMixin, TimeStampMixin):
         verbose_name='Price (EUR)', max_digits=14, decimal_places=2, blank=True, null=True,
         help_text="Auto populates from HRK price on save."
     )
-    price_chf = models.DecimalField(
-        verbose_name='Price (CHF)', max_digits=14, decimal_places=2, blank=True, null=True,
+    price_gbp = models.DecimalField(
+        verbose_name='Price (GBP)', max_digits=14, decimal_places=2, blank=True, null=True,
         help_text="Auto populates from HRK price on save."
     )
     product_type = models.ForeignKey(
@@ -61,6 +61,9 @@ class Product(ShopObjectMixin, TimeStampMixin):
     image = models.ImageField(upload_to='%Y/%m/%d/')
     ordering = models.IntegerField(default=0, blank=True)
     published = models.BooleanField(default=False)
+    in_stock = models.IntegerField(default=0)
+    gallery = models.ForeignKey(
+        'shop.Gallery', on_delete=models.deletion.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = "Product"

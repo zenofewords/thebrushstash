@@ -5,7 +5,7 @@ from shop.utils import update_product_prices
 
 
 class Command(BaseCommand):
-    help = 'Update all product prices which are in USD/EUR/CHF.'
+    help = 'Update all product prices which are in USD/EUR/GBP.'
 
     def _update_prices(self):
         for product in Product.objects.all():
