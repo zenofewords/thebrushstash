@@ -3,9 +3,13 @@ from django.apps import apps
 defaultProductType = 'brush'
 
 
-def get_default_prodcut_type():
+def get_default_product_type():
     ProductType = apps.get_model('shop', 'ProductType')
-    return ProductType.objects.get(slug=defaultProductType).pk
+
+    try:
+        return ProductType.objects.get(slug=defaultProductType).pk
+    except ProductType.DoesNotExist:
+        return None
 
 
 def update_product_prices(product):

@@ -126,7 +126,7 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(upload_to='%Y/%m/%d/')),
                 ('ordering', models.IntegerField(blank=True, default=0)),
                 ('published', models.BooleanField(default=False)),
-                ('product_type', models.ForeignKey(default=shop.utils.get_default_prodcut_type, on_delete=django.db.models.deletion.CASCADE, to='shop.ProductType')),
+                ('product_type', models.ForeignKey(default=shop.utils.get_default_product_type, on_delete=django.db.models.deletion.CASCADE, to='shop.ProductType')),
             ],
             options={
                 'verbose_name': 'Product',

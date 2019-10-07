@@ -5,7 +5,7 @@ from shop.mixins import (
     TimeStampMixin,
 )
 from shop.utils import (
-    get_default_prodcut_type,
+    get_default_product_type,
     update_product_prices,
 )
 
@@ -57,7 +57,7 @@ class Product(ShopObjectMixin, TimeStampMixin):
         help_text="Auto populates from HRK price on save."
     )
     product_type = models.ForeignKey(
-        'shop.ProductType', default=get_default_prodcut_type, on_delete=models.deletion.CASCADE)
+        'shop.ProductType', default=get_default_product_type, on_delete=models.deletion.CASCADE)
     image = models.ImageField(upload_to='%Y/%m/%d/')
     ordering = models.IntegerField(default=0, blank=True)
     published = models.BooleanField(default=False)
