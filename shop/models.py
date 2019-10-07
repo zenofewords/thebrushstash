@@ -62,8 +62,8 @@ class Product(ShopObjectMixin, TimeStampMixin):
     ordering = models.IntegerField(default=0, blank=True)
     published = models.BooleanField(default=False)
     in_stock = models.IntegerField(default=0)
-    gallery = models.ForeignKey(
-        'shop.Gallery', on_delete=models.deletion.CASCADE, blank=True, null=True)
+    # gallery = models.ForeignKey(
+    #     'shop.Gallery', on_delete=models.deletion.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = "Product"
