@@ -1,7 +1,7 @@
 pyc:
 	find . -name \*.pyc -delete
 
-clear:
+flush:
 	echo "flush_all" | nc -w 2 localhost 11211
 
 restart:
