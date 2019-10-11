@@ -12,15 +12,34 @@ class Command(BaseCommand):
     help = 'Fetch and save exchange rates from HNB API.'
 
     def _update_exchange_rates(self, exchange_rates):
-        def to_decimal(key):
-            return Decimal(self.exchange_rate[key].replace(',', '.'))
+        def to_decimal(exchange_rate, key):
+            return Decimal(exchange_rate[key].replace(',', '.'))
 
-        for self.exchange_rate in exchange_rates:
-            er = ExchangeRate.objects.get(currency_code=self.exchange_rate['sifra_valute'])
-            er.buying_rate = to_decimal('kupovni_tecaj')
-            er.middle_rate = to_decimal('srednji_tecaj')
-            er.selling_rate = to_decimal('prodajni_tecaj')
-            er.save()
+        for exchange_rate in exchange_rates:
+            currency = exchange_rate.get('valuta')
+            currency_code = exchange_rate.get('sifra_valute')
+            buying_rate = to_decimal(exchange_rate, 'kupovni_tecaj')
+            middle_rate = to_decimal(exchange_rate, 'srednji_tecaj')
+            selling_rate = to_decimal(exchange_rate, 'prodajni_tecaj')
+            state_iso = exchange_rate.get('drzava_iso')
+
+            er, created = ExchangeRate.objects.get_or_create(
+                currency_code=exchange_rate['sifra_valute'],
+                defaults={
+                    'currency': currency,
+                    'currency_code': currency_code,
+                    'buying_rate': buying_rate,
+                    'middle_rate': middle_rate,
+                    'selling_rate': selling_rate,
+                    'state_iso': state_iso,
+                }
+            )
+
+            if not created:
+                er.buying_rate = to_decimal('kupovni_tecaj')
+                er.middle_rate = to_decimal('srednji_tecaj')
+                er.selling_rate = to_decimal('prodajni_tecaj')
+                er.save()
 
     def _fetch(self):
         pm = poolmanager.PoolManager()
