@@ -1,0 +1,21 @@
+{% load thebrushstash_tags %}
+
+<div>
+  <div>
+    {{ product.new|yesno:"New," }}
+    {{ product.in_stock }}
+  </div>
+  {% render_picture product '500px' %}
+  <div>
+    {{ product.name }}
+  </div>
+  <div>
+    {{ product.foreword }}
+  </div>
+  <div>
+    {{ product.price_eur.normalize }}€
+  </div>
+  <div>
+    <button>Add to bag</button>
+  </div>
+</div>

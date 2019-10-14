@@ -1,4 +1,5 @@
 {% load static %}
+{% load thebrushstash_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +23,7 @@
     <main>
       <header>
         {% block header %}
+          {% navigation_tag %}
         {% endblock header %}
       </header>
 
@@ -31,6 +33,7 @@
 
     <footer>
       {% block footer %}
+        {% footer_tag %}
       {% endblock footer %}
     </footer>
 

@@ -1,0 +1,7 @@
+{% if object.image %}
+  <picture>
+    <source srcset={{ object.webp_image_url }} type="image/webp">
+    <source srcset={{ object.image.url }} type="image/jpeg">
+    <img src={{ object.image.url }} {% if width %}width={{ width }}{% endif %} alt={{ object.name }}>
+  </picture>
+{% endif %}

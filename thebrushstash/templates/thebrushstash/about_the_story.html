@@ -1,0 +1,20 @@
+{% extends 'thebrushstash/base.html' %}
+{% load thebrushstash_tags %}
+
+{% block title %}
+  {{ block.super }} - About the Story
+{% endblock title %}
+
+{% block head %}
+  {{ block.super }}
+
+  {% block meta_description %}
+    <meta name="description" content="TODO SEO description about the story">
+  {% endblock %}
+  <meta name="keywords" content="TODO SEO keywords about the story">
+{% endblock head %}
+
+{% block content %}
+  TODO about the story text
+  {% newsletter_tag %}
+{% endblock content %}

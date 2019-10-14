@@ -1,0 +1,25 @@
+{% load thebrushstash_tags %}
+
+<div>
+  {% for footer_share_link in footer_share_links %}
+    <a href="{{ footer_share_link.location }}" target="_blank" rel="noopener noreferrer">
+      Follow us on {{ footer_share_link.name }}
+    </a>
+  {% endfor %}
+</div>
+
+{% newsletter_tag %}
+
+{% for footer_item in footer_items %}
+  <a href="{{ footer_item.location }}">{{ footer_item }}</a>
+{% endfor %}
+
+<div>
+  {% for credit_card_logo in credit_card_logos %}
+    {% render_picture credit_card_logo %}
+  {% endfor %}
+</div>
+
+<div>
+  {% now 'Y' %} &copy; Brush Stash. All rights reserved.
+</div>
