@@ -16,8 +16,7 @@ def update_product_prices(product):
     ExchangeRate = apps.get_model('shop', 'ExchangeRate')
     exchange_rates = ExchangeRate.objects.all()
 
-    if product.price_hrk and exchange_rates.count() > 0:
-        price = product.price_hrk
-
+    if product.price_hrk:
         for er in exchange_rates:
+            price = product.price_hrk + product.price_hrk * er.added_value / 100
             setattr(product, 'price_{}'.format(er.currency.lower()), price / er.middle_rate)

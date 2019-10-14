@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from shop.models import (
-    Country,
     ExchangeRate,
     Order,
     Product,
@@ -11,13 +10,10 @@ from shop.models import (
 )
 
 
-class CountryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'published', )
-    list_editable = ('published', )
-
-
 class ExchangeRateAdmin(admin.ModelAdmin):
-    list_display = ('currency', 'modified_at', 'buying_rate', 'middle_rate', 'selling_rate',)
+    list_display = (
+        'currency', 'modified_at', 'added_value', 'buying_rate', 'middle_rate', 'selling_rate',
+    )
     readonly_fields = ('created_at', 'modified_at', )
 
 
@@ -34,23 +30,30 @@ class ProductAdmin(admin.ModelAdmin):
     list_display_links = ('name', )
     list_display = ('name', 'price_hrk', 'ordering', 'published', 'image_preview_thumbnail', )
     list_editable = ('price_hrk', 'ordering', 'published', )
-    readonly_fields = ('image_preview', 'created_at', 'modified_at', )
+    readonly_fields = ('price_usd', 'price_eur', 'price_gbp', 'image_preview', )
+    fields = (
+        'product_type', 'name', 'slug', 'foreword', 'description', 'image', 'in_stock', 'ordering',
+        'published', 'new', 'price_hrk', 'price_usd', 'price_eur', 'price_gbp', 'image_preview',
+    )
 
     def crop_image(self, image, max_width):
-        original_width = image.width
-        original_height = image.height
+        try:
+            original_width = image.width
+            original_height = image.height
 
-        width = original_width if original_width < max_width else max_width
-        ratio = original_width / width
-        height = original_height / ratio
+            width = original_width if original_width < max_width else max_width
+            ratio = original_width / width
+            height = original_height / ratio
 
-        return mark_safe(
-            '<img src={url} width={width} height={height} />'.format(
-                url=image.url,
-                width=width,
-                height=height,
+            return mark_safe(
+                '<img src={url} width={width} height={height} />'.format(
+                    url=image.url,
+                    width=width,
+                    height=height,
+                )
             )
-        )
+        except FileNotFoundError:
+            return ''
 
     def image_preview(self, obj):
         return self.crop_image(obj.image, 800)
@@ -59,7 +62,6 @@ class ProductAdmin(admin.ModelAdmin):
         return self.crop_image(obj.image, 50)
 
 
-admin.site.register(Country, CountryAdmin)
 admin.site.register(ExchangeRate, ExchangeRateAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Product, ProductAdmin)

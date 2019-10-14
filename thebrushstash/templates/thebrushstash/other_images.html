@@ -1,0 +1,16 @@
+{% extends 'thebrushstash/base.html' %}
+{% load thebrushstash_tags %}
+
+{% block title %}
+  {{ block.super }} - Test and download webp images
+{% endblock title %}
+
+{% block content %}
+  {% for other_image in other_images %}
+    {% render_picture other_image '1280px' %}
+    <div>
+      <a href="{{ other_image.image.url }}">{{ other_image.name }} full size</a>
+    </div>
+    <br>
+  {% endfor %}
+{% endblock content %}

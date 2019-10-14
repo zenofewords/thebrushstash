@@ -13,14 +13,8 @@
   <meta name="keywords" content="TODO SEO keywords">
 {% endblock head %}
 
-{% block header %}
-  {{ block.super }}
-{% endblock header %}
-
 {% block content %}
-  TODO shop home view content
+  {% for product in products %}
+    {% include 'shop/includes/product_card.html' %}
+  {% endfor %}
 {% endblock content %}
-
-{% block footer %}
-  {{ block.super }}
-{% endblock footer %}
