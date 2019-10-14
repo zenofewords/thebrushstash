@@ -16,4 +16,11 @@ class ProductDetailView(DetailView):
 
 
 class ShopHomeView(TemplateView):
-    template_name = 'shop/shop_base.html'
+    template_name = 'shop/shop_home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'products': Product.objects.all(),
+        })
+        return context

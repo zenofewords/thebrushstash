@@ -8,20 +8,11 @@ from shop.utils import (
     get_default_product_type,
     update_product_prices,
 )
-
-
-class Country(models.Model):
-    name = models.CharField(max_length=500)
-    slug = models.CharField(max_length=500)
-    published = models.BooleanField(default=False)
-
-    class Meta:
-        verbose_name = "Country"
-        verbose_name_plural = "Countries"
-        ordering = ('slug', )
-
-    def __str__(self):
-        return self.name
+from thebrushstash.models import (
+    Country,
+    PublishedMixin,
+    WebpFieldMixin,
+)
 
 
 class ExchangeRate(TimeStampMixin):
@@ -31,6 +22,10 @@ class ExchangeRate(TimeStampMixin):
     buying_rate = models.DecimalField(max_digits=10, decimal_places=8)
     middle_rate = models.DecimalField(max_digits=10, decimal_places=8)
     selling_rate = models.DecimalField(max_digits=10, decimal_places=8)
+    added_value = models.DecimalField(
+        max_digits=5, decimal_places=2,
+        help_text='The percentage added when converting from HRK'
+    )
 
     class Meta:
         verbose_name = 'Exchange rate'
@@ -40,35 +35,39 @@ class ExchangeRate(TimeStampMixin):
         return '1 {} equals {} HRK'.format(self.currency, self.middle_rate)
 
 
-class Product(ShopObjectMixin, TimeStampMixin):
+class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin, WebpFieldMixin):
+    product_type = models.ForeignKey(
+        'shop.ProductType', default=get_default_product_type, on_delete=models.deletion.CASCADE)
+    foreword = models.TextField(
+        max_length=300, blank=True, help_text='Short decription for grid view',
+    )
+    image = models.ImageField(upload_to='products/%Y/')
+    new = models.BooleanField(default=True)
+    in_stock = models.IntegerField(default=0)
+    ordering = models.IntegerField(
+        default=0, blank=True,
+        help_text='If set to 0, products are ordered by "new", then by "created at"'
+    )
     price_hrk = models.DecimalField(
         verbose_name='Price (HRK)', max_digits=14, decimal_places=2, blank=True, null=True,
     )
     price_usd = models.DecimalField(
         verbose_name='Price (USD)', max_digits=14, decimal_places=2, blank=True, null=True,
-        help_text="Auto populates from HRK price on save."
+        help_text="Auto populates from HRK when saved"
     )
     price_eur = models.DecimalField(
         verbose_name='Price (EUR)', max_digits=14, decimal_places=2, blank=True, null=True,
-        help_text="Auto populates from HRK price on save."
+        help_text="Auto populates from HRK when saved"
     )
     price_gbp = models.DecimalField(
         verbose_name='Price (GBP)', max_digits=14, decimal_places=2, blank=True, null=True,
-        help_text="Auto populates from HRK price on save."
+        help_text="Auto populates from HRK when saved"
     )
-    product_type = models.ForeignKey(
-        'shop.ProductType', default=get_default_product_type, on_delete=models.deletion.CASCADE)
-    image = models.ImageField(upload_to='%Y/%m/%d/')
-    ordering = models.IntegerField(default=0, blank=True)
-    published = models.BooleanField(default=False)
-    in_stock = models.IntegerField(default=0)
-    # gallery = models.ForeignKey(
-    #     'shop.Gallery', on_delete=models.deletion.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = "Product"
         verbose_name_plural = "Products"
-        ordering = ('-ordering', )
+        ordering = ('-ordering', '-new', '-created_at', )
 
     def __str__(self):
         return self.name
@@ -106,7 +105,7 @@ class Order(TimeStampMixin):
     product = models.ForeignKey('shop.Product', on_delete=models.deletion.CASCADE)
     first_name = models.CharField(max_length=500)
     last_name = models.CharField(max_length=500)
-    country = models.ForeignKey('shop.Country', on_delete=models.deletion.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.deletion.CASCADE)
     address = models.CharField(max_length=500)
     city = models.CharField(max_length=500)
     state = models.CharField(max_length=500)
