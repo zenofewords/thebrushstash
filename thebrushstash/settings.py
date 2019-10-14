@@ -30,8 +30,8 @@ INSTALLED_APPS = [
     'webpack_loader',
     'rest_framework',
 
-    'thebrushstash',
-    'shop',
+    'thebrushstash.apps.TheBrushStashConfig',
+    'shop.apps.ShopConfig',
 ]
 
 if DEBUG:

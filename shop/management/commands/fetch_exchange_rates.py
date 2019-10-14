@@ -4,8 +4,8 @@ from urllib3 import poolmanager
 
 from django.core.management.base import BaseCommand
 
-from shop.constants import exchange_rate_url
 from shop.models import ExchangeRate
+from thebrushstash.constants import exchange_rate_url
 
 
 class Command(BaseCommand):
@@ -36,9 +36,9 @@ class Command(BaseCommand):
             )
 
             if not created:
-                er.buying_rate = to_decimal('kupovni_tecaj')
-                er.middle_rate = to_decimal('srednji_tecaj')
-                er.selling_rate = to_decimal('prodajni_tecaj')
+                er.buying_rate = buying_rate
+                er.middle_rate = middle_rate
+                er.selling_rate = selling_rate
                 er.save()
 
     def _fetch(self):
