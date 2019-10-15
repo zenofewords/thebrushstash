@@ -13,6 +13,10 @@ class FaqView(TemplateView):
     template_name = 'thebrushstash/faq.html'
 
 
+class GeneralTermsAndConditions(TemplateView):
+    template_name = 'thebrushstash/general_terms_and_conditions.html'
+
+
 class TakingCareOfYourBrushView(TemplateView):
     template_name = 'thebrushstash/brush_care.html'
 

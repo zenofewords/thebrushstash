@@ -39,3 +39,6 @@ class FooterShareLink(LinkedMixin, PublishedMixin):
 class OtherImage(WebpFieldMixin):
     name = models.CharField(max_length=500)
     image = models.ImageField(upload_to='other')
+
+    def __str__(self):
+        return self.name
