@@ -11,7 +11,7 @@
   <div id="mastercard-modal" class="credit-card-secure-modal" hidden>
     <h1>
       Introducing...
-      <img src="{% static 'images/secureCode_logo.gif' %}">
+      <img src="{% static 'images/mastercard_secure.jpg' %}">
       <span class="close-modal-button">
         &times;
       </span>
@@ -26,14 +26,14 @@
       To find out more about MasterCard SecureCode go to
       <a href="http://www.mastercardsecurecode.com" target="_blank" rel="noopener noreferrer">www.mastercardsecurecode.com</a>.
     </p>
-    <img src="{% static 'images/maestro_logo_sm.gif' %}">
-    <img src="{% static 'images/mastercard_logo_sm.gif' %}">
+    <img src="{% static 'images/mastercard_logo.jpg' %}">
+    <img src="{% static 'images/maestro_logo.jpg' %}">
   </div>
 
   <div id="visa-modal" class="credit-card-secure-modal" hidden>
     <h1>
-      Introducing...
-      <img src="{% static 'images/VerifiedbyVisa.jpg' %}">
+      Same card, added safety online.
+      <img src="{% static 'images/visa_secure.jpg' %}">
       <span class="close-modal-button">
         &times;
       </span>
@@ -54,6 +54,40 @@
       Click
       <a href="http://www.visaeu.com" target="_blank" rel="noopener noreferrer">www.visaeu.com</a>
       for more information.
+    </p>
+  </div>
+
+  <div id="american-express-modal" class="credit-card-secure-modal" hidden>
+    <img src="{% static 'images/american_express_secure.jpg' %}">
+    <h1>
+      Online Fraud Protection Guarantee
+      <span class="close-modal-button">
+        &times;
+      </span>
+    </h1>
+    <h2>Shop with confidence</h2>
+    <p>
+      Shop online with confidence when you pay with the American Express® Card*. We'll stand behind your online purchase just as we do when you purchase items over the phone or in person. So you can make purchases with confidence anywhere on the Internet.
+    </p>
+    <p>
+      You can still feel confident using your American Express Card* online.
+    </p>
+    <p>
+      Our guarantee
+      <br>
+      When you use the American Express Card* you will not be held responsible for unauthorized charges online**.
+    </p>
+    <p>
+      In fact, American Express takes specific measures to protect your safety and privacy online:
+      <ul>
+        <li>We use the latest technology to keep your account number secure.</li>
+        <li>We have a clearly stated online privacy protection policy and we stand by it.</li>
+      </ul>
+    </p>
+    <p class="fine-print">
+      * Offered in select countries at issuer discretion. Please contact the issuer of your American Express Card for details.
+      <br>
+      ** Provided you notify us immediately upon discovery of any fraudulent transactions and you have compiled with the Card Conditions, you will not be held liable for any charges. Immediately means as soon as you are aware but no later than on or before the due date of the statement in which the fraudulent transaction appears.
     </p>
   </div>
 </div>
@@ -86,6 +120,9 @@
     top: 10px;
     right: 20px;
     cursor: pointer;
+  }
+  .fine-print {
+    font-size: 11px;
   }
 </style>
 
