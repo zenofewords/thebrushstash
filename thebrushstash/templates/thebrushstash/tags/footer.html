@@ -16,7 +16,9 @@
 
 <div>
   {% for credit_card_logo in credit_card_logos %}
-    {% render_picture credit_card_logo %}
+    <a href={{ credit_card_logo.location }} {% if credit_card_logo.external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+      {% render_picture credit_card_logo %}
+    </a>
   {% endfor %}
 </div>
 
