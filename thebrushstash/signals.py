@@ -7,11 +7,13 @@ from django.dispatch import receiver
 from shop.models import Product
 from thebrushstash.models import (
     CreditCardLogo,
+    CreditCardSecureLogo,
     OtherImage,
 )
 
 
 @receiver(post_save, sender=CreditCardLogo)
+@receiver(post_save, sender=CreditCardSecureLogo)
 @receiver(post_save, sender=OtherImage)
 @receiver(post_save, sender=Product)
 def create_webp_image(sender, instance, created, **kwargs):

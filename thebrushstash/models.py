@@ -20,6 +20,10 @@ class Country(PublishedMixin):
         return self.name
 
 
+class CreditCardSecureLogo(LinkedMixin, PublishedMixin, WebpFieldMixin):
+    image = models.ImageField(upload_to='credit_card_logos')
+
+
 class CreditCardLogo(LinkedMixin, PublishedMixin, WebpFieldMixin):
     image = models.ImageField(upload_to='credit_card_logos')
 

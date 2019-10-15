@@ -202,38 +202,61 @@ country_name_list = (
 initial_credit_card_logos = (
     {
         'name': 'Visa',
-        'slug': 'visa',
+        'ordering': 1,
+        'published': True,
+        'external': True,
+    },
+    {
+        'name': 'Mastercard',
+        'ordering': 2,
+        'published': True,
+        'external': True,
+    },
+    {
+        'name': 'Maestro',
+        'ordering': 3,
+        'published': True,
+        'external': True,
+    },
+    {
+        'name': 'Diners Club',
+        'ordering': 4,
+        'published': True,
+        'external': True,
+    },
+    {
+        'name': 'Discover',
+        'ordering': 5,
+        'published': True,
+        'external': True,
+    },
+    {
+        'name': 'American Express',
+        'ordering': 6,
+        'published': True,
+        'external': True,
+    },
+)
+
+initial_credit_card_secure_logos = (
+    {
+        'name': 'American Express',
         'ordering': 1,
         'published': True,
     },
     {
-        'name': 'Mastercard',
-        'slug': 'mastercard',
+        'name': 'Diners Club',
         'ordering': 2,
         'published': True,
     },
     {
-        'name': 'Maestro',
-        'slug': 'maestro',
+        'name': 'Mastercard',
         'ordering': 3,
         'published': True,
     },
     {
-        'name': 'Diners Club',
-        'slug': 'diners-club',
+        'name': 'Visa',
         'ordering': 4,
-        'published': True,
-    },
-    {
-        'name': 'Discover',
-        'slug': 'discover',
-        'ordering': 5,
-        'published': True,
-    },
-    {
-        'name': 'American Express',
-        'slug': 'american-express',
-        'ordering': 6,
         'published': True,
     },
 )

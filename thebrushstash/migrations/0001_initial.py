@@ -10,16 +10,7 @@ from thebrushstash.constants import (
     initial_navigation_items,
     initial_footer_share_links,
 )
-
-
-def get_defaults(data):
-    return {
-        'name': data.get('name'),
-        'ordering': data.get('ordering'),
-        'location': data.get('location', ''),
-        'external': data.get('external', False),
-        'published': data.get('published', False),
-    }
+from thebrushstash.utils import get_default_link_data
 
 
 def create_footer_items(apps, schema_editor):
@@ -28,7 +19,7 @@ def create_footer_items(apps, schema_editor):
     for footer_item in initial_footer_items:
         FooterItem.objects.get_or_create(
             location=footer_item.get('location'),
-            defaults=get_defaults(footer_item),
+            defaults=get_default_link_data(footer_item),
         )
 
 
@@ -38,7 +29,7 @@ def create_footer_share_links(apps, schema_editor):
     for footer_share_links in initial_footer_share_links:
         FooterShareLink.objects.get_or_create(
             location=footer_share_links.get('location'),
-            defaults=get_defaults(footer_share_links),
+            defaults=get_default_link_data(footer_share_links),
         )
 
 
@@ -48,7 +39,7 @@ def create_navigation_items(apps, schema_editor):
     for navigation_item in initial_navigation_items:
         NavigationItem.objects.get_or_create(
             location=navigation_item.get('location'),
-            defaults=get_defaults(navigation_item)
+            defaults=get_default_link_data(navigation_item)
         )
 
 
@@ -59,7 +50,7 @@ def create_credit_card_logos(apps, schema_editor):
         CreditCardLogo.objects.get_or_create(
             location=credit_card_logo.get('location'),
             defaults={
-                **get_defaults(credit_card_logo),  # noqa
+                **get_default_link_data(credit_card_logo),  # noqa
                 'image': credit_card_logo.get('image'),
             },
         )

@@ -2,6 +2,7 @@ from django import template
 
 from thebrushstash.models import (
     CreditCardLogo,
+    CreditCardSecureLogo,
     FooterItem,
     FooterShareLink,
     NavigationItem,
@@ -24,6 +25,13 @@ def footer_tag():
         'footer_items': FooterItem.published_objects.all(),
         'footer_share_links': FooterShareLink.published_objects.all(),
         'credit_card_logos': CreditCardLogo.published_objects.all(),
+    }
+
+
+@register.inclusion_tag('thebrushstash/tags/credit_card_secure_logos.html')
+def credit_card_secure_logos_tag():
+    return {
+        'credit_card_secure_logos': CreditCardSecureLogo.published_objects.all(),
     }
 
 

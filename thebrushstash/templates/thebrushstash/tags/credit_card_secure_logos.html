@@ -1,0 +1,60 @@
+{% load static %}
+{% load thebrushstash_tags %}
+
+<div>
+  {% for credit_card_secure_logo in credit_card_secure_logos %}
+    <a href={{ credit_card_secure_logo.location }} {% if credit_card_secure_logo.external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+      {% render_picture credit_card_secure_logo %}
+    </a>
+  {% endfor %}
+</div>
+
+<div class="mastercard-secure-modal">
+  <h1>
+    Introducing...
+    <img src="{% static 'images/secureCode_logo.gif' %}">
+  </h1>
+  <p>
+    MasterCard® SecureCode™ is a new service from MasterCard and your card issuer that provides added protection when you buy online. There is no need to get a new MasterCard or Maestro® card. You choose your own personal MasterCard SecureCode and it is never shared with any merchant. A private code means added protection against unauthorized use of your credit or debit card when you shop online.
+  </p>
+  <p>
+    Every time you pay online with your MasterCard or Maestro card, a box pops up from your card issuer asking you for your personal SecureCode, just like the bank does at the ATM. In seconds, your card issuer confirms it's you and allows your purchase to be completed.
+  </p>
+  <p>
+    To find out more about MasterCard SecureCode go to
+    <a href="http://www.mastercardsecurecode.com" target="_blank" rel="noopener noreferrer">
+      www.mastercardsecurecode.com
+    </a>.
+  </p>
+  <img src="{% static 'images/maestro_logo_sm.gif' %}">
+  <img src="{% static 'images/mastercard_logo_sm.gif' %}">
+</div>
+
+<div class="mastercard-secure-modal">
+  <h1>
+    Introducing...
+    <img src="{% static 'images/VerifiedbyVisa.jpg' %}">
+  </h1>
+  <p>
+    Verified by Visa is a new service that lets you shop online with added confidence.
+  </p>
+  <p>
+    Through a simple checkout process, Verified by Visa confirms your identity when you make purchases at participating online stores. It's convenient and it works with your existing Visa card.
+  </p>
+  <p>
+    Plus, Verified by Visa is a snap to use. You register your card just once, and create your own password. Then, when you make purchases at participating online stores, a Verified by Visa window will appear. Simply enter your password and click submit. Your identity is verified and the purchase is secure.
+  </p>
+  <p>
+    To activate Verified by Visa in your Visa card, or to learn more, contact the financial institution that issued your Visa card.
+  </p>
+  <p>
+    Click
+    <a href="http://www.visaeu.com" target="_blank" rel="noopener noreferrer">
+      www.visaeu.com
+    </a>
+    for more information.
+  </p>
+</div>
+
+<script type="text/javascript">
+</script>

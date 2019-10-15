@@ -3,6 +3,7 @@ from django.contrib import admin
 from thebrushstash.models import (
     Country,
     CreditCardLogo,
+    CreditCardSecureLogo,
     FooterItem,
     FooterShareLink,
     NavigationItem,
@@ -23,6 +24,7 @@ class OtherImageAdmin(admin.ModelAdmin):
 
 admin.site.register(Country)
 admin.site.register(CreditCardLogo)
+admin.site.register(CreditCardSecureLogo)
 admin.site.register(FooterItem)
 admin.site.register(FooterShareLink)
 admin.site.register(NavigationItem, NavigationItemAdmin)
