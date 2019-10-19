@@ -17,7 +17,7 @@
 <div>
   {% for credit_card_logo in credit_card_logos %}
     <a style="display: inline-block" href="{{ credit_card_logo.location }}"{% if credit_card_logo.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
-      {% render_picture credit_card_logo %}
+      {% picture obj=credit_card_logo size='original' %}
     </a>
   {% endfor %}
 </div>

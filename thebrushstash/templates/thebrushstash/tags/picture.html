@@ -1,7 +1,17 @@
 {% if object.image %}
   <picture>
-    <source srcset="{{ object.webp_image_url }}" type="image/webp">
-    <source srcset="{{ object.image.url }}" type="image/jpeg">
-    <img src="{{ object.image.url }}" {% if width %}width="{{ width }}"{% endif %} alt="{{ object.name }}">
+    <source
+      srcset="{{ webp_srcset }}"
+      type="image/webp"
+    >
+    <source
+      srcset="{{ jpg_srcset }}"
+      type="image/jpg"
+    >
+    <img
+      srcset="{{ jpg_srcset }}"
+      src="{{ object.image.url }}"
+      alt="{{ object.name }}"
+    >
   </picture>
 {% endif %}
