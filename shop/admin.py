@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.utils.safestring import mark_safe
 
 from shop.models import (
     ExchangeRate,
@@ -8,6 +7,7 @@ from shop.models import (
     ProductType,
     Transaction,
 )
+from thebrushstash.admin import GalleryItemInline
 
 
 class ExchangeRateAdmin(admin.ModelAdmin):
@@ -28,38 +28,14 @@ class OrderAdmin(admin.ModelAdmin):
 
 class ProductAdmin(admin.ModelAdmin):
     list_display_links = ('name', )
-    list_display = ('name', 'price_hrk', 'ordering', 'published', 'image_preview_thumbnail', )
+    list_display = ('name', 'price_hrk', 'ordering', 'published', )
     list_editable = ('price_hrk', 'ordering', 'published', )
-    readonly_fields = ('price_usd', 'price_eur', 'price_gbp', 'image_preview', )
+    readonly_fields = ('price_usd', 'price_eur', 'price_gbp', )
     fields = (
-        'product_type', 'name', 'slug', 'foreword', 'description', 'image', 'in_stock', 'ordering',
-        'published', 'new', 'price_hrk', 'price_usd', 'price_eur', 'price_gbp', 'image_preview',
+        'product_type', 'name', 'slug', 'foreword', 'description', 'in_stock', 'ordering',
+        'published', 'new', 'price_hrk', 'price_usd', 'price_eur', 'price_gbp',
     )
-
-    def crop_image(self, image, max_width):
-        try:
-            original_width = image.width
-            original_height = image.height
-
-            width = original_width if original_width < max_width else max_width
-            ratio = original_width / width
-            height = original_height / ratio
-
-            return mark_safe(
-                '<img src={url} width={width} height={height} />'.format(
-                    url=image.url,
-                    width=width,
-                    height=height,
-                )
-            )
-        except FileNotFoundError:
-            return ''
-
-    def image_preview(self, obj):
-        return self.crop_image(obj.image, 800)
-
-    def image_preview_thumbnail(self, obj):
-        return self.crop_image(obj.image, 50)
+    inlines = [GalleryItemInline, ]
 
 
 admin.site.register(ExchangeRate, ExchangeRateAdmin)

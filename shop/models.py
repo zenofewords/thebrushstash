@@ -2,16 +2,15 @@ from django.db import models
 
 from shop.mixins import (
     ShopObjectMixin,
-    TimeStampMixin,
 )
 from shop.utils import (
     get_default_product_type,
     update_product_prices,
 )
+from thebrushstash.mixins import TimeStampMixin
 from thebrushstash.models import (
     Country,
     PublishedMixin,
-    WebpFieldMixin,
 )
 
 
@@ -35,18 +34,17 @@ class ExchangeRate(TimeStampMixin):
         return '1 {} equals {} HRK'.format(self.currency, self.middle_rate)
 
 
-class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin, WebpFieldMixin):
+class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
     product_type = models.ForeignKey(
         'shop.ProductType', default=get_default_product_type, on_delete=models.deletion.CASCADE)
     foreword = models.TextField(
         max_length=300, blank=True, help_text='Short decription for grid view',
     )
-    image = models.ImageField(upload_to='products/%Y/')
     new = models.BooleanField(default=True)
     in_stock = models.IntegerField(default=0)
     ordering = models.IntegerField(
         default=0, blank=True,
-        help_text='If set to 0, products are ordered by "new", then by "created at"'
+        help_text='If set to 0, products are ordered by "new", then by creation date'
     )
     price_hrk = models.DecimalField(
         verbose_name='Price (HRK)', max_digits=14, decimal_places=2, blank=True, null=True,
@@ -65,8 +63,8 @@ class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin, WebpFieldMixin):
     )
 
     class Meta:
-        verbose_name = "Product"
-        verbose_name_plural = "Products"
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
         ordering = ('-ordering', '-new', '-created_at', )
 
     def __str__(self):
@@ -79,8 +77,8 @@ class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin, WebpFieldMixin):
 
 class ProductType(ShopObjectMixin, TimeStampMixin):
     class Meta:
-        verbose_name = "Product type"
-        verbose_name_plural = "Product types"
+        verbose_name = 'Product type'
+        verbose_name_plural = 'Product types'
 
     def __str__(self):
         return self.name

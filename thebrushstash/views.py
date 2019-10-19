@@ -1,8 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.list import ListView
 from django.views.generic import (
     TemplateView,
 )
-from thebrushstash.models import OtherImage
+
+from thebrushstash.models import TestImage
 
 
 class AboutTheStoryView(TemplateView):
@@ -21,10 +23,6 @@ class TakingCareOfYourBrushView(TemplateView):
     template_name = 'thebrushstash/brush_care.html'
 
 
-class OtherImageView(LoginRequiredMixin, TemplateView):
-    template_name = 'thebrushstash/other_images.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({'other_images': OtherImage.objects.all()})
-        return context
+class TestImageView(LoginRequiredMixin, ListView):
+    model = TestImage
+    template_name = 'shop/test_images.html'
