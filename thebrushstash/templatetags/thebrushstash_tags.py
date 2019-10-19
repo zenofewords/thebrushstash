@@ -1,10 +1,12 @@
 from django import template
+from django.contrib.contenttypes.models import ContentType
 
 from thebrushstash.models import (
     CreditCardLogo,
     CreditCardSecureLogo,
     FooterItem,
     FooterShareLink,
+    GalleryItem,
     NavigationItem,
 )
 
@@ -40,9 +42,20 @@ def newsletter_tag():
     pass
 
 
+@register.simple_tag
+def get_gallery(obj):
+    return GalleryItem.objects.filter(
+        content_type=ContentType.objects.get_for_model(obj), object_id=obj.pk
+    )
+
+
 @register.inclusion_tag('thebrushstash/tags/picture.html')
-def render_picture(obj, width=None):
+def picture(obj, size):
+    if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
+        return
+
     return {
         'object': obj,
-        'width': width,
+        'webp_srcset': ', '.join(obj.srcsets['webp_{}'.format(size)]),
+        'jpg_srcset': ', '.join(obj.srcsets['jpg_{}'.format(size)]),
     }

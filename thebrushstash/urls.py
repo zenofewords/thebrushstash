@@ -8,8 +8,8 @@ from thebrushstash.views import (
     AboutTheStoryView,
     FaqView,
     GeneralTermsAndConditions,
-    OtherImageView,
     TakingCareOfYourBrushView,
+    TestImageView,
 )
 from thebrushstash.constants import (
     about_the_story_slug,
@@ -37,7 +37,7 @@ urlpatterns = [
         GeneralTermsAndConditions.as_view(),
         name=general_terms_conditions_slug
     ),
-    path('other-images/', OtherImageView.as_view(), name='other-images'),
+    path('test-images/', TestImageView.as_view(), name='other-images'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,7 +4,7 @@
 <div class="credit-card-secure-logo-wrapper">
   {% for credit_card_secure_logo in credit_card_secure_logos %}
     <div id="{{ credit_card_secure_logo.location }}" class="credit-card-secure-logo">
-      {% render_picture credit_card_secure_logo %}
+      {% picture obj=credit_card_secure_logo size='original' %}
     </div>
   {% endfor %}
 

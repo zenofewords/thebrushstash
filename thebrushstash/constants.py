@@ -386,3 +386,29 @@ inital_exchange_rates = (
         'added_value': '10',
     },
 )
+
+DEFAULT_IMAGE_EXTENSION = 'jpg'
+LARGE_IMAGE_WIDTH = 960
+SMALL_IMAGE_WIDTH = 512
+THUMBNAIL_IMAGE_WIDTH = 320
+DEFAULT_DENSITY = 1
+DOUBLE_DENSITY = DEFAULT_DENSITY * 2
+SIZE_LARGE = 'large'
+SIZE_SMALL = 'small'
+SIZE_THUMBNAIL = 'thumbnail'
+IMAGE_SCALING_PARAMS = (
+    (LARGE_IMAGE_WIDTH * 2, 'resize', DOUBLE_DENSITY, SIZE_LARGE),
+    (LARGE_IMAGE_WIDTH, 'resize', DEFAULT_DENSITY, SIZE_LARGE),
+    (SMALL_IMAGE_WIDTH * 2, 'resize', DOUBLE_DENSITY, SIZE_SMALL),
+    (SMALL_IMAGE_WIDTH, 'resize', DEFAULT_DENSITY, SIZE_SMALL),
+    (THUMBNAIL_IMAGE_WIDTH * 2, 'crop', DOUBLE_DENSITY, SIZE_THUMBNAIL),
+    (THUMBNAIL_IMAGE_WIDTH, 'crop', DEFAULT_DENSITY, SIZE_THUMBNAIL),
+)
+IMAGE_SRCSETS = {
+    'webp_{}'.format(SIZE_LARGE): [],
+    'webp_{}'.format(SIZE_SMALL): [],
+    'webp_{}'.format(SIZE_THUMBNAIL): [],
+    'jpg_{}'.format(SIZE_LARGE): [],
+    'jpg_{}'.format(SIZE_SMALL): [],
+    'jpg_{}'.format(SIZE_THUMBNAIL): [],
+}

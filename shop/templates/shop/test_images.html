@@ -1,0 +1,27 @@
+{% extends 'thebrushstash/base.html' %}
+{% load thebrushstash_tags %}
+
+{% block title %}
+  {{ block.super }} - A place to test images
+{% endblock title %}
+
+{% block content %}
+  {% for test_image in object_list %}
+    {% get_gallery test_image as test_image_gallery %}
+
+    {% for gallery_item in test_image_gallery %}
+      <br>
+        {{ gallery_item.name }} - large image
+      <hr>
+      {% picture obj=gallery_item size='large' %}
+      <br>
+        {{ gallery_item.name }} - small image
+      <hr>
+      {% picture obj=gallery_item size='small' %}
+      <br>
+        {{ gallery_item.name }} - thumbnail
+      <hr>
+      {% picture obj=gallery_item size='thumbnail' %}
+    {% endfor %}
+  {% endfor %}
+{% endblock content %}
