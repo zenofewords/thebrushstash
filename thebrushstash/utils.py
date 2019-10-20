@@ -77,7 +77,9 @@ def create_image_variations(instance, created, resize=True):
     original = Image.open(path)
 
     if Image.MIME[original.format] == 'image/png':
-        original = original.convert('RGB')
+        canvas = Image.new('RGB', (original.width, original.height), color=(255, 255, 255))
+        canvas.paste(original, original)
+        original = canvas.convert('RGB')
 
     if resize:
         instance.image = get_resized_path(instance.image.name, SIZE_LARGE, LARGE_IMAGE_WIDTH)

@@ -38,8 +38,8 @@ class GalleryItemInline(GenericTabularInline):
 
 class NavigationItemAdmin(admin.ModelAdmin):
     list_display_links = ('name', )
-    list_display = ('name', 'location', 'ordering', 'external', )
-    list_editable = ('location', 'ordering', 'external', )
+    list_display = ('name', 'location', 'ordering', 'external', 'css_class', )
+    list_editable = ('location', 'ordering', 'external', 'css_class', )
 
 
 class TestImageAdmin(admin.ModelAdmin):

@@ -68,7 +68,7 @@ class GalleryItem(TimeStampMixin):
 
 
 class NavigationItem(LinkedMixin, PublishedMixin):
-    pass
+    css_class = models.CharField(max_length=100, blank=True)
 
 
 class FooterItem(LinkedMixin, PublishedMixin):
