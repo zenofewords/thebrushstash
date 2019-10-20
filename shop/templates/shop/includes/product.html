@@ -10,7 +10,7 @@
   <a href="{% url 'shop:product-detail' product.slug %}">
     <div class="image-wrapper">
       {% get_lead_image product as lead_image %}
-      {% picture obj=lead_image size='large' %}
+      {% picture obj=lead_image size='small' %}
     </div>
   </a>
   <h2>
