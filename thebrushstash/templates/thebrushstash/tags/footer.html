@@ -1,8 +1,8 @@
 {% load thebrushstash_tags %}
 
-<div>
+<div class="social-wrapper">
   {% for footer_share_link in footer_share_links %}
-    <a href="{{ footer_share_link.location }}" target="_blank" rel="noopener noreferrer">
+    <a class="social-link" href="{{ footer_share_link.location }}" target="_blank" rel="noopener noreferrer">
       Follow us on {{ footer_share_link.name }}
     </a>
   {% endfor %}
@@ -10,18 +10,24 @@
 
 {% newsletter_tag %}
 
-{% for footer_item in footer_items %}
-  <a href="{{ footer_item.location }}">{{ footer_item }}</a>
-{% endfor %}
+<div class="footer-nav-wrapper">
+  {% for footer_item in footer_items %}
+    <a href="{{ footer_item.location }}">
+      {{ footer_item }}
+    </a>
+  {% endfor %}
+</div>
 
-<div>
+<div class="credit-card-logos-wrapper">
   {% for credit_card_logo in credit_card_logos %}
-    <a style="display: inline-block" href="{{ credit_card_logo.location }}"{% if credit_card_logo.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
+    <a class="credit-card-logo" href="{{ credit_card_logo.location }}"{% if credit_card_logo.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
       {% picture obj=credit_card_logo size='original' %}
     </a>
   {% endfor %}
 </div>
 
-<div>
-  {% now 'Y' %} &copy; Brush Stash. All rights reserved.
+<div class="copyright-wrapper">
+  <div class="copyright-claim">
+    {% now 'Y' %} &copy; Brush Stash. All rights reserved.
+  </div>
 </div>

@@ -1,1 +1,1 @@
-console.log('hi')
+import '../sass/shop.sass'

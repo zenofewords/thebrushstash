@@ -1,0 +1,259 @@
+@import './normalize.sass'
+@import './variables.sass'
+
+body
+  margin: 0
+  font-family: $bodyFont
+
+input,
+select,
+h1,
+h2
+  margin: 0
+  font-family: $headerFont
+
+ul,
+li,
+a
+  margin: 0
+  padding: 0
+  list-style: none
+  text-decoration: none
+  color: #000
+
+button
+  display: inline-block
+  border: none
+  padding: 0 0 3px
+  margin: 0
+  text-decoration: none
+  background: #fff
+  color: #000
+  cursor: pointer
+  text-align: center
+  -webkit-appearance: none
+  -moz-appearance: none
+
+button:hover,
+button:focus
+  background: $tbsBlue
+
+button:focus
+  outline: $tbsBlueBorder
+  outline-offset: -2px
+
+button:active
+  transform: scale(0.995)
+
+.header-wrapper
+  position: relative
+  background: radial-gradient(ellipse at center, #367dff 0%, #000 55%)
+  background-size: 100% 200%
+  background-position: 0% 60%
+  background-repeat: no-repeat
+
+  .header
+    position: relative
+    display: flex
+    align-items: center
+    justify-content: center
+    max-width: $maxWidth
+    margin: 0 auto
+    height: 184px
+    color: white
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.42)
+    font-size: 64px
+    font-weight: 300
+    padding-top: 7px
+    letter-spacing: -3px
+
+    span
+      font-size: 75px
+      padding-top: 2px
+      padding-left: 15px
+      letter-spacing: -3px
+
+      &:first-child
+        padding-left: 0
+
+    .ship-to-wrapper
+      position: absolute
+      top: 12px
+      right: 45px
+      color: #fff
+      font-family: $bodyFont
+      font-size: 12px
+      font-weight: bold
+      line-height: 15px
+      text-transform: uppercase
+      letter-spacing: 1px
+
+      &:after
+        position: absolute
+        content: ''
+        height: 0
+        width: 0
+        border-style: solid
+        border-color: #fff transparent transparent
+        border-width: 5px
+        top: 5px
+        left: 105%
+        pointer-events: none
+
+.navigation-wrapper
+  display: flex
+  flex-direction: row
+  justify-content: center
+  background-color: #000
+  border-top: $discreetBorder
+  border-bottom: $tbsBlueBorder
+
+  li
+    font-size: $regular
+    font-weight: $heavy
+    line-height: 22px
+    text-align: center
+    text-transform: uppercase
+    padding: 17px 38px 15px
+
+    a
+      color: #fff
+      padding: 1px
+
+      &:hover
+        border-bottom: $tbsBlueBorder
+
+      &.active
+        border-bottom: $tbsBlueBorder
+
+  .nav-item
+    position: relative
+    font-family: $headerFont
+
+    &:after
+      content: ''
+      position: absolute
+      top: 9px
+      right: 0
+      height: 38px
+      width: 1px
+      opacity: 0.4
+      background-color: #fff
+
+  .log-in,
+  .register,
+  .bag
+    font-family: $bodyFont
+    font-size: 12px
+    font-weight: 500
+    line-height: 15px
+    padding: 21px 0 16px
+    letter-spacing: 0
+
+    &:after
+      display: none
+
+    &:before
+      content: ''
+      color: #fff
+      margin: 0 6px 0 35px
+      padding: 3px 10px
+
+  .log-in
+    &:before
+      border: 1px solid #fff
+      border-radius: 50%
+
+  .register
+    &:before
+      content: '/'
+      margin: 0 -3px 0 0
+      padding: 0
+
+  .bag
+    &:before
+      border: 1px solid #fff
+
+    &:after
+      position: relative
+      display: initial
+      content: '4'
+      color: #fff
+      font-family: $bodyFont
+      font-weight: $heavy
+      padding: 2px 6px 2px 5px
+      margin: 0 4px 20px
+      height: 0
+      width: 0
+      top: 0
+      background-color: $tbsBlue
+      border-radius: $borderRadius
+      opacity: 1
+
+.social-wrapper
+  margin: 90px auto 0
+  text-align: center
+  height: 50px
+  border: $discreetBorder
+
+  .social-link
+    position: relative
+    display: inline-block
+    font-size: 16px
+    font-weight: $heavy
+    line-height: 19px
+    padding: 15px 100px
+
+    &:first-child
+      &:after
+        content: ''
+        position: absolute
+        top: 10px
+        right: 0
+        height: 32px
+        width: 1px
+        opacity: 0.2
+        background-color: #000
+
+.newsletter-wrapper
+  height: 140px
+  background-color: #f1f6ff
+
+.footer-nav-wrapper
+  padding: 26px 0
+  border-bottom: $discreetBorder
+  text-align: center
+
+  a
+    font-size: 12px
+    font-weight: $heavy
+    line-height: 15px
+    text-transform: uppercase
+    padding: 1px
+    margin: 0 65px
+
+    &:hover
+      border-bottom: $tbsBlueBorder
+
+.credit-card-logos-wrapper
+  margin: 27px 0
+  display: flex
+  flex-direction: row
+  justify-content: center
+
+  .credit-card-logo
+    width: 60px
+    height: 40px
+    padding: 0 11px
+
+.copyright-wrapper
+  width: 100%
+  color: #fff
+  background-color: #000
+  text-align: center
+
+  .copyright-claim
+    padding: 27px 0
+    font-size: 12px
+    font-weight: $heavy
+    line-height: 15px

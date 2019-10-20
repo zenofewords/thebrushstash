@@ -21,6 +21,13 @@ def navigation_tag(context):
     }
 
 
+@register.inclusion_tag('thebrushstash/tags/ship_to.html')
+def ship_to_tag():
+    return {
+        'regions': ('UK', )
+    }
+
+
 @register.inclusion_tag('thebrushstash/tags/footer.html')
 def footer_tag():
     return {
@@ -47,6 +54,11 @@ def get_gallery(obj):
     return GalleryItem.objects.filter(
         content_type=ContentType.objects.get_for_model(obj), object_id=obj.pk
     )
+
+
+@register.simple_tag
+def get_lead_image(obj):
+    return get_gallery(obj).first()
 
 
 @register.inclusion_tag('thebrushstash/tags/picture.html')

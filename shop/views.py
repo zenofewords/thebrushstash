@@ -21,6 +21,6 @@ class ShopHomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'products': Product.objects.all(),
+            'products': Product.objects.filter(published=True),
         })
         return context

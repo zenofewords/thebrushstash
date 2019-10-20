@@ -1,5 +1,6 @@
 {% load static %}
 {% load thebrushstash_tags %}
+{% load render_bundle from webpack_loader %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,19 +12,29 @@
         {% endblock title %}
       </title>
       <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Lato:bold|Cinzel|Cinzel:bold&amp;display=swap">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta charset="utf-8">
-
-      {% block scripts %}
-      {% endblock scripts %}
     {% endblock head %}
+
+    {% block scripts %}
+      {% render_bundle 'shop' 'css' %}
+    {% endblock scripts %}
   </head>
 
   <body>
-    <main>
+    <main class="main-wrapper">
       <header>
         {% block header %}
-          {% navigation_tag %}
+          <div class="header-wrapper">
+            <h1 class="header">
+              <span>T</span>he
+              <span>B</span>rush
+              <span>S</span>tash
+              {% ship_to_tag %}
+            </h1>
+            {% navigation_tag %}
+          </div>
         {% endblock header %}
       </header>
 

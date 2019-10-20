@@ -1,0 +1,27 @@
+{% load thebrushstash_tags %}
+
+<div class="product">
+  {% if product.new %}
+    <div class="label-new">
+      {{ product.new|yesno:'New,' }}
+    </div>
+  {% endif %}
+
+  <a href="{% url 'shop:product-detail' product.slug %}">
+    <div class="image-wrapper">
+      {% get_lead_image product as lead_image %}
+      {% picture obj=lead_image size='large' %}
+    </div>
+  </a>
+  <h2>
+    {{ product.name }}
+  </h2>
+  <p>
+    {{ product.foreword }}
+  </p>
+  <div class="price-tag">
+    {{ product.price_eur.normalize }}€
+  </div>
+  <button>Add to bag</button>
+</div>
+

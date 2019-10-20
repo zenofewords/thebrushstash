@@ -1,0 +1,72 @@
+@import './general.sass'
+
+.product-wrapper
+  display: flex
+  flex-flow: row wrap
+  justify-content: center
+  max-width: 1280px
+  margin: 0 auto
+
+  .product
+    position: relative
+    margin: 70px 10px 0
+    max-width: 310px
+    height: 615px
+    text-align: center
+
+    &:hover
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.42)
+
+    h2
+      font-size: 25px
+      font-weight: $heavy
+      line-height: 33px
+      margin-top: 13px
+      text-transform: uppercase
+
+    p
+      font-size: $regular
+      line-height: 25px
+      max-width: 300px
+      height: 100px
+      margin: 14px auto 0
+
+    button
+      margin-top: 24px
+      font-family: $bodyFont
+      font-size: $regular
+      font-weight: $heavy
+      line-height: 19px
+      text-transform: uppercase
+      width: 270px
+      height: 50px
+      border: $discreetBorder
+      border-radius: 2px
+
+    .label-new
+      position: absolute
+      top: 35px
+      left: 18px
+      color: #fff
+      padding: 5px 9px
+      background-color: $tbsBlue
+      border-radius: $borderRadius
+      text-transform: uppercase
+      pointer-events: none
+
+      font-family: $bodyFont
+      font-size: 13px
+      font-weight: $heavy
+      line-height: 13px
+
+    .price-tag
+      font-size: 24px
+      line-height: 29px
+      margin-top: 17px
+
+    .image-wrapper
+      height: 310px
+
+.picture
+  width: 100%
+  height: auto
