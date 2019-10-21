@@ -76,7 +76,7 @@ class FooterItem(LinkedMixin, PublishedMixin):
 
 
 class FooterShareLink(LinkedMixin, PublishedMixin):
-    pass
+    logo_path = models.CharField(max_length=500, blank=True)
 
 
 class TestImage(PublishedMixin):

@@ -1,16 +1,14 @@
 @import './general.sass'
 
 .product-wrapper
-  display: flex
-  flex-flow: row wrap
+  display: grid
+  grid-template-columns: repeat(3, 310px)
+  grid-gap: 0 20px
   justify-content: center
-  max-width: 1280px
-  margin: 0 auto
 
   .product
     position: relative
-    margin: 70px 10px 0
-    max-width: 310px
+    margin: 70px 0 0
     height: 615px
     text-align: center
 
