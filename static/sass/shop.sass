@@ -2,9 +2,11 @@
 
 .product-wrapper
   display: grid
-  grid-template-columns: repeat(3, 310px)
+  grid-template-columns: repeat(auto-fit, 310px)
   grid-gap: 0 20px
   justify-content: center
+  max-width: $maxWidth
+  margin: 0 auto
 
   .product
     position: relative
