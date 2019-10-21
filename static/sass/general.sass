@@ -189,7 +189,7 @@ button:active
       opacity: 1
 
 .social-wrapper
-  margin: 90px auto 0
+  margin: 60px auto 0
   text-align: center
   height: 50px
   border: $discreetBorder
@@ -200,14 +200,18 @@ button:active
     font-size: 16px
     font-weight: $heavy
     line-height: 19px
-    padding: 15px 100px
+    padding: 1px
+    margin: 15px 100px
+
+    &:hover
+      border-bottom: $tbsBlueBorder
 
     &:first-child
       &:after
         content: ''
         position: absolute
-        top: 10px
-        right: 0
+        top: -6px
+        left: 160%
         height: 32px
         width: 1px
         opacity: 0.2
@@ -216,6 +220,58 @@ button:active
 .newsletter-wrapper
   height: 140px
   background-color: #f1f6ff
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+
+  .info-wrapper
+    margin: 0 17px
+
+    .join-text
+      margin: 0 50px 0 0
+      font-size: 12px
+      font-weight: $heavy
+      line-height: 15px
+      text-transform: uppercase
+
+    .info-text
+      margin: 10px 50px 0 0
+      font-size: 22px
+      font-weight: $heavy
+      line-height: 27px
+
+  .join-wrapper
+    margin-right: 30px
+
+    .email-input
+      border-top-left-radius: 1px
+      border-bottom-left-radius: 1px
+      border: 0
+      width: 350px
+      padding: 20px
+
+      &::placeholder,
+      &::-webkit-input-placeholder
+        font-family: $bodyFont
+        font-size: 16px
+        font-style: italic
+        font-weight: $heavy
+        line-height: 19px
+        color: #000
+        opacity: 0.4
+
+    button
+      color: #fff
+      background-color: #000
+      font-family: $headerFont
+      font-size: 15px
+      font-weight: $heavy
+      line-height: 21px
+      padding: 19px 33px 18px
+      text-transform: uppercase
+      border-top-right-radius: 1px
+      border-bottom-right-radius: 1px
 
 .footer-nav-wrapper
   padding: 26px 0
