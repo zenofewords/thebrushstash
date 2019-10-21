@@ -167,12 +167,12 @@ button:active
       content: ''
       color: #fff
       margin: 0 6px 0 35px
-      padding: 3px 10px
+      padding: 5px 13px
 
   .log-in
     &:before
-      border: 1px solid #fff
-      border-radius: 50%
+      background-image: url('data:image/svg+xml;base64,#{$userIcon}')
+      background-repeat: no-repeat
 
   .register
     &:before
@@ -182,7 +182,9 @@ button:active
 
   .bag
     &:before
-      border: 1px solid #fff
+      padding: 6px 10px
+      background-image: url('data:image/svg+xml;base64,#{$bagIcon}')
+      background-repeat: no-repeat
 
     &:after
       position: relative
@@ -213,7 +215,7 @@ button:active
     font-weight: $heavy
     line-height: 19px
     padding: 1px
-    margin: 15px 100px
+    margin: 15px 130px 15px 170px
 
     &:hover
       border-bottom: $tbsBlueBorder
@@ -223,11 +225,18 @@ button:active
         content: ''
         position: absolute
         top: -6px
-        left: 160%
+        left: 180%
         height: 32px
         width: 1px
         opacity: 0.2
         background-color: #000
+
+    .icon
+      position: absolute
+      bottom: 25px
+      right: 123%
+      height: 0
+      width: 0
 
 .newsletter-wrapper
   height: 140px
@@ -254,7 +263,7 @@ button:active
       line-height: 27px
 
   .join-wrapper
-    margin-right: 30px
+    margin-right: 24px
 
     .email-input
       border-top-left-radius: 1px
