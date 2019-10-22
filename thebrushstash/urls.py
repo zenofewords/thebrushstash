@@ -21,22 +21,10 @@ from thebrushstash.constants import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('shop.urls')),
-    path(
-        '{}/'.format(about_the_story_slug),
-        AboutTheStoryView.as_view(),
-        name=about_the_story_slug
-    ),
     path('faq/', FaqView.as_view(), name='faq'),
-    path(
-        '{}/'.format(brush_care_slug),
-        TakingCareOfYourBrushView.as_view(),
-        name=brush_care_slug
-    ),
-    path(
-        '{}/'.format(general_terms_conditions_slug),
-        GeneralTermsAndConditions.as_view(),
-        name=general_terms_conditions_slug
-    ),
+    path('{}/'.format(about_the_story_slug), AboutTheStoryView.as_view(), name=about_the_story_slug),
+    path('{}/'.format(brush_care_slug), TakingCareOfYourBrushView.as_view(), name=brush_care_slug),
+    path('{}/'.format(general_terms_conditions_slug), GeneralTermsAndConditions.as_view(), name=general_terms_conditions_slug),
     path('test-images/', TestImageView.as_view(), name='other-images'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

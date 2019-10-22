@@ -18,7 +18,7 @@
     {% endblock head %}
 
     {% block scripts %}
-      {% render_bundle 'shop' 'css' %}
+      {% render_bundle 'general' 'css' %}
     {% endblock scripts %}
   </head>
 
@@ -27,12 +27,12 @@
       <header>
         {% block header %}
           <div class="header-wrapper">
-            <h1 class="header">
-              <span>T</span>he
-              <span>B</span>rush
-              <span>S</span>tash
+            <div class="header">
+              <a href="{% url 'shop:shop-home' %}">
+                <span class="logo"></span>
+              </a>
               {% ship_to_tag %}
-            </h1>
+            </div>
             {% navigation_tag %}
           </div>
         {% endblock header %}
@@ -49,6 +49,7 @@
     </footer>
 
     {% block body_scripts %}
+      {% render_bundle 'general' 'js' %}
     {% endblock body_scripts %}
   </body>
 </html>
