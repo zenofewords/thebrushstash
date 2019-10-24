@@ -4,17 +4,23 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
+from thebrushstash.constants import (
+    ABOUT,
+    BRUSH_CARE,
+    CONTACT,
+    PAYMENT_DELIVERY,
+    RETURNS_COMPLAINTS,
+    TOS,
+)
 from thebrushstash.views import (
     AboutTheStoryView,
+    ContactView,
     FaqView,
     GeneralTermsAndConditions,
+    PaymentAndDeliveryView,
+    ReturnsAndComplaintsView,
     TakingCareOfYourBrushView,
     TestImageView,
-)
-from thebrushstash.constants import (
-    about_the_story_slug,
-    brush_care_slug,
-    general_terms_conditions_slug,
 )
 
 
@@ -22,9 +28,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('shop.urls')),
     path('faq/', FaqView.as_view(), name='faq'),
-    path('{}/'.format(about_the_story_slug), AboutTheStoryView.as_view(), name=about_the_story_slug),
-    path('{}/'.format(brush_care_slug), TakingCareOfYourBrushView.as_view(), name=brush_care_slug),
-    path('{}/'.format(general_terms_conditions_slug), GeneralTermsAndConditions.as_view(), name=general_terms_conditions_slug),
+
+    path('{}/'.format(ABOUT), AboutTheStoryView.as_view(), name=ABOUT),
+    path('{}/'.format(BRUSH_CARE), TakingCareOfYourBrushView.as_view(), name=BRUSH_CARE),
+    path('{}/'.format(CONTACT), ContactView.as_view(), name=CONTACT),
+    path('{}/'.format(PAYMENT_DELIVERY), PaymentAndDeliveryView.as_view(), name=PAYMENT_DELIVERY),
+    path('{}/'.format(RETURNS_COMPLAINTS), ReturnsAndComplaintsView.as_view(), name=RETURNS_COMPLAINTS),
+    path('{}/'.format(TOS), GeneralTermsAndConditions.as_view(), name=TOS),
+
+    path('i18n/', include('django.conf.urls.i18n')),
     path('test-images/', TestImageView.as_view(), name='other-images'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

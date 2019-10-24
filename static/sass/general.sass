@@ -57,23 +57,17 @@ button:focus
 button:active
   transform: scale(0.995)
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus
-  -webkit-box-shadow: 0 0 0px 1000px #fff inset
+.content-wrapper
+  max-width: $contentWidth
+  margin: 0 auto
+  padding: 70px 0
 
 .cookie-wrappper
   position: fixed
-  top: 0
+  bottom: 0
   right: 0
   width: 100%
-  z-index: 3
+  z-index: 1
   background-color: #fff
   box-shadow: 1px 1px 3px 1px #999
 
@@ -81,12 +75,9 @@ select:-webkit-autofill:focus
     margin: 0
     padding: 20px 50px
 
-  .general-terms-and-conditions-link
-    text-decoration: underline
-
   .close-cookie-info
     position: absolute
-    top: 11px
+    top: 10px
     right: 30px
     font-size: 30px
     cursor: pointer
@@ -102,7 +93,7 @@ select:-webkit-autofill:focus
     display: flex
     align-items: center
     justify-content: center
-    max-width: $maxWidth
+    max-width: $contentWidth
     margin: 0 auto
     height: 191px
 
@@ -118,7 +109,7 @@ select:-webkit-autofill:focus
     .ship-to-wrapper
       position: absolute
       top: 12px
-      right: 45px
+      right: 40px
       color: #fff
       font-family: $bodyFont
       font-size: 12px
@@ -136,7 +127,29 @@ select:-webkit-autofill:focus
         border-color: #fff transparent transparent
         border-width: 5px
         top: 5px
-        left: 105%
+        left: 93%
+        pointer-events: none
+
+      .ship-to-select
+        width: 120px
+        color: #fff
+
+        img
+          margin-left: 6px
+
+      .ship-to-menu
+        position: absolute
+        top: 20px
+        left: 58px
+
+        a
+          color: #fff
+          padding: 5px 4px
+
+      .flag-icon
+        width: 20px
+        height: 13px
+        margin: 1px 5px 0 0
         pointer-events: none
 
 .navigation-wrapper
@@ -407,3 +420,6 @@ select:-webkit-autofill:focus
 
     .fine-print
       font-size: 11px
+
+.link-in-text
+  text-decoration: underline

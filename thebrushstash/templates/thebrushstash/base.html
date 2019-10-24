@@ -23,7 +23,7 @@
   </head>
 
   <body>
-    <main class="main-wrapper">
+    <main>
       <header>
         {% block header %}
           <div class="header-wrapper">
@@ -38,13 +38,16 @@
         {% endblock header %}
       </header>
 
-      {% block content %}
-      {% endblock content %}
+      <div class="content-wrapper">
+        {% block content %}
+        {% endblock content %}
+      </div>
     </main>
 
     <footer>
       {% block footer %}
         {% footer_tag %}
+        {% include 'thebrushstash/includes/cookie_info.html' %}
       {% endblock footer %}
     </footer>
 
