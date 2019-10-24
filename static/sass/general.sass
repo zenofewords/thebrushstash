@@ -57,6 +57,31 @@ button:focus
 button:active
   transform: scale(0.995)
 
+.content-wrapper
+  max-width: $contentWidth
+  margin: 0 auto
+  padding: 70px 0
+
+.cookie-wrappper
+  position: fixed
+  bottom: 0
+  right: 0
+  width: 100%
+  z-index: 1
+  background-color: #fff
+  box-shadow: 1px 1px 3px 1px #999
+
+  .info
+    margin: 0
+    padding: 20px 50px
+
+  .close-cookie-info
+    position: absolute
+    top: 10px
+    right: 30px
+    font-size: 30px
+    cursor: pointer
+
 .header-wrapper
   position: relative
   background: radial-gradient(ellipse at center, #367dff 0%, #000 55%)
@@ -68,28 +93,23 @@ button:active
     display: flex
     align-items: center
     justify-content: center
-    max-width: $maxWidth
+    max-width: $contentWidth
     margin: 0 auto
-    height: 184px
-    color: white
-    font-size: 64px
-    font-weight: 300
-    padding-top: 7px
-    letter-spacing: -3px
+    height: 191px
 
-    span
-      font-size: 75px
-      padding-top: 2px
-      padding-left: 15px
-      letter-spacing: -3px
+    a
+      display: flex
 
-      &:first-child
-        padding-left: 0
+      .logo
+        width: 535px
+        height: 60px
+        background-image: url('data:image/svg+xml;base64,#{$tbsLogo}')
+        background-repeat: no-repeat
 
     .ship-to-wrapper
       position: absolute
       top: 12px
-      right: 45px
+      right: 40px
       color: #fff
       font-family: $bodyFont
       font-size: 12px
@@ -107,7 +127,29 @@ button:active
         border-color: #fff transparent transparent
         border-width: 5px
         top: 5px
-        left: 105%
+        left: 93%
+        pointer-events: none
+
+      .ship-to-select
+        width: 120px
+        color: #fff
+
+        img
+          margin-left: 6px
+
+      .ship-to-menu
+        position: absolute
+        top: 20px
+        left: 58px
+
+        a
+          color: #fff
+          padding: 5px 4px
+
+      .flag-icon
+        width: 20px
+        height: 13px
+        margin: 1px 5px 0 0
         pointer-events: none
 
 .navigation-wrapper
@@ -233,10 +275,18 @@ button:active
 
     .icon
       position: absolute
-      bottom: 25px
-      right: 123%
-      height: 0
-      width: 0
+      top: -4px
+      right: 105%
+      height: 31px
+      width: 31px
+
+    .facebook
+      background-image: url('data:image/svg+xml;base64,#{$facebookIcon}')
+      background-repeat: no-repeat
+
+    .instagram
+      background-image: url('data:image/svg+xml;base64,#{$instagramIcon}')
+      background-repeat: no-repeat
 
 .newsletter-wrapper
   height: 140px
@@ -270,7 +320,12 @@ button:active
       border-bottom-left-radius: 1px
       border: 0
       width: 350px
-      padding: 20px
+      padding: 18px
+      font-family: $bodyFont
+      font-size: 16px
+      font-style: italic
+      font-weight: $heavy
+      line-height: 20px
 
       &::placeholder,
       &::-webkit-input-placeholder
@@ -289,7 +344,7 @@ button:active
       font-size: 15px
       font-weight: $heavy
       line-height: 21px
-      padding: 19px 33px 18px
+      padding: 19px 33px 16px
       text-transform: uppercase
       border-top-right-radius: 1px
       border-bottom-right-radius: 1px
@@ -332,3 +387,39 @@ button:active
     font-size: 12px
     font-weight: $heavy
     line-height: 15px
+
+.credit-card-secure-logo-wrapper
+  display: flex
+  position: relative
+
+  .credit-card-secure-logo
+    cursor: pointer
+
+  .credit-card-secure-logo *
+    pointer-events: none
+
+  .credit-card-secure-modal
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -55vh)
+    background-color: #fff
+    height: fit-content
+    width: 70vw
+    max-width: 600px
+    padding: 25px
+    box-shadow: 1px 1px 3px 1px #999
+
+    .close-modal-button
+      position: absolute
+      top: 10px
+      right: 20px
+      font-size: 30px
+      font-family: $bodyFont
+      cursor: pointer
+
+    .fine-print
+      font-size: 11px
+
+.link-in-text
+  text-decoration: underline

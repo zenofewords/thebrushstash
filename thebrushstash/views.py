@@ -11,12 +11,24 @@ class AboutTheStoryView(TemplateView):
     template_name = 'thebrushstash/about_the_story.html'
 
 
+class ContactView(TemplateView):
+    template_name = 'thebrushstash/contact.html'
+
+
 class FaqView(TemplateView):
     template_name = 'thebrushstash/faq.html'
 
 
 class GeneralTermsAndConditions(TemplateView):
     template_name = 'thebrushstash/general_terms_and_conditions.html'
+
+
+class ReturnsAndComplaintsView(TemplateView):
+    template_name = 'thebrushstash/returns_and_complaints.html'
+
+
+class PaymentAndDeliveryView(TemplateView):
+    template_name = 'thebrushstash/payment_and_delivery.html'
 
 
 class TakingCareOfYourBrushView(TemplateView):

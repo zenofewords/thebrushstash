@@ -1,6 +1,13 @@
+import copy
+
 from django import template
 from django.contrib.contenttypes.models import ContentType
+from django.utils.translation import LANGUAGE_SESSION_KEY
 
+from thebrushstash.constants import (
+    DEFAULT_REGION,
+    REGIONS,
+)
 from thebrushstash.models import (
     CreditCardLogo,
     CreditCardSecureLogo,
@@ -21,10 +28,20 @@ def navigation_tag(context):
     }
 
 
-@register.inclusion_tag('thebrushstash/tags/ship_to.html')
-def ship_to_tag():
+@register.inclusion_tag('thebrushstash/tags/ship_to.html', takes_context=True)
+def ship_to_tag(context):
+    request = context['request']
+    current_language = request.session.get(LANGUAGE_SESSION_KEY, None)
+
+    regions_copy = copy.deepcopy(REGIONS)
+    region = 'eu' if current_language == 'en' else 'hr'
+    selected_region_data = regions_copy.pop(region)
+
     return {
-        'regions': ('UK', )
+        'selected_region': region,
+        'selected_region_data': selected_region_data,
+        'current_url': request.path,
+        'regions': regions_copy,
     }
 
 

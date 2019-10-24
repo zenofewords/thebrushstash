@@ -1,3 +1,22 @@
+{% load static %}
+
 <div class="ship-to-wrapper">
-  Ship to: [?!] UK
+  <a class="ship-to-select" href="/">
+    Ship to: <img class="flag-icon" src="{% static selected_region_data.icon_path %}">
+    {{ selected_region }}
+  </a>
+  <div class="ship-to-menu" hidden>
+    <form id="language-form" action="{% url 'set_language' %}" method="post">
+      {% csrf_token %}
+      <input name="next" type="hidden" value="{{ redirect_to }}">
+      <input id="language-input" name="language" type="hidden" value="hr-hr">
+
+      {% for key, data in regions.items %}
+        <a class="language-option" href="/" data-language="{{ data.language }}">
+          <img class="flag-icon" src="{% static data.icon_path %}">
+          {{ key|upper }}
+        </a>
+      {% endfor %}
+    </form>
+  </div>
 </div>

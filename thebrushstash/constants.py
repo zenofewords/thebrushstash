@@ -261,32 +261,32 @@ initial_credit_card_secure_logos = (
     },
 )
 
-contact_slug = 'contact'
-payment_delivery_slug = 'payment-and-delivery'
-returns_complaints_slug = 'returns-and-complaints'
-general_terms_conditions_slug = 'general-terms-and-conditions'
+CONTACT = 'contact'
+PAYMENT_DELIVERY = 'payment-and-delivery'
+RETURNS_COMPLAINTS = 'returns-and-complaints'
+TOS = 'general-terms-and-conditions'
 initial_footer_items = (
     {
         'name': 'Contact',
-        'location': '/{}/'.format(contact_slug),
+        'location': '/{}/'.format(CONTACT),
         'ordering': 4,
         'published': True,
     },
     {
         'name': 'Payment and delivery',
-        'location': '/{}/'.format(payment_delivery_slug),
+        'location': '/{}/'.format(PAYMENT_DELIVERY),
         'ordering': 3,
         'published': True,
     },
     {
         'name': 'Returns and complaints',
-        'location': '/{}/'.format(returns_complaints_slug),
+        'location': '/{}/'.format(RETURNS_COMPLAINTS),
         'ordering': 2,
         'published': True,
     },
     {
         'name': 'General terms and conditions',
-        'location': '/{}/'.format(general_terms_conditions_slug),
+        'location': '/{}/'.format(TOS),
         'ordering': 1,
         'published': True,
     },
@@ -309,8 +309,8 @@ initial_footer_share_links = (
     },
 )
 
-about_the_story_slug = 'about-the-story'
-brush_care_slug = 'brush-care'
+ABOUT = 'about-the-story'
+BRUSH_CARE = 'brush-care'
 initial_navigation_items = (
     {
         'name': 'Shop',
@@ -320,13 +320,13 @@ initial_navigation_items = (
     },
     {
         'name': 'Brush Care',
-        'location': '/{}/'.format(brush_care_slug),
+        'location': '/{}/'.format(BRUSH_CARE),
         'ordering': 5,
         'published': True,
     },
     {
         'name': 'About / The Story',
-        'location': '/{}/'.format(about_the_story_slug),
+        'location': '/{}/'.format(ABOUT),
         'ordering': 4,
         'published': True,
     },
@@ -411,4 +411,12 @@ IMAGE_SRCSETS = {
     'jpg_{}'.format(SIZE_LARGE): [],
     'jpg_{}'.format(SIZE_SMALL): [],
     'jpg_{}'.format(SIZE_THUMBNAIL): [],
+}
+
+DEFAULT_REGION = 'hr'
+REGIONS = {
+    DEFAULT_REGION: {'language': DEFAULT_REGION, 'icon_path': 'icons/flag_cro.jpg'},
+    'eu': {'language': 'en', 'icon_path': 'icons/flag_eu.jpg'},
+    'uk': {'language': 'en', 'icon_path': 'icons/flag_uk.jpg'},
+    'us': {'language': 'en', 'icon_path': 'icons/flag_usa.jpg'},
 }
