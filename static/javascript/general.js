@@ -9,10 +9,7 @@ const ready = (runGeneral) => {
 }
 
 ready(() => {
-  document.querySelector('.close-cookie-info').addEventListener('click', () => {
-    document.querySelector('.cookie-wrappper').hidden = true
-  })
-
+  const cookieInfo = document.querySelector('.accept-cookie')
   const creditCardSecureLogos = document.getElementsByClassName('credit-card-secure-logo')
   const creditCardSecureModals = document.getElementsByClassName('credit-card-secure-modal')
   const closeModalButtons = document.getElementsByClassName('close-modal-button')
@@ -56,7 +53,21 @@ ready(() => {
         removeClickListener(event)
       } else if (event.target.classList.contains('language-option')) {
         languageInput.value = event.target.dataset.language
-        languageForm.submit()
+
+        fetch('/api/region/',
+          {
+            method: 'POST',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCookie('csrftoken'),
+            },
+            body: JSON.stringify({
+              region: event.target.dataset.region,
+            }),
+          }
+        ).then((data) => languageForm.submit())
       }
     }
 
@@ -67,7 +78,7 @@ ready(() => {
   }
 
   shipToSelect.addEventListener('blur', (event) => {
-    if (!event.relatedTarget.classList.contains('language-option')) {
+    if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
       shipToMenu.hidden = true
     }
   })
@@ -78,9 +89,46 @@ ready(() => {
 
   for (var i = 0; i < languageOptions.length; i++) {
     languageOptions[i].addEventListener('blur', (event) => {
-      if (!event.relatedTarget.classList.contains('language-option')) {
+      if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
         shipToMenu.hidden = true
       }
     })
+  }
+
+  cookieInfo && cookieInfo.addEventListener('click', () => {
+    fetch('/api/cookie/',
+      {
+        method: 'POST',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+          accepted: true,
+        }),
+      }
+    ).then(() => {
+      document.querySelector('.cookie-wrappper').hidden = true
+    })
+  })
+
+  const getCookie = (name) => {
+    let cookieValue = null
+
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';')
+
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim()
+
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
+          break
+        }
+      }
+    }
+    return cookieValue
   }
 })

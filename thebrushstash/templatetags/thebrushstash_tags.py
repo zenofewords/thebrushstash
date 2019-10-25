@@ -2,7 +2,6 @@ import copy
 
 from django import template
 from django.contrib.contenttypes.models import ContentType
-from django.utils.translation import LANGUAGE_SESSION_KEY
 
 from thebrushstash.constants import (
     DEFAULT_REGION,
@@ -31,15 +30,12 @@ def navigation_tag(context):
 @register.inclusion_tag('thebrushstash/tags/ship_to.html', takes_context=True)
 def ship_to_tag(context):
     request = context['request']
-    current_language = request.session.get(LANGUAGE_SESSION_KEY, None)
-
     regions_copy = copy.deepcopy(REGIONS)
-    region = 'eu' if current_language == 'en' else 'hr'
-    selected_region_data = regions_copy.pop(region)
+    selected_region = request.session.get('region', DEFAULT_REGION)
 
     return {
-        'selected_region': region,
-        'selected_region_data': selected_region_data,
+        'selected_region': selected_region,
+        'selected_region_data': regions_copy.pop(selected_region),
         'current_url': request.path,
         'regions': regions_copy,
     }
@@ -51,6 +47,13 @@ def footer_tag():
         'footer_items': FooterItem.published_objects.all(),
         'footer_share_links': FooterShareLink.published_objects.all(),
         'credit_card_logos': CreditCardLogo.published_objects.all(),
+    }
+
+
+@register.inclusion_tag('thebrushstash/tags/cookie.html', takes_context=True)
+def cookie_tag(context):
+    return {
+        'accepted': context['request'].session.get('accepted', None),
     }
 
 
