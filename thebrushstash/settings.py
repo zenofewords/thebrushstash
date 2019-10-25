@@ -1,8 +1,6 @@
 import os
 from dotenv import load_dotenv
 
-from django.utils.translation import gettext_lazy as _
-
 load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -128,10 +126,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 LANGUAGES = [
-    ('en', _('English')),
-    ('hr', _('Croatian')),
+    ('en', 'English'),
+    ('hr', 'Croatian'),
+]
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
 ]
 
 TIME_ZONE = 'Europe/Zagreb'
