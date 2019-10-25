@@ -85,6 +85,10 @@ ready(() => {
   shipToSelect.addEventListener('focus', onSelectFocus)
   shipToSelect.addEventListener('click', (event) => {
     event.preventDefault()
+
+    if (shipToMenu.hidden) {
+      onSelectFocus(event)
+    }
   })
 
   for (var i = 0; i < languageOptions.length; i++) {
