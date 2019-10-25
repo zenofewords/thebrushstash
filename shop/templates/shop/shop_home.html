@@ -1,8 +1,9 @@
 {% extends 'thebrushstash/base.html' %}
+{% load i18n %}
 {% load thebrushstash_tags %}
 
 {% block title %}
-  {{ block.super }} - Shop
+  {{ block.super }} - {% trans "Shop" %}
 {% endblock title %}
 
 {% block head %}

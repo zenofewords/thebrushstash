@@ -30,8 +30,10 @@ def navigation_tag(context):
 @register.inclusion_tag('thebrushstash/tags/ship_to.html', takes_context=True)
 def ship_to_tag(context):
     request = context['request']
+
+    default_region = DEFAULT_REGION if request.LANGUAGE_CODE == DEFAULT_REGION else 'eu'
+    selected_region = request.session.get('region', default_region)
     regions_copy = copy.deepcopy(REGIONS)
-    selected_region = request.session.get('region', DEFAULT_REGION)
 
     return {
         'selected_region': selected_region,
