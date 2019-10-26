@@ -22,7 +22,3 @@ msgstr ""
 #: shop/templates/shop/shop_home.html:6
 msgid "Shop"
 msgstr "Butiga"
-
-#: shop/templates/shop/shop_home.html:13
-msgid "This is a test"
-msgstr "Ovo je test..."
