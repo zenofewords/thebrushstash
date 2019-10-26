@@ -103,8 +103,7 @@ button:active
       .logo
         width: 535px
         height: 60px
-        background-image: url('data:image/svg+xml;base64,#{$tbsLogo}')
-        background-repeat: no-repeat
+        background: url('data:image/svg+xml;base64,#{$tbsLogo}') no-repeat
 
     .ship-to-wrapper
       position: absolute
@@ -130,27 +129,42 @@ button:active
         left: 93%
         pointer-events: none
 
-      .ship-to-select
-        width: 120px
-        color: #fff
+      .ship-to-select-wrapper
+        display: flex
 
-        img
-          margin-left: 6px
+        .text
+          width: 60px
+
+      .ship-to-select
+        width: 65px
+        color: #fff
 
       .ship-to-menu
         position: absolute
         top: 20px
-        left: 58px
+        left: 60px
+        margin-top: 5px
 
         a
           color: #fff
-          padding: 5px 4px
 
       .flag-icon
         width: 20px
         height: 13px
-        margin: 1px 5px 0 0
+        margin: 1px 6px 11px 7px
         pointer-events: none
+
+        &.hr
+          background: url('data:image/svg+xml;base64,#{$flagCro}') no-repeat
+
+        &.eu
+          background: url('data:image/svg+xml;base64,#{$flagEU}') no-repeat
+
+        &.uk
+          background: url('data:image/svg+xml;base64,#{$flagUK}') no-repeat
+
+        &.us
+          background: url('data:image/svg+xml;base64,#{$flagUSA}') no-repeat
 
 .navigation-wrapper
   display: flex
@@ -216,8 +230,7 @@ button:active
     width: 110px
 
     &:before
-      background-image: url('data:image/svg+xml;base64,#{$userIcon}')
-      background-repeat: no-repeat
+      background: url('data:image/svg+xml;base64,#{$userIcon}') no-repeat
 
   .register
     &:before
@@ -228,8 +241,7 @@ button:active
   .bag
     &:before
       padding: 6px 10px
-      background-image: url('data:image/svg+xml;base64,#{$bagIcon}')
-      background-repeat: no-repeat
+      background: url('data:image/svg+xml;base64,#{$bagIcon}') no-repeat
 
     &:after
       position: relative
@@ -284,12 +296,10 @@ button:active
       width: 31px
 
     .facebook
-      background-image: url('data:image/svg+xml;base64,#{$facebookIcon}')
-      background-repeat: no-repeat
+      background: url('data:image/svg+xml;base64,#{$facebookIcon}') no-repeat
 
     .instagram
-      background-image: url('data:image/svg+xml;base64,#{$instagramIcon}')
-      background-repeat: no-repeat
+      background: url('data:image/svg+xml;base64,#{$instagramIcon}') no-repeat
 
 .newsletter-wrapper
   height: 140px
