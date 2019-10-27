@@ -1,0 +1,231 @@
+@import './variables.sass'
+
+.header-wrapper
+  position: relative
+  background: radial-gradient(ellipse at center, #367dff 0%, #000 55%)
+  background-size: 100% 200%
+  background-position: 0% 60%
+
+  .header
+    position: relative
+    display: flex
+    align-items: center
+    justify-content: center
+    max-width: $contentWidth
+    margin: 0 auto
+    height: 191px
+
+    a
+      display: flex
+
+      .logo
+        width: 535px
+        height: 60px
+        background: url('data:image/svg+xml;base64,#{$tbsLogo}') no-repeat
+
+    .ship-to-wrapper
+      position: absolute
+      top: 12px
+      right: 34px
+      color: #fff
+      font-family: $bodyFont
+      font-size: 12px
+      font-weight: bold
+      line-height: 15px
+      text-transform: uppercase
+      letter-spacing: 1px
+
+      &:after
+        @extend %input-arrow
+
+      .ship-to-select-wrapper
+        display: flex
+
+        .text
+          white-space: nowrap
+          width: 58px
+
+      .ship-to-select
+        width: 67px
+        color: #fff
+
+      .ship-to-menu
+        position: absolute
+        top: 20px
+        left: 58px
+        margin-top: 5px
+
+        a
+          color: #fff
+
+      .flag-icon
+        width: 20px
+        height: 13px
+        margin: 1px 6px 11px 7px
+        pointer-events: none
+
+        &.hr
+          background: url('data:image/svg+xml;base64,#{$flagCro}') no-repeat
+
+        &.eu
+          background: url('data:image/svg+xml;base64,#{$flagEU}') no-repeat
+
+        &.uk
+          background: url('data:image/svg+xml;base64,#{$flagUK}') no-repeat
+
+        &.us
+          background: url('data:image/svg+xml;base64,#{$flagUSA}') no-repeat
+
+.social-wrapper
+  border: $discreetBorder
+
+  .inner-wrapper
+    @extend %content-wrapper
+    position: relative
+
+    &:after
+      content: ''
+      position: absolute
+      top: 9px
+      left: 50%
+      height: 32px
+      width: 1px
+      opacity: 0.2
+      background-color: #000
+
+    .social-link
+      position: relative
+      display: inline-block
+      font-size: 16px
+      font-weight: $heavy
+      line-height: 19px
+      margin: 17px auto 16px
+
+      &:hover
+        margin-bottom: 14px
+        border-bottom: $tbsBlueBorder
+
+      .icon
+        position: absolute
+        top: -6px
+        right: 105%
+        height: 31px
+        width: 31px
+
+      .facebook
+        background: url('data:image/svg+xml;base64,#{$facebookIcon}') no-repeat
+
+      .instagram
+        background: url('data:image/svg+xml;base64,#{$instagramIcon}') no-repeat
+
+.newsletter-wrapper
+  background-color: #f1f6ff
+
+  .inner-wrapper
+    @extend %content-wrapper
+    align-items: center
+    padding: 28px 0
+
+    .info-wrapper
+      margin: 15px 0 18px $contentSpacing
+      width: calc(50% - #{$contentSpacing})
+
+      .join-text
+        margin: 0 50px 0 0
+        font-size: 12px
+        font-weight: $heavy
+        line-height: 15px
+        text-transform: uppercase
+
+      .info-text
+        margin: 10px 50px 0 0
+        font-size: 22px
+        font-weight: $heavy
+        line-height: 27px
+
+    .join-wrapper
+      display: flex
+      flex-flow: row nowrap
+      margin: 0 auto 0 0
+
+      .email-input
+        border-top-left-radius: 1px
+        border-bottom-left-radius: 1px
+        border: 0
+        max-width: 350px
+        width: 25vw
+        padding: 18px
+        font-family: $bodyFont
+        font-size: 16px
+        font-style: italic
+        font-weight: $heavy
+        line-height: 20px
+
+        &::placeholder,
+        &::-webkit-input-placeholder
+          font-family: $bodyFont
+          font-size: 16px
+          font-style: italic
+          font-weight: $heavy
+          line-height: 19px
+          color: #000
+          opacity: 0.4
+
+      button
+        color: #fff
+        background-color: #000
+        font-family: $headerFont
+        font-size: 15px
+        font-weight: $heavy
+        line-height: 21px
+        padding: 19px 33px 16px
+        text-transform: uppercase
+        border-top-right-radius: 1px
+        border-bottom-right-radius: 1px
+
+.footer-nav-wrapper
+  border-bottom: $discreetBorder
+
+  .inner-wrapper
+    @extend %content-wrapper
+    flex-wrap: wrap
+
+    a
+      font-size: 12px
+      font-weight: $heavy
+      line-height: 15px
+      text-transform: uppercase
+      margin: 27px
+
+      &:first-child
+        margin-left: $contentSpacing
+
+      &:last-child
+        margin-right: $contentSpacing
+
+      &:hover
+        margin-bottom: 25px
+        border-bottom: $tbsBlueBorder
+
+.credit-card-logos-wrapper
+  margin: 27px 0
+  display: flex
+  flex-direction: row
+  justify-content: center
+
+  .credit-card-logo
+    width: 60px
+    height: 40px
+    padding: 0 11px
+
+.copyright-wrapper
+  width: 100%
+  color: #fff
+  background-color: #000
+  text-align: center
+
+  .copyright-claim
+    padding: 27px 0
+    font-size: 12px
+    font-weight: $heavy
+    line-height: 15px

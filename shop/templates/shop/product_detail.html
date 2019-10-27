@@ -1,4 +1,5 @@
 {% extends 'shop/shop_home.html' %}
+{% load thebrushstash_tags %}
 
 {% block title %}
   {{ block.super }} - {{ object.name }}
@@ -9,5 +10,67 @@
 {% endblock %}
 
 {% block content %}
-  {{ object }}
+  <div class="product-detail-wrapper">
+    <div class="showcase-wrapper">
+      {% get_gallery object as gallery %}
+      {% for item in gallery %}
+        {% if forloop.counter > 1 %}
+          {% picture obj=item size='small' hidden='True' %}
+        {% else %}
+          {% picture obj=item size='small' %}
+        {% endif %}
+      {% endfor %}
+
+      <div class="thumbnail-wrapper">
+        {% get_gallery object as gallery %}
+        {% for item in gallery %}
+          <a href="{% url 'shop:product-detail' object.slug %}?image={{ item.name }}">
+            {% picture obj=item size='thumbnail' %}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="detail-wrapper">
+      <ul class="breadcrumbs">
+        <li>
+          <a href="{% url 'shop:shop-home' %}">Shop</a>
+        </li>
+        <li>
+          {{ object.name }}
+        </li>
+      </ul>
+
+      <h1 class="header">
+        {{ object.name }}
+      </h1>
+      <div class="price-tag">
+        {{ object.price_hrk }} kn
+      </div>
+      <p class="foreword">
+        {{ object.foreword }}
+      </p>
+
+      <div class="ui-wrapper">
+        <span>
+          <select>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </span>
+        <button>
+          Add to bag
+        </button>
+      </div>
+
+      <p class="fine-print">
+        *Prices include VAT.
+        <a class="link" href="{% url 'payment-and-delivery' %}">
+          Shipping costs apply
+        </a>
+      </p>
+    </div>
+  </div>
 {% endblock content %}

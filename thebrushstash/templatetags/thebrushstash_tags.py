@@ -34,10 +34,10 @@ def ship_to_tag(context):
     default_region = DEFAULT_REGION if request.LANGUAGE_CODE == DEFAULT_REGION else 'eu'
     selected_region = request.session.get('region', default_region)
     regions_copy = copy.deepcopy(REGIONS)
+    regions_copy.pop(selected_region)
 
     return {
         'selected_region': selected_region,
-        'selected_region_data': regions_copy.pop(selected_region),
         'current_url': request.path,
         'regions': regions_copy,
     }
@@ -84,12 +84,13 @@ def get_lead_image(obj):
 
 
 @register.inclusion_tag('thebrushstash/tags/picture.html')
-def picture(obj, size):
+def picture(obj, size, hidden=False):
     if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
         return
 
     return {
         'object': obj,
+        'hidden': hidden,
         'webp_srcset': ', '.join(obj.srcsets['webp_{}'.format(size)]),
         'jpg_srcset': ', '.join(obj.srcsets['jpg_{}'.format(size)]),
     }

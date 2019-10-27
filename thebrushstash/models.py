@@ -36,7 +36,7 @@ class CreditCardSecureLogo(LinkedMixin, PublishedMixin):
 class GalleryItem(TimeStampMixin):
     name = models.CharField(max_length=500)
     image = models.ImageField(upload_to='shop/%Y/%m/', blank=True, null=True)
-    youtube_link = models.CharField(max_length=1500, blank=True)
+    youtube_video_id = models.CharField(max_length=500, blank=True)
     ordering = models.IntegerField(
         default=0, blank=True,
         help_text='If set to 0, items are ordered by creation date'
@@ -55,11 +55,11 @@ class GalleryItem(TimeStampMixin):
     def __str__(self):
         description = ''
 
-        if self.image and self.youtube_link:
+        if self.image and self.youtube_video_id:
             description = 'Youtube video with cover image'
         elif self.image:
             description = 'Image'
-        elif self.youtube_link:
+        elif self.youtube_video_id:
             description = 'Youtube video'
         else:
             description = 'No media attached'

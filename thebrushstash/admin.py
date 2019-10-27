@@ -16,7 +16,7 @@ from thebrushstash.utils import get_preview_image
 
 class GalleryItemAdmin(admin.ModelAdmin):
     list_display_links = ('__str__', )
-    list_display = ('__str__', 'name', 'image', 'youtube_link', 'image_preview_thumb', )
+    list_display = ('__str__', 'name', 'image', 'youtube_video_id', 'image_preview_thumb', )
     readonly_fields = ('created_at', 'image_preview', )
     search_fields = ('name', )
 
@@ -29,7 +29,7 @@ class GalleryItemAdmin(admin.ModelAdmin):
 
 class GalleryItemInline(GenericTabularInline):
     model = GalleryItem
-    fields = ('name', 'image', 'youtube_link', 'ordering', 'image_preview_thumb', )
+    fields = ('name', 'image', 'youtube_video_id', 'ordering', 'image_preview_thumb', )
     readonly_fields = ('image_preview_thumb', )
 
     def image_preview_thumb(self, obj):

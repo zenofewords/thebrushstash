@@ -415,8 +415,8 @@ IMAGE_SRCSETS = {
 
 DEFAULT_REGION = 'hr'
 REGIONS = {
-    DEFAULT_REGION: {'language': DEFAULT_REGION, 'icon_path': 'icons/flag_cro.jpg'},
-    'eu': {'language': 'en', 'icon_path': 'icons/flag_eu.jpg'},
-    'uk': {'language': 'en', 'icon_path': 'icons/flag_uk.jpg'},
-    'us': {'language': 'en', 'icon_path': 'icons/flag_usa.jpg'},
+    DEFAULT_REGION: {'language': DEFAULT_REGION},
+    'eu': {'language': 'en'},
+    'uk': {'language': 'en'},
+    'us': {'language': 'en'},
 }
