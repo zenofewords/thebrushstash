@@ -2,22 +2,26 @@
 {% load static %}
 
 <div class="social-wrapper">
-  {% for footer_share_link in footer_share_links %}
-    <a class="social-link" href="{{ footer_share_link.location }}" target="_blank" rel="noopener noreferrer">
-      <span class="icon {{ footer_share_link.logo_path }}"></span>
-      Follow us on {{ footer_share_link.name }}
-    </a>
-  {% endfor %}
+  <div class="inner-wrapper">
+    {% for footer_share_link in footer_share_links %}
+      <a class="social-link" href="{{ footer_share_link.location }}" target="_blank" rel="noopener noreferrer">
+        <span class="icon {{ footer_share_link.logo_path }}"></span>
+        Follow us on {{ footer_share_link.name }}
+      </a>
+    {% endfor %}
+  </div>
 </div>
 
 {% newsletter_tag %}
 
 <div class="footer-nav-wrapper">
-  {% for footer_item in footer_items %}
-    <a href="{{ footer_item.location }}">
-      {{ footer_item }}
-    </a>
-  {% endfor %}
+  <div class="inner-wrapper">
+    {% for footer_item in footer_items %}
+      <a href="{{ footer_item.location }}">
+        {{ footer_item }}
+      </a>
+    {% endfor %}
+  </div>
 </div>
 
 <div class="credit-card-logos-wrapper">

@@ -1,18 +1,20 @@
 {% if object.image %}
-  <picture>
-    <source
-      srcset="{{ webp_srcset }}"
-      type="image/webp"
-    >
-    <source
-      srcset="{{ jpg_srcset }}"
-      type="image/jpg"
-    >
-    <img
-      srcset="{{ jpg_srcset }}"
-      src="{{ object.image.url }}"
-      alt="{{ object.name }}"
-      class="picture"
-    >
-  </picture>
+  <div id="{{ object.pk }}" class="image-wrapper" {% if hidden %}hidden{% endif %}>
+    <picture>
+      <source
+        srcset="{{ webp_srcset }}"
+        type="image/webp"
+      >
+      <source
+        srcset="{{ jpg_srcset }}"
+        type="image/jpg"
+      >
+      <img
+        srcset="{{ jpg_srcset }}"
+        src="{{ object.image.url }}"
+        alt="{{ object.name }}"
+        class="picture"
+      >
+    </picture>
+  </div>
 {% endif %}
