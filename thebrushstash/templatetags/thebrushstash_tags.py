@@ -84,12 +84,13 @@ def get_lead_image(obj):
 
 
 @register.inclusion_tag('thebrushstash/tags/picture.html')
-def picture(obj, size):
+def picture(obj, size, hidden=False):
     if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
         return
 
     return {
         'object': obj,
+        'hidden': hidden,
         'webp_srcset': ', '.join(obj.srcsets['webp_{}'.format(size)]),
         'jpg_srcset': ', '.join(obj.srcsets['jpg_{}'.format(size)]),
     }
