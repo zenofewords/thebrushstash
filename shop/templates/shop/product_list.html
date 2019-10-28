@@ -1,5 +1,4 @@
 {% extends 'shop/shop_home.html' %}
-{% load render_bundle from webpack_loader %}
 
 {% block title %}
   {{ block.super }} - Products
@@ -28,6 +27,3 @@
     </div>
   {% endfor %}
 {% endblock content %}
-
-{% block body_scripts %}
-{% endblock body_scripts %}

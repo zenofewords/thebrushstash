@@ -1,7 +1,9 @@
+@import './icons/flagIcons.sass'
+@import './icons/tbsLogo.sass'
 @import './footer.sass'
+@import './mixins.sass'
 @import './navigation.sass'
 @import './normalize.sass'
-@import './terms_and_legal.sass'
 @import './variables.sass'
 
 html,
@@ -59,24 +61,6 @@ button:focus
 
 button:active
   transform: scale(0.995)
-
-%input-arrow
-  position: absolute
-  content: ''
-  height: 0
-  width: 0
-  border-style: solid
-  border-color: #fff transparent transparent
-  border-width: 5px
-  top: 5px
-  left: 93%
-  pointer-events: none
-
-%content-wrapper
-  display: flex
-  justify-content: space-between
-  max-width: $contentWidth
-  margin: 0 auto
 
 .main-wrapper
   max-width: $contentWidth
@@ -158,3 +142,44 @@ button:active
 
         &.us
           background: url('data:image/svg+xml;base64,#{$flagUSA}') no-repeat
+
+.credit-card-secure-logo-wrapper
+  display: flex
+  position: relative
+
+  .credit-card-secure-logo
+    cursor: pointer
+
+  .credit-card-secure-logo *
+    pointer-events: none
+
+  .credit-card-secure-modal
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -55vh)
+    background-color: #fff
+    height: fit-content
+    width: 70vw
+    max-width: 600px
+    padding: 25px
+    box-shadow: 1px 1px 3px 1px #999
+
+    .close-modal-button
+      position: absolute
+      top: 10px
+      right: 20px
+      font-size: 30px
+      font-family: $bodyFont
+      cursor: pointer
+
+    .fine-print
+      font-size: 11px
+
+.link-in-text
+  text-decoration: underline
+
+.picture
+  width: 100%
+  height: 100%
+  object-fit: cover

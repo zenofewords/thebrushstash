@@ -4,7 +4,7 @@ var WebpackBundleTracker = require('webpack-bundle-tracker')
 
 module.exports = {
   entry: {
-    general: './static/javascript/general',
+    shop: './static/javascript/shop',
   },
   output: {
     filename: '[name]_[hash].js',

@@ -1,46 +1,20 @@
 import '../sass/shop.sass'
 
-const ready = (runGeneral) => {
+const ready = (runScript) => {
   if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
-    runGeneral()
+    runScript()
   } else {
-    document.addEventListener('DOMContentLoaded', runGeneral)
+    document.addEventListener('DOMContentLoaded', runScript)
   }
 }
 
 ready(() => {
   const cookieInfo = document.querySelector('.accept-cookie')
-  const creditCardSecureLogos = document.getElementsByClassName('credit-card-secure-logo')
-  const creditCardSecureModals = document.getElementsByClassName('credit-card-secure-modal')
-  const closeModalButtons = document.getElementsByClassName('close-modal-button')
   const shipToSelect = document.querySelector('.ship-to-select')
   const shipToMenu = document.querySelector('.ship-to-menu')
   const languageOptions = document.getElementsByClassName('language-option')
   const languageInput = document.getElementById('language-input')
   const languageForm = document.getElementById('language-form')
-
-  for (let i = 0; i < creditCardSecureLogos.length; i++) {
-    creditCardSecureLogos[i].addEventListener('click', (event) => {
-      const clickedModalId = event.target.id + '-modal'
-
-      for (let i = 0; i < creditCardSecureModals.length; i++) {
-        if (creditCardSecureModals[i].id !== clickedModalId) {
-          creditCardSecureModals[i].hidden = true
-        }
-      }
-
-      const modal = document.getElementById(clickedModalId)
-      modal.hidden = !modal.hidden
-    })
-  }
-
-  for (let i = 0; i < closeModalButtons.length; i++) {
-    closeModalButtons[i].addEventListener('click', (event) => {
-      for (let i = 0; i < creditCardSecureModals.length; i++) {
-        creditCardSecureModals[i].hidden = true
-      }
-    })
-  }
 
   const onSelectFocus = (event) => {
     shipToMenu.hidden = false
@@ -134,5 +108,32 @@ ready(() => {
       }
     }
     return cookieValue
+  }
+
+  const creditCardSecureLogos = document.getElementsByClassName('credit-card-secure-logo')
+  const creditCardSecureModals = document.getElementsByClassName('credit-card-secure-modal')
+  const closeModalButtons = document.getElementsByClassName('close-modal-button')
+
+  for (let i = 0; i < creditCardSecureLogos.length; i++) {
+    creditCardSecureLogos[i].addEventListener('click', (event) => {
+      const clickedModalId = event.target.id + '-modal'
+
+      for (let i = 0; i < creditCardSecureModals.length; i++) {
+        if (creditCardSecureModals[i].id !== clickedModalId) {
+          creditCardSecureModals[i].hidden = true
+        }
+      }
+
+      const modal = document.getElementById(clickedModalId)
+      modal.hidden = !modal.hidden
+    })
+  }
+
+  for (let i = 0; i < closeModalButtons.length; i++) {
+    closeModalButtons[i].addEventListener('click', (event) => {
+      for (let i = 0; i < creditCardSecureModals.length; i++) {
+        creditCardSecureModals[i].hidden = true
+      }
+    })
   }
 })
