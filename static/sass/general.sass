@@ -3,7 +3,6 @@
 @import './footer.sass'
 @import './mixins.sass'
 @import './navigation.sass'
-@import './normalize.sass'
 @import './variables.sass'
 
 html,
@@ -13,6 +12,7 @@ body
 body
   margin: 0
   font-family: $bodyFont
+  font-size: 16px
   display: flex
   flex-direction: column
 
@@ -28,39 +28,49 @@ h1,
 h2
   margin: 0
   font-family: $headerFont
+  font-weight: $heavy
 
 ul,
 li,
 a
   margin: 0
   padding: 0
+  font-weight: $heavy
   list-style: none
   text-decoration: none
+  text-transform: uppercase
+  text-align: center
   color: #000
 
+button,
+select
+  text-transform: none
+  -webkit-appearance: none
+  -moz-appearance: none
+  -ms-appearance: none
+
 button
+  font-family: $bodyFont
+  font-weight: $heavy
+  font-size: 15px
+  line-height: 19px
   display: inline-block
   border: none
   padding: 0 0 3px
   margin: 0
-  text-decoration: none
-  background: #fff
-  color: #000
   cursor: pointer
   text-align: center
-  -webkit-appearance: none
-  -moz-appearance: none
-
-button:hover
+  text-transform: uppercase
   color: #fff
-  background: $tbsBlue
+  background-color: #000
 
-button:focus
-  outline: $tbsBlueBorder
-  outline-offset: -2px
+  &:hover
+    color: #fff
+    background: $tbsBlue
 
-button:active
-  transform: scale(0.995)
+  &:focus
+    outline: $tbsBlueBorder
+    outline-offset: -2px
 
 .main-wrapper
   max-width: $contentWidth
@@ -97,7 +107,7 @@ button:active
       color: #fff
       font-family: $bodyFont
       font-size: 12px
-      font-weight: bold
+      font-weight: $heavy
       line-height: 15px
       text-transform: uppercase
       letter-spacing: 1px

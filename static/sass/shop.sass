@@ -17,29 +17,27 @@
 
     h2
       font-size: 25px
-      font-weight: $heavy
       line-height: 33px
       margin-top: 13px
       text-transform: uppercase
 
     p
-      font-size: $regular
       line-height: 25px
       max-width: 300px
       height: 100px
       margin: 14px auto 0
 
     button
+      color: #000
+      background-color: #fff
       margin-top: 24px
-      font-family: $bodyFont
-      font-size: $regular
-      font-weight: $heavy
-      line-height: 19px
-      text-transform: uppercase
       width: 270px
       height: 50px
       border: $discreetBorder
-      border-radius: 2px
+
+      &:hover
+        color: #fff
+        background: $tbsBlue
 
     .label-new
       position: absolute
@@ -159,24 +157,11 @@
         background-color: #fff
         font-family: $bodyFont
         font-size: 16px
-        font-weight: $heavy
         line-height: 19px
-        -webkit-appearance: none !important
-        -moz-appearance: none !important
-        -ms-appearance: none !important
 
       button
         width: 70%
         height: 54px
-        background-color: #000
-        color: #fff
-        text-transform: uppercase
-        font-size: 16px
-        font-weight: $heavy
-        line-height: 19px
-
-        &:hover
-          background-color: $tbsBlue
 
     .fine-print
       opacity: 0.5
