@@ -14,6 +14,13 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'other_products': Product.published_objects.all()[:3]
+        })
+        return context
+
 
 class ShopHomeView(TemplateView):
     template_name = 'shop/shop_home.html'
@@ -21,6 +28,6 @@ class ShopHomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'products': Product.objects.filter(published=True),
+            'products': Product.published_objects.all(),
         })
         return context

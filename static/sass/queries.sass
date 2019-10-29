@@ -1,0 +1,78 @@
+@import './variables.sass'
+
+@media (max-width: $mediaTablet)
+  .navigation-wrapper
+    .inner-wrapper
+      li
+        padding: 16px 28px
+
+      .log-in-register,
+      .bag
+        margin-left: 2%
+
+  .showcase-wrapper
+    flex-direction: column
+    max-height: 100%
+    margin: 0 0 7px
+
+    .text-wrapper
+      text-align: center
+      max-width: 650px
+      margin: 0 auto 30px
+
+      h1
+        padding: 56px 39px 20px
+
+      p
+        padding: 0 10%
+
+    .image-wrapper
+      .picture
+        max-height: 435px
+
+@media (max-width: $mediaMobile)
+  %content-wrapper
+    flex-direction: column
+
+  .header-wrapper
+    background: #000
+
+    .header
+      a
+        .logo
+          width: 300px
+
+      .ship-to-wrapper
+        right: 10px
+
+  .navigation-wrapper
+    .inner-wrapper
+      display: none
+
+  .showcase-wrapper
+    .text-wrapper
+      h1
+        padding: 56px 19px 20px
+
+      p
+        padding: 0 7%
+
+  .social-wrapper
+    border: none
+    border-top: $discreetBorder
+
+    .inner-wrapper
+      &:after
+        display: none
+
+  .newsletter-wrapper
+    .inner-wrapper
+      .info-wrapper
+        text-align: center
+        width: 90%
+
+      .join-wrapper
+        margin: 0 auto
+
+        .email-input
+          width: 100%

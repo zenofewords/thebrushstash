@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import JSONField
 from django.db import models
 
 from shop.mixins import (
@@ -37,8 +38,12 @@ class ExchangeRate(TimeStampMixin):
 class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
     product_type = models.ForeignKey(
         'shop.ProductType', default=get_default_product_type, on_delete=models.deletion.CASCADE)
+    title = models.CharField(max_length=500, blank=True)
+    image = models.ImageField(
+        upload_to='shop/%Y/%m/', blank=True, null=True, help_text='Used in the description section')
+    srcsets = JSONField(blank=True, null=True)
     foreword = models.TextField(
-        max_length=300, blank=True, help_text='Short decription for grid view',
+        max_length=300, blank=True, help_text='Short decription',
     )
     new = models.BooleanField(default=True)
     in_stock = models.IntegerField(default=0)
@@ -131,3 +136,12 @@ class Transaction(TimeStampMixin):
 
     def __str__(self):
         return 'Transaction for {}'.format(self.order)
+
+
+class Showcase(ShopObjectMixin, PublishedMixin):
+    class Meta:
+        verbose_name = 'Showcase'
+        verbose_name_plural = 'Showcases'
+
+    def __str__(self):
+        return self.name
