@@ -1,0 +1,16 @@
+{% load thebrushstash_tags %}
+
+{% if showcase %}
+  <div class="showcase-wrapper">
+    <div class="text-wrapper">
+      <h1>
+        {{ showcase.name }}
+      </h1>
+      <p>
+        {{ showcase.description|linebreaks }}
+      </p>
+    </div>
+    {% get_lead_image showcase as lead_image %}
+    {% picture obj=lead_image size='large' %}
+  </div>
+{% endif %}

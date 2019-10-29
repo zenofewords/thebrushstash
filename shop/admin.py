@@ -1,13 +1,22 @@
 from django.contrib import admin
+from django.utils.text import slugify
 
 from shop.models import (
     ExchangeRate,
     Order,
     Product,
     ProductType,
+    Showcase,
     Transaction,
 )
 from thebrushstash.admin import GalleryItemInline
+
+
+class AutoSlugAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        if obj.slug == '':
+            obj.slug = slugify(obj.name)
+        obj.save()
 
 
 class ExchangeRateAdmin(admin.ModelAdmin):
@@ -26,7 +35,7 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ('created_at', 'first_name', 'last_name', )
 
 
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(AutoSlugAdmin):
     list_display_links = ('name', )
     list_display = ('name', 'price_hrk', 'ordering', 'published', )
     list_editable = ('price_hrk', 'ordering', 'published', )
@@ -38,8 +47,17 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [GalleryItemInline, ]
 
 
+class ProductTypeAdmin(AutoSlugAdmin):
+    pass
+
+
+class ShowcaseAdmin(AutoSlugAdmin):
+    inlines = [GalleryItemInline, ]
+
+
 admin.site.register(ExchangeRate, ExchangeRateAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(ProductType)
+admin.site.register(ProductType, ProductTypeAdmin)
+admin.site.register(Showcase, ShowcaseAdmin)
 admin.site.register(Transaction)

@@ -1,7 +1,52 @@
 @import './general.sass'
 @import './mixins.sass'
 
-.product-wrapper
+.showcase-wrapper
+  display: flex
+  flex-direction: row
+  background-color: #000
+  margin: 0 $contentSpacing 70px
+  max-height: 435px
+  border: 1px solid #000
+
+  .text-wrapper
+    flex: 1 0 0px
+    color: #fff
+
+    h1
+      font-size: 41px
+      line-height: 47px
+      padding: 56px 26px 20px
+
+    p
+      font-size: 16px
+      line-height: 25px
+      padding: 0 26px
+
+  .image-wrapper
+    flex: 2 0 0px
+
+  @media (max-width: 1000px)
+    flex-direction: column
+    max-height: 100%
+
+    .text-wrapper
+      text-align: center
+      max-width: 650px
+      margin: 0 auto 30px
+
+      h1
+        padding: 56px 39px 20px
+
+      p
+        padding: 0 10%
+
+    .image-wrapper
+      .picture
+        max-height: 435px
+
+.products-wrapper
+  margin-top: 40px
   display: grid
   grid-template-columns: repeat(auto-fit, 310px)
   grid-gap: 70px 20px
@@ -62,10 +107,11 @@
       height: 310px
 
 .product-detail-wrapper
+  margin-top: 30px
   display: flex
   flex-wrap: wrap
 
-  .showcase-wrapper
+  .gallery-wrapper
     flex: 3 1 auto
     flex-direction: column
     justify-content: center

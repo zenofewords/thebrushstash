@@ -131,3 +131,12 @@ class Transaction(TimeStampMixin):
 
     def __str__(self):
         return 'Transaction for {}'.format(self.order)
+
+
+class Showcase(ShopObjectMixin, PublishedMixin):
+    class Meta:
+        verbose_name = 'Showcase'
+        verbose_name_plural = 'Showcases'
+
+    def __str__(self):
+        return self.name

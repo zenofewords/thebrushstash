@@ -73,6 +73,9 @@ def newsletter_tag():
 
 @register.simple_tag
 def get_gallery(obj):
+    if not obj:
+        return GalleryItem.objects.none()
+
     return GalleryItem.objects.filter(
         content_type=ContentType.objects.get_for_model(obj), object_id=obj.pk
     )
