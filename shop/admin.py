@@ -41,8 +41,8 @@ class ProductAdmin(AutoSlugAdmin):
     list_editable = ('price_hrk', 'ordering', 'published', )
     readonly_fields = ('price_usd', 'price_eur', 'price_gbp', )
     fields = (
-        'product_type', 'name', 'slug', 'foreword', 'description', 'in_stock', 'ordering',
-        'published', 'new', 'price_hrk', 'price_usd', 'price_eur', 'price_gbp',
+        'product_type', 'name', 'slug', 'foreword', 'title', 'image', 'description', 'in_stock',
+        'ordering', 'published', 'new', 'price_hrk', 'price_usd', 'price_eur', 'price_gbp',
     )
     inlines = [GalleryItemInline, ]
 
