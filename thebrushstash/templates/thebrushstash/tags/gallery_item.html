@@ -1,0 +1,5 @@
+{% load thebrushstash_tags %}
+
+<a id="{{ item.pk }}" class="gallery-thumbnail-link" href="{% url 'shop:product-detail' object.slug %}?gallery-item={{ item.pk }}" {{ class_list|safe }}>
+  {% media_object obj=item size='thumbnail' %}
+</a>

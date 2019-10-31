@@ -9,7 +9,7 @@
 
   <a href="{% url 'shop:product-detail' product.slug %}">
     {% get_lead_image product as lead_image %}
-    {% picture obj=lead_image size='small' %}
+    {% media_object obj=lead_image size='small' %}
   </a>
   <h2>
     {{ product.name }}

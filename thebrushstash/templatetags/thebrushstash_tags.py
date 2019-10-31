@@ -86,14 +86,34 @@ def get_lead_image(obj):
     return get_gallery(obj).first()
 
 
-@register.inclusion_tag('thebrushstash/tags/picture.html')
-def picture(obj, size, hidden=False):
+@register.inclusion_tag('thebrushstash/tags/media_object.html')
+def media_object(obj, size, hidden=False):
     if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
         return
 
     return {
         'object': obj,
         'hidden': hidden,
+        'size': size,
         'webp_srcset': ', '.join(obj.srcsets['webp_{}'.format(size)]),
         'jpg_srcset': ', '.join(obj.srcsets['jpg_{}'.format(size)]),
+    }
+
+
+@register.inclusion_tag('thebrushstash/tags/gallery_item.html')
+def gallery_item(obj, item, selected_item_id, first_item):
+    classes = []
+    if selected_item_id == '0' and first_item:
+        classes.append('selected')
+    elif selected_item_id == str(item.pk):
+        classes.append('selected')
+
+    class_list = ''
+    if classes:
+        class_list = 'class=\"{}\"'.format(' '.join(classes))
+
+    return {
+        'object': obj,
+        'item': item,
+        'class_list': class_list,
     }

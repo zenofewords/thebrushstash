@@ -2,6 +2,7 @@ from django.views.generic import (
     DetailView,
     TemplateView,
 )
+from django.utils.text import slugify
 from django.views.generic.list import ListView
 
 from shop.models import Product
@@ -14,10 +15,15 @@ class ProductListView(ListView):
 class ProductDetailView(DetailView):
     model = Product
 
+    def get(self, request, *args, **kwargs):
+        self.selected_item_id = slugify(request.GET.get('gallery-item', 0))
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'other_products': Product.published_objects.all()[:3]
+            'selected_item_id': self.selected_item_id,
+            'other_products': Product.published_objects.exclude(id=self.object.pk)[:3]
         })
         return context
 

@@ -102,6 +102,59 @@
       height: 560px
       margin: 0 auto 40px
 
+      &.video
+        position: relative
+        cursor: pointer
+
+        &:before
+          position: absolute
+          content: ''
+          top: 232px
+          left: 152px
+          width: 120px
+          height: 120px
+          pointer-events: none
+          background-color: rgba(0, 0, 0, .5)
+          border-radius: 50%
+
+        &:after
+          @extend %play-icon
+          top: 48%
+          left: 48%
+          border-width: 24px 36px
+
+    .video-wrapper
+      position: absolute
+      width: 100%
+      height: 100%
+      top: 0
+      left: 0
+      z-index: 1
+
+      &.fade
+        position: fixed
+        width: 100%
+        height: 100%
+        top: 0
+        left: 0
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: rgba(0, 0, 0, .8)
+        z-index: 1
+        cursor: initial
+
+        &:after
+          content: '\00D7'
+          font-size: 40px
+          position: absolute
+          width: 30px
+          height: 30px
+          top: 10px
+          right: 20px
+          color: #fff
+          cursor: pointer
+
     .thumbnails-wrapper
       display: flex
       flex-direction: row
@@ -110,22 +163,8 @@
       a
         margin: 0 10px
 
-      .video
-        position: relative
-
-        &:before
-          position: absolute
-          content: ''
-          top: 10px
-          left: 10px
-          width: 70%
-          height: 70%
-          pointer-events: none
-          background-color: rgba(0, 0, 0, .5)
-          border-radius: 50%
-
-        &:after
-          @extend %play-icon
+        &.selected
+          box-shadow: $hoverShadow
 
       .image-wrapper
         width: 62px
@@ -137,6 +176,23 @@
 
         &:hover
           box-shadow: $hoverShadow
+
+        &.video
+          position: relative
+
+          &:before
+            position: absolute
+            content: ''
+            top: 10px
+            left: 10px
+            width: 70%
+            height: 70%
+            pointer-events: none
+            background-color: rgba(0, 0, 0, .5)
+            border-radius: 50%
+
+          &:after
+            @extend %play-icon
 
   .detail-wrapper
     flex: 1 1 440px
@@ -221,7 +277,6 @@
         text-decoration: underline
 
 .product-description-wrapper
-
   .description-wrapper
     display: flex
     flex-wrap: wrap

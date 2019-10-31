@@ -15,6 +15,8 @@ ready(() => {
   const languageOptions = document.getElementsByClassName('language-option')
   const languageInput = document.getElementById('language-input')
   const languageForm = document.getElementById('language-form')
+  const galleryThumbnailLinks = document.getElementsByClassName('gallery-thumbnail-link')
+  const videoWrappers = document.getElementsByClassName('video-wrapper')
 
   const onSelectFocus = (event) => {
     shipToMenu.hidden = false
@@ -51,6 +53,38 @@ ready(() => {
     document.addEventListener('click', menuItemClick)
   }
 
+  let currentModal
+  const loadVideo = (videoWrapper) => {
+    const id = videoWrapper.dataset.youtubeVideoId
+    const size = videoWrapper.dataset.size
+
+    const html = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${id}?rel=0&amp;autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    const iframe = document.createElement('iframe')
+
+    videoWrapper.classList.add('fade')
+    videoWrapper.hidden = false
+    videoWrapper.appendChild(iframe)
+    iframe.contentWindow.document.open()
+    iframe.contentWindow.document.write(html)
+    iframe.contentWindow.document.close()
+
+    currentModal = iframe
+  }
+
+  for (let i = 0; i < videoWrappers.length; i++) {
+    videoWrappers[i].addEventListener('click', (event) => {
+      if (currentModal) {
+        document.body.classList.remove('lock-scroll')
+        videoWrappers[i].removeChild(currentModal)
+        videoWrappers[i].classList.remove('fade')
+        currentModal = undefined
+      } else {
+        document.body.classList.add('lock-scroll')
+        loadVideo(videoWrappers[i])
+      }
+    })
+  }
+
   shipToSelect.addEventListener('blur', (event) => {
     if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
       shipToMenu.hidden = true
@@ -65,7 +99,7 @@ ready(() => {
     }
   })
 
-  for (var i = 0; i < languageOptions.length; i++) {
+  for (let i = 0; i < languageOptions.length; i++) {
     languageOptions[i].addEventListener('blur', (event) => {
       if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
         shipToMenu.hidden = true
