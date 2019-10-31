@@ -102,7 +102,7 @@
       height: 560px
       margin: 0 auto 40px
 
-      &.video
+      &.play-icon
         position: relative
         cursor: pointer
 
@@ -163,9 +163,6 @@
       a
         margin: 0 10px
 
-        &.selected
-          box-shadow: $hoverShadow
-
       .image-wrapper
         width: 62px
         height: 62px
@@ -177,7 +174,10 @@
         &:hover
           box-shadow: $hoverShadow
 
-        &.video
+        &.selected
+          box-shadow: $hoverShadow
+
+        &.play-icon
           position: relative
 
           &:before

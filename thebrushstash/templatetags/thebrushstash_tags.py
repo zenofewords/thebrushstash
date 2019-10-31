@@ -87,14 +87,21 @@ def get_lead_image(obj):
 
 
 @register.inclusion_tag('thebrushstash/tags/media_object.html')
-def media_object(obj, size, hidden=False):
+def media_object(obj, size, selected=False, hidden=False):
     if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
         return
 
+    classes = ['image-wrapper', size]
+    if hasattr(obj, 'youtube_video_id') and obj.youtube_video_id:
+        classes.append('play-icon')
+    if selected:
+        classes.append('selected')
+    class_list = 'class=\"{}\"'.format(' '.join(classes))
+
     return {
         'object': obj,
+        'class_list': class_list,
         'hidden': hidden,
-        'size': size,
         'webp_srcset': ', '.join(obj.srcsets['webp_{}'.format(size)]),
         'jpg_srcset': ', '.join(obj.srcsets['jpg_{}'.format(size)]),
     }
@@ -102,18 +109,14 @@ def media_object(obj, size, hidden=False):
 
 @register.inclusion_tag('thebrushstash/tags/gallery_item.html')
 def gallery_item(obj, item, selected_item_id, first_item):
-    classes = []
+    selected = False
     if selected_item_id == '0' and first_item:
-        classes.append('selected')
+        selected = True
     elif selected_item_id == str(item.pk):
-        classes.append('selected')
-
-    class_list = ''
-    if classes:
-        class_list = 'class=\"{}\"'.format(' '.join(classes))
+        selected = True
 
     return {
         'object': obj,
         'item': item,
-        'class_list': class_list,
+        'selected': selected,
     }

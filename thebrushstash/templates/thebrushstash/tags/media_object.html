@@ -1,5 +1,5 @@
-{% if object.image and not hidden %}
-  <div id="{{ object.pk }}" class="image-wrapper {% if object.youtube_video_id %}video{% endif %}">
+{% if object.image %}
+  <div id="{{ object.pk }}" {{ class_list|safe }} {% if hidden %} hidden{% endif %}>
     <picture>
       <source
         srcset="{{ webp_srcset }}"
@@ -18,7 +18,7 @@
     </picture>
 
     {% if object.youtube_video_id %}
-      <div class="video-wrapper" data-size="{{ size }}" {% if object.youtube_video_id %}data-youtube-video-id="{{ object.youtube_video_id }}"{% endif %}></div>
+      <div id="{{ object.pk }}" class="video-wrapper" {% if object.youtube_video_id %}data-youtube-video-id="{{ object.youtube_video_id }}"{% endif %}></div>
     {% endif %}
   </div>
 {% endif %}

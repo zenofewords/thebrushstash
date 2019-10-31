@@ -15,9 +15,9 @@
       {% get_gallery object as gallery %}
       {% for item in gallery %}
         {% if selected_item_id == '0' and forloop.first or selected_item_id == item.pk|slugify %}
-          {% media_object obj=item size='small' %}
+          {% media_object obj=item size='small' selected='true' %}
         {% else %}
-          {% media_object obj=item size='small' hidden='yep' %}
+          {% media_object obj=item size='small' hidden='true' %}
         {% endif %}
       {% endfor %}
 

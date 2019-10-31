@@ -15,7 +15,8 @@ ready(() => {
   const languageOptions = document.getElementsByClassName('language-option')
   const languageInput = document.getElementById('language-input')
   const languageForm = document.getElementById('language-form')
-  const galleryThumbnailLinks = document.getElementsByClassName('gallery-thumbnail-link')
+  const imageWrappers = document.getElementsByClassName('image-wrapper small')
+  const thumbnailWrappers = document.getElementsByClassName('image-wrapper thumbnail')
   const videoWrappers = document.getElementsByClassName('video-wrapper')
 
   const onSelectFocus = (event) => {
@@ -56,8 +57,6 @@ ready(() => {
   let currentModal
   const loadVideo = (videoWrapper) => {
     const id = videoWrapper.dataset.youtubeVideoId
-    const size = videoWrapper.dataset.size
-
     const html = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${id}?rel=0&amp;autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
     const iframe = document.createElement('iframe')
 
@@ -71,8 +70,37 @@ ready(() => {
     currentModal = iframe
   }
 
+  const switchActiveImage = (event) => {
+    const id = event.currentTarget.id
+    const reveal = [...imageWrappers].find(x => x.id === id)
+    const hide = [...imageWrappers].find(x => x.classList.contains('selected'))
+
+    if (reveal.id !== hide.id) {
+      reveal.classList.add('selected')
+      reveal.hidden = false
+      hide.classList.remove('selected')
+      hide.hidden = true
+
+      const unselect = [...thumbnailWrappers].find(x => x.classList.contains('selected'))
+      event.currentTarget.classList.add('selected')
+      unselect.classList.remove('selected')
+
+      history.pushState({mediaObject: id}, '', `?gallery-item=${id}`)
+    }
+  }
+
+  for (var i = 0; i < thumbnailWrappers.length; i++) {
+    thumbnailWrappers[i].addEventListener('click', (event) => {
+      event.preventDefault()
+
+      switchActiveImage(event)
+    })
+  }
+
   for (let i = 0; i < videoWrappers.length; i++) {
     videoWrappers[i].addEventListener('click', (event) => {
+      event.preventDefault()
+
       if (currentModal) {
         document.body.classList.remove('lock-scroll')
         videoWrappers[i].removeChild(currentModal)
@@ -80,6 +108,7 @@ ready(() => {
         currentModal = undefined
       } else {
         document.body.classList.add('lock-scroll')
+        history.pushState({mediaObject: event.target.id}, '', `?gallery-item=${event.target.id}`)
         loadVideo(videoWrappers[i])
       }
     })
