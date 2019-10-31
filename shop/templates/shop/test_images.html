@@ -13,15 +13,15 @@
       <br>
         {{ gallery_item.name }} - large image
       <hr>
-      {% picture obj=gallery_item size='large' %}
+      {% media_object obj=gallery_item size='large' %}
       <br>
         {{ gallery_item.name }} - small image
       <hr>
-      {% picture obj=gallery_item size='small' %}
+      {% media_object obj=gallery_item size='small' %}
       <br>
         {{ gallery_item.name }} - thumbnail
       <hr>
-      {% picture obj=gallery_item size='thumbnail' %}
+      {% media_object obj=gallery_item size='thumbnail' %}
     {% endfor %}
   {% endfor %}
 {% endblock content %}

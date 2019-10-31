@@ -16,6 +16,9 @@ body
   display: flex
   flex-direction: column
 
+  &.lock-scroll
+    overflow: hidden
+
 main
   flex: 1 0 auto
 
@@ -95,8 +98,8 @@ button
       display: flex
 
       .logo
-        width: 535px
-        height: 60px
+        width: 505px
+        height: 58px
         background: url('data:image/svg+xml;base64,#{$tbsLogo}') no-repeat
 
     .ship-to-wrapper
@@ -164,15 +167,16 @@ button
 
   .credit-card-secure-modal
     position: absolute
-    top: 50%
+    top: 0
     left: 50%
-    transform: translate(-50%, -55vh)
+    transform: translate(-50%, -50%)
     background-color: #fff
     height: fit-content
-    width: 70vw
+    width: 80vw
     max-width: 600px
     padding: 25px
     box-shadow: 1px 1px 3px 1px #999
+    z-index: 1
 
     .close-modal-button
       position: absolute

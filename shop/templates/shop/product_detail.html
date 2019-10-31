@@ -14,19 +14,16 @@
     <div class="gallery-wrapper">
       {% get_gallery object as gallery %}
       {% for item in gallery %}
-        {% if forloop.counter > 1 %}
-          {% picture obj=item size='small' hidden='True' %}
+        {% if selected_item_id == '0' and forloop.first or selected_item_id == item.pk|slugify %}
+          {% media_object obj=item size='small' selected='true' %}
         {% else %}
-          {% picture obj=item size='small' %}
+          {% media_object obj=item size='small' hidden='true' %}
         {% endif %}
       {% endfor %}
 
       <div class="thumbnails-wrapper">
-        {% get_gallery object as gallery %}
         {% for item in gallery %}
-          <a href="{% url 'shop:product-detail' object.slug %}?image={{ item.name }}" {% if item.youtube_video_id %}class="video"{% endif %}>
-            {% picture obj=item size='thumbnail' %}
-          </a>
+          {% gallery_item object item selected_item_id forloop.first %}
         {% endfor %}
       </div>
     </div>
@@ -81,7 +78,7 @@
         </h2>
         {{ object.description|linebreaks }}
       </div>
-      {% picture obj=object size='small' %}
+      {% media_object obj=object size='small' %}
     </div>
     <div class="more-from-shop-wrapper">
       <h3>
