@@ -1,7 +1,7 @@
 from rest_framework import generics
 
 from shop.models import (
-    Order,
+    Invoice,
     Product,
 )
 from shop.serializers import (
@@ -11,7 +11,7 @@ from shop.serializers import (
 
 
 class OrderListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Order.objects.all()
+    queryset = Invoice.objects.all()
     serializer_class = OrderSerializer
 
 

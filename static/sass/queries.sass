@@ -1,6 +1,6 @@
 @import './variables.sass'
 
-@media (max-width: $mediaTablet)
+@media only screen and (max-width: $mediaTablet)
   .navigation-wrapper
     .inner-wrapper
       li
@@ -33,7 +33,7 @@
       .picture
         max-height: 435px
 
-@media (max-width: $mediaMobile)
+@media only screen and (max-width: $mediaMobile)
   %content-wrapper
     flex-direction: column
 
@@ -80,12 +80,43 @@
         .email-input
           width: 100%
 
+  .product-detail-wrapper
+    flex-direction: column
+
+    .gallery-wrapper
+      padding: 0
+
+      .image-wrapper
+        width: 270px
+        height: 330px
+
+        &.play-icon
+          &:before
+            top: 37%
+            left: 30%
+
+  .product-description-wrapper
+    flex-direction: column
+
+    .media-wrapper
+      .image-wrapper
+        height: 100%
+        width: auto
+
   iframe
     border: 0
     width: 100vw
     height: 50vh
 
-@media (orientation: landscape)
+@media only screen and (orientation: portrait)
+  .products-wrapper
+    .product
+      height: auto
+
+      p
+        height: auto
+
+@media only screen and (orientation: landscape)
   iframe
     border: 0
     width: 80vw
