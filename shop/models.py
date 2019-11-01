@@ -37,10 +37,12 @@ class ExchangeRate(TimeStampMixin):
 
 class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
     product_type = models.ForeignKey(
-        'shop.ProductType', default=get_default_product_type, on_delete=models.deletion.CASCADE)
+        'shop.ProductType', default=get_default_product_type, on_delete=models.deletion.CASCADE
+    )
     title = models.CharField(max_length=500, blank=True)
     image = models.ImageField(
-        upload_to='shop/%Y/%m/', blank=True, null=True, help_text='Used in the description section')
+        upload_to='shop/%Y/%m/', blank=True, null=True, help_text='Used in the description section'
+    )
     srcsets = JSONField(blank=True, null=True)
     foreword = models.TextField(
         max_length=300, blank=True, help_text='Short decription',
@@ -89,7 +91,7 @@ class ProductType(ShopObjectMixin, TimeStampMixin):
         return self.name
 
 
-class Order(TimeStampMixin):
+class Invoice(TimeStampMixin):
     class OrderStatus:
         PENDING = 'pending'
         PACKAGED = 'packaged'
@@ -120,15 +122,15 @@ class Order(TimeStampMixin):
     paid = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name = 'Order'
-        verbose_name_plural = 'Orders'
+        verbose_name = 'Invoice'
+        verbose_name_plural = 'Invoices'
 
     def __str__(self):
         return '{} by {} {}'.format(self.product, self.first_name, self.last_name)
 
 
 class Transaction(TimeStampMixin):
-    order = models.ForeignKey('shop.Order', on_delete=models.deletion.CASCADE)
+    order = models.ForeignKey('shop.Invoice', on_delete=models.deletion.CASCADE)
 
     class Meta:
         verbose_name = 'Transaction'

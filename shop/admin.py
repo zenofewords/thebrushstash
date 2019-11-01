@@ -3,7 +3,7 @@ from django.utils.text import slugify
 
 from shop.models import (
     ExchangeRate,
-    Order,
+    Invoice,
     Product,
     ProductType,
     Showcase,
@@ -56,7 +56,7 @@ class ShowcaseAdmin(AutoSlugAdmin):
 
 
 admin.site.register(ExchangeRate, ExchangeRateAdmin)
-admin.site.register(Order, OrderAdmin)
+admin.site.register(Invoice, OrderAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductType, ProductTypeAdmin)
 admin.site.register(Showcase, ShowcaseAdmin)

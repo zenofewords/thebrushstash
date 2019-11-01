@@ -1,14 +1,14 @@
 from rest_framework import serializers
 
 from shop.models import (
-    Order,
+    Invoice,
     Product,
 )
 
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Order
+        model = Invoice
         fields = '__all__'
 
 
