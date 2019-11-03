@@ -10,7 +10,7 @@ from thebrushstash.constants import (
     BRUSH_CARE,
     CONTACT,
     PAYMENT_DELIVERY,
-    RETURNS_COMPLAINTS,
+    COMPLAINTS,
     TOS,
 )
 from thebrushstash.views import (
@@ -36,7 +36,7 @@ urlpatterns = [
     path('{}/'.format(BRUSH_CARE), TakingCareOfYourBrushView.as_view(), name=BRUSH_CARE),
     path('{}/'.format(CONTACT), ContactView.as_view(), name=CONTACT),
     path('{}/'.format(PAYMENT_DELIVERY), PaymentAndDeliveryView.as_view(), name=PAYMENT_DELIVERY),
-    path('{}/'.format(RETURNS_COMPLAINTS), ReturnsAndComplaintsView.as_view(), name=RETURNS_COMPLAINTS),
+    path('{}/'.format(COMPLAINTS), ReturnsAndComplaintsView.as_view(), name=COMPLAINTS),
     path('{}/'.format(TOS), GeneralTermsAndConditions.as_view(), name=TOS),
 
     path('', include('django.contrib.auth.urls')),

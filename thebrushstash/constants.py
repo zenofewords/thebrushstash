@@ -263,7 +263,7 @@ initial_credit_card_secure_logos = (
 
 CONTACT = 'contact'
 PAYMENT_DELIVERY = 'payment-and-delivery'
-RETURNS_COMPLAINTS = 'returns-and-complaints'
+COMPLAINTS = 'returns-and-complaints'
 TOS = 'general-terms-and-conditions'
 initial_footer_items = (
     {
@@ -280,7 +280,7 @@ initial_footer_items = (
     },
     {
         'name': 'Returns and complaints',
-        'location': '/{}/'.format(RETURNS_COMPLAINTS),
+        'location': '/{}/'.format(COMPLAINTS),
         'ordering': 2,
         'published': True,
     },
