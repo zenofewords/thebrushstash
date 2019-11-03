@@ -20,7 +20,6 @@ ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS').split(',')]
 INTERNAL_IPS = ['127.0.0.1', ]
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -29,6 +28,9 @@ INSTALLED_APPS = [
 
     'webpack_loader',
     'rest_framework',
+
+    'account.apps.AccountConfig',
+    'django.contrib.admin',
 
     'thebrushstash.apps.TheBrushStashConfig',
     'shop.apps.ShopConfig',
@@ -155,6 +157,9 @@ WEBPACK_LOADER = {
         )
     }
 }
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

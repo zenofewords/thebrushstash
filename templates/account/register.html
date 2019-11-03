@@ -1,0 +1,28 @@
+{% extends 'thebrushstash/auth_base.html' %}
+
+{% block title %}
+  {{ block.super }} - Register
+{% endblock %}
+
+{% block auth_content %}
+  {% if user.is_authenticated %}
+    You already have an account and are currently logged in. Why don't you check out <a href="{% url 'shop:shop-home' %}">some brushes</a>?
+  {% else %}
+    <h1>Register</h1>
+    <p>
+      Provide us with an email address so we can send you an activation link for your account.
+    </p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      {% include 'account/includes/form_field.html' with field=form.email %}
+      {% include 'account/includes/form_field.html' with field=form.password1 type='password' %}
+      {% include 'account/includes/form_field.html' with field=form.password2 type='password' %}
+
+      <button type="submit">
+        Send me my activation link
+      </button>
+    </form>
+  {% endif %}
+{% endblock auth_content %}

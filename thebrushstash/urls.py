@@ -27,6 +27,7 @@ from thebrushstash.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('account/', include(('account.urls', 'account'), namespace='account')),
     path('api/', include((api_urls, 'api'), namespace='api')),
     path('i18n/', include('django.conf.urls.i18n')),
 
@@ -38,7 +39,8 @@ urlpatterns = [
     path('{}/'.format(RETURNS_COMPLAINTS), ReturnsAndComplaintsView.as_view(), name=RETURNS_COMPLAINTS),
     path('{}/'.format(TOS), GeneralTermsAndConditions.as_view(), name=TOS),
 
-    path('', include('shop.urls')),
+    path('', include('django.contrib.auth.urls')),
+    path('', include(('shop.urls', 'shop'), namespace='shop')),
     path('test-images/', TestImageView.as_view(), name='other-images'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

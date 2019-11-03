@@ -1,8 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
-from django.views.generic import (
-    TemplateView,
-)
+from django.views.generic import TemplateView
 
 from thebrushstash.models import TestImage
 
