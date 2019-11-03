@@ -21,31 +21,37 @@ register = template.Library()
 
 @register.inclusion_tag('thebrushstash/tags/navigation.html', takes_context=True)
 def navigation_tag(context):
+    request = context.get('request')
     return {
-        'current_url': context['request'].path,
+        'current_url': request.path if request else '/',
         'navigation_items': NavigationItem.published_objects.all(),
     }
 
 
 @register.inclusion_tag('thebrushstash/tags/ship_to.html', takes_context=True)
 def ship_to_tag(context):
-    request = context['request']
+    request = context.get('request')
 
-    default_region = DEFAULT_REGION if request.LANGUAGE_CODE == DEFAULT_REGION else 'eu'
-    selected_region = request.session.get('region', default_region)
+    if request:
+        default_region = DEFAULT_REGION if request.LANGUAGE_CODE == DEFAULT_REGION else 'eu'
+        selected_region = request.session.get('region', default_region)
+    else:
+        default_region = DEFAULT_REGION
+        selected_region = default_region
     regions_copy = copy.deepcopy(REGIONS)
     regions_copy.pop(selected_region)
 
     return {
         'selected_region': selected_region,
-        'current_url': request.path,
+        'current_url': request.path if request else '/',
         'regions': regions_copy,
     }
 
 
 @register.inclusion_tag('thebrushstash/tags/footer.html')
-def footer_tag():
+def footer_tag(hide_social=False):
     return {
+        'hide_social': hide_social,
         'footer_items': FooterItem.published_objects.all(),
         'footer_share_links': FooterShareLink.published_objects.all(),
         'credit_card_logos': CreditCardLogo.published_objects.all(),
@@ -54,8 +60,10 @@ def footer_tag():
 
 @register.inclusion_tag('thebrushstash/tags/cookie.html', takes_context=True)
 def cookie_tag(context):
+    request = context.get('request')
+
     return {
-        'accepted': context['request'].session.get('accepted', None),
+        'accepted': request.session.get('accepted', None) if request else None,
     }
 
 

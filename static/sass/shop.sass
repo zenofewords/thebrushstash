@@ -36,6 +36,7 @@
     position: relative
     height: 615px
     text-align: center
+    transition: 0.3s
 
     &:hover
       box-shadow: $hoverShadow
@@ -169,6 +170,7 @@
         padding: 3px
         border: 1px solid rgba(0, 0, 0, .3)
         cursor: pointer
+        transition: 0.3s
 
         &:hover
           box-shadow: $hoverShadow
@@ -255,7 +257,7 @@
         height: 54px
         padding: 0 0 1px 20px
         margin: 0 29px 0 0
-        border: 1px solid #d0d0d0
+        border: $inputBorder
         border-radius: 0
         background-color: #fff
         font-family: $bodyFont
@@ -267,7 +269,7 @@
         max-width: 300px
         height: 54px
 
-    .fine-print
+    .fine-copy
       opacity: 0.5
       font-size: 11px
       line-height: 13px

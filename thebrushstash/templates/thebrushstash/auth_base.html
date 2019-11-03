@@ -1,0 +1,14 @@
+{% extends 'thebrushstash/base.html' %}
+{% load thebrushstash_tags %}
+
+{% block content %}
+  <div class="auth-wrapper">
+    {% block auth_content %}
+    {% endblock auth_content %}
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {% footer_tag hide_social='true' %}
+  {% cookie_tag %}
+{% endblock footer %}
