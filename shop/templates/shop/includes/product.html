@@ -18,7 +18,7 @@
     {{ product.foreword }}
   </p>
   <div class="price-tag">
-    {{ product.price_hrk.normalize }} kn
+    {{ product.price_hrk }} kn
   </div>
-  <button>Add to bag</button>
+  {% include 'shop/includes/add_to_bag_button.html' with object=product %}
 </div>

@@ -9,6 +9,9 @@ html,
 body
   height: 100%
 
+html
+  scroll-behavior: smooth
+
 body
   margin: 0
   font-family: $bodyFont
@@ -44,7 +47,6 @@ li
 a
   font-weight: $heavy
   text-decoration: none
-  text-transform: uppercase
   color: #000
 
 button,
@@ -65,7 +67,7 @@ button
   color: #fff
   background-color: #000
   border: 0
-  transition: 0.3s
+  transition: $transitionDuration
 
   &:hover
     color: #fff
@@ -77,10 +79,13 @@ button
 
 .main-wrapper
   max-width: $contentWidth
-  margin: 0 auto
+  margin: 90px auto 30px
+
+  &.sticky-nav-margin
+    margin-top: 144px
 
   .content-wrapper
-    margin: 30px $contentSpacing
+    margin: 0 $contentSpacing
 
 .header-wrapper
   position: relative
@@ -95,7 +100,7 @@ button
     justify-content: center
     max-width: $contentWidth
     margin: 0 auto
-    height: 191px
+    height: $headerHeight
 
     a
       display: flex

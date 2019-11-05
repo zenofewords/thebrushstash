@@ -2,9 +2,16 @@
 @import './variables.sass'
 
 .navigation-wrapper
+  position: relative
   background-color: #000
   border-top: $discreetBorder
   border-bottom: $tbsBlueBorder
+
+  &.sticky-nav
+    position: fixed
+    margin-top: -$headerHeight
+    width: 100%
+    z-index: 1
 
   .inner-wrapper
     @extend %content-wrapper
@@ -24,7 +31,7 @@
         color: #fff
 
         &:hover
-          border-bottom: $tbsBlueBorder
+          opacity: 0.8
 
         &.active
           border-bottom: $tbsBlueBorder
@@ -33,6 +40,7 @@
       position: relative
       font-family: $headerFont
       white-space: nowrap
+      text-transform: uppercase
 
       &:after
         content: ''
@@ -45,19 +53,32 @@
         background-color: #fff
 
     .log-in-register,
-    .bag
+    .bag-item
       font-family: $bodyFont
       font-size: 12px
       font-weight: $regular
       line-height: 15px
-      padding: 19px 0 16px
+      padding: 19px 10px 16px
       margin-left: 35px
+
+      &:after
+        display: none
 
       a
         padding-bottom: 4px
 
-      &:after
-        display: none
+    .bag-item
+      a
+        margin-right: 5px
+        padding: 2px 4px
+
+      .bag-icon
+        position: absolute
+        top: 14px
+        right: 45px
+        height: 25px
+        width: 25px
+        background: url('data:image/svg+xml;base64,#{$bagIcon}') no-repeat
 
     .log-in-register
       &:before
@@ -66,26 +87,58 @@
         padding: 5px 17px
         background: url('data:image/svg+xml;base64,#{$userIcon}') no-repeat
 
-    .bag
-      &:before
-        content: ''
-        color: #fff
-        padding: 6px 14px
-        background: url('data:image/svg+xml;base64,#{$bagIcon}') no-repeat
+    .bag-item-count
+      position: absolute
+      top: 17px
+      color: #fff
+      font-family: $bodyFont
+      font-weight: $heavy
+      padding: 2px 6px
+      margin: 0 0 20px 5px
+      background-color: $tbsBlue
+      border-radius: $borderRadius
 
-      a
-        &:after
-          position: relative
-          display: initial
-          content: '0'
-          color: #fff
-          font-family: $bodyFont
-          font-weight: $heavy
-          padding: 2px 6px
-          margin: 0 0 20px 5px
-          height: 0
-          width: 0
-          top: 0
-          background-color: $tbsBlue
-          border-radius: $borderRadius
-          opacity: 1
+  .bag
+    display: flex
+    flex-direction: column
+    position: absolute
+    top: 51px
+    right: -10px
+    width: 248px
+    padding: 20px
+    background-color: #fff
+    box-shadow: 1px 1px 3px 1px #999
+    z-index: 2
+    transition: $transitionDuration
+
+    &.bag-hide
+      opacity: 0
+      pointer-events: none
+
+    .bag-header
+      display: flex
+      justify-content: space-between
+
+    .bag-product-remove
+      font-size: 24px
+      cursor: pointer
+
+    .bag-product-header,
+    .bag-product-content
+      display: flex
+      justify-content: space-between
+
+    .bag-product-header
+      margin-top: 10px
+
+    .bag-product-name
+      margin-top: 5px
+
+    button
+      padding: 10px 0
+      margin: 30px 0 0
+      color: #fff
+      background-color: $tbsBlue
+
+      &:hover
+        background-color: #000

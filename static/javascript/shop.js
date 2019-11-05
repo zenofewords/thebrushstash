@@ -154,6 +154,109 @@ ready(() => {
       document.querySelector('.cookie-wrappper').hidden = true
     })
   })
+  const bagLink = document.querySelector('.bag-link')
+  const bag = document.querySelector('.bag')
+  const bagContent = document.querySelector('.bag-content')
+  const addToBagSelect = document.getElementById('add-to-bag-select')
+  const addToBagButtons = document.getElementsByClassName('add-to-bag-button')
+  const bagTotal = document.querySelector('.bag-total')
+  const bagItemCount = document.querySelector('.bag-item-count')
+
+  const toggleBag = (event) => {
+    event.preventDefault()
+    bag.classList.toggle('bag-hide')
+  }
+
+  bagLink.addEventListener('click', toggleBag)
+
+  const removeProductButtons = document.getElementsByClassName('bag-product-remove')
+  for (let i = 0; i < removeProductButtons.length; i++) {
+    const button = removeProductButtons[i]
+    button.addEventListener('click', () => removeProduct(button.dataset.id))
+  }
+
+  const refreshBag = (data) => {
+    bagTotal.innerHTML = `${data.bag.total} kn`
+    bagContent.innerHTML = ''
+
+    for (const [key, values] of Object.entries(data.bag.products)) {
+      const product = document.createElement('div')
+      const productHeader = document.createElement('div')
+      const productInfo = document.createElement('div')
+      const productRemove = document.createElement('span')
+      productHeader.classList.add('bag-product-header')
+
+      const name = document.createElement('span')
+      name.classList.add('bag-product-name')
+      name.innerHTML = `${values.name}`
+      productHeader.appendChild(name)
+      productRemove.innerHTML = '&times;'
+      productRemove.classList.add('bag-product-remove')
+      productRemove.addEventListener('click', () => removeProduct(key))
+      productHeader.appendChild(productRemove)
+
+      const quantity = document.createElement('span')
+      const subtotal = document.createElement('span')
+      quantity.innerHTML = `Quantity: ${values.quantity}`
+      subtotal.innerHTML = `Subtotal: ${values.subtotal} kn`
+      productInfo.classList.add('bag-product-content')
+      productInfo.appendChild(quantity)
+      productInfo.appendChild(subtotal)
+
+      product.slug = key
+      product.appendChild(productHeader)
+      product.appendChild(productInfo)
+      bagContent.appendChild(product)
+    }
+    bagItemCount.innerHTML = data.bag.totalQuantity
+    bag.classList.remove('bag-hide')
+  }
+
+  const removeProduct = (productSlug) => {
+    fetch('/api/remove-from-bag/',
+      {
+        method: 'POST',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+          slug: productSlug,
+        }),
+      }
+    ).then((data) => data.json().then((response) => {
+      refreshBag(response)
+    }))
+  }
+
+  const addProduct = (data) => {
+    fetch('/api/add-to-bag/',
+      {
+        method: 'POST',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+          slug: data.slug,
+          name: data.name,
+          quantity: parseInt(data.multiple ? addToBagSelect.value : 1),
+          price: parseFloat(data.price),
+        }),
+      }
+    ).then((data) => data.json().then((response) => {
+      refreshBag(response)
+    }))
+  }
+
+  for (let i = 0; i < addToBagButtons.length; i++) {
+    const button = addToBagButtons[i]
+    button.addEventListener('click', () => addProduct(button.dataset))
+  }
 
   const getCookie = (name) => {
     let cookieValue = null
@@ -199,4 +302,28 @@ ready(() => {
       }
     })
   }
+
+  const navigationWrapper = document.querySelector('.navigation-wrapper')
+  const mainWrapper = document.querySelector('.main-wrapper')
+
+  const toggleStickyNav = (scrollPosition) => {
+    if (scrollPosition > 190) {
+      navigationWrapper.classList.add('sticky-nav')
+      mainWrapper.classList.add('sticky-nav-margin')
+    } else {
+      navigationWrapper.classList.remove('sticky-nav')
+      mainWrapper.classList.remove('sticky-nav-margin')
+    }
+  }
+
+  let ticking = false
+  window.addEventListener('scroll', (event) => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        toggleStickyNav(window.scrollY)
+        ticking = false
+      })
+      ticking = true
+    }
+  })
 })
