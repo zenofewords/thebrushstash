@@ -1,0 +1,37 @@
+<div class="bag bag-hide">
+  <div class="bag-header">
+    <span>
+      In your bag
+    </span>
+    <span>
+      Total: <span class="bag-total">
+        {{ bag.total|default:"0.00" }} kn
+      </span>
+    </span>
+  </div>
+  <div class="bag-content">
+    {% for key, value in bag.products.items %}
+      <div class="bag-product">
+        <div class="bag-product-header">
+          <span class="bag-product-name">
+            {{ value.name }}
+          </span>
+          <span class="bag-product-remove" data-slug="{{ key }}">
+            &times;
+          </span>
+        </div>
+        <div class="bag-product-content">
+          <span>
+            Quantity: {{ value.quantity }}
+          </span>
+          <span>
+            Subtotal: {{ value.subtotal }} kn
+          </span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <button>
+    Review bag
+  </button>
+</div>

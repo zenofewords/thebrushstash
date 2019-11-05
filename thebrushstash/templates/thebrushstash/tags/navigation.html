@@ -7,5 +7,15 @@
         </a>
       </li>
     {% endfor %}
+    <li class="nav-item bag-item">
+      <a href="/bag/" class="bag-link" {% if current_url == navigation_item.location %} class="active"{% endif %}>
+        <span class="bag-icon"></span>
+        Bag
+        <span class="bag-item-count">
+          {{ bag.totalQuantity|default:"0" }}
+        </span>
+      </a>
+      {% include 'thebrushstash/includes/bag.html' %}
+    </li>
   </ul>
 </div>

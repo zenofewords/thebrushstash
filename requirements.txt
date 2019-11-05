@@ -2,14 +2,13 @@ blessings==1.7
 certifi==2019.9.11
 chardet==3.0.4
 curtsies==0.3.0
-Django==2.2.6
+Django==2.2.7
 django-webpack-loader==0.6.0
 djangorestframework==3.10.3
 greenlet==0.4.15
-gunicorn==19.9.0
 idna==2.8
-Pillow==6.2.0
-psycopg2-binary==2.8.3
+Pillow==6.2.1
+psycopg2-binary==2.8.4
 Pygments==2.4.2
 python-dotenv==0.10.3
 python-memcached==1.59
@@ -20,4 +19,5 @@ sqlparse==0.3.0
 typing==3.7.4.1
 Unidecode==1.1.1
 urllib3==1.25.6
+wcwidth==0.1.7
 webptools==0.0.2

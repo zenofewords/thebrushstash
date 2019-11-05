@@ -25,6 +25,7 @@ def navigation_tag(context):
     return {
         'current_url': request.path if request else '/',
         'navigation_items': NavigationItem.published_objects.all(),
+        'bag': request.session.get('bag'),
     }
 
 

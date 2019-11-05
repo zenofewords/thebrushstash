@@ -1,5 +1,6 @@
 {% extends 'shop/shop_home.html' %}
 {% load thebrushstash_tags %}
+{% load render_bundle from webpack_loader %}
 
 {% block title %}
   {{ block.super }} - {{ object.name }}
@@ -49,7 +50,7 @@
 
       <div class="ui-wrapper">
         <span>
-          <select>
+          <select id="add-to-bag-select">
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -57,9 +58,7 @@
             <option>5</option>
           </select>
         </span>
-        <button>
-          Add to bag
-        </button>
+        {% include 'shop/includes/add_to_bag_button.html' with multiple="true" %}
       </div>
 
       <p class="fine-copy">
