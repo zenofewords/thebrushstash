@@ -14,19 +14,19 @@
         margin-left: 2%
 
   .showcase-wrapper
-    flex-direction: column
+    flex-flow: column-reverse
     max-height: 100%
 
     .text-wrapper
       text-align: center
-      max-width: 650px
       margin: 0 auto 30px
+      max-width: 650px
 
       h1
-        padding: 56px 39px 20px
+        padding: 40px 20px 20px
 
       p
-        padding: 0 10%
+        padding: 0 20px
 
     .image-wrapper
       .picture
@@ -52,12 +52,7 @@
       display: none
 
   .showcase-wrapper
-    .text-wrapper
-      h1
-        padding: 56px 19px 20px
-
-      p
-        padding: 0 7%
+    margin: -60px 0 70px
 
   .social-wrapper
     border: none
@@ -67,17 +62,26 @@
       &:after
         display: none
 
+      .social-link
+        margin: 20px auto
+
   .newsletter-wrapper
     .inner-wrapper
       .info-wrapper
         text-align: center
-        width: 90%
+        width: 100%
+        margin: 0
+
+        .join-text
+          margin: 0 0 20px
+
+        .info-text
+          padding: 0 $gutter
+          margin: 0 0 30px
 
       .join-wrapper
         margin: 0 auto
-
-        .email-input
-          width: 100%
+        width: calc(100% - #{$gutter} * 2)
 
   .product-detail-wrapper
     flex-direction: column
@@ -101,6 +105,16 @@
       .image-wrapper
         height: 100%
         width: auto
+
+  .footer-nav-wrapper
+    .inner-wrapper
+      a
+        margin: 20px 15px 0
+        padding: 10px
+        width: fit-content
+
+        &:last-child
+          margin-bottom: 20px
 
   iframe
     border: 0
