@@ -172,7 +172,7 @@ ready(() => {
   const removeProductButtons = document.getElementsByClassName('bag-product-remove')
   for (let i = 0; i < removeProductButtons.length; i++) {
     const button = removeProductButtons[i]
-    button.addEventListener('click', () => removeProduct(button.dataset.id))
+    button.addEventListener('click', () => removeProduct(button.dataset.slug))
   }
 
   const refreshBag = (data) => {
