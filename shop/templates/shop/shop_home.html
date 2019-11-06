@@ -1,7 +1,6 @@
 {% extends 'thebrushstash/base.html' %}
 {% load i18n %}
 {% load shop_tags %}
-{% load thebrushstash_tags %}
 
 {% block title %}
   {{ block.super }} - {% trans "Shop" %}
@@ -18,9 +17,11 @@
 
 {% block content %}
   {% showcase_tag %}
-  <div class="products-wrapper">
-    {% for product in products %}
-      {% include 'shop/includes/product.html' %}
-    {% endfor %}
+  <div class="content-wrapper">
+    <div class="products-wrapper">
+      {% for product in products %}
+        {% include 'shop/includes/product.html' %}
+      {% endfor %}
+    </div>
   </div>
 {% endblock content %}

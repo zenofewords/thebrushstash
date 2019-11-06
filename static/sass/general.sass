@@ -48,6 +48,7 @@ a
   font-weight: $heavy
   text-decoration: none
   color: #000
+  transition: $transitionDuration
 
 button,
 select
@@ -85,7 +86,7 @@ button
     margin-top: 144px
 
   .content-wrapper
-    margin: 0 $contentSpacing
+    margin: 0 $gutter
 
 .header-wrapper
   position: relative
@@ -183,7 +184,7 @@ button
     width: 80vw
     max-width: 600px
     padding: 25px
-    box-shadow: 1px 1px 3px 1px #999
+    box-shadow: $boxShadow
     z-index: 1
 
     .close-modal-button

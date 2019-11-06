@@ -8,7 +8,7 @@
   width: 100%
   z-index: 1
   background-color: #fff
-  box-shadow: 1px 1px 3px 1px #999
+  box-shadow: $boxShadow
 
   .info
     margin: 0
@@ -44,25 +44,23 @@
       display: inline-block
       font-size: 16px
       font-weight: $heavy
-      line-height: 19px
-      margin: 17px auto 16px
+      line-height: 20px
+      margin: 16px auto
 
       &:hover
-        margin-bottom: 14px
-        border-bottom: $tbsBlueBorder
+        opacity: $hoverOpacity
 
       .icon
-        position: absolute
-        top: -6px
-        right: 105%
+        padding: 10px 16px
+        margin-right: 7px
         height: 31px
         width: 31px
 
       .facebook
-        background: url('data:image/svg+xml;base64,#{$facebookIcon}') no-repeat
+        background: url('data:image/svg+xml;base64,#{$facebookIcon}') no-repeat center
 
       .instagram
-        background: url('data:image/svg+xml;base64,#{$instagramIcon}') no-repeat
+        background: url('data:image/svg+xml;base64,#{$instagramIcon}') no-repeat center
 
 .newsletter-wrapper
   background-color: #f1f6ff
@@ -73,8 +71,8 @@
     padding: 28px 0
 
     .info-wrapper
-      margin: 15px 0 18px $contentSpacing
-      width: calc(50% - #{$contentSpacing})
+      margin: 15px 0 18px $gutter
+      width: calc(50% - #{$gutter})
 
       .join-text
         margin: 0 50px 0 0
@@ -92,14 +90,14 @@
     .join-wrapper
       display: flex
       flex-flow: row nowrap
-      margin: 0 auto 0 0
+      margin-right: $gutter
+      width: calc(50% - #{$gutter})
 
       .email-input
         border-top-left-radius: 1px
         border-bottom-left-radius: 1px
         border: 0
-        max-width: 350px
-        width: 25vw
+        width: 100%
         padding: 18px
         font-family: $bodyFont
         font-size: 16px
@@ -133,18 +131,12 @@
     a
       font-size: 12px
       line-height: 15px
-      margin: 27px
+      margin: 17px 14px
+      padding: 10px
       text-transform: uppercase
 
-      &:first-child
-        margin-left: $contentSpacing
-
-      &:last-child
-        margin-right: $contentSpacing
-
       &:hover
-        margin-bottom: 25px
-        border-bottom: $tbsBlueBorder
+        opacity: $hoverOpacity
 
 .credit-card-logos-wrapper
   margin: 27px 0
