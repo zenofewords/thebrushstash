@@ -15,17 +15,17 @@
 
   .inner-wrapper
     @extend %content-wrapper
-    justify-content: center
+    justify-content: space-between
 
     li
       line-height: 22px
-      padding: 16px 40px
+      padding: 16px 0
 
       &:first-child
-        margin-left: $gutter
+        margin-left: 6%
 
       &:last-child
-        margin-right: $gutter
+        margin-right: $gutter * 2.5
 
       a
         color: #fff
@@ -39,52 +39,34 @@
       white-space: nowrap
       text-transform: uppercase
 
-      &:after
-        content: ''
-        position: absolute
-        top: 9px
-        left: 100%
-        height: 38px
-        width: 1px
-        opacity: 0.4
-        background-color: #fff
+    .nav-divider
+      margin-top: 7px
+      width: 1px
+      height: 38px
+      opacity: 0.4
+      background-color: #fff
 
-    .log-in-register,
-    .bag-item
+    .nav-item-log-in-register,
+    .nav-item-bag
+      position: relative
       font-family: $bodyFont
       font-size: 12px
       font-weight: $regular
       line-height: 15px
-      padding: 19px 10px 16px
-      margin-left: 25px
+      text-transform: uppercase
+      white-space: nowrap
+      padding: 19px 0
 
-      &:after
-        display: none
-
-      a
-        padding-bottom: 4px
-
-    .bag-item
-      margin-left: 35px
-
-      a
-        margin-right: 5px
-        padding: 2px 4px
+      .user-icon
+        position: relative
+        padding: 6px 15px
+        margin-right: 6px
+        background: url('data:image/svg+xml;base64,#{$userIcon}') no-repeat center
 
       .bag-icon
-        position: absolute
-        top: 14px
-        right: 45px
-        height: 25px
-        width: 25px
-        background: url('data:image/svg+xml;base64,#{$bagIcon}') no-repeat
-
-    .log-in-register
-      &:before
-        content: ''
-        color: #fff
-        padding: 5px 17px
-        background: url('data:image/svg+xml;base64,#{$userIcon}') no-repeat
+        padding: 6px 15px
+        margin-right: 2px
+        background: url('data:image/svg+xml;base64,#{$bagIcon}') no-repeat center
 
     .bag-item-count
       position: absolute
@@ -102,11 +84,11 @@
     flex-direction: column
     position: absolute
     top: 51px
-    right: -10px
+    right: -30px
     width: 248px
     padding: 20px
     background-color: #fff
-    box-shadow: 1px 1px 3px 1px #999
+    box-shadow: $boxShadow
     z-index: 2
     transition: $transitionDuration
 

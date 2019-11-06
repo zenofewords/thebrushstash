@@ -1,18 +1,6 @@
 @import './variables.sass'
 
 @media only screen and (max-width: $mediaTablet)
-  .navigation-wrapper
-    .inner-wrapper
-      li
-        padding: 16px 28px
-
-        &:first-child
-          margin-left: 0
-
-      .log-in-register,
-      .bag
-        margin-left: 2%
-
   .showcase-wrapper
     flex-flow: column-reverse
     max-height: 100%
@@ -45,7 +33,7 @@
           width: 300px
 
       .ship-to-wrapper
-        right: 10px
+        display: none
 
   .navigation-wrapper
     .inner-wrapper
@@ -121,7 +109,7 @@
     width: 100vw
     height: 50vh
 
-@media only screen and (orientation: portrait)
+@media only screen and (orientation: portrait) and (max-width: 687px)
   .products-wrapper
     .product
       height: auto

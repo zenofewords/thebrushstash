@@ -1,5 +1,4 @@
 {% load static %}
-{% load shop_tags %}
 {% load thebrushstash_tags %}
 {% load render_bundle from webpack_loader %}
 
@@ -40,11 +39,8 @@
       </header>
 
       <div class="main-wrapper">
-        {% showcase_tag %}
-        <div class="content-wrapper">
-          {% block content %}
-          {% endblock content %}
-        </div>
+        {% block content %}
+        {% endblock content %}
       </div>
     </main>
 

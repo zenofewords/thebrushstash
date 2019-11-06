@@ -1,8 +1,11 @@
 .product-detail-wrapper
   display: flex
+  width: 100%
+  margin: 0 $gutter
 
   .gallery-wrapper
-    flex: 1 1 0px
+    flex-basis: 50%
+    flex-shrink: 0
     flex-direction: column
     justify-content: center
     padding: 0 20px 0 0
@@ -106,7 +109,8 @@
             @extend %play-icon
 
   .detail-wrapper
-    flex: 1 1 0px
+    flex-basis: 50%
+    flex-shrink: 1
     flex-direction: column
     margin-top: 30px
 
@@ -191,7 +195,7 @@
 
 .product-description-wrapper
   display: flex
-  margin-top: 85px
+  margin: 85px $gutter 0
 
   .text-wrapper
     flex: 1 1 0px
@@ -227,4 +231,4 @@
 
   .more-products-wrapper
     @extend .products-wrapper
-    margin-bottom: 30px
+    margin: 40px 0
