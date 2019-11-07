@@ -35,7 +35,7 @@ def get_srcset(path, size, width, density, ext=DEFAULT_IMAGE_EXTENSION):
     return '{} {}x'.format(get_resized_path(path, size, width, ext), density)
 
 
-def generate_srcsets(path, url, original, image_srcsets, image_scaling_params, quality=60):
+def generate_srcsets(path, url, original, image_srcsets, image_scaling_params, quality=70):
     width = original.width
     height = original.height
     ratio = width / height if width > height else height / width

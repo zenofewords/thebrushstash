@@ -4,14 +4,14 @@
 .navigation-wrapper
   position: relative
   background-color: #000
-  border-top: $discreetBorder
-  border-bottom: $tbsBlueBorder
+  border-top: $discreetGreyBorder
+  border-bottom: $greyBorder
 
   &.sticky-nav
     position: fixed
     margin-top: -$headerHeight
     width: 100%
-    z-index: 1
+    z-index: 2
 
   .inner-wrapper
     @extend %content-wrapper
@@ -43,8 +43,7 @@
       margin-top: 7px
       width: 1px
       height: 38px
-      opacity: 0.4
-      background-color: #fff
+      background-color: rgba(255, 255, 255, .4)
 
     .nav-item-log-in-register,
     .nav-item-bag
@@ -78,48 +77,3 @@
       margin: 0 0 20px 5px
       background-color: $tbsBlue
       border-radius: $borderRadius
-
-  .bag
-    display: flex
-    flex-direction: column
-    position: absolute
-    top: 51px
-    right: -30px
-    width: 248px
-    padding: 20px
-    background-color: #fff
-    box-shadow: $boxShadow
-    z-index: 2
-    transition: $transitionDuration
-
-    &.bag-hide
-      opacity: 0
-      pointer-events: none
-
-    .bag-header
-      display: flex
-      justify-content: space-between
-
-    .bag-product-remove
-      font-size: 24px
-      cursor: pointer
-
-    .bag-product-header,
-    .bag-product-content
-      display: flex
-      justify-content: space-between
-
-    .bag-product-header
-      margin-top: 10px
-
-    .bag-product-name
-      margin-top: 5px
-
-    button
-      padding: 10px 0
-      margin: 30px 0 0
-      color: #fff
-      background-color: $tbsBlue
-
-      &:hover
-        background-color: #000

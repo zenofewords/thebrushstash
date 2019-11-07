@@ -91,8 +91,15 @@ def get_gallery(obj):
 
 
 @register.simple_tag
-def get_lead_image(obj):
+def get_image_for_model(obj):
     return get_gallery(obj).first()
+
+
+@register.simple_tag
+def get_image_by_natural_key(app_name, model, object_id):
+    return GalleryItem.objects.filter(
+        content_type=ContentType.objects.get_by_natural_key(app_name, model), object_id=object_id
+    ).first()
 
 
 @register.inclusion_tag('thebrushstash/tags/media_object.html')

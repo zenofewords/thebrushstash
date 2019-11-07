@@ -75,18 +75,18 @@ button
     background: $tbsBlue
 
   &:focus
-    outline: $tbsBlueBorder
+    outline: $greyBorder
     outline-offset: -2px
 
 .main-wrapper
   max-width: $contentWidth
-  margin: 90px auto 30px
+  margin: $mainWrapperTopMargin auto 30px
 
   &.sticky-nav-margin
-    margin-top: 144px
+    margin-top: calc(#{$mainWrapperTopMargin} + #{$navbarHeight})
 
   .content-wrapper
-    margin: 0 $gutter
+    margin: 0 $gutter 0
 
 .header-wrapper
   position: relative
@@ -118,10 +118,8 @@ button
       color: #fff
       font-family: $bodyFont
       font-size: 12px
-      font-weight: $heavy
       line-height: 15px
       text-transform: uppercase
-      letter-spacing: 1px
 
       &:after
         @extend %input-arrow
@@ -131,7 +129,7 @@ button
 
         .text
           white-space: nowrap
-          width: 58px
+          width: 50px
 
       .ship-to-select
         width: 67px
@@ -140,7 +138,7 @@ button
       .ship-to-menu
         position: absolute
         top: 20px
-        left: 58px
+        left: 50px
         margin-top: 5px
 
         a
@@ -163,40 +161,6 @@ button
 
         &.us
           background: url('data:image/svg+xml;base64,#{$flagUSA}') no-repeat
-
-.credit-card-secure-logo-wrapper
-  display: flex
-  position: relative
-
-  .credit-card-secure-logo
-    cursor: pointer
-
-  .credit-card-secure-logo *
-    pointer-events: none
-
-  .credit-card-secure-modal
-    position: absolute
-    top: 0
-    left: 50%
-    transform: translate(-50%, -50%)
-    background-color: #fff
-    height: fit-content
-    width: 80vw
-    max-width: 600px
-    padding: 25px
-    box-shadow: $boxShadow
-    z-index: 1
-
-    .close-modal-button
-      position: absolute
-      top: 10px
-      right: 20px
-      font-size: 30px
-      font-family: $bodyFont
-      cursor: pointer
-
-    .fine-copy
-      font-size: 11px
 
 .link-in-text
   text-decoration: underline
@@ -277,7 +241,7 @@ button
       border-bottom: 2px solid #858585
 
       &:hover
-        border-bottom: 2px solid $tbsBlue
+        opacity: $hoverOpacity
 
   label
     border: 0

@@ -1,4 +1,4 @@
-{% extends 'shop/shop_home.html' %}
+{% extends 'shop/shop_base.html' %}
 {% load thebrushstash_tags %}
 {% load render_bundle from webpack_loader %}
 
@@ -7,8 +7,9 @@
 {% endblock title %}
 
 {% block meta_description %}
-  <meta name="description" content="TODO SEO description">
-{% endblock %}
+  <meta name="description" content="TODO SEO product description">
+  <meta name="keywords" content="TODO SEO product keywords">
+{% endblock meta_description %}
 
 {% block content %}
   <div class="product-detail-wrapper">
@@ -31,7 +32,7 @@
     <div class="detail-wrapper">
       <ul class="breadcrumbs">
         <li>
-          <a href="{% url 'shop:shop-home' %}">Shop</a>
+          <a href="{% url 'shop:shop' %}">Shop</a>
         </li>
         <li>
           {{ object.name }}

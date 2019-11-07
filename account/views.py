@@ -64,6 +64,6 @@ class ActivateAccountView(TemplateView):
             user.is_active = True
             user.save()
             login(request, user)
-            return redirect('shop:shop-home')
+            return redirect('shop:shop')
 
         return super().get(request, *args, **kwargs)
