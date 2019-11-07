@@ -1,0 +1,49 @@
+.brush-care-wrapper,
+.about-the-story-wrapper,
+.faq-wrapper,
+.contact-wrapper,
+.payment-and-delivery-wrapper,
+.returns-and-complaints-wrapper,
+.general-terms-and-conditions-wrapper
+  margin: 40px 10% 100px
+
+  h1
+    text-align: center
+    margin-bottom: 30px
+
+.credit-card-secure-logo-wrapper
+  display: flex
+  position: relative
+
+  .image-wrapper
+    height: 70px
+
+  .credit-card-secure-logo
+    cursor: pointer
+
+  .credit-card-secure-logo *
+    pointer-events: none
+
+  .credit-card-secure-modal
+    position: absolute
+    top: 0
+    left: 50%
+    transform: translate(-50%, -50%)
+    background-color: #fff
+    height: fit-content
+    width: 80vw
+    max-width: 600px
+    padding: 25px
+    box-shadow: $boxShadow
+    z-index: 1
+
+    .close-modal-button
+      position: absolute
+      top: 10px
+      right: 20px
+      font-size: 30px
+      font-family: $bodyFont
+      cursor: pointer
+
+    .fine-copy
+      font-size: 11px

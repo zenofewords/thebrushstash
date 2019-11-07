@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 
 class ProductSeriazlier(serializers.Serializer):
+    pk = serializers.CharField(required=True, max_length=10)
     slug = serializers.SlugField(required=True, max_length=500)
     name = serializers.CharField(required=True, max_length=500)
     quantity = serializers.IntegerField(required=True)

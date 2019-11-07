@@ -242,6 +242,7 @@ ready(() => {
           'X-CSRFToken': getCookie('csrftoken'),
         },
         body: JSON.stringify({
+          pk: data.id,
           slug: data.slug,
           name: data.name,
           quantity: parseInt(data.multiple ? addToBagSelect.value : 1),

@@ -10,7 +10,7 @@
         {{ showcase.description|linebreaks }}
       </p>
     </div>
-    {% get_lead_image showcase as lead_image %}
+    {% get_image_for_model showcase as lead_image %}
     {% media_object obj=lead_image size='large' %}
   </div>
 {% endif %}

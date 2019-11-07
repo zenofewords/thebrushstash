@@ -1,8 +1,86 @@
 {% extends 'shop/shop_base.html' %}
+{% load thebrushstash_tags %}
 
 {% block title %}
   {{ block.super }} - Review Bag
 {% endblock title %}
 
 {% block content %}
+  <h1 class="review-bag-title">
+    Review your bag
+  </h1>
+  <div class="review-bag-wrapper">
+    <div class="bag-content-wrapper">
+      <div class="bag-content-headers">
+        <span>Product &amp; price</span>
+        <span>&nbsp;</span>
+        <span>Quantity</span>
+        <span>Subtotal</span>
+      </div>
+      <div class="bag-content">
+        {% for key, value in bag.products.items %}
+          <div class="bag-item-row">
+            <div class="image-wrapper">
+              {% get_image_by_natural_key 'shop' 'product' value.pk as image %}
+              {% media_object obj=image size='small' %}
+            </div>
+            <div class="bag-product-and-price">
+              <span class="bag-product-name">
+                {{ value.name }}
+              </span>
+              <span class="bag-product-price">
+                {{ value.price }} kn
+              </span>
+            </div>
+            <div class="bag-product-quantity">
+              {{ value.quantity }}
+            </div>
+            <div class="bag-subtotal">
+              <span class="bag-product-remove" data-slug="{{ key }}">
+                &times;
+              </span>
+              <span class="bag-product-subtotal">
+                {{ value.subtotal }} kn
+              </span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="summary-wrapper">
+      <h2>Order summary</h2>
+
+      <div class="summary-row">
+        <span>
+          Total:
+        </span>
+        <span>
+           {{ bag.total|default:"0.00" }} kn
+        </span>
+      </div>
+      <div class="summary-row">
+        <span>
+          Ship to:
+        </span>
+        <span>
+          {{ region }} {{ shipping_cost|default:"0.00" }} kn
+        </span>
+      </div>
+      <div class="summary-row">
+        <span>
+          Grand total:
+        </span>
+        <span>
+           {{ bag.grand_total|default:"0.00" }} kn
+        </span>
+      </div>
+
+      <button class="summary-check-out-button">
+        Check out
+      </button>
+      <a href="{% url 'shop:shop' %}" class="summary-continue-shopping-link">
+        Continue shopping
+      </a>
+    </div>
+  </div>
 {% endblock content %}

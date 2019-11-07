@@ -25,7 +25,8 @@ class AddToBagView(GenericAPIView):
 
         product_data = serializer.data
         quantity = product_data.get('quantity')
-        subtotal = quantity * product_data.get('price')
+        price = product_data.get('price')
+        subtotal = quantity * price
 
         products = {}
         bag = {
@@ -42,13 +43,17 @@ class AddToBagView(GenericAPIView):
         if product_id in products:
             product = products[product_id]
             products[product_id] = {
+                'pk': product_data.get('pk'),
                 'name': product_data.get('name'),
+                'price': str(price),
                 'quantity': product.get('quantity') + quantity,
                 'subtotal': str(Decimal(product.get('subtotal')) + subtotal),
             }
         else:
             product = {
+                'pk': product_data.get('pk'),
                 'name': product_data.get('name'),
+                'price': str(price),
                 'quantity': quantity,
                 'subtotal': str(subtotal),
             }

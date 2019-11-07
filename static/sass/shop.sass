@@ -1,13 +1,15 @@
 @import './general.sass'
+@import './bag.sass'
+@import './pages.sass'
 @import './product.sass'
 
 .showcase-wrapper
   display: flex
   flex-direction: row
   background-color: #000
-  margin: -60px $gutter 70px
+  margin: -$navbarHeight $gutter 70px
   max-height: 435px
-  border: 1px solid #000
+  box-shadow: $boxShadow
 
   .text-wrapper
     flex: 1 1 0px
@@ -25,6 +27,9 @@
 
   .image-wrapper
     flex: 2 1 0px
+
+    img
+      object-fit: cover
 
 .products-wrapper
   display: grid
@@ -60,7 +65,7 @@
       margin-top: 24px
       width: 270px
       height: 50px
-      border: $discreetBorder
+      border: $discreetGreyBorder
 
       &:hover
         color: #fff
