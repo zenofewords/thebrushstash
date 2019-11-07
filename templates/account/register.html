@@ -6,7 +6,7 @@
 
 {% block auth_content %}
   {% if user.is_authenticated %}
-    You already have an account and are currently logged in. Why don't you check out <a href="{% url 'shop:shop-home' %}">some brushes</a>?
+    You already have an account and are currently logged in. Why don't you check out <a href="{% url 'shop:shop' %}">some brushes</a>?
   {% else %}
     <h1>Register</h1>
     <p>

@@ -10,7 +10,7 @@ from shop.views import (
 
 app_name = 'shop'
 urlpatterns = (
-    path('', ShopHomeView.as_view(), name='shop-home'),
+    path('', ShopHomeView.as_view(), name='shop'),
     path('products/<slug:slug>/', ProductDetailView.as_view(), name='product-detail'),
     path('products/', ProductListView.as_view(), name='product-list'),
     path('review-bag/', ReviewBagView.as_view(), name='review-bag'),

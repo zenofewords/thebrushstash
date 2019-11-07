@@ -6,7 +6,7 @@
 
 {% block auth_content %}
   {% if user.is_authenticated %}
-    You are logged in and ready to buy some <a href="{% url 'shop:shop-home' %}">awesome brushes</a>
+    You are logged in and ready to buy some <a href="{% url 'shop:shop' %}">awesome brushes</a>
 
     Unless you'd like to <a href="{% url 'logout' %}">logout</a> instead.
   {% else %}

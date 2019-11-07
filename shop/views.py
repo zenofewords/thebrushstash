@@ -11,6 +11,13 @@ from shop.models import Product
 class ReviewBagView(TemplateView):
     template_name = 'shop/review_bag.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'bag': self.request.session.get('bag'),
+        })
+        return context
+
 
 class ProductListView(ListView):
     model = Product
