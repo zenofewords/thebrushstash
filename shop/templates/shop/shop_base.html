@@ -6,14 +6,10 @@
   {{ block.super }} - {% trans "Shop" %}
 {% endblock title %}
 
-{% block head %}
-  {{ block.super }}
-
-  {% block meta_description %}
-    <meta name="description" content="TODO SEO description">
-  {% endblock %}
-  <meta name="keywords" content="TODO SEO keywords">
-{% endblock head %}
+{% block meta_description %}
+  <meta name="description" content="TODO SEO shop description">
+  <meta name="keywords" content="TODO SEO shop keywords">
+{% endblock meta_description %}
 
 {% block content %}
   {% showcase_tag %}

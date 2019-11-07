@@ -8,6 +8,10 @@ from django.views.generic.list import ListView
 from shop.models import Product
 
 
+class ReviewBagView(TemplateView):
+    template_name = 'shop/review_bag.html'
+
+
 class ProductListView(ListView):
     model = Product
 
