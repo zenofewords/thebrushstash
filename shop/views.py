@@ -29,7 +29,7 @@ class ProductDetailView(DetailView):
 
 
 class ShopHomeView(TemplateView):
-    template_name = 'shop/shop_home.html'
+    template_name = 'shop/shop_base.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
