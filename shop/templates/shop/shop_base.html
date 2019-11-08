@@ -14,7 +14,7 @@
 {% block content %}
   {% showcase_tag %}
   <div class="content-wrapper">
-    <div class="products-wrapper">
+    <div id="products-anchor" class="products-wrapper">
       {% for product in products %}
         {% include 'shop/includes/product.html' %}
       {% endfor %}

@@ -8,6 +8,19 @@ from django.views.generic.list import ListView
 from shop.models import Product
 
 
+class CheckoutView(TemplateView):
+    template_name = 'shop/checkout.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        session = self.request.session
+        context.update({
+            'bag': session.get('bag'),
+            'region': session.get('region'),
+        })
+        return context
+
+
 class ReviewBagView(TemplateView):
     template_name = 'shop/review_bag.html'
 

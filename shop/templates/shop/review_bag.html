@@ -1,4 +1,5 @@
 {% extends 'shop/shop_base.html' %}
+{% load shop_tags %}
 {% load thebrushstash_tags %}
 
 {% block title %}
@@ -19,7 +20,7 @@
       </div>
       <div class="bag-content">
         {% for key, value in bag.products.items %}
-          <div class="bag-item-row">
+          <div id="{{ key }}" class="bag-item-row">
             <div class="image-wrapper">
               {% get_image_by_natural_key 'shop' 'product' value.pk as image %}
               {% media_object obj=image size='small' %}
@@ -47,40 +48,7 @@
         {% endfor %}
       </div>
     </div>
-    <div class="summary-wrapper">
-      <h2>Order summary</h2>
 
-      <div class="summary-row">
-        <span class="summary-label">
-          Total:
-        </span>
-        <span class="summary-value">
-           {{ bag.total|default:"0.00" }} kn
-        </span>
-      </div>
-      <div class="summary-row">
-        <span class="summary-label">
-          Ship to: {{ region }}
-        </span>
-        <span class="summary-value">
-          {{ bag.shipping|default:"0.00" }} kn
-        </span>
-      </div>
-      <div class="summary-row">
-        <span class="summary-grand-total-label">
-          Grand total:
-        </span>
-        <span class="summary-grand-total-value">
-          {{ bag.grand_total|default:"0.00" }} kn
-        </span>
-      </div>
-
-      <button class="summary-check-out-button">
-        Check out
-      </button>
-      <a href="{% url 'shop:shop' %}" class="summary-continue-shopping-link">
-        Continue shopping
-      </a>
-    </div>
+    {% purchase_summary_tag bag region show_links='true' %}
   </div>
 {% endblock content %}

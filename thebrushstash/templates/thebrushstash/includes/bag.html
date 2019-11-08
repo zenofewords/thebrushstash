@@ -31,7 +31,7 @@
       </div>
     {% endfor %}
   </div>
-  <a href="{% url 'shop:review-bag' %}" class="review-bag-link">
+  <a href="{% url 'shop:review-bag' %}" class="review-bag-link"{% if not bag.products.items %} hidden{% endif %}>
     Review bag
   </a>
 </div>

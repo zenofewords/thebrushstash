@@ -91,6 +91,9 @@ class RemoveFromBagView(GenericAPIView):
             product = products[product_id]
             bag['total'] = str(Decimal(bag['total']) - Decimal(product.get('subtotal', 0)))
             bag['total_quantity'] = bag['total_quantity'] - product.get('quantity')
+            bag['grand_total'] = str(
+                Decimal(bag['grand_total']) - Decimal(product.get('subtotal', 0))
+            )
             del products[product_id]
 
         request.session['bag'] = bag

@@ -162,6 +162,10 @@ ready(() => {
   const bagTotal = document.querySelector('.bag-total')
   const bagItemCount = document.querySelector('.bag-item-count')
 
+  const reviewBagLink = document.querySelector('.review-bag-link')
+  const summaryTotal = document.getElementById('summary-total')
+  const summaryGrandTotal = document.getElementById('summary-grand-total')
+
   const toggleBag = (event) => {
     event.preventDefault()
     bag.classList.toggle('bag-hide')
@@ -175,44 +179,61 @@ ready(() => {
     button.addEventListener('click', () => removeProduct(button.dataset.slug))
   }
 
-  const refreshBag = (data) => {
-    bagTotal.innerHTML = `${data.bag.total} kn`
-    bagContent.innerHTML = ''
+  const createProductNode = (key, values) => {
+    const product = document.createElement('div')
+    const productHeader = document.createElement('div')
+    const productInfo = document.createElement('div')
+    const productRemove = document.createElement('span')
+    productHeader.classList.add('bag-product-header')
 
-    for (const [key, values] of Object.entries(data.bag.products)) {
-      const product = document.createElement('div')
-      const productHeader = document.createElement('div')
-      const productInfo = document.createElement('div')
-      const productRemove = document.createElement('span')
-      productHeader.classList.add('bag-product-header')
+    const name = document.createElement('span')
+    name.classList.add('bag-product-name')
+    name.innerHTML = `${values.name}`
+    productHeader.appendChild(name)
+    productRemove.innerHTML = '&times;'
+    productRemove.classList.add('bag-product-remove')
+    productRemove.addEventListener('click', () => removeProduct(key))
+    productHeader.appendChild(productRemove)
 
-      const name = document.createElement('span')
-      name.classList.add('bag-product-name')
-      name.innerHTML = `${values.name}`
-      productHeader.appendChild(name)
-      productRemove.innerHTML = '&times;'
-      productRemove.classList.add('bag-product-remove')
-      productRemove.addEventListener('click', () => removeProduct(key))
-      productHeader.appendChild(productRemove)
+    const quantity = document.createElement('span')
+    const subtotal = document.createElement('span')
+    quantity.innerHTML = `Quantity: ${values.quantity}`
+    subtotal.innerHTML = `Subtotal: ${values.subtotal} kn`
+    productInfo.classList.add('bag-product-content')
+    productInfo.appendChild(quantity)
+    productInfo.appendChild(subtotal)
 
-      const quantity = document.createElement('span')
-      const subtotal = document.createElement('span')
-      quantity.innerHTML = `Quantity: ${values.quantity}`
-      subtotal.innerHTML = `Subtotal: ${values.subtotal} kn`
-      productInfo.classList.add('bag-product-content')
-      productInfo.appendChild(quantity)
-      productInfo.appendChild(subtotal)
+    product.slug = key
+    product.appendChild(productHeader)
+    product.appendChild(productInfo)
 
-      product.slug = key
-      product.appendChild(productHeader)
-      product.appendChild(productInfo)
-      bagContent.appendChild(product)
-    }
-    bagItemCount.innerHTML = data.bag.total_quantity
-    bag.classList.remove('bag-hide')
+    return product
   }
 
-  const removeProduct = (productSlug) => {
+  const refreshBag = (response) => {
+    bagTotal.innerHTML = `${response.bag.total} kn`
+    bagContent.innerHTML = ''
+
+    for (const [key, values] of Object.entries(response.bag.products)) {
+      bagContent.appendChild(createProductNode(key, values))
+    }
+    bagItemCount.innerHTML = response.bag.total_quantity
+
+    if (window.location.pathname !== '/review-bag/') {
+      bag.classList.remove('bag-hide')
+    }
+    reviewBagLink.hidden = Object.keys(response.bag.products).length < 1
+  }
+
+  const refreshReviewBag = (response, slug) => {
+    const product = document.getElementById(slug)
+    product.remove()
+
+    summaryTotal.innerHTML = response.bag.total
+    summaryGrandTotal.innerHTML = response.bag.grand_total
+  }
+
+  const removeProduct = (slug) => {
     fetch('/api/remove-from-bag/',
       {
         method: 'POST',
@@ -223,15 +244,19 @@ ready(() => {
           'X-CSRFToken': getCookie('csrftoken'),
         },
         body: JSON.stringify({
-          slug: productSlug,
+          slug: slug,
         }),
       }
     ).then((data) => data.json().then((response) => {
       refreshBag(response)
+
+      if (window.location.pathname === '/review-bag/') {
+        refreshReviewBag(response, slug)
+      }
     }))
   }
 
-  const addProduct = (data) => {
+  const addProduct = (dataset) => {
     fetch('/api/add-to-bag/',
       {
         method: 'POST',
@@ -242,11 +267,11 @@ ready(() => {
           'X-CSRFToken': getCookie('csrftoken'),
         },
         body: JSON.stringify({
-          pk: data.id,
-          slug: data.slug,
-          name: data.name,
-          quantity: parseInt(data.multiple ? addToBagSelect.value : 1),
-          price: parseFloat(data.price),
+          pk: dataset.id,
+          slug: dataset.slug,
+          name: dataset.name,
+          quantity: parseInt(dataset.multiple ? addToBagSelect.value : 1),
+          price: parseFloat(dataset.price),
         }),
       }
     ).then((data) => data.json().then((response) => {
