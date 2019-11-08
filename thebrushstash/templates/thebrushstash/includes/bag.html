@@ -31,9 +31,7 @@
       </div>
     {% endfor %}
   </div>
-  {% if bag.products.items %}
-    <a href="{% url 'shop:review-bag' %}" class="review-bag-link">
-      Review bag
-    </a>
-  {% endif %}
+  <a href="{% url 'shop:review-bag' %}" class="review-bag-link"{% if not bag.products.items %} hidden{% endif %}>
+    Review bag
+  </a>
 </div>

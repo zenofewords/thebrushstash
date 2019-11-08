@@ -19,7 +19,7 @@
       </div>
       <div class="bag-content">
         {% for key, value in bag.products.items %}
-          <div class="bag-item-row">
+          <div id="{{ key }}" class="bag-item-row">
             <div class="image-wrapper">
               {% get_image_by_natural_key 'shop' 'product' value.pk as image %}
               {% media_object obj=image size='small' %}
@@ -54,7 +54,7 @@
         <span class="summary-label">
           Total:
         </span>
-        <span class="summary-value">
+        <span id="summary-total" class="summary-value">
            {{ bag.total|default:"0.00" }} kn
         </span>
       </div>
@@ -70,7 +70,7 @@
         <span class="summary-grand-total-label">
           Grand total:
         </span>
-        <span class="summary-grand-total-value">
+        <span id="summary-grand-total" class="summary-grand-total-value">
           {{ bag.grand_total|default:"0.00" }} kn
         </span>
       </div>
