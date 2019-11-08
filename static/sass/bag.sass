@@ -163,80 +163,16 @@
           margin-bottom: 6px
 
   .summary-wrapper
-    flex: 4 1 0px
-    background-color: #000
-    text-align: center
-    height: fit-content
-    border-bottom: $tbsBorder
+    @extend %summary-wrapper
 
-    h2
-      font-family: $bodyFont
-      text-transform: uppercase
-      color: #fff
-      text-align: left
-      font-size: 20px
-      line-height: 24px
-      padding: 25px 25px 16px
+.checkout-wrapper
+  display: flex
+  margin: -50px $gutter 135px
 
-    .summary-row
-      display: flex
-      justify-content: space-between
-      color: #fff
-      margin: 0 25px
-      border-bottom: $discreetGreyBorder
+  .checkout-user-information
+    flex: 7 1 0px
+    flex-direction: column
+    margin-right: 30px
 
-      &:last-of-type
-        border: 0
-
-      span
-        padding: 20px 0
-
-      .summary-label
-        font-size: 13px
-        font-weight: $heavy
-        line-height: 16px
-        text-transform: uppercase
-
-      .summary-value
-        font-size: 16px
-        font-weight: $light
-        line-height: 16px
-
-      .summary-grand-total-label,
-      .summary-grand-total-value
-        font-size: 19px
-        font-weight: $heavy
-        line-height: 23px
-
-        &:first-child
-          text-transform: uppercase
-
-    .summary-check-out-button
-      position: relative
-      background-color: $green
-      font-size: 16px
-      text-align: center
-      height: 54px
-      width: calc(100% - 50px)
-      margin: 10px 25px
-      padding-right: 10px
-
-      &:after
-        @extend %input-arrow
-        border-color: transparent transparent transparent #fff
-        top: 38%
-        left: 68%
-
-    .summary-continue-shopping-link
-      display: block
-      color: #858585
-      font-family: $bodyFont
-      font-size: 11px
-      line-height: 13px
-      text-transform: uppercase
-      text-decoration: underline
-      margin: 5px 0 25px
-      padding: 5px
-
-      &:hover
-        opacity: $hoverOpacity
+  .summary-wrapper
+    @extend %summary-wrapper

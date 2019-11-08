@@ -10,3 +10,12 @@ def showcase_tag():
     return {
         'showcase': Showcase.published_objects.last(),
     }
+
+
+@register.inclusion_tag('shop/tags/purchase_summary.html')
+def purchase_summary_tag(bag, region, show_links=False):
+    return {
+        'bag': bag,
+        'region': region,
+        'show_links': show_links,
+    }
