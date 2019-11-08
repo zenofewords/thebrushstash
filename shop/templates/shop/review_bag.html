@@ -51,27 +51,27 @@
       <h2>Order summary</h2>
 
       <div class="summary-row">
-        <span>
+        <span class="summary-label">
           Total:
         </span>
-        <span>
+        <span class="summary-value">
            {{ bag.total|default:"0.00" }} kn
         </span>
       </div>
       <div class="summary-row">
-        <span>
-          Ship to:
+        <span class="summary-label">
+          Ship to: {{ region }}
         </span>
-        <span>
-          {{ region }} {{ shipping_cost|default:"0.00" }} kn
+        <span class="summary-value">
+          {{ bag.shipping|default:"0.00" }} kn
         </span>
       </div>
       <div class="summary-row">
-        <span>
+        <span class="summary-grand-total-label">
           Grand total:
         </span>
-        <span>
-           {{ bag.grand_total|default:"0.00" }} kn
+        <span class="summary-grand-total-value">
+          {{ bag.grand_total|default:"0.00" }} kn
         </span>
       </div>
 

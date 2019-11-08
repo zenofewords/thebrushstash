@@ -33,12 +33,14 @@ def navigation_tag(context):
 def ship_to_tag(context):
     request = context.get('request')
 
-    if request:
-        default_region = DEFAULT_REGION if request.LANGUAGE_CODE == DEFAULT_REGION else 'eu'
-        selected_region = request.session.get('region', default_region)
-    else:
-        default_region = DEFAULT_REGION
+    default_region = DEFAULT_REGION if request.LANGUAGE_CODE == DEFAULT_REGION else 'eu'
+    region = request.session.get('region')
+
+    if not region:
+        request.session['region'] = default_region
         selected_region = default_region
+    else:
+        selected_region = region
     regions_copy = copy.deepcopy(REGIONS)
     regions_copy.pop(selected_region)
 
