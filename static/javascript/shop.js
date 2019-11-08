@@ -208,7 +208,7 @@ ready(() => {
       product.appendChild(productInfo)
       bagContent.appendChild(product)
     }
-    bagItemCount.innerHTML = data.bag.totalQuantity
+    bagItemCount.innerHTML = data.bag.total_quantity
     bag.classList.remove('bag-hide')
   }
 

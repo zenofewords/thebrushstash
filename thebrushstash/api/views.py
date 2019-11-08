@@ -27,12 +27,16 @@ class AddToBagView(GenericAPIView):
         quantity = product_data.get('quantity')
         price = product_data.get('price')
         subtotal = quantity * price
+        shipping = Decimal(10.0)
+        extra = 0
 
         products = {}
         bag = {
             'products': products,
             'total': 0,
-            'totalQuantity': 0,
+            'total_quantity': 0,
+            'shipping': 0,
+            'grand_total': 0,
         }
         if request.session.get('bag'):
             bag = request.session.get('bag')
@@ -59,10 +63,13 @@ class AddToBagView(GenericAPIView):
             }
             products[product_id] = product
 
+        total = Decimal(bag['total']) + Decimal(subtotal)
         bag = {
             'products': products,
-            'total': str(Decimal(bag['total']) + Decimal(subtotal)),
-            'totalQuantity': bag['totalQuantity'] + quantity,
+            'total': str(total),
+            'total_quantity': bag['total_quantity'] + quantity,
+            'shipping': str(shipping),
+            'grand_total': str(total + shipping + extra),
         }
         request.session['bag'] = bag
         return response.Response({'bag': bag}, status=status.HTTP_200_OK)
@@ -83,7 +90,7 @@ class RemoveFromBagView(GenericAPIView):
         if product_id in products:
             product = products[product_id]
             bag['total'] = str(Decimal(bag['total']) - Decimal(product.get('subtotal', 0)))
-            bag['totalQuantity'] = bag['totalQuantity'] - product.get('quantity')
+            bag['total_quantity'] = bag['total_quantity'] - product.get('quantity')
             del products[product_id]
 
         request.session['bag'] = bag
