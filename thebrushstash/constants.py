@@ -336,18 +336,6 @@ initial_navigation_items = (
         'ordering': 3,
         'published': True,
     },
-    {
-        'name': 'Log in',
-        'location': 'log-in',
-        'ordering': 2,
-        'published': True,
-    },
-    {
-        'name': 'Register',
-        'location': 'register',
-        'ordering': 1,
-        'published': True,
-    },
 )
 
 initial_product_types = (

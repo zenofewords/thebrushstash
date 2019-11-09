@@ -1,15 +1,18 @@
 from django.views.generic import (
     DetailView,
+    FormView,
     TemplateView,
 )
 from django.utils.text import slugify
 from django.views.generic.list import ListView
 
+from account.forms import AddressForm
 from shop.models import Product
 
 
-class CheckoutView(TemplateView):
+class CheckoutView(FormView):
     template_name = 'shop/checkout.html'
+    form_class = AddressForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
