@@ -201,63 +201,73 @@ country_name_list = (
 
 initial_credit_card_logos = (
     {
-        'name': 'Visa',
-        'ordering': 1,
+        'name': 'American Express',
+        'ordering': 6,
         'published': True,
         'external': True,
-    },
-    {
-        'name': 'Mastercard',
-        'ordering': 2,
-        'published': True,
-        'external': True,
-    },
-    {
-        'name': 'Maestro',
-        'ordering': 3,
-        'published': True,
-        'external': True,
-    },
-    {
-        'name': 'Diners Club',
-        'ordering': 4,
-        'published': True,
-        'external': True,
+        'location': 'https://www.americanexpress.com/hr/network/',
     },
     {
         'name': 'Discover',
         'ordering': 5,
         'published': True,
         'external': True,
-    },
-    {
-        'name': 'American Express',
-        'ordering': 6,
-        'published': True,
-        'external': True,
-    },
-)
-
-initial_credit_card_secure_logos = (
-    {
-        'name': 'American Express',
-        'ordering': 1,
-        'published': True,
+        'location': 'https://www.discover.com/',
     },
     {
         'name': 'Diners Club',
-        'ordering': 2,
+        'ordering': 4,
         'published': True,
+        'external': True,
+        'location': 'https://www.diners.com.hr/Pogodnosti-i-usluge/MasterCard- SecureCode.html?Ym5cMzQsY2FyZFR5cGVcMSxwXDc3',
     },
     {
         'name': 'Mastercard',
         'ordering': 3,
         'published': True,
+        'external': True,
+        'location': 'https://www.mastercard.hr/hr-hr.html',
     },
+    {
+        'name': 'Maestro',
+        'ordering': 2,
+        'published': True,
+        'external': True,
+        'location': 'http://www.maestrocard.com/hr/',
+    },
+    {
+        'name': 'Visa',
+        'ordering': 1,
+        'published': True,
+        'external': True,
+        'location': 'https://www.visa.com.hr',
+    },
+)
+
+initial_credit_card_secure_logos = (
     {
         'name': 'Visa',
         'ordering': 4,
         'published': True,
+        'location': 'american-express',
+    },
+    {
+        'name': 'Mastercard',
+        'ordering': 3,
+        'published': True,
+        'location': 'mastercard',
+    },
+    {
+        'name': 'Diners Club',
+        'ordering': 2,
+        'published': True,
+        'location': 'diners-club',
+    },
+    {
+        'name': 'American Express',
+        'ordering': 1,
+        'published': True,
+        'location': 'visa',
     },
 )
 
@@ -299,6 +309,7 @@ initial_footer_share_links = (
         'location': 'https://www.facebook.com/TheBrushStash/',
         'external': True,
         'published': True,
+        'logo_path': 'facebook',
     },
     {
         'name': 'Instagram',
@@ -306,6 +317,7 @@ initial_footer_share_links = (
         'location': 'https://www.instagram.com/thebrushstash',
         'external': True,
         'published': True,
+        'logo_path': 'instagram',
     },
 )
 
