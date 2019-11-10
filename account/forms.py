@@ -1,9 +1,6 @@
 from django import forms
 from django.contrib.auth import forms as auth_forms
-from django.contrib.auth.forms import (
-    UserChangeForm,
-    UserCreationForm,
-)
+from django.contrib.auth.forms import UserChangeForm
 from django.utils.safestring import mark_safe
 
 from account.models import CustomUser

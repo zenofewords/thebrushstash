@@ -9,10 +9,7 @@ from shop.utils import (
     update_product_prices,
 )
 from thebrushstash.mixins import TimeStampMixin
-from thebrushstash.models import (
-    Country,
-    PublishedMixin,
-)
+from thebrushstash.models import PublishedMixin
 
 
 class ExchangeRate(TimeStampMixin):
@@ -120,6 +117,9 @@ class Invoice(TimeStampMixin):
 
     email = models.EmailField(max_length=200)
     full_name = models.CharField(max_length=500)
+    country = models.ForeignKey(
+        'thebrushstash.Country', on_delete=models.deletion.CASCADE, blank=True, null=True,
+    )
     city = models.CharField(max_length=500)
     address = models.CharField(max_length=1000)
     zip_code = models.CharField(max_length=500)
