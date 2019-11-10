@@ -157,6 +157,8 @@ WEBPACK_LOADER = {
         )
     }
 }
+
+AUTH_USER_MODEL = 'account.CustomUser'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'

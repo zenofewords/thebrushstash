@@ -5,5 +5,27 @@
 {% endblock %}
 
 {% block auth_content %}
-  Your activation token is not valid.
+  {% if authenticated %}
+    <h1>Success</h1>
+    <p>
+      Your account has been successfully activated, but you still need a password. Pick a strong one!
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      {% include 'account/includes/form_field.html' with field=form.password1 %}
+      {% include 'account/includes/form_field.html' with field=form.password2 %}
+
+      <button>
+        Submit
+      </button>
+    </form>
+  {% else %}
+    <h1>Great failure</h1>
+    <p>
+      Your activation token is not valid.
+    </p>
+  {% endif %}
 {% endblock auth_content %}

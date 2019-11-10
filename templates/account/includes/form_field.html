@@ -1,5 +1,5 @@
 <div class="field-wrapper">
   {{ field.errors }}
-  <label for="{{ field.id_for_label }}">{{ field.name }}</label>
-  <input type="{{ type|default:field.name }}" name="{{ field.name }}" required id="{{ field.id_for_label }}" placeholder="{{ field.name }}">
+  <label for="{{ field.id_for_label }}" class="screen-reader-only">{{ field.label }}</label>
+  {{ field }}
 </div>

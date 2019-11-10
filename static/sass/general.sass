@@ -72,7 +72,7 @@ button
 
   &:hover
     color: #fff
-    background: $tbsBlue
+    background: $colorBlue
 
   &:focus
     outline: $greyBorder
@@ -190,39 +190,17 @@ button
     width: 100%
 
   .register
-    color: $tbsBlue
+    color: $colorBlue
     text-transform: initial
 
     &:hover
       text-decoration: underline
 
   .field-wrapper
-    margin: 23px 0 29px
-
-    input
-      height: 53px
-      width: 98.5%
-      font-family: $bodyFont
-      font-size: 16px
-      line-height: 19px
-      text-indent: 20px
-
-      padding-bottom: 1px
-      border: $inputBorder
-      border-radius: 0
-
-      &::placeholder,
-      &::-webkit-input-placeholder
-        opacity: 0.48
-        color: #000
-        font-family: $bodyFont
-        font-size: 16px
-        font-style: italic
-        line-height: 19px
-        text-transform: capitalize
+    @extend %field-wrapper
 
   button
-    background-color: $green
+    background-color: $colorGreen
     font-size: 16px
     text-align: center
     height: 54px
@@ -233,25 +211,25 @@ button
     text-align: center
 
     a
-      color: #858585
+      color: $colorGrey
       font-family: $bodyFont
       font-size: 11px
       line-height: 13px
       padding-bottom: 2px
-      border-bottom: 2px solid #858585
+      border-bottom: 2px solid $colorGrey
 
       &:hover
         opacity: $hoverOpacity
 
-  label
-    border: 0
-    clip: rect(0 0 0 0)
-    clip-path: polygon(0px 0px, 0px 0px, 0px 0px)
-    -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px)
-    height: 1px
-    margin: -1px
-    overflow: hidden
-    padding: 0
-    position: absolute
-    width: 1px
-    white-space: nowrap
+.screen-reader-only
+  border: 0
+  clip: rect(0 0 0 0)
+  clip-path: polygon(0px 0px, 0px 0px, 0px 0px)
+  -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px)
+  height: 1px
+  margin: -1px
+  overflow: hidden
+  padding: 0
+  position: absolute
+  width: 1px
+  white-space: nowrap

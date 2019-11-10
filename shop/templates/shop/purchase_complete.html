@@ -1,0 +1,26 @@
+{% extends 'shop/shop_base.html' %}
+{% load thebrushstash_tags %}
+
+{% block title %}
+  {{ block.super }} - Purchase Complete
+{% endblock title %}
+
+{% block content %}
+  <div class="purchase-complete-wrapper">
+    <h1>Thank you for your purchase</h1>
+    <p>
+      Your order was successfully processed and will be shipped soon. Check your email for details.
+    </p>
+    {% if not user.is_authenticated %}
+      <h2>Check your email to finish registration</h2>
+      <p>
+        To finish your registration you need to visit the activation link which was sent to your email address.
+      </p>
+    {% endif %}
+  </div>
+{% endblock content %}
+
+{% block footer %}
+  {% footer_tag hide_social='true' %}
+  {% cookie_tag %}
+{% endblock footer %}

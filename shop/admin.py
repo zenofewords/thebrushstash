@@ -26,13 +26,12 @@ class ExchangeRateAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at', 'modified_at', )
 
 
-class OrderAdmin(admin.ModelAdmin):
-    list_display_links = ('product', )
-    list_display = ('product', 'created_at', 'first_name', 'last_name', 'status', 'paid', )
-    list_editable = ('status', 'paid', )
-    list_filter = ('status', )
+class InvoiceAdmin(admin.ModelAdmin):
+    list_display = ('created_at', 'full_name', 'payment_method', 'status', )
+    list_editable = ('status', )
+    list_filter = ('status', 'payment_method', )
     readonly_fields = ('created_at', 'modified_at', )
-    search_fields = ('created_at', 'first_name', 'last_name', )
+    search_fields = ('created_at', 'full_name', )
 
 
 class ProductAdmin(AutoSlugAdmin):
@@ -56,7 +55,7 @@ class ShowcaseAdmin(AutoSlugAdmin):
 
 
 admin.site.register(ExchangeRate, ExchangeRateAdmin)
-admin.site.register(Invoice, OrderAdmin)
+admin.site.register(Invoice, InvoiceAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductType, ProductTypeAdmin)
 admin.site.register(Showcase, ShowcaseAdmin)

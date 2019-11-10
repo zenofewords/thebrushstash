@@ -92,7 +92,7 @@ class ProductType(ShopObjectMixin, TimeStampMixin):
 
 
 class Invoice(TimeStampMixin):
-    class OrderStatus:
+    class InvoiceStatus:
         PENDING = 'pending'
         PACKAGED = 'packaged'
         SHIPPED = 'shipped'
@@ -107,26 +107,37 @@ class Invoice(TimeStampMixin):
             (CANCELLED, 'Cancelled'),
         )
 
-    product = models.ForeignKey('shop.Product', on_delete=models.deletion.CASCADE)
-    first_name = models.CharField(max_length=500)
-    last_name = models.CharField(max_length=500)
-    country = models.ForeignKey(Country, on_delete=models.deletion.CASCADE)
-    address = models.CharField(max_length=500)
+    class InvoicePaymentMethod:
+        ON_DELIVERY = 'on-delivery'
+        PAYPAL = 'paypal'
+        CREDIT_CARD = 'credit-card'
+
+        CHOICES = (
+            (ON_DELIVERY, 'Pay on delivery'),
+            (PAYPAL, 'Paypal'),
+            (CREDIT_CARD, 'Credit card'),
+        )
+
+    email = models.EmailField(max_length=200)
+    full_name = models.CharField(max_length=500)
     city = models.CharField(max_length=500)
-    state = models.CharField(max_length=500)
-    zip_postal = models.CharField(max_length=500)
-    phone_number = models.CharField(max_length=500, blank=True)
+    address = models.CharField(max_length=1000)
+    zip_code = models.CharField(max_length=500)
+    state_county = models.CharField(max_length=500, blank=True)
+    company_name = models.CharField(max_length=500, blank=True)
+    company_address = models.CharField(max_length=500, blank=True)
+    company_uin = models.CharField(max_length=500, blank=True)
+
+    user = models.ForeignKey(
+        'account.CustomUser', on_delete=models.deletion.CASCADE, blank=True, null=True,
+    )
     note = models.TextField(blank=True)
-    status = models.CharField(
-        max_length=100, choices=OrderStatus.CHOICES, default=OrderStatus.PENDING)
-    paid = models.BooleanField(default=False)
+    payment_method = models.CharField(max_length=100, choices=InvoicePaymentMethod.CHOICES)
+    status = models.CharField(max_length=100, choices=InvoiceStatus.CHOICES)
 
     class Meta:
         verbose_name = 'Invoice'
         verbose_name_plural = 'Invoices'
-
-    def __str__(self):
-        return '{} by {} {}'.format(self.product, self.first_name, self.last_name)
 
 
 class Transaction(TimeStampMixin):
