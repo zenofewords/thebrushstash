@@ -36,6 +36,42 @@
   line-height: 29px
   margin-top: 17px
 
+%field-wrapper
+  margin: 23px 0 29px
+
+  input
+    height: 53px
+    width: 98.5%
+    font-family: $bodyFont
+    font-size: 16px
+    line-height: 19px
+    text-indent: 20px
+
+    padding-bottom: 1px
+    border: $inputBorder
+    border-radius: 0
+
+    &::placeholder,
+    &::-webkit-input-placeholder
+      opacity: 0.48
+      color: #000
+      font-family: $bodyFont
+      font-size: 16px
+      font-style: italic
+      line-height: 19px
+
+%summary-check-out-button
+  display: flex
+  align-items: center
+  justify-content: center
+  position: relative
+  color: #fff
+  background-color: $colorGreen
+  font-size: 16px
+  text-transform: uppercase
+  height: 54px
+  margin: 0 25px 15px
+
 %summary-wrapper
   flex: 4 1 0px
   background-color: #000
@@ -86,26 +122,11 @@
         text-transform: uppercase
 
   .summary-check-out-button
-    display: flex
-    align-items: center
-    justify-content: center
-    position: relative
-    color: #fff
-    background-color: $green
-    font-size: 16px
-    text-transform: uppercase
-    height: 54px
-    margin: 0 25px 15px
-
-    &:after
-      @extend %input-arrow
-      border-color: transparent transparent transparent #fff
-      top: 42%
-      left: 69%
+    @extend %summary-check-out-button
 
   .summary-continue-shopping-link
     display: block
-    color: #858585
+    color: $colorGrey
     font-family: $bodyFont
     font-size: 11px
     line-height: 13px
@@ -116,3 +137,15 @@
 
     &:hover
       opacity: $hoverOpacity
+
+%hollow-select
+  width: 83px
+  height: 54px
+  padding: 0 0 1px 20px
+  margin: 0 29px 0 0
+  border: $inputBorder
+  border-radius: 0
+  background-color: #fff
+  font-family: $bodyFont
+  font-size: 16px
+  line-height: 19px

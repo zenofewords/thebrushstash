@@ -20,7 +20,7 @@
       {{ form.non_field_errors }}
 
       {% include 'account/includes/form_field.html' with field=form.username %}
-      {% include 'account/includes/form_field.html' with field=form.password %}
+      {% include 'account/includes/form_field.html' with field=form.password type='password' %}
 
       <button type="submit">
         Login

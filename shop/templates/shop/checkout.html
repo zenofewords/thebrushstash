@@ -8,84 +8,125 @@
 
 {% block content %}
   <div class="checkout-wrapper">
-    <div class="checkout-user-information">
-      <form method="post" class="checkout-form-wrapper">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
+    <form method="post" class="checkout-form-wrapper">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
 
-        <h1 class="checkout-address-title">
-          1. Delivery address
-        </h1>
-        <p>
-          Fill out the form to complete your purchase.
+      <h1 class="checkout-address-title">
+        1. Delivery address
+      </h1>
+      <p class="checkout-help-text">
+        Fill out the form to complete your purchase.
+      </p>
+      {% if not user.is_authenticated %}
+        <p class="checkout-help-text">
+          If you already have an account you should <a href="{% url 'login' %}?next={% url 'shop:checkout' %}">log in</a>. Your address information will be automatically populated.
         </p>
+      {% else %}
+        <p class="checkout-help-text">
+          Please make sure the information listed below is correct.
+        </p>
+      {% endif %}
 
-        {% if not user.is_authenticated %}
-          If you already have an account <a href="{% url 'login' %}">login here</a> to get your address information.
-        {% endif %}
-
-        {% include 'account/includes/form_field.html' with field=form.first_name %}
-        {% include 'account/includes/form_field.html' with field=form.last_name %}
-        {% include 'account/includes/form_field.html' with field=form.email %}
-        {{ form.country }}
+      <div class="checkout-formfields">
+        {% include 'account/includes/form_field.html' with field=form.full_name %}
+        <span class="checkout-select-wrapper">
+          {{ form.country }}
+        </span>
+        {% include 'account/includes/form_field.html' with field=form.address %}
         {% include 'account/includes/form_field.html' with field=form.city %}
         {% include 'account/includes/form_field.html' with field=form.state_county %}
         {% include 'account/includes/form_field.html' with field=form.zip_code %}
-        {{ form.note }}
+        {% include 'account/includes/form_field.html' with field=form.email %}
+        {% include 'account/includes/form_field.html' with field=form.note %}
+      </div>
+
+      <div>
         {% if not user.is_authenticated %}
-          <input id="register" type="checkbox" name="register" checked>
-          <label for="register">Register</label>
+          <span class="checkout-checkbox-wrapper">
+            {{ form.register }}
+            {{ form.register.label_tag }}
+          </span>
         {% endif %}
 
-        <input id="subscribe" type="checkbox" name="subscribe" checked>
-        <label for="subscribe">Subscribe</label>
-
-        {% if region == 'hr' %}
-          <input id="r1-receipt" type="checkbox" name="r1-receipt">
-          <label for="r1-receipt">R1 Receipt</label>
-
-          {% include 'account/includes/form_field.html' with field=form.company_name %}
-          {% include 'account/includes/form_field.html' with field=form.company_address %}
-          {% include 'account/includes/form_field.html' with field=form.company_uin %}
+        {% if not subscribed_to_newsletter %}
+          <span class="checkout-checkbox-wrapper">
+            {{ form.subscribe_to_newsletter }}
+            {{ form.subscribe_to_newsletter.label_tag }}
+          </span>
         {% endif %}
 
-        <p>
-          Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="{% url 'general-terms-and-conditions' %}">privacy policy</a>.
+        {% if region == 'hrr1' %}
+          <span class="checkout-checkbox-wrapper">
+            {{ form.r1_receipt }}
+            {{ form.r1_receipt.label_tag }}
+          </span>
+
+          <div class="checkout-r1-fields" hidden>
+            {% include 'account/includes/form_field.html' with field=form.company_name label="Company name" %}
+            {% include 'account/includes/form_field.html' with field=form.company_address label="Company address" %}
+            {% include 'account/includes/form_field.html' with field=form.company_uin label="Company UIN" %}
+          </div>
+        {% endif %}
+
+        <p class="checkout-help-text">
+          Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="{% url 'general-terms-and-conditions' %}" target="_blank" rel="noopener noreferrer">privacy policy</a>.
         </p>
+      </div>
 
-        <input id="agree-to-terms" type="checkbox" name="agree-to-terms">
-        <label for="agree-to-terms">
-          I have read and agree to the <a href="{% url 'general-terms-and-conditions' %}">terms and conditions</a>
-        </label>
+      <span class="checkout-checkbox-wrapper">
+        {{ form.agree_to_terms }}
+        {{ form.agree_to_terms.label_tag|safe }}
 
-        <button>
-          Continue to payment
-        </button>
-
-        <h1 class="checkout-payment-title">
-          2. Payment
-        </h1>
-        <p>
-          Almost there, select your payment method and place your order.
-        </p>
-
-        {% if region == 'hr' %}
-          <input type="radio" id="pay-on-delivery" name="payment-method" value="pay-on-delivery" checked>
-          <label for="pay-on-delivery">Pay on delivery</label>
+        {% if form.agree_to_terms.errors %}
+          <p class="checkout-field-error">
+            {{ form.agree_to_terms.errors.as_text }}
+          </p>
         {% endif %}
-        <input type="radio" id="paypal" name="payment-method" value="paypal">
-        <label for="paypal">Use Paypal</label>
-        <input type="radio" id="credit-card" name="payment-method" value="credit-card">
-        <label for="credit-card">Use a credit card</label>
+      </span>
 
-        <button>
-          Place order
-        </button>
-        <a href="#">
-          Previous step
-        </a>
-      </form>
-    </div>
+      <button>
+        Continue to payment
+      </button>
+
+      <h2 class="checkout-payment-title inactive">
+        2. Payment
+      </h2>
+      <p>
+        Almost there, select your payment method and place your order.
+      </p>
+
+      {% if region == 'hr' %}
+        <div class="pay-on-delivery-wrapper">
+          <span class="checkout-radio-wrapper">
+            <input type="radio" id="pay-on-delivery" name="payment-method" value="pay-on-delivery" checked>
+            <label for="pay-on-delivery">Pay on delivery</label>
+          </span>
+          <p>Note: requires an additional fee for the GLS service. Your order summary will reflect the fee when this option is selected.</p>
+        </div>
+      {% endif %}
+
+      <div class="paypal-wrapper">
+        <span class="checkout-radio-wrapper">
+          <input type="radio" id="paypal" name="payment-method" value="paypal" disabled>
+          <label for="paypal">Use Paypal</label>
+        </span>
+      </div>
+
+      <div class="credit-card-wrapper">
+        <span class="checkout-radio-wrapper">
+          <input type="radio" id="credit-card" name="payment-method" value="credit-card" disabled>
+          <label for="credit-card">Use a credit card</label>
+        </span>
+      </div>
+
+      <button>
+        Place order
+      </button>
+      <a href="#" class="previous-step-link">
+        Previous step
+      </a>
+    </form>
 
     {% purchase_summary_tag bag region %}
   </div>

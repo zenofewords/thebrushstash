@@ -6,6 +6,7 @@ from rest_framework import (
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 
+from shop.constants import EMPTY_BAG
 from thebrushstash.constants import DEFAULT_REGION
 from thebrushstash.api.serializers import (
     ProductSeriazlier,
@@ -31,13 +32,7 @@ class AddToBagView(GenericAPIView):
         extra = 0
 
         products = {}
-        bag = {
-            'products': products,
-            'total': 0,
-            'total_quantity': 0,
-            'shipping': 0,
-            'grand_total': 0,
-        }
+        bag = EMPTY_BAG
         if request.session.get('bag'):
             bag = request.session.get('bag')
             products = bag.get('products')
