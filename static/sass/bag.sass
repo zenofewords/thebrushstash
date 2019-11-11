@@ -3,9 +3,8 @@
   flex-direction: column
   position: absolute
   top: 51px
-  right: -30px
-  width: 248px
-  padding: 20px
+  right: -35px
+  width: 300px
   background-color: #fff
   box-shadow: $boxShadow
   z-index: 2
@@ -18,27 +17,82 @@
   .bag-header
     display: flex
     justify-content: space-between
+    padding: 11px 15px
+    margin-bottom: 5px
+    border: 1px solid $colorLightGrey
+    background-color: $colorLightGrey
+    font-size: 11px
+    font-weight: $heavy
+    line-height: 13px
 
-  .bag-product-remove
-    font-size: 24px
-    cursor: pointer
+  .bag-product
+    display: flex
+    justify-content: space-between
+    margin: 0 25px 0 16px
+    padding: 17px 0
+    border-bottom: 1px solid $colorLightGrey
 
-  .bag-product-header,
+    &:last-of-type
+      border: 0
+
+  .bag-product-image
+    margin-right: 14px
+
+    .image-wrapper
+      width: 50px
+      height: 50px
+
   .bag-product-content
+    display: flex
+    flex-direction: column
+    width: 100%
+    text-transform: initial
+
+  .bag-product-header
     display: flex
     justify-content: space-between
 
-  .bag-product-header
-    margin-top: 10px
+    .bag-product-name
+      margin-top: 2px
+      font-family: $headerFont
+      font-size: 16px
+      font-weight: $heavy
+      line-height: 22px
 
-  .bag-product-name
-    margin-top: 5px
+    .bag-product-remove
+      font-size: 16px
+      cursor: pointer
+      color: #fff
+      cursor: pointer
+      position: relative
+      margin-top: 2px
+      padding: 3px
+
+      &:before
+        content: ''
+        position: absolute
+        top: 3px
+        right: 0
+        border: 8px solid #000
+        border-radius: 50%
+        z-index: -1
+
+  .bag-product-stats
+    display: flex
+    margin-top: 7px
+    font-size: 12px
+    font-weight: $regular
+    letter-spacing: -0.3px
+    line-height: 15px
+
+    .bag-product-quantity
+      width: 75px
 
   a
     padding: 10px 0
-    margin: 30px 0 0
+    margin: 10px 15px 15px
     color: #fff
-    background-color: #000
+    background-color: $colorBlue
     text-align: center
 
     &:hover
@@ -222,6 +276,10 @@
         opacity: 0.3
         padding: 20px 0
         max-width: $checkoutFormInputWidth
+
+    .checkout-address-wrapper.inactive,
+    .checkout-payment-wrapper.inactive
+      display: none
 
     .checkout-help-text
       font-size: 16px

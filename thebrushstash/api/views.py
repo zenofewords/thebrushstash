@@ -47,6 +47,7 @@ class AddToBagView(GenericAPIView):
                 'price': str(price),
                 'quantity': product.get('quantity') + quantity,
                 'subtotal': str(Decimal(product.get('subtotal')) + subtotal),
+                'image_url': product.get('image_url'),
             }
         else:
             product = {
@@ -55,6 +56,7 @@ class AddToBagView(GenericAPIView):
                 'price': str(price),
                 'quantity': quantity,
                 'subtotal': str(subtotal),
+                'image_url': product_data.get('image_url'),
             }
             products[product_id] = product
 

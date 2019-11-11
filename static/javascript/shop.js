@@ -57,7 +57,12 @@ ready(() => {
   let currentModal
   const loadVideo = (videoWrapper) => {
     const id = videoWrapper.dataset.youtubeVideoId
-    const html = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${id}?rel=0&amp;autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    const html = `<iframe
+      width="100%" height="100%"
+      src="https://www.youtube-nocookie.com/embed/${id}?rel=0&amp;autoplay=1"
+      frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>`
     const iframe = document.createElement('iframe')
 
     videoWrapper.classList.add('fade')
@@ -166,6 +171,36 @@ ready(() => {
   const summaryTotal = document.getElementById('summary-total')
   const summaryGrandTotal = document.getElementById('summary-grand-total')
 
+  const continueToPaymentButton = document.getElementById('continue-to-payment')
+  const checkoutForm = document.getElementById('checkout-form')
+  const checkoutAddressTitle = document.querySelector('.checkout-address-title')
+  const checkoutPaymentTitle = document.querySelector('.checkout-payment-title')
+  const checkoutAddressWrapper = document.querySelector('.checkout-address-wrapper')
+  const checkoutPaymentWrapper = document.querySelector('.checkout-payment-wrapper')
+  const previousStepLink = document.querySelector('.previous-step-link')
+
+  continueToPaymentButton && continueToPaymentButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    const valid = checkoutForm.reportValidity()
+
+    if (valid) {
+      checkoutAddressTitle.classList.add('inactive')
+      checkoutAddressWrapper.classList.add('inactive')
+      checkoutPaymentTitle.classList.remove('inactive')
+      checkoutPaymentWrapper.classList.remove('inactive')
+
+      checkoutAddressTitle.scrollIntoView(false)
+    }
+  })
+  previousStepLink && previousStepLink.addEventListener('click', (event) => {
+    event.preventDefault()
+
+    checkoutAddressTitle.classList.remove('inactive')
+    checkoutAddressWrapper.classList.remove('inactive')
+    checkoutPaymentTitle.classList.add('inactive')
+    checkoutPaymentWrapper.classList.add('inactive')
+  })
+
   const toggleBag = (event) => {
     event.preventDefault()
     bag.classList.toggle('bag-hide')
@@ -180,37 +215,68 @@ ready(() => {
   }
 
   const createProductNode = (key, values) => {
-    const product = document.createElement('div')
-    const productHeader = document.createElement('div')
-    const productInfo = document.createElement('div')
-    const productRemove = document.createElement('span')
-    productHeader.classList.add('bag-product-header')
+    const bagProduct = document.createElement('div')
+    bagProduct.classList.add('bag-product')
+    bagProduct.slug = key
 
-    const name = document.createElement('span')
-    name.classList.add('bag-product-name')
-    name.innerHTML = `${values.name}`
-    productHeader.appendChild(name)
+    const bagProductImage = document.createElement('div')
+    bagProductImage.classList.add('bag-product-image')
+    const imageWrapper = document.createElement('div')
+    imageWrapper.classList.add('image-wrapper')
+    const image = document.createElement('img')
+    image.classList.add('picture')
+    image.src = `${values.image_url}`
+    image.alt = `${values.name}`
+    imageWrapper.appendChild(image)
+    bagProductImage.appendChild(imageWrapper)
+
+    const bagProductContent = document.createElement('div')
+    bagProductContent.classList.add('bag-product-content')
+    const bagProductHeader = document.createElement('div')
+    bagProductHeader.classList.add('bag-product-header')
+    const productName = document.createElement('span')
+    productName.classList.add('bag-product-name')
+    productName.innerHTML = `${values.name}`
+    bagProductHeader.appendChild(productName)
+
+    const productRemove = document.createElement('span')
     productRemove.innerHTML = '&times;'
     productRemove.classList.add('bag-product-remove')
     productRemove.addEventListener('click', () => removeProduct(key))
-    productHeader.appendChild(productRemove)
+    bagProductHeader.appendChild(productRemove)
 
-    const quantity = document.createElement('span')
-    const subtotal = document.createElement('span')
-    quantity.innerHTML = `Quantity: ${values.quantity}`
-    subtotal.innerHTML = `Subtotal: ${values.subtotal} kn`
-    productInfo.classList.add('bag-product-content')
-    productInfo.appendChild(quantity)
-    productInfo.appendChild(subtotal)
+    const bagProductStats = document.createElement('div')
+    bagProductStats.classList.add('bag-product-stats')
+    const productQuantity = document.createElement('span')
+    productQuantity.classList.add('bag-product-quantity')
+    const productSubtotal = document.createElement('span')
+    productQuantity.innerHTML = `Quantity: ${values.quantity}`
+    productSubtotal.innerHTML = `Subtotal: ${values.subtotal} kn`
+    bagProductStats.appendChild(productQuantity)
+    bagProductStats.appendChild(productSubtotal)
 
-    product.slug = key
-    product.appendChild(productHeader)
-    product.appendChild(productInfo)
+    bagProductContent.appendChild(bagProductHeader)
+    bagProductContent.appendChild(bagProductStats)
+    bagProduct.appendChild(bagProductImage)
+    bagProduct.appendChild(bagProductContent)
 
-    return product
+    return bagProduct
   }
 
+  let hideBagTimer
+  const hideBag = () => {
+    bag.classList.add('bag-hide')
+  }
+
+  bag.addEventListener('mouseover', (event) => {
+    clearTimeout(hideBagTimer)
+  })
+  bag.addEventListener('mouseout', (event) => {
+    hideBagTimer = setTimeout(hideBag, 500)
+  })
+
   const refreshBag = (response) => {
+    clearTimeout(hideBagTimer)
     bagTotal.innerHTML = `${response.bag.total} kn`
     bagContent.innerHTML = ''
 
@@ -221,6 +287,7 @@ ready(() => {
 
     if (window.location.pathname !== '/review-bag/') {
       bag.classList.remove('bag-hide')
+      hideBagTimer = setTimeout(hideBag, 3000)
     }
     reviewBagLink.hidden = Object.keys(response.bag.products).length < 1
   }
@@ -272,6 +339,7 @@ ready(() => {
           name: dataset.name,
           quantity: parseInt(dataset.multiple ? addToBagSelect.value : 1),
           price: parseFloat(dataset.price),
+          image_url: dataset.imageUrl,
         }),
       }
     ).then((data) => data.json().then((response) => {

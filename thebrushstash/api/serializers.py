@@ -7,6 +7,7 @@ class ProductSeriazlier(serializers.Serializer):
     name = serializers.CharField(required=True, max_length=500)
     quantity = serializers.IntegerField(required=True)
     price = serializers.DecimalField(required=True, max_digits=14, decimal_places=2)
+    image_url = serializers.CharField(required=True, max_length=1000)
 
 
 class SimpleProductSerializer(serializers.Serializer):

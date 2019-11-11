@@ -249,7 +249,7 @@ initial_credit_card_secure_logos = (
         'name': 'Visa',
         'ordering': 4,
         'published': True,
-        'location': 'american-express',
+        'location': 'visa',
     },
     {
         'name': 'Mastercard',
@@ -267,7 +267,7 @@ initial_credit_card_secure_logos = (
         'name': 'American Express',
         'ordering': 1,
         'published': True,
-        'location': 'visa',
+        'location': 'american-express',
     },
 )
 
