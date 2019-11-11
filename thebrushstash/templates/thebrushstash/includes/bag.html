@@ -1,3 +1,5 @@
+{% load thebrushstash_tags %}
+
 <div class="bag bag-hide">
   <div class="bag-header">
     <span>
@@ -12,21 +14,27 @@
   <div class="bag-content">
     {% for key, value in bag.products.items %}
       <div class="bag-product">
-        <div class="bag-product-header">
-          <span class="bag-product-name">
-            {{ value.name }}
-          </span>
-          <span class="bag-product-remove" data-slug="{{ key }}">
-            &times;
-          </span>
+        <div class="bag-product-image">
+          {% get_image_by_natural_key 'shop' 'product' value.pk as image %}
+          {% media_object obj=image size='small' %}
         </div>
         <div class="bag-product-content">
-          <span>
-            Quantity: {{ value.quantity }}
-          </span>
-          <span>
-            Subtotal: {{ value.subtotal }} kn
-          </span>
+          <div class="bag-product-header">
+            <span class="bag-product-name">
+              {{ value.name }}
+            </span>
+            <span class="bag-product-remove" data-slug="{{ key }}">
+              &times;
+            </span>
+          </div>
+          <div class="bag-product-stats">
+            <div class="bag-product-quantity">
+              Quantity: {{ value.quantity }}
+            </div>
+            <div class="bag-product-subtotal">
+              Subtotal: {{ value.subtotal }} kn
+            </div>
+          </div>
         </div>
       </div>
     {% endfor %}
