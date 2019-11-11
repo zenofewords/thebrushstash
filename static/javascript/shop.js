@@ -171,6 +171,36 @@ ready(() => {
   const summaryTotal = document.getElementById('summary-total')
   const summaryGrandTotal = document.getElementById('summary-grand-total')
 
+  const continueToPaymentButton = document.getElementById('continue-to-payment')
+  const checkoutForm = document.getElementById('checkout-form')
+  const checkoutAddressTitle = document.querySelector('.checkout-address-title')
+  const checkoutPaymentTitle = document.querySelector('.checkout-payment-title')
+  const checkoutAddressWrapper = document.querySelector('.checkout-address-wrapper')
+  const checkoutPaymentWrapper = document.querySelector('.checkout-payment-wrapper')
+  const previousStepLink = document.querySelector('.previous-step-link')
+
+  continueToPaymentButton && continueToPaymentButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    const valid = checkoutForm.reportValidity()
+
+    if (valid) {
+      checkoutAddressTitle.classList.add('inactive')
+      checkoutAddressWrapper.classList.add('inactive')
+      checkoutPaymentTitle.classList.remove('inactive')
+      checkoutPaymentWrapper.classList.remove('inactive')
+
+      checkoutAddressTitle.scrollIntoView(false)
+    }
+  })
+  previousStepLink && previousStepLink.addEventListener('click', (event) => {
+    event.preventDefault()
+
+    checkoutAddressTitle.classList.remove('inactive')
+    checkoutAddressWrapper.classList.remove('inactive')
+    checkoutPaymentTitle.classList.add('inactive')
+    checkoutPaymentWrapper.classList.add('inactive')
+  })
+
   const toggleBag = (event) => {
     event.preventDefault()
     bag.classList.toggle('bag-hide')
