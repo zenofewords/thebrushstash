@@ -1,3 +1,6 @@
+import hmac
+import hashlib
+
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
@@ -71,8 +74,34 @@ class CheckoutView(FormView):
             'bag': session.get('bag'),
             'region': session.get('region'),
             'subscribed_to_newsletter': subscribed_to_newsletter,
+            'signature': self.get_signature(),
         })
         return context
+
+    def get_signature(self):
+        order_number = 'brush_12334014010'
+        language = 'hr'
+        currency = 'HRK'
+        amount = '10.00'
+        cart = 'order 256'
+        require_complete = 'false'
+
+        data = 'amount{}cart{}currency{}language{}order_number{}require_complete{}store_id{}version{}'.format(
+            amount,
+            cart,
+            currency,
+            language,
+            order_number,
+            require_complete,
+            settings.STORE_ID,
+            settings.CORVUS_API_VERSION
+        )
+
+        return hmac.new(
+            bytes(settings.CORVUS_API_KEY, 'utf-8'),
+            msg=bytes(data, 'utf-8'),
+            digestmod=hashlib.sha256
+        ).hexdigest().lower()
 
     def update_user_information(self, user, email, data):
         user.username = email

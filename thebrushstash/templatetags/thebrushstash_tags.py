@@ -57,7 +57,6 @@ def footer_tag(hide_social=False):
         'hide_social': hide_social,
         'footer_items': FooterItem.published_objects.all(),
         'footer_share_links': FooterShareLink.published_objects.all(),
-        'credit_card_logos': CreditCardLogo.published_objects.all(),
     }
 
 
@@ -74,6 +73,13 @@ def cookie_tag(context):
 def credit_card_secure_logos_tag():
     return {
         'credit_card_secure_logos': CreditCardSecureLogo.published_objects.all(),
+    }
+
+
+@register.inclusion_tag('thebrushstash/tags/credit_card_logos.html')
+def credit_card_logos_tag():
+    return {
+        'credit_card_logos': CreditCardLogo.published_objects.all(),
     }
 
 

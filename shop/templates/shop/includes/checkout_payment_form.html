@@ -1,0 +1,49 @@
+{% load static %}
+{% load thebrushstash_tags %}
+
+<h2 class="checkout-payment-title inactive">
+  2. Payment
+</h2>
+<div class="checkout-payment-wrapper inactive">
+  <p>
+    Almost there, select your payment method and place your order.
+  </p>
+
+  {% if region == 'hr' %}
+    <div class="pay-on-delivery-wrapper">
+      <span class="checkout-radio-wrapper">
+        <input type="radio" id="pay-on-delivery" name="payment-method" value="pay-on-delivery" checked>
+        <label for="pay-on-delivery">Pay on delivery</label>
+      </span>
+      <p>
+        Note: requires an additional fee for the GLS service. Your order summary will reflect the fee when this option is selected.
+      </p>
+    </div>
+  {% endif %}
+
+  <div class="credit-card-wrapper">
+    <span class="checkout-radio-wrapper">
+      <input type="radio" id="credit-card" name="payment-method" value="credit-card">
+      <label for="credit-card">Use a credit card</label>
+      <img class="corvus-logo" src="{% static 'images/corvusLogo.png' %}">
+    </span>
+    <p>
+      Note: Napisat neš pametno o tome kako smo hrvati i moramo naplatiti u kunama.
+    </p>
+    {% credit_card_logos_tag %}
+  </div>
+
+  <div class="paypal-wrapper">
+    <span class="checkout-radio-wrapper">
+      <input type="radio" id="paypal" name="payment-method" value="paypal" disabled>
+      <label for="paypal">Use Paypal</label>
+    </span>
+  </div>
+
+  <button>
+    Place order
+  </button>
+  <a href="#" class="previous-step-link">
+    Previous step
+  </a>
+</div>
