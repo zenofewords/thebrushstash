@@ -24,13 +24,11 @@ class Country(PublishedMixin):
 
 
 class CreditCardLogo(LinkedMixin, PublishedMixin):
-    image = models.ImageField(upload_to='credit_card_logos', blank=True, null=True)
-    srcsets = JSONField(blank=True, null=True)
+    pass
 
 
 class CreditCardSecureLogo(LinkedMixin, PublishedMixin):
-    image = models.ImageField(upload_to='credit_card_logos', blank=True, null=True)
-    srcsets = JSONField(blank=True, null=True)
+    pass
 
 
 class GalleryItem(TimeStampMixin):
@@ -68,7 +66,7 @@ class GalleryItem(TimeStampMixin):
 
 
 class NavigationItem(LinkedMixin, PublishedMixin):
-    css_class = models.CharField(max_length=100, blank=True)
+    pass
 
 
 class FooterItem(LinkedMixin, PublishedMixin):
@@ -76,7 +74,7 @@ class FooterItem(LinkedMixin, PublishedMixin):
 
 
 class FooterShareLink(LinkedMixin, PublishedMixin):
-    logo_path = models.CharField(max_length=500, blank=True)
+    pass
 
 
 class TestImage(PublishedMixin):

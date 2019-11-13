@@ -2,8 +2,6 @@
 
 <div class="credit-card-logos-wrapper">
   {% for credit_card_logo in credit_card_logos %}
-    <a href="{{ credit_card_logo.location }}"{% if credit_card_logo.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
-      {% media_object obj=credit_card_logo size='original' %}
-    </a>
+    <span class="icon {{ credit_card_logo.css_class }}"></span>
   {% endfor %}
 </div>

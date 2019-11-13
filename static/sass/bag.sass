@@ -1,3 +1,5 @@
+@import './icons/corvusLogoIcon.sass'
+
 .bag
   display: flex
   flex-direction: column
@@ -241,9 +243,10 @@
       padding: 23px 20px 5px
       margin: 20px 0
 
-      .corvus-logo
+      .corvus-logo-icon
         width: 140px
         height: 34px
+        background: url('data:image/svg+xml;base64,#{$corvusLogoIcon}') no-repeat center
 
       p
         font-size: 14px

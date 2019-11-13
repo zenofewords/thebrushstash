@@ -8,7 +8,6 @@ from django.utils.text import slugify
 from thebrushstash.constants import (
     country_name_list,
     initial_credit_card_logos,
-    initial_credit_card_secure_logos,
     initial_footer_items,
     initial_navigation_items,
     initial_footer_share_links,
@@ -56,19 +55,6 @@ def create_credit_card_logos(apps, schema_editor):
             defaults={
                 **get_default_link_data(credit_card_logo),  # noqa
                 'image': credit_card_logo.get('image'),
-            },
-        )
-
-
-def create_credit_card_secure_logos(apps, schema_editor):
-    CreditCardSecureLogo = apps.get_model('thebrushstash', 'CreditCardSecureLogo')
-
-    for credit_card_secure_logo in initial_credit_card_secure_logos:
-        CreditCardSecureLogo.objects.get_or_create(
-            name=credit_card_secure_logo.get('name'),
-            defaults={
-                **get_default_link_data(credit_card_secure_logo),  # noqa
-                'image': credit_card_secure_logo.get('image'),
             },
         )
 
@@ -237,10 +223,6 @@ class Migration(migrations.Migration):
         ),
         migrations.RunPython(
             code=create_credit_card_logos,
-            reverse_code=migrations.operations.special.RunPython.noop,
-        ),
-        migrations.RunPython(
-            code=create_credit_card_secure_logos,
             reverse_code=migrations.operations.special.RunPython.noop,
         ),
     ]

@@ -6,6 +6,7 @@ class LinkedMixin(models.Model):
     location = models.CharField(max_length=500, blank=True, default='')
     ordering = models.IntegerField(default=0, blank=True)
     external = models.BooleanField(default=False)
+    css_class = models.CharField(max_length=500, blank=True)
 
     class Meta:
         abstract = True

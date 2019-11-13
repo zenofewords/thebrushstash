@@ -2,16 +2,13 @@
 {% load thebrushstash_tags %}
 
 <div class="credit-card-secure-logo-wrapper">
-  {% for credit_card_secure_logo in credit_card_secure_logos %}
-    <div id="{{ credit_card_secure_logo.location }}" class="credit-card-secure-logo">
-      {% media_object obj=credit_card_secure_logo size='original' %}
-    </div>
-  {% endfor %}
+  <img id="american-express" src="{% static 'images/american_express.gif' %}" class="credit-card-secure-logo">
+  <img id="mastercard" src="{% static 'images/mastercard.gif' %}" class="credit-card-secure-logo">
+  <img id="visa" src="{% static 'images/visa.jpg' %}" class="credit-card-secure-logo">
 
   <div id="mastercard-modal" class="credit-card-secure-modal" hidden>
     <h1>
       Introducing...
-      <img src="{% static 'images/mastercard_secure.jpg' %}">
       <span class="close-modal-button">
         &times;
       </span>
@@ -26,6 +23,7 @@
       To find out more about MasterCard SecureCode go to
       <a href="http://www.mastercardsecurecode.com" target="_blank" rel="noopener noreferrer">www.mastercardsecurecode.com</a>.
     </p>
+    <img src="{% static 'images/mastercard_secure.jpg' %}">
     <img src="{% static 'images/mastercard_logo.jpg' %}">
     <img src="{% static 'images/maestro_logo.jpg' %}">
   </div>
@@ -33,7 +31,6 @@
   <div id="visa-modal" class="credit-card-secure-modal" hidden>
     <h1>
       Same card, added safety online.
-      <img src="{% static 'images/visa_secure.jpg' %}">
       <span class="close-modal-button">
         &times;
       </span>
@@ -55,10 +52,10 @@
       <a href="http://www.visaeu.com" target="_blank" rel="noopener noreferrer">www.visaeu.com</a>
       for more information.
     </p>
+    <img src="{% static 'images/visa_secure.jpg' %}">
   </div>
 
   <div id="american-express-modal" class="credit-card-secure-modal" hidden>
-    <img src="{% static 'images/american_express_secure.jpg' %}">
     <h1>
       Online Fraud Protection Guarantee
       <span class="close-modal-button">
@@ -89,5 +86,6 @@
       <br>
       ** Provided you notify us immediately upon discovery of any fraudulent transactions and you have compiled with the Card Conditions, you will not be held liable for any charges. Immediately means as soon as you are aware but no later than on or before the due date of the statement in which the fraudulent transaction appears.
     </p>
+    <img src="{% static 'images/american_express_secure.jpg' %}">
   </div>
 </div>

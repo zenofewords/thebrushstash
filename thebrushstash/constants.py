@@ -206,6 +206,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.americanexpress.com/hr/network/',
+        'css_class': 'american-express-icon',
     },
     {
         'name': 'Discover',
@@ -213,6 +214,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.discover.com/',
+        'css_class': 'discover-icon',
     },
     {
         'name': 'Diners Club',
@@ -220,6 +222,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.diners.com.hr/Pogodnosti-i-usluge/MasterCard- SecureCode.html?Ym5cMzQsY2FyZFR5cGVcMSxwXDc3',
+        'css_class': 'diners-club-icon',
     },
     {
         'name': 'Mastercard',
@@ -227,6 +230,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.mastercard.hr/hr-hr.html',
+        'css_class': 'mastercard-icon',
     },
     {
         'name': 'Maestro',
@@ -234,6 +238,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'http://www.maestrocard.com/hr/',
+        'css_class': 'maestro-icon',
     },
     {
         'name': 'Visa',
@@ -241,33 +246,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.visa.com.hr',
-    },
-)
-
-initial_credit_card_secure_logos = (
-    {
-        'name': 'Visa',
-        'ordering': 4,
-        'published': True,
-        'location': 'visa',
-    },
-    {
-        'name': 'Mastercard',
-        'ordering': 3,
-        'published': True,
-        'location': 'mastercard',
-    },
-    {
-        'name': 'Diners Club',
-        'ordering': 2,
-        'published': True,
-        'location': 'diners-club',
-    },
-    {
-        'name': 'American Express',
-        'ordering': 1,
-        'published': True,
-        'location': 'american-express',
+        'css_class': 'visa-icon',
     },
 )
 
@@ -309,7 +288,7 @@ initial_footer_share_links = (
         'location': 'https://www.facebook.com/TheBrushStash/',
         'external': True,
         'published': True,
-        'logo_path': 'facebook',
+        'css_class': 'facebook-icon',
     },
     {
         'name': 'Instagram',
@@ -317,7 +296,7 @@ initial_footer_share_links = (
         'location': 'https://www.instagram.com/thebrushstash',
         'external': True,
         'published': True,
-        'logo_path': 'instagram',
+        'css_class': 'instagram-icon',
     },
 )
 
