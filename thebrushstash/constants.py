@@ -405,10 +405,10 @@ REGIONS = {
 DEFAULT_IMAGE_QUALITY = 70
 DEFAULT_DENSITY = 1
 
-VERTICAL_RECTANGLE = 'verticalrectangle'
-VERTICAL_RECTANGLE_WIDTH = 425
-HORIZONTAL_RECTANGLE = 'horizonalrectangle'
-HORIZONTAL_RECTANGLE_WIDTH = 650
+PORTRAIT = 'portrait'
+PORTRAIT_WIDTH = 425
+LANDSCAPE = 'landscape'
+LANDSCAPE_WIDTH = 650
 SQUARE = 'square'
 SQUARE_WIDTH = 480
 THUMBNAIL = 'thumbnail'
@@ -417,21 +417,21 @@ THUMBNAIL_WIDTH = 70
 VARIATIONS = ['webp_desktop', 'webp_mobile', 'jpg_desktop', 'jpg_mobile']
 SLOTS = [
     {
-        'shape': VERTICAL_RECTANGLE,
+        'shape': PORTRAIT,
         'ratio': 0.75,
         'dimensions': {
-            'large': VERTICAL_RECTANGLE_WIDTH * 3,
-            'medium': VERTICAL_RECTANGLE_WIDTH * 2,
-            'small': VERTICAL_RECTANGLE_WIDTH,
+            'large': PORTRAIT_WIDTH * 3,
+            'medium': PORTRAIT_WIDTH * 2,
+            'small': PORTRAIT_WIDTH,
         },
     },
     {
-        'shape': HORIZONTAL_RECTANGLE,
+        'shape': LANDSCAPE,
         'ratio': 1.48,
         'dimensions': {
-            'large': HORIZONTAL_RECTANGLE_WIDTH * 3,
-            'medium': HORIZONTAL_RECTANGLE_WIDTH * 2,
-            'small': HORIZONTAL_RECTANGLE_WIDTH,
+            'large': LANDSCAPE_WIDTH * 3,
+            'medium': LANDSCAPE_WIDTH * 2,
+            'small': LANDSCAPE_WIDTH,
         },
     },
     {

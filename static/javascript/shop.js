@@ -17,7 +17,7 @@ ready(() => {
   const languageOptions = document.getElementsByClassName('language-option')
   const languageInput = document.getElementById('language-input')
   const languageForm = document.getElementById('language-form')
-  const imageWrappers = document.getElementsByClassName('image-wrapper verticalrectangle')
+  const imageWrappers = document.getElementsByClassName('image-wrapper portrait')
   const thumbnailWrappers = document.getElementsByClassName('image-wrapper thumbnail')
   const videoWrappers = document.getElementsByClassName('video-wrapper')
 
