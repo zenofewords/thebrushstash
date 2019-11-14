@@ -1,5 +1,5 @@
 {% load thebrushstash_tags %}
 
 <a href="{% url 'shop:product-detail' object.slug %}?gallery-item={{ item.pk }}">
-  {% media_object obj=item size='thumbnail' selected=selected %}
+  {% media_object obj=item shape='thumbnail' selected=selected %}
 </a>

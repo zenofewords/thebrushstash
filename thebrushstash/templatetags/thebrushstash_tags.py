@@ -6,6 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from thebrushstash.constants import (
     DEFAULT_REGION,
     REGIONS,
+    VARIATIONS,
 )
 from thebrushstash.models import (
     CreditCardLogo,
@@ -111,24 +112,30 @@ def get_image_by_natural_key(app_name, model, object_id):
 
 
 @register.inclusion_tag('thebrushstash/tags/media_object.html')
-def media_object(obj, size, selected=False, hidden=False):
+def media_object(obj, shape, selected=False, hidden=False):
     if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
         return
 
-    classes = ['image-wrapper', size]
+    classes = ['image-wrapper', shape]
     if hasattr(obj, 'youtube_video_id') and obj.youtube_video_id:
         classes.append('play-icon')
     if selected:
         classes.append('selected')
     class_list = 'class=\"{}\"'.format(' '.join(classes))
 
-    return {
+    srcsets = {}
+    for variation in VARIATIONS:
+        srcsets['{}_srcset'.format(variation)] = ', '.join(
+            obj.srcsets['{}_{}'.format(variation, shape)]
+        )
+
+    data = {
         'object': obj,
         'class_list': class_list,
         'hidden': hidden,
-        'webp_srcset': ', '.join(obj.srcsets['webp_{}'.format(size)]),
-        'jpg_srcset': ', '.join(obj.srcsets['jpg_{}'.format(size)]),
     }
+    data.update(srcsets)
+    return data
 
 
 @register.inclusion_tag('thebrushstash/tags/gallery_item.html')

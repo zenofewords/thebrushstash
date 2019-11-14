@@ -17,9 +17,9 @@
       {% get_gallery object as gallery %}
       {% for item in gallery %}
         {% if selected_item_id == '0' and forloop.first or selected_item_id == item.pk|slugify %}
-          {% media_object obj=item size='small' selected='true' %}
+          {% media_object obj=item shape='verticalrectangle' selected='true' %}
         {% else %}
-          {% media_object obj=item size='small' hidden='true' %}
+          {% media_object obj=item shape='verticalrectangle' hidden='true' %}
         {% endif %}
       {% endfor %}
 
@@ -78,7 +78,7 @@
       {{ object.description|linebreaks }}
     </div>
     <div class="media-wrapper">
-      {% media_object obj=object size='small' %}
+      {% media_object obj=object shape='square' %}
     </div>
   </div>
   <div class="more-from-shop-wrapper">

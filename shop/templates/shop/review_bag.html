@@ -23,7 +23,7 @@
           <div id="{{ key }}" class="bag-item-row">
             <div class="image-wrapper">
               {% get_image_by_natural_key 'shop' 'product' value.pk as image %}
-              {% media_object obj=image size='small' %}
+              {% media_object obj=image shape='thumbnail' %}
             </div>
             <div class="bag-product-and-price">
               <span class="bag-product-name">

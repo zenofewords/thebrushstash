@@ -9,13 +9,15 @@ const ready = (runScript) => {
 }
 
 ready(() => {
+  const navigationWrapper = document.querySelector('.navigation-wrapper')
+  const mainWrapper = document.querySelector('.main-wrapper')
   const cookieInfo = document.querySelector('.accept-cookie')
   const shipToSelect = document.querySelector('.ship-to-select')
   const shipToMenu = document.querySelector('.ship-to-menu')
   const languageOptions = document.getElementsByClassName('language-option')
   const languageInput = document.getElementById('language-input')
   const languageForm = document.getElementById('language-form')
-  const imageWrappers = document.getElementsByClassName('image-wrapper small')
+  const imageWrappers = document.getElementsByClassName('image-wrapper verticalrectangle')
   const thumbnailWrappers = document.getElementsByClassName('image-wrapper thumbnail')
   const videoWrappers = document.getElementsByClassName('video-wrapper')
 
@@ -108,11 +110,13 @@ ready(() => {
 
       if (currentModal) {
         document.body.classList.remove('lock-scroll')
+        navigationWrapper.hidden = false
         videoWrappers[i].removeChild(currentModal)
         videoWrappers[i].classList.remove('fade')
         currentModal = undefined
       } else {
         document.body.classList.add('lock-scroll')
+        navigationWrapper.hidden = true
         history.pushState({mediaObject: event.target.id}, '', `?gallery-item=${event.target.id}`)
         loadVideo(videoWrappers[i])
       }
@@ -396,9 +400,6 @@ ready(() => {
       }
     })
   }
-
-  const navigationWrapper = document.querySelector('.navigation-wrapper')
-  const mainWrapper = document.querySelector('.main-wrapper')
 
   const toggleStickyNav = (scrollPosition) => {
     if (scrollPosition > 190) {
