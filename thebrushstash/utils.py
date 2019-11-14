@@ -1,5 +1,6 @@
 import copy
 import os
+from decimal import Decimal
 from pathlib import Path
 from PIL import Image
 from webptools import webplib
@@ -7,11 +8,17 @@ from webptools import webplib
 from django.utils.safestring import mark_safe
 
 from thebrushstash.constants import (
-    DEFAULT_IMAGE_EXTENSION,
     LARGE_IMAGE_WIDTH,
     IMAGE_SCALING_PARAMS,
     IMAGE_SRCSETS,
     SIZE_LARGE,
+
+    SQUARE,
+    SQUARE_WIDTH,
+    SRCSET_MAPPING,
+    SLOTS,
+    DEFAULT_IMAGE_QUALITY,
+    DEFAULT_IMAGE_EXTENSION,
 )
 
 
@@ -23,6 +30,29 @@ def get_default_link_data(data):
         'external': data.get('external', False),
         'published': data.get('published', False),
     }
+
+
+def get_preview_image(image, max_width):
+    try:
+        if not image:
+            return ''
+
+        original_width = image.width
+        original_height = image.height
+
+        width = original_width if original_width < max_width else max_width
+        ratio = original_width / width
+        height = original_height / ratio
+
+        return mark_safe(
+            '<img src={url} width={width} height={height} />'.format(
+                url=image.url,
+                width=width,
+                height=height,
+            )
+        )
+    except FileNotFoundError:  # noqa
+        return ''
 
 
 def get_resized_path(path, size, width, ext=DEFAULT_IMAGE_EXTENSION):
@@ -100,24 +130,109 @@ def create_image_variations(instance, created, resize=True):
     os.remove(path)
 
 
-def get_preview_image(image, max_width):
-    try:
-        if not image:
-            return ''
+def get_resized_path_b(path, size, width, ext=DEFAULT_IMAGE_EXTENSION):
+    return path.replace(
+        os.path.basename(path), '{}_{}_{}.{}'.format(Path(path).stem, size, width, ext)
+    )
 
-        original_width = image.width
-        original_height = image.height
 
-        width = original_width if original_width < max_width else max_width
-        ratio = original_width / width
-        height = original_height / ratio
+def process_image(original, dimensions, original_width, original_height, width, height, ratio):
+    crop_x = (original_width - width) / 2
+    crop_y = (original_height - height) / 2
 
-        return mark_safe(
-            '<img src={url} width={width} height={height} />'.format(
-                url=image.url,
-                width=width,
-                height=height,
+    cropped = original.crop((crop_x, crop_y, original_width - crop_x, original_height - crop_y))
+
+    resized_images = []
+    for dimension in dimensions:
+        new_width = 0
+        new_height = 0
+
+        if ratio == 1:
+            new_width, new_height = dimension, dimension
+        else:
+            new_width = dimension
+            new_height = dimension / ratio
+
+        resized_image = cropped.resize((int(new_width), int(new_height)), resample=Image.BICUBIC)
+        resized_image.show()
+        resized_images.append(resized_image)
+    return resized_images
+
+
+def generate_srcsets_b(path, url, original, srcset_mapping, slots, quality=DEFAULT_IMAGE_QUALITY):
+    original_width = original.width
+    original_height = original.height
+    original_ratio = Decimal(original_width / original_height)
+
+    for slot in slots:
+        width = 0
+        height = 0
+        shape = slot.get('shape')
+        ratio = slot.get('ratio')
+        dimensions = slot.get('dimensions')
+
+        if original_ratio >= 1 and ratio < 1:
+            width = original_height * ratio
+            height = original_height
+            processed_images = process_image(
+                original, dimensions, original_width, original_height, width, height, ratio
             )
-        )
-    except FileNotFoundError:  # noqa
-        return ''
+
+        elif original_ratio >= 1 and ratio > 1:
+            width = original_height
+            height = original_height / ratio
+            processed_images = process_image(
+                original, dimensions, original_width, original_height, width, height, ratio
+            )
+
+        elif original_ratio >= 1 and ratio == 1:
+            x = original_width if original_width < original_height else original_height
+            processed_images = process_image(
+                original, dimensions, original_width, original_height, x, x, ratio
+            )
+
+        # todo r < 1
+
+    raise Exception(':)')
+    return srcset_mapping
+
+    # resized_image = original.resize((width, height), resample=Image.BICUBIC)
+
+    # resized_image_path = get_resized_path(path, size, width)
+    # resized_image.save(resized_image_path, 'JPEG', optimize=True, quality=quality)
+
+    # webp_image_path = get_resized_path(path, size, width, 'webp')
+    # webplib.cwebp(resized_image_path, webp_image_path, '-q {}'.format(quality))
+
+    # image_srcsets['webp_{}'.format(size)].append(get_srcset(url, size, width, density, 'webp'))
+    # image_srcsets['jpg_{}'.format(size)].append(get_srcset(url, size, width, density))
+
+
+def create_image_variations_b(instance, created):
+    # clear srcsets if image is removed
+    if not instance.image and instance.srcsets:
+        instance.srcsets = {}
+        instance.save()
+
+    # stop if no image or already has srcsets
+    if not instance.image or instance.srcsets:
+        return
+
+    path = instance.image.path
+    url = instance.image.url
+    original = Image.open(path)
+
+    # remove transparent background
+    if Image.MIME[original.format] == 'image/png':
+        canvas = Image.new('RGB', (original.width, original.height), color=(255, 255, 255))
+        canvas.paste(original, original)
+        original = canvas.convert('RGB')
+
+    # save default (fallback) image
+    instance.image = get_resized_path_b(instance.image.name, SQUARE, SQUARE_WIDTH, 'jpg')
+    image_srcsets = generate_srcsets_b(path, url, original, copy.deepcopy(SRCSET_MAPPING), SLOTS)
+
+    instance.srcsets = image_srcsets
+    instance.save()
+    # remove original image
+    os.remove(path)

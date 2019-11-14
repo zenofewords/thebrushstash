@@ -3,10 +3,10 @@ from django.dispatch import receiver
 
 from shop.models import Product
 from thebrushstash.models import GalleryItem
-from thebrushstash.utils import create_image_variations
+from thebrushstash.utils import create_image_variations_b
 
 
 @receiver(post_save, sender=GalleryItem)
 @receiver(post_save, sender=Product)
 def gallery_post_save_receiver(sender, instance, created, **kwargs):
-    create_image_variations(instance, created)
+    create_image_variations_b(instance, created)

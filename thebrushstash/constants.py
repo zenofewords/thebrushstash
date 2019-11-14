@@ -401,3 +401,120 @@ REGIONS = {
     'uk': {'language': 'en'},
     'us': {'language': 'en'},
 }
+
+# vertical_rectangle
+# w: 423
+# h: 563
+# r: 0.75
+# horizonal_rectangle
+# w: 646
+# h: 434
+# r: 1.5 (1.48)
+# square
+# w: 478, 311, 70
+# h: 478, 311, 70
+# r: 1
+
+DEFAULT_IMAGE_QUALITY = 70
+DEFAULT_IMAGE_EXTENSION = 'webp'
+
+VERTICAL_RECTANGLE = 'vertical_rectangle'
+VERTICAL_RECTANGLE_WIDTH = 425
+HORIZONTAL_RECTANGLE = 'horizonal_rectangle'
+HORIZONTAL_RECTANGLE_WIDTH = 650
+SQUARE = 'square'
+SQUARE_WIDTH = 480
+THUMBNAIL = 'thumbnail'
+THUMBNAIL_WIDTH = 70
+
+VARIATIONS = ['webp', 'webp_mobile', 'jpg', 'jpg_mobile']
+SLOTS = [
+    {
+        'shape': VERTICAL_RECTANGLE,
+        'ratio': 0.75,
+        'dimensions': (
+            VERTICAL_RECTANGLE_WIDTH * 3,
+            VERTICAL_RECTANGLE_WIDTH * 2,
+            VERTICAL_RECTANGLE_WIDTH,
+        ),
+    },
+    {
+        'shape': HORIZONTAL_RECTANGLE,
+        'ratio': 1.5,
+        'dimensions': (
+            HORIZONTAL_RECTANGLE_WIDTH * 3,
+            HORIZONTAL_RECTANGLE_WIDTH * 2,
+            HORIZONTAL_RECTANGLE_WIDTH,
+        ),
+    },
+    {
+        'shape': SQUARE,
+        'ratio': 1,
+        'dimensions': (
+            SQUARE_WIDTH * 3,
+            SQUARE_WIDTH * 2,
+            SQUARE_WIDTH,
+        ),
+    },
+    {
+        'shape': THUMBNAIL,
+        'ratio': 1,
+        'dimensions': (
+            THUMBNAIL_WIDTH * 3,
+            THUMBNAIL_WIDTH * 2,
+            THUMBNAIL_WIDTH,
+        ),
+    },
+]
+
+SRCSET_MAPPING = {}
+for variation in VARIATIONS:
+    for shape in [slot.get('shape') for slot in SLOTS]:
+        SRCSET_MAPPING['{}_{}'.format(variation, shape)] = []
+
+# store ratio as decimal
+
+# 2500x2400 image, 1.04 ratio
+# if image r > 1 and r < 1, take h, h * r for w
+# 1800, 2400, crop from center
+# resize to 1275, 1700
+
+# 2500x2400 image, 1.04 ratio
+# if image r > 1 and r > 1, take h, h / r for h
+# 2400, 1600, crop from center
+# resize to 1600, 1067
+
+# 2500x2400 image, 1.04 ratio
+# if image r > 1, r == 1, take smaller for both
+# 2400, 2400, crop from center
+# resize to 620, 620
+
+# 2300x2500 image, 0.92 ratio
+# if image r < 1 and r < 1, take w, w * r for w
+# 1725, 2300, crop from center
+# resize to 1275, 1700
+
+# 2300x2500 image, 0.92 ratio
+# if image r < 1 and r > 1, take w, w / r for h
+# 2300, 1533, crom from center
+# resize to 1600, 1067
+
+# 2300x2500 image, 0.92 ratio
+# if image r < 1 and r == 1, take smaller for both
+# 2300, 2300, crop from center
+# resize to 620, 620
+
+# 2000x2400 image, 0.83 ratio
+# if image r < 1 and r < 1, take w, w * r for w
+# 1500, 2000, crop from center
+# resize to 1275, 1700
+
+# 2000x2400 image, 0.83 ratio
+# if image r < 1 and r > 1, take w, w / r for h
+# 2000, 1333, crop from center
+# resize to 1600, 1067
+
+# 2000x2000 image, 1 ratio
+# if r == 1 and r > 1, take either, picked / r for h
+# 2000, 1333, crop from center
+# resize to 1600, 1067
