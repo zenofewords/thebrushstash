@@ -5,7 +5,6 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-from django.views.generic.list import ListView
 from django.views.generic import (
     DetailView,
     FormView,
@@ -216,10 +215,6 @@ class ReviewBagView(TemplateView):
             'region': session.get('region'),
         })
         return context
-
-
-class ProductListView(ListView):
-    model = Product
 
 
 class ProductDetailView(DetailView):

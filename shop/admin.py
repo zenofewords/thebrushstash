@@ -9,7 +9,10 @@ from shop.models import (
     Showcase,
     Transaction,
 )
-from thebrushstash.admin import GalleryItemInline
+from thebrushstash.admin import (
+    GalleryItemInline,
+    SingleGalleryItemInline,
+)
 
 
 class AutoSlugAdmin(admin.ModelAdmin):
@@ -43,7 +46,7 @@ class ProductAdmin(AutoSlugAdmin):
         'product_type', 'name', 'slug', 'foreword', 'title', 'image', 'description', 'in_stock',
         'ordering', 'published', 'new', 'price_hrk', 'price_usd', 'price_eur', 'price_gbp',
     )
-    inlines = [GalleryItemInline, ]
+    inlines = [GalleryItemInline, SingleGalleryItemInline]
 
 
 class ProductTypeAdmin(AutoSlugAdmin):
@@ -51,7 +54,7 @@ class ProductTypeAdmin(AutoSlugAdmin):
 
 
 class ShowcaseAdmin(AutoSlugAdmin):
-    inlines = [GalleryItemInline, ]
+    inlines = [SingleGalleryItemInline]
 
 
 admin.site.register(ExchangeRate, ExchangeRateAdmin)

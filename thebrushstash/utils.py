@@ -8,17 +8,10 @@ from webptools import webplib
 from django.utils.safestring import mark_safe
 
 from thebrushstash.constants import (
-    LARGE_IMAGE_WIDTH,
-    IMAGE_SCALING_PARAMS,
-    IMAGE_SRCSETS,
-    SIZE_LARGE,
-    DEFAULT_IMAGE_EXTENSION,
-
-    SQUARE,
-    SQUARE_WIDTH,
-    SRCSET_MAPPING,
-    SLOTS,
     DEFAULT_IMAGE_QUALITY,
+    SLOTS,
+    SQUARE,
+    SRCSET_MAPPING,
 )
 
 
@@ -55,89 +48,14 @@ def get_preview_image(image, max_width):
         return ''
 
 
-def get_resized_path(path, size, width, ext=DEFAULT_IMAGE_EXTENSION):
-    return path.replace(
-        os.path.basename(path), '{}_{}_{}.{}'.format(Path(path).stem, size, width, ext)
-    )
-
-
-def get_srcset(url, size, width, density, ext=DEFAULT_IMAGE_EXTENSION):
-    return '{} {}x'.format(get_resized_path(url, size, width, ext), density)
-
-
-def generate_srcsets(path, url, original, image_srcsets, image_scaling_params, quality=70):
-    width = original.width
-    height = original.height
-    slot_ratio = width / height if width > height else height / width
-
-    scale_params = [(p[0], int(p[0] / slot_ratio), p[1], p[2], p[3]) for p in image_scaling_params]
-    for width, height, operation, density, size in scale_params:
-        if operation == 'crop':
-            resized_image = original.resize((width * 3, height * 3), resample=Image.BICUBIC)
-            resized_image = resized_image.crop((
-                resized_image.width / 2 - width / 2,
-                resized_image.height / 2 - height / 2,
-                resized_image.width / 2 + width / 2,
-                resized_image.height / 2 + height / 2,
-            ))
-        else:
-            resized_image = original.resize((width, height), resample=Image.BICUBIC)
-
-        resized_image_path = get_resized_path(path, size, width)
-        resized_image.save(resized_image_path, 'JPEG', optimize=True, quality=quality)
-
-        webp_image_path = get_resized_path(path, size, width, 'webp')
-        webplib.cwebp(resized_image_path, webp_image_path, '-q {}'.format(quality))
-
-        image_srcsets['webp_{}'.format(size)].append(get_srcset(url, size, width, density, 'webp'))
-        image_srcsets['jpg_{}'.format(size)].append(get_srcset(url, size, width, density))
-    return image_srcsets
-
-
-def create_image_variations(instance, created, resize=True):
-    if not instance.image and instance.srcsets:
-        instance.srcsets = {}
-        instance.save()
-
-    if instance.srcsets or not instance.image:
-        return
-
-    path = instance.image.path
-    url = instance.image.url
-    original = Image.open(path)
-
-    if Image.MIME[original.format] == 'image/png':
-        canvas = Image.new('RGB', (original.width, original.height), color=(255, 255, 255))
-        canvas.paste(original, original)
-        original = canvas.convert('RGB')
-
-    if resize:
-        instance.image = get_resized_path(instance.image.name, SIZE_LARGE, LARGE_IMAGE_WIDTH)
-        image_srcsets = generate_srcsets(
-            path, url, original, copy.deepcopy(IMAGE_SRCSETS), IMAGE_SCALING_PARAMS
-        )
-    else:
-        srcsets = {
-            'webp_original': [],
-            'jpg_original': [],
-        }
-        scale_params = ((original.width, 'resize', 1, 'original'),)
-        image_srcsets = generate_srcsets(path, url, original, srcsets, scale_params, 90)
-        instance.image = get_resized_path(instance.image.name, 'original', original.width)
-
-    instance.srcsets = image_srcsets
-    instance.save()
-    os.remove(path)
-
-
-def get_srcset_b(url, shape, size, extension, density):
-    return '{} {}x'.format(get_resized_path(url, shape, size, extension), density)
-
-
-def get_resized_path_b(path, shape, size, extension):
+def get_resized_path(path, shape, size, extension):
     return path.replace(
         os.path.basename(path), '{}_{}_{}.{}'.format(Path(path).stem, shape, size, extension)
     )
+
+
+def get_srcset(url, shape, size, extension, density):
+    return '{} {}x'.format(get_resized_path(url, shape, size, extension), density)
 
 
 def crop_image(original, original_width, original_height, width, height):
@@ -167,7 +85,7 @@ def create_variations(path, cropped_image, slot):
         )
 
         # create jpg image
-        resized_image_path = get_resized_path_b(path, slot_shape, size, 'jpg')
+        resized_image_path = get_resized_path(path, slot_shape, size, 'jpg')
         resized_image.save(resized_image_path, 'JPEG', optimize=True, quality=DEFAULT_IMAGE_QUALITY)
 
         # create webp image
@@ -175,7 +93,7 @@ def create_variations(path, cropped_image, slot):
         webplib.cwebp(resized_image_path, webp_image_path, '-q {}'.format(DEFAULT_IMAGE_QUALITY))
 
 
-def generate_srcsets_b(path, url, original, slots):
+def generate_srcsets(path, url, original, slots):
     original_width = original.width
     original_height = original.height
     original_ratio = Decimal(original_width / original_height)
@@ -212,11 +130,11 @@ def generate_srcsets_b(path, url, original, slots):
             properties = (('medium', 2), ('small', 1), )
 
         for prop in properties:
-            srcset_mapping[key].append(get_srcset_b(url, shape, prop[0], extension, prop[1]))
+            srcset_mapping[key].append(get_srcset(url, shape, prop[0], extension, prop[1]))
     return srcset_mapping
 
 
-def create_image_variations_b(instance, created):
+def create_image_variations(instance, created):
     # clear srcsets if image is removed
     if not instance.image and instance.srcsets:
         instance.srcsets = {}
@@ -238,8 +156,8 @@ def create_image_variations_b(instance, created):
         original = canvas.convert('RGB')
 
     # save default (fallback) image
-    instance.image = get_resized_path_b(instance.image.name, SQUARE, 'small', 'jpg')
-    instance.srcsets = generate_srcsets_b(path, url, original, SLOTS)
+    instance.image = get_resized_path(instance.image.name, SQUARE, 'small', 'jpg')
+    instance.srcsets = generate_srcsets(path, url, original, SLOTS)
     instance.save()
     # remove original image
     os.remove(path)

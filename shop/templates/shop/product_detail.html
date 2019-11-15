@@ -78,7 +78,8 @@
       {{ object.description|linebreaks }}
     </div>
     <div class="media-wrapper">
-      {% media_object obj=object shape='square' %}
+      {% get_image_for_model obj=product standalone=True as body_image %}
+      {% media_object obj=body_image shape='square' %}
     </div>
   </div>
   <div class="more-from-shop-wrapper">

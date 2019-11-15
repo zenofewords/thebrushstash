@@ -8,6 +8,7 @@ from thebrushstash.mixins import (
     PublishedMixin,
     TimeStampMixin,
 )
+limit = models.Q(app_label='shop', model='product') | models.Q(app_label='shop', model='showcase')
 
 
 class Country(PublishedMixin):
@@ -39,9 +40,11 @@ class GalleryItem(TimeStampMixin):
         default=0, blank=True,
         help_text='If set to 0, items are ordered by creation date'
     )
+    standalone = models.BooleanField(default=False)
     srcsets = JSONField(blank=True, null=True)
-
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, limit_choices_to=limit,
+    )
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 

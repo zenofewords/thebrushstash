@@ -37,10 +37,6 @@ class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
         'shop.ProductType', default=get_default_product_type, on_delete=models.deletion.CASCADE
     )
     title = models.CharField(max_length=500, blank=True)
-    image = models.ImageField(
-        upload_to='shop/%Y/%m/', blank=True, null=True, help_text='Used in the description section'
-    )
-    srcsets = JSONField(blank=True, null=True)
     foreword = models.TextField(
         max_length=300, blank=True, help_text='Short decription',
     )
@@ -152,6 +148,7 @@ class Transaction(TimeStampMixin):
 
 
 class Showcase(ShopObjectMixin, PublishedMixin):
+
     class Meta:
         verbose_name = 'Showcase'
         verbose_name_plural = 'Showcases'

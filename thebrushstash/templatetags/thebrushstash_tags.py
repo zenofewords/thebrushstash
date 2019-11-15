@@ -90,18 +90,19 @@ def newsletter_tag():
 
 
 @register.simple_tag
-def get_gallery(obj):
+def get_gallery(obj, standalone=False):
     if not obj:
         return GalleryItem.objects.none()
 
     return GalleryItem.objects.filter(
+        standalone=standalone,
         content_type=ContentType.objects.get_for_model(obj), object_id=obj.pk
     )
 
 
 @register.simple_tag
-def get_image_for_model(obj):
-    return get_gallery(obj).first()
+def get_image_for_model(obj, standalone=False):
+    return get_gallery(obj, standalone).first()
 
 
 @register.simple_tag
