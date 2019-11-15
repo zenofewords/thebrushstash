@@ -1,6 +1,11 @@
 from django import template
+from django.contrib.contenttypes.models import ContentType
 
-from shop.models import Showcase
+from shop.constants import VARIATIONS
+from shop.models import (
+    GalleryItem,
+    Showcase,
+)
 
 register = template.Library()
 
@@ -18,4 +23,69 @@ def purchase_summary_tag(bag, region, show_links=False):
         'bag': bag,
         'region': region,
         'show_links': show_links,
+    }
+
+
+@register.simple_tag
+def get_gallery(obj, standalone=False):
+    if not obj:
+        return GalleryItem.objects.none()
+
+    return GalleryItem.objects.filter(
+        standalone=standalone,
+        content_type=ContentType.objects.get_for_model(obj), object_id=obj.pk
+    )
+
+
+@register.simple_tag
+def get_image_for_model(obj, standalone=False):
+    return get_gallery(obj, standalone).first()
+
+
+@register.simple_tag
+def get_image_by_natural_key(app_name, model, object_id):
+    return GalleryItem.objects.filter(
+        content_type=ContentType.objects.get_by_natural_key(app_name, model), object_id=object_id
+    ).first()
+
+
+@register.inclusion_tag('thebrushstash/tags/media_object.html')
+def media_object(obj, shape, selected=False, hidden=False):
+    if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
+        return
+
+    classes = ['image-wrapper', shape]
+    if hasattr(obj, 'youtube_video_id') and obj.youtube_video_id:
+        classes.append('play-icon')
+    if selected:
+        classes.append('selected')
+    class_list = 'class=\"{}\"'.format(' '.join(classes))
+
+    srcsets = {}
+    for variation in VARIATIONS:
+        srcsets['{}_srcset'.format(variation)] = ', '.join(
+            obj.srcsets['{}_{}'.format(variation, shape)]
+        )
+
+    data = {
+        'object': obj,
+        'class_list': class_list,
+        'hidden': hidden,
+    }
+    data.update(srcsets)
+    return data
+
+
+@register.inclusion_tag('thebrushstash/tags/gallery_item.html')
+def gallery_item(obj, item, selected_item_id, first_item):
+    selected = False
+    if selected_item_id == '0' and first_item:
+        selected = True
+    elif selected_item_id == str(item.pk):
+        selected = True
+
+    return {
+        'object': obj,
+        'item': item,
+        'selected': selected,
     }

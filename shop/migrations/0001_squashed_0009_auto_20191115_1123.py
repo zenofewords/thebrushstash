@@ -7,10 +7,7 @@ import django.db.migrations.operations.special
 import django.db.models.deletion
 import shop.utils
 
-from thebrushstash.constants import (
-    inital_exchange_rates,
-    initial_product_types,
-)
+from thebrushstash.constants import initial_product_types
 
 
 def add_initial_product_types(apps, schema_editor):
@@ -27,24 +24,6 @@ def add_initial_product_types(apps, schema_editor):
         )
 
 
-def add_inital_exchange_rates(apps, schema_editor):
-    Country = apps.get_model('shop', 'ExchangeRate')
-
-    for exchange_rate in inital_exchange_rates:
-        Country.objects.get_or_create(
-            currency_code=exchange_rate.get('currency_code'),
-            defaults={
-                'currency': exchange_rate.get('currency'),
-                'currency_code': exchange_rate.get('currency_code'),
-                'state_iso': exchange_rate.get('state_iso'),
-                'buying_rate': exchange_rate.get('buying_rate'),
-                'middle_rate': exchange_rate.get('middle_rate'),
-                'selling_rate': exchange_rate.get('selling_rate'),
-                'added_value': exchange_rate.get('added_value'),
-            }
-        )
-
-
 class Migration(migrations.Migration):
     initial = True
 
@@ -54,25 +33,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='ExchangeRate',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('currency', models.CharField(max_length=10)),
-                ('currency_code', models.CharField(max_length=10)),
-                ('state_iso', models.CharField(max_length=10)),
-                ('buying_rate', models.DecimalField(decimal_places=8, max_digits=10)),
-                ('middle_rate', models.DecimalField(decimal_places=8, max_digits=10)),
-                ('selling_rate', models.DecimalField(decimal_places=8, max_digits=10)),
-                ('added_value', models.DecimalField(decimal_places=2, help_text='The percentage added when converting from HRK', max_digits=5)),
-            ],
-            options={
-                'verbose_name': 'Exchange rate',
-                'verbose_name_plural': 'Exchange rates',
-            },
-        ),
         migrations.CreateModel(
             name='Invoice',
             fields=[
@@ -125,19 +85,6 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Transaction',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop.Invoice')),
-            ],
-            options={
-                'verbose_name': 'Transaction',
-                'verbose_name_plural': 'Transactions',
-            },
-        ),
-        migrations.CreateModel(
             name='Product',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -148,8 +95,6 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(blank=True, help_text='If left empty, auto populates from name', max_length=500)),
                 ('description', models.TextField(blank=True)),
                 ('title', models.CharField(blank=True, max_length=500)),
-                ('image', models.ImageField(blank=True, help_text='Used in the description section', null=True, upload_to='shop/%Y/%m/')),
-                ('srcsets', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
                 ('foreword', models.TextField(blank=True, help_text='Short decription', max_length=300)),
                 ('new', models.BooleanField(default=True)),
                 ('in_stock', models.IntegerField(default=0)),
@@ -166,9 +111,25 @@ class Migration(migrations.Migration):
                 'ordering': ('-ordering', '-new', '-created_at'),
             },
         ),
-        migrations.RunPython(
-            code=add_inital_exchange_rates,
-            reverse_code=django.db.migrations.operations.special.RunPython.noop,
+        migrations.CreateModel(
+            name='GalleryItem',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('modified_at', models.DateTimeField(auto_now=True)),
+                ('name', models.CharField(max_length=500)),
+                ('image', models.ImageField(blank=True, null=True, upload_to='shop/%Y/%m/')),
+                ('youtube_video_id', models.CharField(blank=True, max_length=500)),
+                ('ordering', models.IntegerField(blank=True, default=0, help_text='If set to 0, items are ordered by creation date')),
+                ('srcsets', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
+                ('object_id', models.PositiveIntegerField()),
+                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType')),
+            ],
+            options={
+                'verbose_name': 'Gallery item',
+                'verbose_name_plural': 'Gallery items',
+                'ordering': ('-ordering', 'created_at'),
+            },
         ),
         migrations.RunPython(
             code=add_initial_product_types,
@@ -252,12 +213,14 @@ class Migration(migrations.Migration):
             name='country',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='thebrushstash.Country'),
         ),
-        migrations.RemoveField(
-            model_name='product',
-            name='image',
+        migrations.AddField(
+            model_name='galleryitem',
+            name='standalone',
+            field=models.BooleanField(default=False),
         ),
-        migrations.RemoveField(
-            model_name='product',
-            name='srcsets',
+        migrations.AlterField(
+            model_name='galleryitem',
+            name='content_type',
+            field=models.ForeignKey(limit_choices_to=models.Q(models.Q(('app_label', 'shop'), ('model', 'product')), models.Q(('app_label', 'shop'), ('model', 'showcase')), _connector='OR'), on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType'),
         ),
     ]

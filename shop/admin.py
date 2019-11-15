@@ -1,18 +1,15 @@
 from django.contrib import admin
+from django.contrib.contenttypes.admin import GenericTabularInline
+from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
 from django.utils.text import slugify
 
 from shop.models import (
-    ExchangeRate,
+    GalleryItem,
     Invoice,
     Product,
-    ProductType,
     Showcase,
-    Transaction,
 )
-from thebrushstash.admin import (
-    GalleryItemInline,
-    SingleGalleryItemInline,
-)
+from thebrushstash.utils import get_preview_image
 
 
 class AutoSlugAdmin(admin.ModelAdmin):
@@ -22,11 +19,63 @@ class AutoSlugAdmin(admin.ModelAdmin):
         obj.save()
 
 
-class ExchangeRateAdmin(admin.ModelAdmin):
+class GalleryItemAdmin(admin.ModelAdmin):
+    list_display_links = ('__str__', )
     list_display = (
-        'currency', 'modified_at', 'added_value', 'buying_rate', 'middle_rate', 'selling_rate',
+        '__str__', 'name', 'image', 'youtube_video_id', 'standalone', 'image_preview_thumb',
     )
-    readonly_fields = ('created_at', 'modified_at', )
+    readonly_fields = ('created_at', 'image_preview', )
+    search_fields = ('name', )
+    fields = ('name', 'image', 'youtube_video_id', 'standalone', 'content_type', 'object_id',)
+
+    def image_preview(self, obj):
+        return get_preview_image(obj.image, 800)
+
+    def image_preview_thumb(self, obj):
+        return get_preview_image(obj.image, 100)
+
+
+class GalleryItemInline(GenericTabularInline):
+    model = GalleryItem
+    fields = ('name', 'image', 'youtube_video_id', 'ordering', 'image_preview_thumb', )
+    readonly_fields = ('image_preview_thumb', )
+    extra = 3
+    max_num = 10
+
+    def image_preview_thumb(self, obj):
+        return get_preview_image(obj.image, 100)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.filter(standalone=False)
+
+
+class SingleGalleryItemInlineFormSet(BaseGenericInlineFormSet):
+    def save_new_objects(self, commit=True):
+        saved_instances = super().save_new_objects(commit)
+        if commit and len(saved_instances) > 0:
+            instance = saved_instances[0]
+            instance.standalone = True
+            instance.save()
+        return saved_instances
+
+
+class SingleGalleryItemInline(GenericTabularInline):
+    model = GalleryItem
+    formset = SingleGalleryItemInlineFormSet
+    fields = ('name', 'image', 'image_preview_thumb', )
+    readonly_fields = ('image_preview_thumb', )
+    extra = 1
+    max_num = 1
+    verbose_name = 'Image'
+    verbose_name_plural = 'Images'
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.filter(standalone=True)
+
+    def image_preview_thumb(self, obj):
+        return get_preview_image(obj.image, 100)
 
 
 class InvoiceAdmin(admin.ModelAdmin):
@@ -43,7 +92,7 @@ class ProductAdmin(AutoSlugAdmin):
     list_editable = ('price_hrk', 'ordering', 'published', )
     readonly_fields = ('price_usd', 'price_eur', 'price_gbp', )
     fields = (
-        'product_type', 'name', 'slug', 'foreword', 'title', 'image', 'description', 'in_stock',
+        'product_type', 'name', 'slug', 'foreword', 'title', 'description', 'in_stock',
         'ordering', 'published', 'new', 'price_hrk', 'price_usd', 'price_eur', 'price_gbp',
     )
     inlines = [GalleryItemInline, SingleGalleryItemInline]
@@ -57,9 +106,7 @@ class ShowcaseAdmin(AutoSlugAdmin):
     inlines = [SingleGalleryItemInline]
 
 
-admin.site.register(ExchangeRate, ExchangeRateAdmin)
+admin.site.register(GalleryItem, GalleryItemAdmin)
 admin.site.register(Invoice, InvoiceAdmin)
 admin.site.register(Product, ProductAdmin)
-admin.site.register(ProductType, ProductTypeAdmin)
 admin.site.register(Showcase, ShowcaseAdmin)
-admin.site.register(Transaction)

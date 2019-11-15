@@ -1,4 +1,4 @@
-{% load thebrushstash_tags %}
+{% load shop_tags %}
 
 {% if showcase %}
   <div class="showcase-wrapper">
@@ -10,7 +10,7 @@
         {{ showcase.description|linebreaks }}
       </p>
     </div>
-    {% get_image_for_model showcase as lead_image %}
+    {% get_image_for_model obj=showcase standalone=True as lead_image %}
     {% media_object obj=lead_image shape='landscape' %}
   </div>
 {% endif %}

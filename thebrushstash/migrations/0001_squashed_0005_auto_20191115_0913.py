@@ -8,10 +8,11 @@ import django.db.models.deletion
 
 from thebrushstash.constants import (
     country_name_list,
+    inital_exchange_rates,
     initial_credit_card_logos,
     initial_footer_items,
-    initial_navigation_items,
     initial_footer_share_links,
+    initial_navigation_items,
 )
 from thebrushstash.utils import get_default_link_data
 
@@ -22,7 +23,7 @@ def create_footer_items(apps, schema_editor):
     for footer_item in initial_footer_items:
         FooterItem.objects.get_or_create(
             location=footer_item.get('location'),
-            defaults=get_default_link_data(footer_item),
+            defaults={**get_default_link_data(footer_item)},  # noqa
         )
 
 
@@ -32,8 +33,7 @@ def create_footer_share_links(apps, schema_editor):
     for footer_share_links in initial_footer_share_links:
         FooterShareLink.objects.get_or_create(
             location=footer_share_links.get('location'),
-            css_class=footer_share_links.get('css_class'),
-            defaults=get_default_link_data(footer_share_links),
+            defaults={**get_default_link_data(footer_share_links)},  # noqa
         )
 
 
@@ -43,7 +43,7 @@ def create_navigation_items(apps, schema_editor):
     for navigation_item in initial_navigation_items:
         NavigationItem.objects.get_or_create(
             location=navigation_item.get('location'),
-            defaults=get_default_link_data(navigation_item)
+            defaults={**get_default_link_data(navigation_item)},  # noqa
         )
 
 
@@ -53,10 +53,7 @@ def create_credit_card_logos(apps, schema_editor):
     for credit_card_logo in initial_credit_card_logos:
         CreditCardLogo.objects.get_or_create(
             location=credit_card_logo.get('location'),
-            defaults={
-                **get_default_link_data(credit_card_logo),  # noqa
-                'image': credit_card_logo.get('image'),
-            },
+            defaults={**get_default_link_data(credit_card_logo)},  # noqa
         )
 
 
@@ -71,6 +68,24 @@ def add_countries(apps, schema_editor):
         })
 
 
+def add_inital_exchange_rates(apps, schema_editor):
+    Country = apps.get_model('thebrushstash', 'ExchangeRate')
+
+    for exchange_rate in inital_exchange_rates:
+        Country.objects.get_or_create(
+            currency_code=exchange_rate.get('currency_code'),
+            defaults={
+                'currency': exchange_rate.get('currency'),
+                'currency_code': exchange_rate.get('currency_code'),
+                'state_iso': exchange_rate.get('state_iso'),
+                'buying_rate': exchange_rate.get('buying_rate'),
+                'middle_rate': exchange_rate.get('middle_rate'),
+                'selling_rate': exchange_rate.get('selling_rate'),
+                'added_value': exchange_rate.get('added_value'),
+            }
+        )
+
+
 class Migration(migrations.Migration):
     initial = True
 
@@ -79,6 +94,25 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.CreateModel(
+            name='ExchangeRate',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('modified_at', models.DateTimeField(auto_now=True)),
+                ('currency', models.CharField(max_length=10)),
+                ('currency_code', models.CharField(max_length=10)),
+                ('state_iso', models.CharField(max_length=10)),
+                ('buying_rate', models.DecimalField(decimal_places=8, max_digits=10)),
+                ('middle_rate', models.DecimalField(decimal_places=8, max_digits=10)),
+                ('selling_rate', models.DecimalField(decimal_places=8, max_digits=10)),
+                ('added_value', models.DecimalField(decimal_places=2, help_text='The percentage added when converting from HRK', max_digits=5)),
+            ],
+            options={
+                'verbose_name': 'Exchange rate',
+                'verbose_name_plural': 'Exchange rates',
+            },
+        ),
         migrations.CreateModel(
             name='Country',
             fields=[
@@ -102,25 +136,7 @@ class Migration(migrations.Migration):
                 ('ordering', models.IntegerField(blank=True, default=0)),
                 ('external', models.BooleanField(default=False)),
                 ('published', models.BooleanField(default=False)),
-                ('image', models.ImageField(blank=True, null=True, upload_to='credit_card_logos')),
-                ('srcsets', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
-            ],
-            options={
-                'ordering': ('-ordering',),
-                'abstract': False,
-            },
-        ),
-        migrations.CreateModel(
-            name='CreditCardSecureLogo',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=500)),
-                ('location', models.CharField(blank=True, default='', max_length=500)),
-                ('ordering', models.IntegerField(blank=True, default=0)),
-                ('external', models.BooleanField(default=False)),
-                ('published', models.BooleanField(default=False)),
-                ('image', models.ImageField(blank=True, null=True, upload_to='credit_card_logos')),
-                ('srcsets', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
+                ('css_class', models.CharField(blank=True, max_length=500)),
             ],
             options={
                 'ordering': ('-ordering',),
@@ -136,6 +152,7 @@ class Migration(migrations.Migration):
                 ('ordering', models.IntegerField(blank=True, default=0)),
                 ('external', models.BooleanField(default=False)),
                 ('published', models.BooleanField(default=False)),
+                ('css_class', models.CharField(blank=True, max_length=500)),
             ],
             options={
                 'ordering': ('-ordering',),
@@ -167,7 +184,7 @@ class Migration(migrations.Migration):
                 ('ordering', models.IntegerField(blank=True, default=0)),
                 ('external', models.BooleanField(default=False)),
                 ('published', models.BooleanField(default=False)),
-                ('css_class', models.CharField(blank=True, max_length=100)),
+                ('css_class', models.CharField(blank=True, max_length=500)),
             ],
             options={
                 'ordering': ('-ordering',),
@@ -185,25 +202,9 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
         ),
-        migrations.CreateModel(
-            name='GalleryItem',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=500)),
-                ('image', models.ImageField(blank=True, null=True, upload_to='shop/%Y/%m/')),
-                ('youtube_video_id', models.CharField(blank=True, max_length=500)),
-                ('ordering', models.IntegerField(blank=True, default=0, help_text='If set to 0, items are ordered by creation date')),
-                ('srcsets', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
-                ('object_id', models.PositiveIntegerField()),
-                ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType')),
-            ],
-            options={
-                'verbose_name': 'Gallery item',
-                'verbose_name_plural': 'Gallery items',
-                'ordering': ('-ordering', 'created_at'),
-            },
+        migrations.RunPython(
+            code=add_inital_exchange_rates,
+            reverse_code=django.db.migrations.operations.special.RunPython.noop,
         ),
         migrations.RunPython(
             code=add_countries,
@@ -224,56 +225,5 @@ class Migration(migrations.Migration):
         migrations.RunPython(
             code=create_credit_card_logos,
             reverse_code=django.db.migrations.operations.special.RunPython.noop,
-        ),
-        migrations.AddField(
-            model_name='creditcardlogo',
-            name='css_class',
-            field=models.CharField(blank=True, max_length=500),
-        ),
-        migrations.RemoveField(
-            model_name='creditcardlogo',
-            name='image',
-        ),
-        migrations.RemoveField(
-            model_name='creditcardlogo',
-            name='srcsets',
-        ),
-        migrations.RemoveField(
-            model_name='creditcardsecurelogo',
-            name='image',
-        ),
-        migrations.RemoveField(
-            model_name='creditcardsecurelogo',
-            name='srcsets',
-        ),
-        migrations.AddField(
-            model_name='creditcardsecurelogo',
-            name='css_class',
-            field=models.CharField(blank=True, max_length=500),
-        ),
-        migrations.AddField(
-            model_name='footeritem',
-            name='css_class',
-            field=models.CharField(blank=True, max_length=500),
-        ),
-        migrations.AlterField(
-            model_name='navigationitem',
-            name='css_class',
-            field=models.CharField(blank=True, max_length=500),
-        ),
-        migrations.AlterField(
-            model_name='galleryitem',
-            name='content_type',
-            field=models.ForeignKey(limit_choices_to=models.Q(models.Q('shop', 'product'), models.Q('shop', 'showcase'), _connector='OR'), on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType'),
-        ),
-        migrations.AddField(
-            model_name='galleryitem',
-            name='standalone',
-            field=models.BooleanField(default=False),
-        ),
-        migrations.AlterField(
-            model_name='galleryitem',
-            name='content_type',
-            field=models.ForeignKey(limit_choices_to=models.Q(models.Q(('app_label', 'shop'), ('model', 'product')), models.Q(('app_label', 'shop'), ('model', 'showcase')), _connector='OR'), on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType'),
         ),
     ]

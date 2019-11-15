@@ -1,4 +1,4 @@
-{% load thebrushstash_tags %}
+{% load shop_tags %}
 
 <a href="{% url 'shop:product-detail' object.slug %}?gallery-item={{ item.pk }}">
   {% media_object obj=item shape='thumbnail' selected=selected %}

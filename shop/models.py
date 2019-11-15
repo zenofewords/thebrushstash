@@ -1,3 +1,5 @@
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 
@@ -11,25 +13,7 @@ from shop.utils import (
 from thebrushstash.mixins import TimeStampMixin
 from thebrushstash.models import PublishedMixin
 
-
-class ExchangeRate(TimeStampMixin):
-    currency = models.CharField(max_length=10)
-    currency_code = models.CharField(max_length=10)
-    state_iso = models.CharField(max_length=10)
-    buying_rate = models.DecimalField(max_digits=10, decimal_places=8)
-    middle_rate = models.DecimalField(max_digits=10, decimal_places=8)
-    selling_rate = models.DecimalField(max_digits=10, decimal_places=8)
-    added_value = models.DecimalField(
-        max_digits=5, decimal_places=2,
-        help_text='The percentage added when converting from HRK'
-    )
-
-    class Meta:
-        verbose_name = 'Exchange rate'
-        verbose_name_plural = 'Exchange rates'
-
-    def __str__(self):
-        return '1 {} equals {} HRK'.format(self.currency, self.middle_rate)
+LIMIT = models.Q(app_label='shop', model='product') | models.Q(app_label='shop', model='showcase')
 
 
 class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
@@ -136,17 +120,6 @@ class Invoice(TimeStampMixin):
         verbose_name_plural = 'Invoices'
 
 
-class Transaction(TimeStampMixin):
-    order = models.ForeignKey('shop.Invoice', on_delete=models.deletion.CASCADE)
-
-    class Meta:
-        verbose_name = 'Transaction'
-        verbose_name_plural = 'Transactions'
-
-    def __str__(self):
-        return 'Transaction for {}'.format(self.order)
-
-
 class Showcase(ShopObjectMixin, PublishedMixin):
 
     class Meta:
@@ -155,3 +128,39 @@ class Showcase(ShopObjectMixin, PublishedMixin):
 
     def __str__(self):
         return self.name
+
+
+class GalleryItem(TimeStampMixin):
+    name = models.CharField(max_length=500)
+    image = models.ImageField(upload_to='shop/%Y/%m/', blank=True, null=True)
+    youtube_video_id = models.CharField(max_length=500, blank=True)
+    ordering = models.IntegerField(
+        default=0, blank=True,
+        help_text='If set to 0, items are ordered by creation date'
+    )
+    standalone = models.BooleanField(default=False)
+    srcsets = JSONField(blank=True, null=True)
+    content_type = models.ForeignKey(
+        ContentType, on_delete=models.CASCADE, limit_choices_to=LIMIT,
+    )
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    class Meta:
+        verbose_name = 'Gallery item'
+        verbose_name_plural = 'Gallery items'
+        ordering = ('-ordering', 'created_at', )
+
+    def __str__(self):
+        description = ''
+
+        if self.image and self.youtube_video_id:
+            description = 'Youtube video with cover image'
+        elif self.image:
+            description = 'Image'
+        elif self.youtube_video_id:
+            description = 'Youtube video'
+        else:
+            description = 'No media attached'
+
+        return '{} ({})'.format(self.name, description)

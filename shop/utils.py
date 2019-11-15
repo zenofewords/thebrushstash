@@ -13,7 +13,7 @@ def get_default_product_type():
 
 
 def update_product_prices(product):
-    ExchangeRate = apps.get_model('shop', 'ExchangeRate')
+    ExchangeRate = apps.get_model('thebrushstash', 'ExchangeRate')
     exchange_rates = ExchangeRate.objects.all()
 
     if product.price_hrk:

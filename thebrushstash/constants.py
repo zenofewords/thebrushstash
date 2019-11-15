@@ -206,7 +206,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.americanexpress.com/hr/network/',
-        'css_class': 'american-express-icon',
+        'css_class': 'american-express-logo-icon',
     },
     {
         'name': 'Discover',
@@ -214,15 +214,15 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.discover.com/',
-        'css_class': 'discover-icon',
+        'css_class': 'discover-logo-icon',
     },
     {
         'name': 'Diners Club',
         'ordering': 4,
-        'published': True,
+        'published': False,
         'external': True,
         'location': 'https://www.diners.com.hr/Pogodnosti-i-usluge/MasterCard- SecureCode.html?Ym5cMzQsY2FyZFR5cGVcMSxwXDc3',
-        'css_class': 'diners-club-icon',
+        'css_class': 'diners-club-logo-icon',
     },
     {
         'name': 'Mastercard',
@@ -230,7 +230,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.mastercard.hr/hr-hr.html',
-        'css_class': 'mastercard-icon',
+        'css_class': 'mastercard-logo-icon',
     },
     {
         'name': 'Maestro',
@@ -238,7 +238,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'http://www.maestrocard.com/hr/',
-        'css_class': 'maestro-icon',
+        'css_class': 'maestro-logo-icon',
     },
     {
         'name': 'Visa',
@@ -246,7 +246,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.visa.com.hr',
-        'css_class': 'visa-icon',
+        'css_class': 'visa-logo-icon',
     },
 )
 
@@ -260,24 +260,28 @@ initial_footer_items = (
         'location': '/{}/'.format(CONTACT),
         'ordering': 4,
         'published': True,
+        'css_class': '',
     },
     {
         'name': 'Payment and delivery',
         'location': '/{}/'.format(PAYMENT_DELIVERY),
         'ordering': 3,
         'published': True,
+        'css_class': '',
     },
     {
         'name': 'Returns and complaints',
         'location': '/{}/'.format(COMPLAINTS),
         'ordering': 2,
         'published': True,
+        'css_class': '',
     },
     {
         'name': 'General terms and conditions',
         'location': '/{}/'.format(TOS),
         'ordering': 1,
         'published': True,
+        'css_class': '',
     },
 )
 
@@ -373,60 +377,3 @@ REGIONS = {
     'uk': {'language': 'en'},
     'us': {'language': 'en'},
 }
-
-DEFAULT_IMAGE_QUALITY = 70
-DEFAULT_DENSITY = 1
-
-PORTRAIT = 'portrait'
-PORTRAIT_WIDTH = 425
-LANDSCAPE = 'landscape'
-LANDSCAPE_WIDTH = 650
-SQUARE = 'square'
-SQUARE_WIDTH = 480
-THUMBNAIL = 'thumbnail'
-THUMBNAIL_WIDTH = 70
-
-VARIATIONS = ['webp_desktop', 'webp_mobile', 'jpg_desktop', 'jpg_mobile']
-SLOTS = [
-    {
-        'shape': PORTRAIT,
-        'ratio': 0.75,
-        'dimensions': {
-            'large': PORTRAIT_WIDTH * 3,
-            'medium': PORTRAIT_WIDTH * 2,
-            'small': PORTRAIT_WIDTH,
-        },
-    },
-    {
-        'shape': LANDSCAPE,
-        'ratio': 1.48,
-        'dimensions': {
-            'large': LANDSCAPE_WIDTH * 3,
-            'medium': LANDSCAPE_WIDTH * 2,
-            'small': LANDSCAPE_WIDTH,
-        },
-    },
-    {
-        'shape': SQUARE,
-        'ratio': 1,
-        'dimensions': {
-            'large': SQUARE_WIDTH * 3,
-            'medium': SQUARE_WIDTH * 2,
-            'small': SQUARE_WIDTH,
-        },
-    },
-    {
-        'shape': THUMBNAIL,
-        'ratio': 1,
-        'dimensions': {
-            'large': THUMBNAIL_WIDTH * 3,
-            'medium': THUMBNAIL_WIDTH * 2,
-            'small': THUMBNAIL_WIDTH,
-        },
-    },
-]
-
-SRCSET_MAPPING = {}
-for variation in VARIATIONS:
-    for shape in [slot.get('shape') for slot in SLOTS]:
-        SRCSET_MAPPING['{}_{}'.format(variation, shape)] = []

@@ -7,7 +7,7 @@ from webptools import webplib
 
 from django.utils.safestring import mark_safe
 
-from thebrushstash.constants import (
+from shop.constants import (
     DEFAULT_IMAGE_QUALITY,
     SLOTS,
     SQUARE,
@@ -22,6 +22,7 @@ def get_default_link_data(data):
         'location': data.get('location', ''),
         'external': data.get('external', False),
         'published': data.get('published', False),
+        'css_class': data.get('css_class', ''),
     }
 
 

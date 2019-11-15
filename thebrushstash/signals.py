@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from thebrushstash.models import GalleryItem
+from shop.models import GalleryItem
 from thebrushstash.utils import create_image_variations
 
 
