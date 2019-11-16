@@ -1,7 +1,9 @@
 import copy
-import hmac
 import hashlib
+import hmac
 import os
+import secrets
+
 from decimal import Decimal
 from pathlib import Path
 from PIL import Image
@@ -11,6 +13,7 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
+from django.utils.timezone import now
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
@@ -181,12 +184,14 @@ def create_image_variations(instance, created):
 def update_user_information(user, email, data):
     user.username = email
     user.email = email
+
     user.full_name = data.get('full_name')
     user.country = Country.objects.get(pk=data.get('country'))
     user.city = data.get('city')
     user.address = data.get('address')
-    user.state_county = data.get('state_county')
     user.zip_code = data.get('zip_code')
+
+    user.state_county = data.get('state_county', '')
     user.company_name = data.get('company_name', '')
     user.company_address = data.get('company_address', '')
     user.company_uin = data.get('company_uin', '')
@@ -205,7 +210,6 @@ def register_user(data, current_site):
 
         update_user_information(user, email, data)
         send_registration_email(user, current_site)
-        return user
     return user
 
 
@@ -226,29 +230,33 @@ def subscribe_to_newsletter(user, data, current_site):
             send_subscription_email(email, current_site)
 
 
-def create_or_update_invoice(invoice_id, user, cart, data):
-    invoice = Invoice.objects.filter(pk=invoice_id).first()
+def create_or_update_invoice(order_number, user, cart, data):
+    invoice = Invoice.objects.filter(order_number=order_number).first()
 
     if not invoice:
         invoice = Invoice()
+        invoice.order_number = 'tbs_{}_{}'.format(
+            secrets.token_urlsafe(12), now().time().microsecond
+        )
 
     invoice.email = data.get('email')
     invoice.full_name = data.get('full_name')
     invoice.country = Country.objects.get(pk=data.get('country'))
     invoice.city = data.get('city')
     invoice.address = data.get('address')
-    invoice.state_county = data.get('state_county')
     invoice.zip_code = data.get('zip_code')
+
+    invoice.state_county = data.get('state_county', '')
     invoice.company_name = data.get('company_name', '')
     invoice.company_address = data.get('company_address', '')
     invoice.company_uin = data.get('company_uin', '')
     invoice.note = data.get('note', '')
 
-    invoice.cart = cart
     invoice.status = 'pending'
+    invoice.cart = cart
     invoice.user = user
     invoice.save()
-    return invoice.pk
+    return invoice.order_number
 
 
 def send_registration_email(user, current_site):
@@ -297,7 +305,7 @@ def get_cart(bag):
     return ' '.join(cart)
 
 
-def get_signature(invoice_id, grand_total, cart):
+def get_signature(order_number, grand_total, cart):
     language = 'hr'
     currency = 'HRK'
     require_complete = 'false'
@@ -307,7 +315,7 @@ def get_signature(invoice_id, grand_total, cart):
         cart,
         currency,
         language,
-        'thebrushstash_#{}'.format(invoice_id),
+        order_number,
         require_complete,
         settings.STORE_ID,
         settings.CORVUS_API_VERSION
@@ -316,5 +324,20 @@ def get_signature(invoice_id, grand_total, cart):
     return hmac.new(
         bytes(settings.CORVUS_API_KEY, 'utf-8'),
         msg=bytes(data, 'utf-8'),
+        digestmod=hashlib.sha256
+    ).hexdigest().lower()
+
+
+def signature_is_valid(data):
+    approval_code = data.get('approval_code')
+    language = data.get('language')
+    order_number = data.get('order_number')
+
+    return data.get('signature') == hmac.new(
+        bytes(settings.CORVUS_API_KEY, 'utf-8'),
+        msg=bytes('approval_code{}language{}order_number{}'.format(
+            approval_code, language, order_number),
+            'utf-8'
+        ),
         digestmod=hashlib.sha256
     ).hexdigest().lower()

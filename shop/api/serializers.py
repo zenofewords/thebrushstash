@@ -20,10 +20,11 @@ class UserInformationSerializer(serializers.Serializer):
     country = serializers.CharField(required=True, max_length=500)
     address = serializers.CharField(required=True, max_length=500)
     city = serializers.CharField(required=True, max_length=500)
-    state_county = serializers.CharField(required=True, max_length=500)
     zip_code = serializers.CharField(required=True, max_length=500)
 
+    state_county = serializers.CharField(required=False, allow_blank=True, max_length=500)
     note = serializers.CharField(required=False, allow_blank=True, max_length=1000)
+
     register = serializers.BooleanField(required=False)
     subscribe_to_newsletter = serializers.BooleanField(required=False)
     agree_to_terms = serializers.BooleanField(required=True)

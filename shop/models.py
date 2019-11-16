@@ -68,33 +68,37 @@ class ProductType(ShopObjectMixin, TimeStampMixin):
         return self.name
 
 
+class InvoiceStatus:
+    PENDING = 'pending'
+    PAID = 'paid'
+    PACKAGED = 'packaged'
+    SHIPPED = 'shipped'
+    COMPLETED = 'completed'
+    CANCELLED = 'cancelled'
+
+    CHOICES = (
+        (PENDING, 'Pending'),
+        (PAID, 'Paid'),
+        (PACKAGED, 'Packaged'),
+        (SHIPPED, 'Shipped'),
+        (COMPLETED, 'Completed'),
+        (CANCELLED, 'Cancelled'),
+    )
+
+
+class InvoicePaymentMethod:
+    ON_DELIVERY = 'on-delivery'
+    PAYPAL = 'paypal'
+    CREDIT_CARD = 'credit-card'
+
+    CHOICES = (
+        (ON_DELIVERY, 'Pay on delivery'),
+        (PAYPAL, 'Paypal'),
+        (CREDIT_CARD, 'Credit card'),
+    )
+
+
 class Invoice(TimeStampMixin):
-    class InvoiceStatus:
-        PENDING = 'pending'
-        PACKAGED = 'packaged'
-        SHIPPED = 'shipped'
-        COMPLETED = 'completed'
-        CANCELLED = 'cancelled'
-
-        CHOICES = (
-            (PENDING, 'Pending'),
-            (PACKAGED, 'Packaged'),
-            (SHIPPED, 'Shipped'),
-            (COMPLETED, 'Completed'),
-            (CANCELLED, 'Cancelled'),
-        )
-
-    class InvoicePaymentMethod:
-        ON_DELIVERY = 'on-delivery'
-        PAYPAL = 'paypal'
-        CREDIT_CARD = 'credit-card'
-
-        CHOICES = (
-            (ON_DELIVERY, 'Pay on delivery'),
-            (PAYPAL, 'Paypal'),
-            (CREDIT_CARD, 'Credit card'),
-        )
-
     email = models.EmailField(max_length=200)
     full_name = models.CharField(max_length=500)
     country = models.ForeignKey(
@@ -108,6 +112,7 @@ class Invoice(TimeStampMixin):
     company_address = models.CharField(max_length=500, blank=True)
     company_uin = models.CharField(max_length=500, blank=True)
 
+    order_number = models.CharField(max_length=500, blank=True)
     cart = models.CharField(max_length=1000, blank=True)
     user = models.ForeignKey(
         'account.CustomUser', on_delete=models.deletion.CASCADE, blank=True, null=True,

@@ -11,11 +11,14 @@
     <p>
       Your order was successfully processed and will be shipped soon. Check your email for details.
     </p>
-    {% if not user.is_authenticated %}
+    {% if not user.is_authenticated and user_information.register %}
       <h2>Check your email to finish registration</h2>
       <p>
         To finish your registration you need to visit the activation link which was sent to your email address.
       </p>
+    {% endif %}
+    {% if user_information.subscribe_to_newsletter %}
+      <h2>You have been subscribed to our newsletter</h2>
     {% endif %}
   </div>
 {% endblock content %}

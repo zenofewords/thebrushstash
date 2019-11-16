@@ -111,30 +111,30 @@ class ProcessOrder(GenericAPIView):
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        session = request.session
 
-        user_information = request.session.get('user_information')
+        user_information = session.get('user_information')
         if not user_information:
-            request.session['user_information'] = {}
-        request.session['user_information'] = serializer.data
+            session['user_information'] = {}
+        session['user_information'] = serializer.data
 
         current_site = get_current_site(request)
         user = register_user(serializer.data, current_site)
         subscribe_to_newsletter(user, serializer.data, current_site)
 
-        bag = request.session.get('bag')
+        bag = session.get('bag')
         cart = get_cart(bag)
-        request.session['invoice_id'] = create_or_update_invoice(
-            request.session.get('invoice_id'),
+        session['order_number'] = create_or_update_invoice(
+            session.get('order_number'),
             user,
             cart,
             serializer.data
         )
-        invoice_id = request.session.get('invoice_id')
+        order_number = session.get('order_number')
         grand_total = bag.get('grand_total')
         return response.Response({
-            'user_information': request.session.get('user_information'),
-            'invoice_id': invoice_id,
+            'order_number': order_number,
             'cart': cart,
             'grand_total': grand_total,
-            'signature': get_signature(invoice_id, grand_total, cart),
+            'signature': get_signature(order_number, grand_total, cart),
         }, status=status.HTTP_200_OK)
