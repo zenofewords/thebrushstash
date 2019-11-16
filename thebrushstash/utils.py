@@ -307,7 +307,7 @@ def get_signature(invoice_id, grand_total, cart):
         cart,
         currency,
         language,
-        invoice_id,
+        'thebrushstash_#{}'.format(invoice_id),
         require_complete,
         settings.STORE_ID,
         settings.CORVUS_API_VERSION
