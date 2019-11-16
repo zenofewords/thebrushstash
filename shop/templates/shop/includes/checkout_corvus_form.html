@@ -1,7 +1,7 @@
 <form action="https://test-wallet.corvuspay.com/checkout/" method="post">
   <input id="version" name="version" value="1.3" hidden />
   <input id="store_id" name="store_id" value="9079" hidden />
-  <input id="order_number" name="order_number" value="{{ invoice_id }}" hidden />
+  <input id="order_number" name="order_number" value="thebrushstash_#{{ invoice_id }}" hidden />
   <input id="language" name="language" value="hr" hidden />
   <input id="currency" name="currency" value="HRK" hidden />
   <input id="amount" name="amount" value="{{ grand_total }}" hidden />
