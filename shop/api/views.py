@@ -1,15 +1,25 @@
 from decimal import Decimal
+
 from rest_framework import (
     response,
     status,
 )
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
+from django.contrib.sites.shortcuts import get_current_site
 
-from shop.constants import EMPTY_BAG
 from shop.api.serializers import (
     ProductSeriazlier,
     SimpleProductSerializer,
+    UserInformationSerializer,
+)
+from shop.constants import EMPTY_BAG
+from thebrushstash.utils import (
+    create_or_update_invoice,
+    get_cart,
+    get_signature,
+    register_user,
+    subscribe_to_newsletter,
 )
 
 
@@ -94,3 +104,37 @@ class RemoveFromBagView(GenericAPIView):
         return response.Response({'bag': bag}, status=status.HTTP_200_OK)
 
 
+class ProcessOrder(GenericAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = UserInformationSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user_information = request.session.get('user_information')
+        if not user_information:
+            request.session['user_information'] = {}
+        request.session['user_information'] = serializer.data
+
+        current_site = get_current_site(request)
+        user = register_user(serializer.data, current_site)
+        subscribe_to_newsletter(user, serializer.data, current_site)
+
+        bag = request.session.get('bag')
+        cart = get_cart(bag)
+        request.session['invoice_id'] = create_or_update_invoice(
+            request.session.get('invoice_id'),
+            user,
+            cart,
+            serializer.data
+        )
+        invoice_id = request.session.get('invoice_id')
+        grand_total = bag.get('grand_total')
+        return response.Response({
+            'user_information': request.session.get('user_information'),
+            'invoice_id': invoice_id,
+            'cart': cart,
+            'grand_total': grand_total,
+            'signature': get_signature(invoice_id, grand_total, cart),
+        }, status=status.HTTP_200_OK)

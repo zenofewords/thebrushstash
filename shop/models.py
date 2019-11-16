@@ -108,6 +108,7 @@ class Invoice(TimeStampMixin):
     company_address = models.CharField(max_length=500, blank=True)
     company_uin = models.CharField(max_length=500, blank=True)
 
+    cart = models.CharField(max_length=1000, blank=True)
     user = models.ForeignKey(
         'account.CustomUser', on_delete=models.deletion.CASCADE, blank=True, null=True,
     )

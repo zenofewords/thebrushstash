@@ -176,18 +176,46 @@ ready(() => {
   const summaryGrandTotal = document.getElementById('summary-grand-total')
 
   const continueToPaymentButton = document.getElementById('continue-to-payment')
-  const checkoutForm = document.getElementById('checkout-form')
+  const checkoutAddressForm = document.getElementById('checkout-address-form')
   const checkoutAddressTitle = document.querySelector('.checkout-address-title')
   const checkoutPaymentTitle = document.querySelector('.checkout-payment-title')
   const checkoutAddressWrapper = document.querySelector('.checkout-address-wrapper')
   const checkoutPaymentWrapper = document.querySelector('.checkout-payment-wrapper')
   const previousStepLink = document.querySelector('.previous-step-link')
 
+  const corvusOrderNumber = document.getElementById('order_number')
+  const corvusAmount = document.getElementById('amount')
+  const corvusCart = document.getElementById('cart')
+  const corvusSignature = document.getElementById('signature')
+
   continueToPaymentButton && continueToPaymentButton.addEventListener('click', (event) => {
     event.preventDefault()
-    const valid = checkoutForm.reportValidity()
+    const valid = checkoutAddressForm.reportValidity()
 
     if (valid) {
+      const formData = new FormData(checkoutAddressForm)
+      const data = {}
+      for (const [key, value] of formData.entries()) {
+        data[key] = value
+      }
+      fetch('/api/process-order/',
+        {
+          method: 'POST',
+          cache: 'no-cache',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+          },
+          body: JSON.stringify(data),
+        }
+      ).then((data) => data.json().then((response) => {
+        corvusOrderNumber.value = response.invoice_id
+        corvusAmount.value = response.grand_total
+        corvusCart.value = response.cart
+        corvusSignature.value = response.signature
+      }))
+
       checkoutAddressTitle.classList.add('inactive')
       checkoutAddressWrapper.classList.add('inactive')
       checkoutPaymentTitle.classList.remove('inactive')

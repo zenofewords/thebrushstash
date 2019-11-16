@@ -12,3 +12,18 @@ class ProductSeriazlier(serializers.Serializer):
 
 class SimpleProductSerializer(serializers.Serializer):
     slug = serializers.SlugField(required=True, max_length=500)
+
+
+class UserInformationSerializer(serializers.Serializer):
+    full_name = serializers.CharField(required=True, max_length=500)
+    email = serializers.CharField(required=True, max_length=500)
+    country = serializers.CharField(required=True, max_length=500)
+    address = serializers.CharField(required=True, max_length=500)
+    city = serializers.CharField(required=True, max_length=500)
+    state_county = serializers.CharField(required=True, max_length=500)
+    zip_code = serializers.CharField(required=True, max_length=500)
+
+    note = serializers.CharField(required=False, allow_blank=True, max_length=1000)
+    register = serializers.BooleanField(required=False)
+    subscribe_to_newsletter = serializers.BooleanField(required=False)
+    agree_to_terms = serializers.BooleanField(required=True)
