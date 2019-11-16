@@ -205,7 +205,6 @@ def register_user(data, current_site):
 
         update_user_information(user, email, data)
         send_registration_email(user, current_site)
-        return user
     return user
 
 
@@ -244,8 +243,8 @@ def create_or_update_invoice(invoice_id, user, cart, data):
     invoice.company_uin = data.get('company_uin', '')
     invoice.note = data.get('note', '')
 
-    invoice.cart = cart
     invoice.status = 'pending'
+    invoice.cart = cart
     invoice.user = user
     invoice.save()
     return invoice.pk
@@ -307,7 +306,7 @@ def get_signature(invoice_id, grand_total, cart):
         cart,
         currency,
         language,
-        'thebrushstash_#{}'.format(invoice_id),
+        invoice_id,
         require_complete,
         settings.STORE_ID,
         settings.CORVUS_API_VERSION

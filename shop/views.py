@@ -1,4 +1,4 @@
-from django.contrib.sites.shortcuts import get_current_site
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import (
     DetailView,
@@ -16,13 +16,10 @@ from account.models import (
 from shop.constants import EMPTY_BAG
 from shop.models import (
     Invoice,
+    InvoiceStatus,
     Product,
 )
-from thebrushstash.utils import (
-    get_cart,
-    get_signature,
-    send_purchase_mail,
-)
+from thebrushstash.utils import signature_is_valid
 
 
 class CheckoutView(FormView):
@@ -52,14 +49,6 @@ class CheckoutView(FormView):
             }
         return {}
 
-    def form_valid(self, form):
-        self.update_invoice(self.request.session['invoice_id'], form.cleaned_data)
-        send_purchase_mail(form.cleaned_data.get('email'), get_current_site(self.request))
-        self.request.session['bag'] = EMPTY_BAG
-        self.request.session['invoice_id'] = ''
-
-        return super().form_valid(form)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         session = self.request.session
@@ -69,37 +58,52 @@ class CheckoutView(FormView):
         if user.is_authenticated:
             subscribed_to_newsletter = NewsletterRecipient.objects.filter(user=user).first()
 
-        bag = session.get('bag')
-        invoice_id = session.get('invoice_id')
-        grand_total = bag.get('grand_total')
-        cart = get_cart(bag)
         context.update({
             'bag': session.get('bag'),
             'region': session.get('region'),
             'subscribed_to_newsletter': subscribed_to_newsletter,
-            'invoice_id': invoice_id,
-            'grand_total': grand_total,
-            'cart': cart,
-            'signature': get_signature(invoice_id, grand_total, cart),
         })
         return context
-
-    def update_invoice(self, invoice_id, data):
-        invoice = Invoice.objects.filter(pk=invoice_id).first()
-
-        if invoice:
-            invoice.payment_method = 'on-delivery'
-            invoice.save()
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class PurchaseCompleteView(TemplateView):
     template_name = 'shop/purchase_complete.html'
+    http_method_names = ['get', 'post']
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        if signature_is_valid(request.POST):
+            invoice = Invoice.objects.filter(order_number=request.POST.get('order_number')).first()
+
+            if invoice:
+                invoice.status = InvoiceStatus.PAID
+                invoice.save()
+
+                request.session['bag'] = EMPTY_BAG
+                request.session['order_number'] = ''
+        return render(
+            request,
+            self.template_name,
+            {
+                'user_information': request.session.get('user_information'),
+                'accepted': request.session.get('cookie'),
+            }
+        )
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class PurchaseCancelledView(TemplateView):
     template_name = 'shop/purchase_cancelled.html'
+    http_method_names = ['get', 'post']
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
 
 class ReviewBagView(TemplateView):
