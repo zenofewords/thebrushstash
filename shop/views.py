@@ -1,10 +1,12 @@
 from django.contrib.sites.shortcuts import get_current_site
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import (
     DetailView,
     FormView,
     TemplateView,
 )
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.text import slugify
 
 from account.forms import AddressForm
@@ -90,10 +92,12 @@ class CheckoutView(FormView):
             invoice.save()
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class PurchaseCompleteView(TemplateView):
     template_name = 'shop/purchase_complete.html'
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class PurchaseCancelledView(TemplateView):
     template_name = 'shop/purchase_cancelled.html'
 
