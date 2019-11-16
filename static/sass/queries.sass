@@ -97,8 +97,9 @@
       padding: 0
 
       .image-wrapper
-        width: 270px
-        height: 330px
+        .picture
+          width: 100%
+          height: auto
 
         &.play-icon
           &:before
@@ -106,7 +107,11 @@
             left: 30%
 
   .product-description-wrapper
-    flex-direction: column
+    flex-direction: column-reverse
+
+    .text-wrapper
+      padding: 0
+      min-width: 0
 
     .media-wrapper
       .image-wrapper
@@ -124,8 +129,8 @@
           margin-bottom: 20px
 
   .credit-card-logos-wrapper
-    .image-wrapper
-      padding: 1px
+    a
+      margin: 1%
 
   iframe
     border: 0
@@ -133,6 +138,11 @@
     height: 50vh
 
 @media only screen and (orientation: portrait) and (max-width: 687px)
+  .product-detail-wrapper
+    .gallery-wrapper
+      .image-wrapper
+        width: auto
+
   .products-wrapper
     .product
       height: auto
@@ -143,8 +153,8 @@
 @media only screen and (orientation: landscape)
   iframe
     border: 0
-    width: 80vw
-    height: 80vh
+    width: 90vw
+    height: 90vh
 
 @media (prefers-reduced-motion: reduce)
   html

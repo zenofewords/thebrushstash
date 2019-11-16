@@ -1,5 +1,5 @@
 {% extends 'thebrushstash/base.html' %}
-{% load thebrushstash_tags %}
+{% load shop_tags %}
 
 {% block title %}
   {{ block.super }} - Image Test
@@ -11,17 +11,21 @@
 
     {% for gallery_item in test_image_gallery %}
       <br>
-        {{ gallery_item.name }} - large image
+        {{ gallery_item.name }} - portrait
       <hr>
-      {% media_object obj=gallery_item size='large' %}
+      {% media_object obj=gallery_item shape='portrait' %}
       <br>
-        {{ gallery_item.name }} - small image
+        {{ gallery_item.name }} - landscape
       <hr>
-      {% media_object obj=gallery_item size='small' %}
+      {% media_object obj=gallery_item shape='landscape' %}
+      <br>
+        {{ gallery_item.name }} - square
+      <hr>
+      {% media_object obj=gallery_item shape='square' %}
       <br>
         {{ gallery_item.name }} - thumbnail
       <hr>
-      {% media_object obj=gallery_item size='thumbnail' %}
+      {% media_object obj=gallery_item shape='thumbnail' %}
     {% endfor %}
   {% endfor %}
 {% endblock content %}

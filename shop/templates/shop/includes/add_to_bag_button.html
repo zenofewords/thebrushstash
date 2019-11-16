@@ -1,3 +1,6 @@
+{% load shop_tags %}
+{% get_image_for_model object as lead_image %}
+
 <button class="add-to-bag-button" data-id="{{ object.pk }}" data-slug="{{ object.slug }}" data-name="{{ object.name }}" data-price="{{ object.price_hrk }}" data-image-url="{{ lead_image.image.url }}" data-multiple="{{ multiple }}">
   Add to bag
 </button>

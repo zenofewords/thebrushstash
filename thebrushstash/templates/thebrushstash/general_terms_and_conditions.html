@@ -1,5 +1,4 @@
 {% extends 'thebrushstash/base.html' %}
-{% load thebrushstash_tags %}
 
 {% block title %}
   {{ block.super }} - General Terms and Conditions
@@ -161,6 +160,6 @@
       <p>
         The Brush Stash na stranici shop.thebrushstash.com koristi tzv. “cookie” tehnologiju kako bi se unaprijedila kvaliteta korištenja i prikupili podaci za statističko izvješćivanje o internetskoj stranici. Cookie tehnologija ne pohranjuje individualnu e-mail adresu niti bilo kakve osobne podatke o korisniku. Cookie predstavlja malu jedinica informacija poslanih s internetske stranice koju preglednik računala korisnika pohranjuje na korisnički tvrdi disk. Ona sadrži informacije koje mogu zatrebati stranici shop.thebrushstash.com kako bi personalizirala korisničko iskustvo te prikupila statističke podatke o internetskoj stranici, kao što su stranice koje se posjećuju, što se preuzima s njih, naziv domene davatelja pristupa internetu te državu iz koje dolaze korisnici odnosno posjetitelji, kao i adrese stranica koje se posjećuju odmah prije ili nakon posjeta stranici shop.thebrushstash.com. Niti jedan podatak od navedenih ne povezuje se s korisnikom osobno već se mjeri samo u skupnom obliku, kao skupni podatak. Unatoč tome, a u svrhu maksimalne zaštite i sigurnosti (ako korisnik tako želi), može čitati i koristiti stranicu shop.thebrushstash.com i bez „cookie“ tehnologije, konfiguriranjem svojeg internetskog preglednika na način da isti odbaci sve cookiese ili uz prethodnu obavijest kad se određeni cookie postavlja.
       </p>
-    {% credit_card_secure_logos_tag %}
+    {% include 'thebrushstash/includes/credit_card_secure_logos.html' %}
   </div>
 {% endblock content %}

@@ -2,11 +2,22 @@
   <div id="{{ object.pk }}" {{ class_list|safe }} {% if hidden %} hidden{% endif %}>
     <picture>
       <source
-        srcset="{{ webp_srcset }}"
+        srcset="{{ webp_desktop_srcset }}"
         type="image/webp"
+        media="(min-width: 813px)"
       >
       <source
-        srcset="{{ jpg_srcset }}"
+        srcset="{{ webp_mobile_srcset }}"
+        type="image/webp"
+        media="(max-width: 812px)"
+      >
+      <source
+        srcset="{{ jpg_desktop_srcset }}"
+        media="(min-width: 813px)"
+      >
+      <source
+        srcset="{{ jpg_mobile_srcset }}"
+        media="(max-width: 812px)"
       >
       <img
         src="{{ object.image.url }}"

@@ -206,6 +206,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.americanexpress.com/hr/network/',
+        'css_class': 'american-express-logo-icon',
     },
     {
         'name': 'Discover',
@@ -213,13 +214,15 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.discover.com/',
+        'css_class': 'discover-logo-icon',
     },
     {
         'name': 'Diners Club',
         'ordering': 4,
-        'published': True,
+        'published': False,
         'external': True,
         'location': 'https://www.diners.com.hr/Pogodnosti-i-usluge/MasterCard- SecureCode.html?Ym5cMzQsY2FyZFR5cGVcMSxwXDc3',
+        'css_class': 'diners-club-logo-icon',
     },
     {
         'name': 'Mastercard',
@@ -227,6 +230,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.mastercard.hr/hr-hr.html',
+        'css_class': 'mastercard-logo-icon',
     },
     {
         'name': 'Maestro',
@@ -234,6 +238,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'http://www.maestrocard.com/hr/',
+        'css_class': 'maestro-logo-icon',
     },
     {
         'name': 'Visa',
@@ -241,33 +246,7 @@ initial_credit_card_logos = (
         'published': True,
         'external': True,
         'location': 'https://www.visa.com.hr',
-    },
-)
-
-initial_credit_card_secure_logos = (
-    {
-        'name': 'Visa',
-        'ordering': 4,
-        'published': True,
-        'location': 'visa',
-    },
-    {
-        'name': 'Mastercard',
-        'ordering': 3,
-        'published': True,
-        'location': 'mastercard',
-    },
-    {
-        'name': 'Diners Club',
-        'ordering': 2,
-        'published': True,
-        'location': 'diners-club',
-    },
-    {
-        'name': 'American Express',
-        'ordering': 1,
-        'published': True,
-        'location': 'american-express',
+        'css_class': 'visa-logo-icon',
     },
 )
 
@@ -281,24 +260,28 @@ initial_footer_items = (
         'location': '/{}/'.format(CONTACT),
         'ordering': 4,
         'published': True,
+        'css_class': '',
     },
     {
         'name': 'Payment and delivery',
         'location': '/{}/'.format(PAYMENT_DELIVERY),
         'ordering': 3,
         'published': True,
+        'css_class': '',
     },
     {
         'name': 'Returns and complaints',
         'location': '/{}/'.format(COMPLAINTS),
         'ordering': 2,
         'published': True,
+        'css_class': '',
     },
     {
         'name': 'General terms and conditions',
         'location': '/{}/'.format(TOS),
         'ordering': 1,
         'published': True,
+        'css_class': '',
     },
 )
 
@@ -309,7 +292,7 @@ initial_footer_share_links = (
         'location': 'https://www.facebook.com/TheBrushStash/',
         'external': True,
         'published': True,
-        'logo_path': 'facebook',
+        'css_class': 'facebook-icon',
     },
     {
         'name': 'Instagram',
@@ -317,7 +300,7 @@ initial_footer_share_links = (
         'location': 'https://www.instagram.com/thebrushstash',
         'external': True,
         'published': True,
-        'logo_path': 'instagram',
+        'css_class': 'instagram-icon',
     },
 )
 
@@ -386,34 +369,6 @@ inital_exchange_rates = (
         'added_value': '10',
     },
 )
-
-DEFAULT_IMAGE_EXTENSION = 'jpg'
-LARGE_IMAGE_WIDTH = 960
-SMALL_IMAGE_WIDTH = 512
-THUMBNAIL_IMAGE_WIDTH = 320
-DEFAULT_DENSITY = 1
-DOUBLE_DENSITY = DEFAULT_DENSITY * 2
-SIZE_LARGE = 'large'
-SIZE_SMALL = 'small'
-SIZE_THUMBNAIL = 'thumbnail'
-RESIZE = 'resize'
-CROP = 'crop'
-IMAGE_SCALING_PARAMS = (
-    (LARGE_IMAGE_WIDTH * 2, RESIZE, DOUBLE_DENSITY, SIZE_LARGE),
-    (LARGE_IMAGE_WIDTH, RESIZE, DEFAULT_DENSITY, SIZE_LARGE),
-    (SMALL_IMAGE_WIDTH * 2, RESIZE, DOUBLE_DENSITY, SIZE_SMALL),
-    (SMALL_IMAGE_WIDTH, RESIZE, DEFAULT_DENSITY, SIZE_SMALL),
-    (THUMBNAIL_IMAGE_WIDTH * 2, RESIZE, DOUBLE_DENSITY, SIZE_THUMBNAIL),
-    (THUMBNAIL_IMAGE_WIDTH, RESIZE, DEFAULT_DENSITY, SIZE_THUMBNAIL),
-)
-IMAGE_SRCSETS = {
-    'webp_{}'.format(SIZE_LARGE): [],
-    'webp_{}'.format(SIZE_SMALL): [],
-    'webp_{}'.format(SIZE_THUMBNAIL): [],
-    'jpg_{}'.format(SIZE_LARGE): [],
-    'jpg_{}'.format(SIZE_SMALL): [],
-    'jpg_{}'.format(SIZE_THUMBNAIL): [],
-}
 
 DEFAULT_REGION = 'hr'
 REGIONS = {

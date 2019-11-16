@@ -1,39 +1,25 @@
 from django.contrib import admin
-from django.contrib.contenttypes.admin import GenericTabularInline
 
 from thebrushstash.models import (
     Country,
     CreditCardLogo,
-    CreditCardSecureLogo,
+    ExchangeRate,
     FooterItem,
     FooterShareLink,
-    GalleryItem,
     NavigationItem,
     TestImage,
 )
-from thebrushstash.utils import get_preview_image
+from shop.admin import (
+    GalleryItemInline,
+    SingleGalleryItemInline,
+)
 
 
-class GalleryItemAdmin(admin.ModelAdmin):
-    list_display_links = ('__str__', )
-    list_display = ('__str__', 'name', 'image', 'youtube_video_id', 'image_preview_thumb', )
-    readonly_fields = ('created_at', 'image_preview', )
-    search_fields = ('name', )
-
-    def image_preview(self, obj):
-        return get_preview_image(obj.image, 800)
-
-    def image_preview_thumb(self, obj):
-        return get_preview_image(obj.image, 100)
-
-
-class GalleryItemInline(GenericTabularInline):
-    model = GalleryItem
-    fields = ('name', 'image', 'youtube_video_id', 'ordering', 'image_preview_thumb', )
-    readonly_fields = ('image_preview_thumb', )
-
-    def image_preview_thumb(self, obj):
-        return get_preview_image(obj.image, 100)
+class ExchangeRateAdmin(admin.ModelAdmin):
+    list_display = (
+        'currency', 'modified_at', 'added_value', 'buying_rate', 'middle_rate', 'selling_rate',
+    )
+    readonly_fields = ('created_at', 'modified_at', )
 
 
 class NavigationItemAdmin(admin.ModelAdmin):
@@ -43,14 +29,13 @@ class NavigationItemAdmin(admin.ModelAdmin):
 
 
 class TestImageAdmin(admin.ModelAdmin):
-    inlines = [GalleryItemInline, ]
+    inlines = [SingleGalleryItemInline, GalleryItemInline, ]
 
 
 admin.site.register(Country)
 admin.site.register(CreditCardLogo)
-admin.site.register(CreditCardSecureLogo)
+admin.site.register(ExchangeRate, ExchangeRateAdmin)
 admin.site.register(FooterItem)
 admin.site.register(FooterShareLink)
-admin.site.register(GalleryItem, GalleryItemAdmin)
 admin.site.register(NavigationItem, NavigationItemAdmin)
 admin.site.register(TestImage, TestImageAdmin)

@@ -1,4 +1,4 @@
-{% load thebrushstash_tags %}
+{% load shop_tags %}
 
 <div class="product">
   {% if product.new %}
@@ -9,7 +9,7 @@
 
   <a href="{% url 'shop:product-detail' product.slug %}">
     {% get_image_for_model product as lead_image %}
-    {% media_object obj=lead_image size='small' %}
+    {% media_object obj=lead_image shape='square' %}
   </a>
   <h2>
     {{ product.name }}

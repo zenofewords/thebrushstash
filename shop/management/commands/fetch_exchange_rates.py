@@ -4,8 +4,8 @@ from urllib3 import poolmanager
 
 from django.core.management.base import BaseCommand
 
-from shop.models import ExchangeRate
 from thebrushstash.constants import exchange_rate_url
+from thebrushstash.models import ExchangeRate
 
 
 class Command(BaseCommand):

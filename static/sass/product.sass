@@ -1,18 +1,18 @@
 .product-detail-wrapper
   display: flex
-  width: 100%
+  height: 100%
   margin: 0 $gutter 0
 
   .gallery-wrapper
-    flex-basis: 50%
-    flex-shrink: 0
+    flex: 1 0 0px
     flex-direction: column
     justify-content: center
     padding: 0 20px 0 0
 
     .image-wrapper
-      width: auto
-      height: 560px
+      width: 423px
+      height: 100%
+      max-height: 560px
       margin: 0 auto 30px
 
       &.play-icon
@@ -109,8 +109,7 @@
             @extend %play-icon
 
   .detail-wrapper
-    flex-basis: 50%
-    flex-shrink: 1
+    flex: 1 1 0px
     flex-direction: column
     margin-top: 30px
 
@@ -186,11 +185,13 @@
 
 .product-description-wrapper
   display: flex
+  height: 100%
   margin: 85px $gutter 0
 
   .text-wrapper
-    flex: 1 1 0px
+    flex: 1 0 0px
     padding: 0 20px 0 0
+    min-width: 423px
 
     h2
       padding: 20px 0
@@ -199,8 +200,7 @@
       text-transform: uppercase
 
     p
-      margin: 0 0 30px
-      padding: 0 35px 0 0
+      margin: 0 35px 30px 0
       font-size: 18px
       line-height: 30px
 
@@ -208,11 +208,9 @@
     flex: 1 1 0px
 
     .image-wrapper
-      height: 480px
-      width: 480px
-
-      img
-        object-fit: cover
+      .picture
+        max-width: 100%
+        height: auto
 
 .more-from-shop-wrapper
   margin-top: 107px

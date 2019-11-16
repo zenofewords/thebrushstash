@@ -1,3 +1,4 @@
+@import './icons/creditCardLogoIcons.sass'
 @import './icons/footerIcons.sass'
 @import './variables.sass'
 
@@ -56,10 +57,10 @@
         height: 31px
         width: 31px
 
-      .facebook
+      .facebook-icon
         background: url('data:image/svg+xml;base64,#{$facebookIcon}') no-repeat center
 
-      .instagram
+      .instagram-icon
         background: url('data:image/svg+xml;base64,#{$instagramIcon}') no-repeat center
 
 .newsletter-wrapper
@@ -144,10 +145,26 @@
   flex-direction: row
   justify-content: center
 
-  .image-wrapper
+  a
     width: 60px
     height: 40px
-    padding: 0 11px
+    padding: 0 1px
+    margin: 0 10px
+
+    &.american-express-logo-icon
+      background: url('data:image/svg+xml;base64,#{$americanExpressLogoIcon}') no-repeat center
+
+    &.discover-logo-icon
+      background: url('data:image/svg+xml;base64,#{$discoverLogoIcon}') no-repeat center
+
+    &.mastercard-logo-icon
+      background: url('data:image/svg+xml;base64,#{$mastercardLogoIcon}') no-repeat center
+
+    &.maestro-logo-icon
+      background: url('data:image/svg+xml;base64,#{$maestroLogoIcon}') no-repeat center
+
+    &.visa-logo-icon
+      background: url('data:image/svg+xml;base64,#{$visaLogoIcon}') no-repeat center
 
 .copyright-wrapper
   width: 100%

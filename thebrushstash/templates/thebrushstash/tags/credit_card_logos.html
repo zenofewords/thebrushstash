@@ -1,0 +1,8 @@
+{% load thebrushstash_tags %}
+
+<div class="credit-card-logos-wrapper">
+  {% for credit_card_logo in credit_card_logos %}
+    <a class="icon {{ credit_card_logo.css_class }}" href="{{ credit_card_logo.location }}"{% if credit_card_logo.external %} target="_blank" rel="noopener noreferrer" {% endif %}>
+    </a>
+  {% endfor %}
+</div>

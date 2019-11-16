@@ -4,7 +4,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from thebrushstash.api.urls import api_urls
+from shop.api.urls import shop_api_urls
+from thebrushstash.api.urls import thebrushstash_api_urls
 from thebrushstash.constants import (
     ABOUT,
     BRUSH_CARE,
@@ -28,7 +29,7 @@ from thebrushstash.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include(('account.urls', 'account'), namespace='account')),
-    path('api/', include((api_urls, 'api'), namespace='api')),
+    path('api/', include((shop_api_urls + thebrushstash_api_urls, 'api'), namespace='api')),
     path('i18n/', include('django.conf.urls.i18n')),
 
     path('faq/', FaqView.as_view(), name='faq'),
