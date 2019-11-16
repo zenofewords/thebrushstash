@@ -210,7 +210,8 @@ ready(() => {
           body: JSON.stringify(data),
         }
       ).then((data) => data.json().then((response) => {
-        corvusOrderNumber.value = response.invoice_id
+        console.log(response)
+        corvusOrderNumber.value = response.order_number
         corvusAmount.value = response.grand_total
         corvusCart.value = response.cart
         corvusSignature.value = response.signature

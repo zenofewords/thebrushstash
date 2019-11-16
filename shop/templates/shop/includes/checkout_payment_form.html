@@ -23,7 +23,7 @@
 
   <div class="credit-card-wrapper">
     <span class="checkout-radio-wrapper">
-      <input type="radio" id="credit-card" name="payment-method" value="credit-card">
+      <input type="radio" id="credit-card" name="payment-method" value="credit-card"{% if region != 'hr' %} checked{% endif %}>
       <label for="credit-card">Use a credit card</label>
       <span class="corvus-logo-icon"></span>
     </span>
@@ -33,12 +33,12 @@
     {% credit_card_logos_tag %}
   </div>
 
-  <div class="paypal-wrapper">
+  <!--<div class="paypal-wrapper">
     <span class="checkout-radio-wrapper">
       <input type="radio" id="paypal" name="payment-method" value="paypal" disabled>
       <label for="paypal">Use Paypal</label>
     </span>
-  </div>
+  </div>-->
 
   {% include 'shop/includes/checkout_corvus_form.html' %}
 </div>
