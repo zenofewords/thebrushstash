@@ -189,6 +189,7 @@ ready(() => {
   const creditCardRadio = document.getElementById('credit-card')
   const summaryRowFees = document.getElementById('summary-row-fees')
   const summaryRowFeesValue = document.getElementById('summary-value-fees')
+  const phoneNumberInput = document.getElementById('id_phone_number')
 
   const corvusOrderNumber = document.getElementById('order_number')
   const corvusAmount = document.getElementById('amount')
@@ -199,11 +200,7 @@ ready(() => {
   const corvusCardholderEmail = document.getElementById('cardholder_email')
 
   const corvusFormSubmitButton = document.getElementById('corvus-form-submit-button')
-  const cashOnDeliverySubmitButton = document.getElementById('cash-on-delivery-submit-button')
-
-  cashOnDeliverySubmitButton && cashOnDeliverySubmitButton.addEventListener('click', (event) => {
-    window.location = '/purchase-completed/'
-  })
+  const cashOnDeliverySubmitWrapper = document.getElementById('cash-on-delivery-submit-wrapper')
 
   cashOnDeliveryWrapper && cashOnDeliveryWrapper.addEventListener('click', (event) => {
     if (!cashOnDeliveryRadio.checked) {
@@ -238,11 +235,11 @@ ready(() => {
         summaryRowFees.classList.remove('hidden')
         summaryRowFeesValue.innerHTML = `${response.bag.fees} kn`
         corvusFormSubmitButton.classList.add('hidden')
-        cashOnDeliverySubmitButton.classList.remove('hidden')
+        cashOnDeliverySubmitWrapper.classList.remove('hidden')
       } else {
         summaryRowFees.classList.add('hidden')
         corvusFormSubmitButton.classList.remove('hidden')
-        cashOnDeliverySubmitButton.classList.add('hidden')
+        cashOnDeliverySubmitWrapper.classList.add('hidden')
         summaryRowFeesValue.innerHTML = null
       }
       corvusAmount.value = response.bag.grand_total
@@ -259,6 +256,8 @@ ready(() => {
     const valid = checkoutAddressForm.reportValidity()
 
     if (valid) {
+      phoneNumberInput.required = true
+
       const formData = new FormData(checkoutAddressForm)
       const data = {}
       for (const [key, value] of formData.entries()) {
@@ -302,6 +301,7 @@ ready(() => {
   })
   previousStepLink && previousStepLink.addEventListener('click', (event) => {
     event.preventDefault()
+    phoneNumberInput.required = false
 
     checkoutAddressTitle.classList.remove('inactive')
     checkoutAddressWrapper.classList.remove('inactive')

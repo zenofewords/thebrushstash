@@ -30,7 +30,7 @@ from thebrushstash.utils import (
 class CheckoutView(FormView):
     template_name = 'shop/checkout.html'
     form_class = AddressForm
-    success_url = reverse_lazy('shop:purchase-complete')
+    success_url = reverse_lazy('shop:purchase-completed')
 
     def get_initial(self):
         user = self.request.user
@@ -75,10 +75,8 @@ class CheckoutView(FormView):
 class PurchaseCompletedView(TemplateView):
     template_name = 'shop/purchase_completed.html'
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         session = request.session
-
-        print(session['order_number'])
 
         if session['payment_method'] == InvoicePaymentMethod.CASH_ON_DELIVERY:
             invoice = Invoice.objects.filter(order_number=session['order_number']).first()
@@ -87,6 +85,7 @@ class PurchaseCompletedView(TemplateView):
                 invoice.status = InvoiceStatus.PROCESSED
                 invoice.order_total = session['bag']['grand_total']
                 invoice.payment_method = session['payment_method']
+                invoice.phone_number = request.POST.get('phone_number')
                 invoice.save()
 
                 session['bag'] = EMPTY_BAG

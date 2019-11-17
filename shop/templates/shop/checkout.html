@@ -8,10 +8,13 @@
 
 {% block content %}
   <div class="checkout-wrapper">
-    <div class="checkout-form-wrapper">
+    <form id="checkout-address-form" method="post" action="{% url 'shop:purchase-completed' %}" class="checkout-form-wrapper">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
       {% include 'shop/includes/checkout_address_form.html' %}
       {% include 'shop/includes/checkout_payment_form.html' %}
-    </div>
+    </form>
     {% purchase_summary_tag bag region %}
   </div>
 {% endblock content %}

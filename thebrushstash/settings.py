@@ -21,7 +21,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # corvus forces a POST redirect which will normally wipe session data
 SESSION_COOKIE_SAMESITE = None
 
-ALLOWED_HOSTS = ['fd9a4c9d.ngrok.io']
+ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS').split(',')]
 INTERNAL_IPS = ['127.0.0.1', ]
 
 INSTALLED_APPS = [

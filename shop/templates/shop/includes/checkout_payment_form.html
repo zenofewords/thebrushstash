@@ -42,9 +42,13 @@
       <label for="paypal">Use Paypal</label>
     </span>
   </div>-->
+  <div id="cash-on-delivery-submit-wrapper" method="post">
+    {% csrf_token %}
+    {% include 'account/includes/form_field.html' with field=form.phone_number %}
 
-  <button id="cash-on-delivery-submit-button" class="{% if region != 'hr' %} hidden{% endif %}">
-    Place order
-  </button>
+    <button id="cash-on-delivery-submit-button">
+      Place order
+    </button>
+  </div>
   {% include 'shop/includes/checkout_corvus_form.html' %}
 </div>
