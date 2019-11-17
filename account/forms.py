@@ -54,6 +54,11 @@ class PasswordForm(forms.ModelForm):
 
 
 class AddressForm(forms.ModelForm):
+    phone_number = forms.CharField(
+        label='Phone number',
+        required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Phone number'})
+    )
     note = forms.CharField(
         label='note',
         required=False,
@@ -69,8 +74,11 @@ class AddressForm(forms.ModelForm):
         self.fields['country'].empty_label = 'Select country'
         self.fields['country'].required = True
 
-        self.fields['full_name'].required = True
-        self.fields['full_name'].widget.attrs['placeholder'] = 'Full name'
+        self.fields['first_name'].required = True
+        self.fields['first_name'].widget.attrs['placeholder'] = 'First name'
+
+        self.fields['last_name'].required = True
+        self.fields['last_name'].widget.attrs['placeholder'] = 'Last name'
 
         self.fields['email'].required = True
         self.fields['email'].widget.attrs['placeholder'] = 'Email address'
@@ -115,8 +123,8 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = (
-            'full_name', 'email', 'country', 'address', 'city', 'state_county', 'zip_code',
-            'company_name', 'company_address', 'company_uin',
+            'first_name', 'last_name', 'email', 'country', 'address', 'city', 'state_county',
+            'zip_code', 'company_name', 'company_address', 'company_uin',
             'note', 'register', 'subscribe_to_newsletter', 'agree_to_terms',
         )
 

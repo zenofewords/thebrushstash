@@ -235,18 +235,23 @@
       margin: 14px 0 30px
       max-width: $checkoutFormInputWidth
 
-    .pay-on-delivery-wrapper,
+    .cash-on-delivery-wrapper,
     .paypal-wrapper,
     .credit-card-wrapper
       border: 1px solid rgba(0, 0, 0, .1)
       max-width: calc(#{$checkoutFormInputWidth} - 40px)
-      padding: 23px 20px 5px
+      padding: 23px 17px 5px
       margin: 20px 0
+      cursor: pointer
 
       .corvus-logo-icon
         width: 140px
         height: 34px
         background: url('data:image/svg+xml;base64,#{$corvusLogoIcon}') no-repeat center
+
+      input,
+      label
+        cursor: pointer
 
       p
         font-size: 14px

@@ -43,7 +43,6 @@ def ship_to_tag(context):
 
     return {
         'selected_region': selected_region,
-        'current_url': request.path if request else '/',
         'regions': regions_copy,
     }
 

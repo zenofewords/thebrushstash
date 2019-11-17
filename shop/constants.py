@@ -3,6 +3,7 @@ EMPTY_BAG = {
     'total': 0,
     'total_quantity': 0,
     'shipping': 0,
+    'fees': 0,
     'grand_total': 0,
 }
 

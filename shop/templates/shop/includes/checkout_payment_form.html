@@ -10,13 +10,16 @@
   </p>
 
   {% if region == 'hr' %}
-    <div class="pay-on-delivery-wrapper">
+    <div class="cash-on-delivery-wrapper">
       <span class="checkout-radio-wrapper">
-        <input type="radio" id="pay-on-delivery" name="payment-method" value="pay-on-delivery" checked>
-        <label for="pay-on-delivery">Pay on delivery</label>
+        <input type="radio" id="cash-on-delivery" name="payment-method" value="cash-on-delivery" checked>
+        <label for="cash-on-delivery">Cash on delivery</label>
       </span>
       <p>
         Note: requires an additional fee for the GLS service. Your order summary will reflect the fee when this option is selected.
+      </p>
+      <p>
+        For security reasons, every cash on delivery order must be verified by phone.
       </p>
     </div>
   {% endif %}

@@ -183,10 +183,65 @@ ready(() => {
   const checkoutPaymentWrapper = document.querySelector('.checkout-payment-wrapper')
   const previousStepLink = document.querySelector('.previous-step-link')
 
+  const cashOnDeliveryWrapper = document.querySelector('.cash-on-delivery-wrapper')
+  const cashOnDeliveryRadio = document.getElementById('cash-on-delivery')
+  const creditCardWrapper = document.querySelector('.credit-card-wrapper')
+  const creditCardRadio = document.getElementById('credit-card')
+  const summaryRowFees = document.getElementById('summary-row-fees')
+  const summaryRowFeesValue = document.getElementById('summary-value-fees')
+
   const corvusOrderNumber = document.getElementById('order_number')
   const corvusAmount = document.getElementById('amount')
   const corvusCart = document.getElementById('cart')
   const corvusSignature = document.getElementById('signature')
+  const corvusCardholderName = document.getElementById('cardholder_name')
+  const corvusCardholderSurname = document.getElementById('cardholder_surname')
+  const corvusCardholderEmail = document.getElementById('cardholder_email')
+
+  cashOnDeliveryWrapper && cashOnDeliveryWrapper.addEventListener('click', (event) => {
+    if (!cashOnDeliveryRadio.checked) {
+      cashOnDeliveryRadio.checked = true
+      updatePaymentMethod(cashOnDeliveryRadio.value)
+    }
+  })
+
+  creditCardWrapper && creditCardWrapper.addEventListener('click', (event) => {
+    if (!creditCardRadio.checked) {
+      creditCardWrapper.checked = true
+      updatePaymentMethod(creditCardRadio.value)
+    }
+  })
+
+  const updatePaymentMethod = (paymentMethod) => {
+    fetch('/api/update-payment-method/',
+      {
+        method: 'POST',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({
+          payment_method: paymentMethod,
+        }),
+      }
+    ).then((data) => data.json().then((response) => {
+      if (response.bag.fees) {
+        summaryRowFees.classList.remove('hidden')
+        summaryRowFeesValue.innerHTML = `${response.bag.fees} kn`
+      } else {
+        summaryRowFees.classList.add('hidden')
+        summaryRowFeesValue.innerHTML = null
+      }
+      corvusAmount.value = response.bag.grand_total
+      summaryGrandTotal.innerHTML = response.bag.grand_total
+    }))
+  }
+
+  creditCardWrapper && creditCardWrapper.addEventListener('click', (event) => {
+    creditCardRadio.checked = true
+  })
 
   continueToPaymentButton && continueToPaymentButton.addEventListener('click', (event) => {
     event.preventDefault()
@@ -210,11 +265,17 @@ ready(() => {
           body: JSON.stringify(data),
         }
       ).then((data) => data.json().then((response) => {
-        console.log(response)
         corvusOrderNumber.value = response.order_number
         corvusAmount.value = response.grand_total
         corvusCart.value = response.cart
         corvusSignature.value = response.signature
+        corvusCardholderEmail.value = response.user_information.email
+        corvusCardholderName.value = response.user_information.first_name
+        corvusCardholderSurname.value = response.user_information.last_name
+
+        if (response.region === 'hr') {
+          updatePaymentMethod(cashOnDeliveryRadio.value)
+        }
       }))
 
       checkoutAddressTitle.classList.add('inactive')

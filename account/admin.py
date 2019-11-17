@@ -13,7 +13,7 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     fieldsets = (
         (None, {'fields': ('email', 'password', 'username', )}),
-        ('Personal info', {'fields': ('full_name', )}),
+        ('Personal info', {'fields': ('first_name', 'last_name', )}),
         ('Address info', {
             'fields': (
                 'country', 'city', 'address', 'state_county', 'zip_code', 'company_name',
@@ -26,7 +26,7 @@ class CustomUserAdmin(UserAdmin):
     )
     limited_fieldsets = (
         (None, {'fields': ('email', )}),
-        ('Personal info', {'fields': ('full_name', )}),
+        ('Personal info', {'fields': ('first_name', 'last_name', )}),
         ('Important dates', {'fields': ('last_login', 'date_joined', )}),
     )
     add_fieldsets = (
@@ -37,9 +37,9 @@ class CustomUserAdmin(UserAdmin):
     form = ChangeForm
     add_form = CustomUserForm
     change_password_form = auth_admin.AdminPasswordChangeForm
-    list_display = ('email', 'full_name', 'is_superuser', )
+    list_display = ('email', 'first_name', 'last_name', 'is_superuser', )
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups', )
-    search_fields = ('full_name', 'email', )
+    search_fields = ('first_name', 'last_name', 'email', )
     ordering = ('email', )
     readonly_fields = ('last_login', 'date_joined', )
 

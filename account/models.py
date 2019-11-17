@@ -6,7 +6,6 @@ class CustomUser(AbstractUser):
     country = models.ForeignKey(
         'thebrushstash.Country', on_delete=models.deletion.CASCADE, blank=True, null=True,
     )
-    full_name = models.CharField(max_length=500, blank=True)
     city = models.CharField(max_length=500, blank=True)
     address = models.CharField(max_length=1000, blank=True)
     state_county = models.CharField(max_length=500, blank=True)

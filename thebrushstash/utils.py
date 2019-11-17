@@ -28,7 +28,10 @@ from shop.constants import (
     SQUARE,
     SRCSET_MAPPING,
 )
-from shop.models import Invoice
+from shop.models import (
+    Invoice,
+    InvoiceStatus,
+)
 from thebrushstash.models import Country
 
 
@@ -185,7 +188,8 @@ def update_user_information(user, email, data):
     user.username = email
     user.email = email
 
-    user.full_name = data.get('full_name')
+    user.first_name = data.get('first_name')
+    user.last_name = data.get('last_name')
     user.country = Country.objects.get(pk=data.get('country'))
     user.city = data.get('city')
     user.address = data.get('address')
@@ -223,14 +227,15 @@ def subscribe_to_newsletter(user, data, current_site):
                 'user': user,
             }
         )
+        # link user to newsletter subscription
         if user and not created and not obj.user:
             obj.user = user
             obj.save()
-        if created:
-            send_subscription_email(email, current_site)
+        # if created:
+            # send_subscription_email(email, current_site)
 
 
-def create_or_update_invoice(order_number, user, cart, data):
+def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
     invoice = Invoice.objects.filter(order_number=order_number).first()
 
     if not invoice:
@@ -240,7 +245,8 @@ def create_or_update_invoice(order_number, user, cart, data):
         )
 
     invoice.email = data.get('email')
-    invoice.full_name = data.get('full_name')
+    invoice.first_name = data.get('first_name')
+    invoice.last_name = data.get('last_name')
     invoice.country = Country.objects.get(pk=data.get('country'))
     invoice.city = data.get('city')
     invoice.address = data.get('address')
@@ -252,7 +258,8 @@ def create_or_update_invoice(order_number, user, cart, data):
     invoice.company_uin = data.get('company_uin', '')
     invoice.note = data.get('note', '')
 
-    invoice.status = 'pending'
+    invoice.status = InvoiceStatus.PENDING
+    invoice.payment_method = payment_method
     invoice.cart = cart
     invoice.user = user
     invoice.save()
@@ -283,16 +290,6 @@ def send_subscription_email(email_address, current_site):
     EmailMessage(mail_subject, message, to=[email_address]).send()
 
 
-def send_purchase_mail(email_address, current_site):
-    mail_subject = 'Purchase complete'
-    message = render_to_string('shop/purchase_complete_email.html', {
-        'domain': current_site.domain,
-        'site_name': current_site.name,
-        'protocol': 'http' if settings.DEBUG else 'https',
-    })
-    EmailMessage(mail_subject, message, to=[email_address]).send()
-
-
 def get_cart(bag):
     products = bag.get('products')
 
@@ -305,13 +302,16 @@ def get_cart(bag):
     return ' '.join(cart)
 
 
-def get_signature(order_number, grand_total, cart):
+def get_signature(order_number, grand_total, cart, user_information):
     language = 'hr'
     currency = 'HRK'
     require_complete = 'false'
 
-    data = 'amount{}cart{}currency{}language{}order_number{}require_complete{}store_id{}version{}'.format(
+    data = 'amount{}cardholder_email{}cardholder_name{}cardholder_surname{}cart{}currency{}language{}order_number{}require_complete{}store_id{}version{}'.format(
         grand_total,
+        user_information.get('email'),
+        user_information.get('first_name'),
+        user_information.get('last_name'),
         cart,
         currency,
         language,
