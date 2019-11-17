@@ -1,6 +1,10 @@
 from rest_framework import serializers
 
 
+class PaymentMethodSerializer(serializers.Serializer):
+    payment_method = serializers.CharField(required=False, allow_blank=True, max_length=20)
+
+
 class ProductSeriazlier(serializers.Serializer):
     pk = serializers.CharField(required=True, max_length=10)
     slug = serializers.SlugField(required=True, max_length=500)
@@ -15,8 +19,9 @@ class SimpleProductSerializer(serializers.Serializer):
 
 
 class UserInformationSerializer(serializers.Serializer):
-    full_name = serializers.CharField(required=True, max_length=500)
-    email = serializers.CharField(required=True, max_length=500)
+    first_name = serializers.CharField(required=True, max_length=40)
+    last_name = serializers.CharField(required=True, max_length=40)
+    email = serializers.CharField(required=True, max_length=40)
     country = serializers.CharField(required=True, max_length=500)
     address = serializers.CharField(required=True, max_length=500)
     city = serializers.CharField(required=True, max_length=500)

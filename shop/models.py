@@ -71,6 +71,7 @@ class ProductType(ShopObjectMixin, TimeStampMixin):
 class InvoiceStatus:
     PENDING = 'pending'
     PAID = 'paid'
+    PROCESSED = 'processed'
     PACKAGED = 'packaged'
     SHIPPED = 'shipped'
     COMPLETED = 'completed'
@@ -79,6 +80,7 @@ class InvoiceStatus:
     CHOICES = (
         (PENDING, 'Pending'),
         (PAID, 'Paid'),
+        (PROCESSED, 'Processed'),
         (PACKAGED, 'Packaged'),
         (SHIPPED, 'Shipped'),
         (COMPLETED, 'Completed'),
@@ -87,12 +89,12 @@ class InvoiceStatus:
 
 
 class InvoicePaymentMethod:
-    ON_DELIVERY = 'on-delivery'
+    CASH_ON_DELIVERY = 'cash-on-delivery'
     PAYPAL = 'paypal'
     CREDIT_CARD = 'credit-card'
 
     CHOICES = (
-        (ON_DELIVERY, 'Pay on delivery'),
+        (CASH_ON_DELIVERY, 'Cash on delivery'),
         (PAYPAL, 'Paypal'),
         (CREDIT_CARD, 'Credit card'),
     )
@@ -100,7 +102,8 @@ class InvoicePaymentMethod:
 
 class Invoice(TimeStampMixin):
     email = models.EmailField(max_length=200)
-    full_name = models.CharField(max_length=500)
+    first_name = models.CharField(max_length=500)
+    last_name = models.CharField(max_length=500)
     country = models.ForeignKey(
         'thebrushstash.Country', on_delete=models.deletion.CASCADE, blank=True, null=True,
     )
@@ -113,12 +116,16 @@ class Invoice(TimeStampMixin):
     company_uin = models.CharField(max_length=500, blank=True)
 
     order_number = models.CharField(max_length=500, blank=True)
-    cart = models.CharField(max_length=1000, blank=True)
     user = models.ForeignKey(
         'account.CustomUser', on_delete=models.deletion.CASCADE, blank=True, null=True,
     )
+
+    order_total = models.DecimalField(max_digits=14, decimal_places=2, blank=True, null=True)
+    cart = models.TextField(blank=True)
     note = models.TextField(blank=True)
-    payment_method = models.CharField(max_length=100, choices=InvoicePaymentMethod.CHOICES)
+    payment_method = models.CharField(
+        max_length=100, choices=InvoicePaymentMethod.CHOICES, blank=True
+    )
     status = models.CharField(max_length=100, choices=InvoiceStatus.CHOICES)
 
     class Meta:

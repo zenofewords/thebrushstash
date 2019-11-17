@@ -8,8 +8,11 @@
   <input id="cart" name="cart" value="{{ cart }}" hidden>
   <input id="require_complete" name="require_complete" value="false" hidden>
   <input id="signature" name="signature" value="{{ signature }}" hidden>
+  <input id="cardholder_name" name="cardholder_name" value="{{ cardholder_name }}" hidden>
+  <input id="cardholder_surname" name="cardholder_surname" value="{{ cardholder_surname }}" hidden>
+  <input id="cardholder_email" name="cardholder_email" value="{{ cardholder_email }}" hidden>
 
-  <button>
+  <button id="corvus-form-submit-button" class="{% if region == 'hr' %} hidden{% endif %}">
     Place order
   </button>
   <a href="#" class="previous-step-link">
