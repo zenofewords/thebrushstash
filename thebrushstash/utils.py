@@ -259,7 +259,6 @@ def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
     invoice.note = data.get('note', '')
 
     invoice.status = InvoiceStatus.PENDING
-    invoice.payment_method = payment_method
     invoice.cart = cart
     invoice.user = user
     invoice.save()
@@ -283,6 +282,16 @@ def send_registration_email(user, current_site):
 def send_subscription_email(email_address, current_site):
     mail_subject = 'Subscribed to newsletter'
     message = render_to_string('shop/subscribed_to_newsletter_email.html', {
+        'domain': current_site.domain,
+        'site_name': current_site.name,
+        'protocol': 'http' if settings.DEBUG else 'https',
+    })
+    EmailMessage(mail_subject, message, to=[email_address]).send()
+
+
+def send_purchase_mail(email_address, current_site):
+    mail_subject = 'Purchase complete'
+    message = render_to_string('shop/purchase_complete_email.html', {
         'domain': current_site.domain,
         'site_name': current_site.name,
         'protocol': 'http' if settings.DEBUG else 'https',

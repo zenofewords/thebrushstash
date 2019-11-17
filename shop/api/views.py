@@ -157,17 +157,19 @@ class ProcessOrderView(GenericAPIView):
         )
         request.session['user_information'] = serializer.data
         order_number = request.session.get('order_number')
-        grand_total = bag.get('grand_total')
+        total = Decimal(bag.get('total'))
+        shipping = Decimal(bag.get('shipping'))
+        grand_total = total + shipping
 
         return response.Response({
             'order_number': order_number,
             'cart': cart,
-            'grand_total': grand_total,
+            'grand_total': str(grand_total),
             'user_information': serializer.data,
             'region': request.session.get('region'),
             'signature': get_signature(
                 order_number,
-                grand_total,
+                str(grand_total),
                 cart,
                 serializer.data
             ),

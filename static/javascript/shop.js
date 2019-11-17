@@ -198,6 +198,13 @@ ready(() => {
   const corvusCardholderSurname = document.getElementById('cardholder_surname')
   const corvusCardholderEmail = document.getElementById('cardholder_email')
 
+  const corvusFormSubmitButton = document.getElementById('corvus-form-submit-button')
+  const cashOnDeliverySubmitButton = document.getElementById('cash-on-delivery-submit-button')
+
+  cashOnDeliverySubmitButton && cashOnDeliverySubmitButton.addEventListener('click', (event) => {
+    window.location = '/purchase-completed/'
+  })
+
   cashOnDeliveryWrapper && cashOnDeliveryWrapper.addEventListener('click', (event) => {
     if (!cashOnDeliveryRadio.checked) {
       cashOnDeliveryRadio.checked = true
@@ -230,8 +237,12 @@ ready(() => {
       if (response.bag.fees) {
         summaryRowFees.classList.remove('hidden')
         summaryRowFeesValue.innerHTML = `${response.bag.fees} kn`
+        corvusFormSubmitButton.classList.add('hidden')
+        cashOnDeliverySubmitButton.classList.remove('hidden')
       } else {
         summaryRowFees.classList.add('hidden')
+        corvusFormSubmitButton.classList.remove('hidden')
+        cashOnDeliverySubmitButton.classList.add('hidden')
         summaryRowFeesValue.innerHTML = null
       }
       corvusAmount.value = response.bag.grand_total
@@ -253,6 +264,7 @@ ready(() => {
       for (const [key, value] of formData.entries()) {
         data[key] = value
       }
+
       fetch('/api/process-order/',
         {
           method: 'POST',
@@ -275,6 +287,8 @@ ready(() => {
 
         if (response.region === 'hr') {
           updatePaymentMethod(cashOnDeliveryRadio.value)
+        } else {
+          updatePaymentMethod(creditCardRadio.value)
         }
       }))
 

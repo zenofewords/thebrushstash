@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
     address = models.CharField(max_length=1000, blank=True)
     state_county = models.CharField(max_length=500, blank=True)
     zip_code = models.CharField(max_length=500, blank=True)
+    phone_number = models.CharField(max_length=500, blank=True)
     company_name = models.CharField(max_length=500, blank=True)
     company_address = models.CharField(max_length=500, blank=True)
     company_uin = models.CharField(max_length=500, blank=True)

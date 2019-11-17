@@ -16,7 +16,7 @@
         <label for="cash-on-delivery">Cash on delivery</label>
       </span>
       <p>
-        Note: requires an additional fee for the GLS service. Your order summary will reflect the fee when this option is selected.
+        Note: requires an additional fee for the GLS service.
       </p>
       <p>
         For security reasons, every cash on delivery order must be verified by phone.
@@ -43,5 +43,8 @@
     </span>
   </div>-->
 
+  <button id="cash-on-delivery-submit-button" class="{% if region != 'hr' %} hidden{% endif %}">
+    Place order
+  </button>
   {% include 'shop/includes/checkout_corvus_form.html' %}
 </div>

@@ -54,11 +54,6 @@ class PasswordForm(forms.ModelForm):
 
 
 class AddressForm(forms.ModelForm):
-    phone_number = forms.CharField(
-        label='Phone number',
-        required=False,
-        widget=forms.TextInput(attrs={'placeholder': 'Phone number'})
-    )
     note = forms.CharField(
         label='note',
         required=False,
@@ -82,6 +77,9 @@ class AddressForm(forms.ModelForm):
 
         self.fields['email'].required = True
         self.fields['email'].widget.attrs['placeholder'] = 'Email address'
+
+        self.fields['phone_number'].required = False
+        self.fields['phone_number'].widget.attrs['placeholder'] = 'Phone number'
 
         self.fields['address'].required = True
         self.fields['address'].widget.attrs['placeholder'] = 'Address'
@@ -123,8 +121,8 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = (
-            'first_name', 'last_name', 'email', 'country', 'address', 'city', 'state_county',
-            'zip_code', 'company_name', 'company_address', 'company_uin',
+            'first_name', 'last_name', 'email', 'phone_number', 'country', 'address', 'city',
+            'state_county', 'zip_code', 'company_name', 'company_address', 'company_uin',
             'note', 'register', 'subscribe_to_newsletter', 'agree_to_terms',
         )
 

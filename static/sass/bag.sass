@@ -342,6 +342,9 @@
       &:last-of-type
         margin: 30px 0 25px
 
+      &.hidden
+        display: none
+
     .previous-step-link
       color: $colorGrey
       font-family: $bodyFont
@@ -356,7 +359,7 @@
   .summary-wrapper
     @extend %summary-wrapper
 
-.purchase-complete-wrapper,
+.purchase-completed-wrapper,
 .purchase-cancelled-wrapper
   margin: -10px auto 230px
   max-width: 500px

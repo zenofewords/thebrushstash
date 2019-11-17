@@ -71,6 +71,7 @@ class ProductType(ShopObjectMixin, TimeStampMixin):
 class InvoiceStatus:
     PENDING = 'pending'
     PAID = 'paid'
+    PROCESSED = 'processed'
     PACKAGED = 'packaged'
     SHIPPED = 'shipped'
     COMPLETED = 'completed'
@@ -79,6 +80,7 @@ class InvoiceStatus:
     CHOICES = (
         (PENDING, 'Pending'),
         (PAID, 'Paid'),
+        (PROCESSED, 'Processed'),
         (PACKAGED, 'Packaged'),
         (SHIPPED, 'Shipped'),
         (COMPLETED, 'Completed'),
@@ -117,6 +119,8 @@ class Invoice(TimeStampMixin):
     user = models.ForeignKey(
         'account.CustomUser', on_delete=models.deletion.CASCADE, blank=True, null=True,
     )
+
+    order_total = models.DecimalField(max_digits=14, decimal_places=2, blank=True, null=True)
     cart = models.TextField(blank=True)
     note = models.TextField(blank=True)
     payment_method = models.CharField(

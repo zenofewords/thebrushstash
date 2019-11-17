@@ -79,7 +79,7 @@ class SingleGalleryItemInline(GenericTabularInline):
 
 
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ('created_at', 'first_name', 'last_name', 'payment_method', 'status', )
+    list_display = ('created_at', 'order_number', 'first_name', 'last_name', 'payment_method', 'status', )
     list_editable = ('status', )
     list_filter = ('status', 'payment_method', )
     readonly_fields = ('created_at', 'modified_at', )
