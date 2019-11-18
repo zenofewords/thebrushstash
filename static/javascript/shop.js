@@ -183,6 +183,7 @@ ready(() => {
   const checkoutAddressWrapper = document.querySelector('.checkout-address-wrapper')
   const checkoutPaymentWrapper = document.querySelector('.checkout-payment-wrapper')
   const previousStepLink = document.querySelector('.previous-step-link')
+  const checkoutR1FieldsWrapper = document.querySelector('.checkout-r1-fields-wrapper')
 
   const cashOnDeliveryWrapper = document.querySelector('.cash-on-delivery-wrapper')
   const cashOnDeliveryRadio = document.getElementById('cash-on-delivery')
@@ -191,6 +192,11 @@ ready(() => {
   const summaryRowFees = document.getElementById('summary-row-fees')
   const summaryRowFeesValue = document.getElementById('summary-value-fees')
   const phoneNumberInput = document.getElementById('id_phone_number')
+  const r1ReceiptCheckbox = document.getElementById('id_r1_receipt')
+
+  const checkoutR1CompanyName = document.getElementById('id_company_name')
+  const checkoutR1CompanyAddress = document.getElementById('id_company_address')
+  const checkoutR1CompanyUIN = document.getElementById('id_company_uin')
 
   const ipgOrderNumber = document.getElementById('order_number')
   const ipgAmount = document.getElementById('amount')
@@ -202,6 +208,14 @@ ready(() => {
 
   const ipgFormSubmitButton = document.getElementById('ipg-form-submit-button')
   const cashOnDeliverySubmitWrapper = document.getElementById('cash-on-delivery-submit-wrapper')
+
+  r1ReceiptCheckbox && r1ReceiptCheckbox.addEventListener('change', (event) => {
+    const checked = r1ReceiptCheckbox.checked
+    checkoutR1FieldsWrapper.hidden = !checked
+    checkoutR1CompanyName.required = checked
+    checkoutR1CompanyAddress.required = checked
+    checkoutR1CompanyUIN.required = checked
+  })
 
   cashOnDeliveryWrapper && cashOnDeliveryWrapper.addEventListener('click', (event) => {
     if (!cashOnDeliveryRadio.checked) {

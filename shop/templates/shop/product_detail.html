@@ -46,7 +46,11 @@
         {{ object.price_hrk }} kn
       </div>
       <p class="foreword">
-        {{ object.foreword }}
+        {% if LANGUAGE_CODE == 'hr' %}
+          {{ product.foreword_cro }}
+        {% else %}
+          {{ product.foreword }}
+        {% endif %}
       </p>
 
       <div class="ui-wrapper">
@@ -73,9 +77,17 @@
   <div class="product-description-wrapper">
     <div class="text-wrapper">
       <h2>
-        {{ object.title}}
+        {% if LANGUAGE_CODE == 'hr' %}
+          {{ product.title_cro }}
+        {% else %}
+          {{ product.title }}
+        {% endif %}
       </h2>
-      {{ object.description|linebreaks }}
+      {% if LANGUAGE_CODE == 'hr' %}
+        {{ product.description_cro|linebreaks }}
+      {% else %}
+        {{ product.description|linebreaks }}
+      {% endif %}
     </div>
     <div class="media-wrapper">
       {% get_image_for_model obj=product standalone=True as body_image %}

@@ -88,12 +88,27 @@ class InvoiceAdmin(admin.ModelAdmin):
 
 class ProductAdmin(AutoSlugAdmin):
     list_display_links = ('name', )
-    list_display = ('name', 'price_hrk', 'ordering', 'published', )
+    list_display = ('name', 'price_hrk', 'in_stock', 'ordering', 'published', )
     list_editable = ('price_hrk', 'ordering', 'published', )
     readonly_fields = ('price_usd', 'price_eur', 'price_gbp', )
-    fields = (
-        'product_type', 'name', 'slug', 'foreword', 'title', 'description', 'in_stock',
-        'ordering', 'published', 'new', 'price_hrk', 'price_usd', 'price_eur', 'price_gbp',
+    fieldsets = (
+        (None, {
+            'fields': (
+                'product_type', 'name', 'slug', 'in_stock', 'ordering', 'published', 'new',
+            )
+        }),
+        ('Text fields (ENG)', {
+            'classes': ('collapse', ),
+            'fields': ('foreword', 'title', 'description', ),
+        }),
+        ('Text fields (CRO)', {
+            'classes': ('collapse', ),
+            'fields': ('foreword_cro', 'title_cro', 'description_cro', ),
+        }),
+        ('Price (HRK, USD, EUR, GBP)', {
+            'classes': ('collapse', ),
+            'fields': ('price_hrk', 'price_usd', 'price_eur', 'price_gbp', ),
+        }),
     )
     inlines = [GalleryItemInline, SingleGalleryItemInline]
 
@@ -103,6 +118,22 @@ class ProductTypeAdmin(AutoSlugAdmin):
 
 
 class ShowcaseAdmin(AutoSlugAdmin):
+    list_display_links = ('name', )
+    list_display = ('name', 'published', )
+    list_editable = ('published', )
+    fieldsets = (
+        (None, {
+            'fields': ('published', ),
+        }),
+        ('Text fields (ENG)', {
+            'classes': ('collapse', ),
+            'fields': ('name', 'description', ),
+        }),
+        ('Text fields (CRO)', {
+            'classes': ('collapse', ),
+            'fields': ('name_cro', 'description_cro', ),
+        }),
+    )
     inlines = [SingleGalleryItemInline]
 
 

@@ -15,7 +15,11 @@
     {{ product.name }}
   </h2>
   <p>
-    {{ product.foreword }}
+    {% if LANGUAGE_CODE == 'hr' %}
+      {{ product.foreword_cro }}
+    {% else %}
+      {{ product.foreword }}
+    {% endif %}
   </p>
   <div class="price-tag">
     {{ product.price_hrk }} kn

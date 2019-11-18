@@ -22,13 +22,17 @@ class UserInformationSerializer(serializers.Serializer):
     first_name = serializers.CharField(required=True, max_length=40)
     last_name = serializers.CharField(required=True, max_length=40)
     email = serializers.CharField(required=True, max_length=40)
-    country = serializers.CharField(required=True, max_length=500)
-    address = serializers.CharField(required=True, max_length=500)
-    city = serializers.CharField(required=True, max_length=500)
-    zip_code = serializers.CharField(required=True, max_length=500)
+    country = serializers.CharField(required=True, max_length=30)
+    address = serializers.CharField(required=True, max_length=100)
+    city = serializers.CharField(required=True, max_length=50)
+    zip_code = serializers.CharField(required=True, max_length=20)
 
-    state_county = serializers.CharField(required=False, allow_blank=True, max_length=500)
+    state_county = serializers.CharField(required=False, allow_blank=True, max_length=50)
     note = serializers.CharField(required=False, allow_blank=True, max_length=1000)
+
+    company_name = serializers.CharField(required=False, allow_blank=True, max_length=100)
+    company_address = serializers.CharField(required=False, allow_blank=True, max_length=200)
+    company_uin = serializers.CharField(required=False, allow_blank=True, max_length=100)
 
     register = serializers.BooleanField(required=False)
     subscribe_to_newsletter = serializers.BooleanField(required=False)

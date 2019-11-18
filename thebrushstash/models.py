@@ -52,7 +52,7 @@ class CreditCardLogo(LinkedMixin, PublishedMixin):
 
 
 class NavigationItem(LinkedMixin, PublishedMixin):
-    pass
+    name_cro = models.CharField(max_length=500, blank=True)
 
 
 class FooterItem(LinkedMixin, PublishedMixin):

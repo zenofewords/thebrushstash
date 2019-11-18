@@ -44,16 +44,16 @@
       </span>
     {% endif %}
 
-    {% if region == 'hrr1' %}
+    {% if region == 'hr' %}
       <span class="checkout-checkbox-wrapper">
         {{ form.r1_receipt }}
         {{ form.r1_receipt.label_tag }}
       </span>
 
-      <div class="checkout-r1-fields" hidden>
-        {% include 'account/includes/form_field.html' with field=form.company_name label="Company name" %}
-        {% include 'account/includes/form_field.html' with field=form.company_address label="Company address" %}
-        {% include 'account/includes/form_field.html' with field=form.company_uin label="Company UIN" %}
+      <div class="checkout-r1-fields-wrapper" hidden>
+        {% include 'account/includes/form_field.html' with field=form.company_name %}
+        {% include 'account/includes/form_field.html' with field=form.company_address %}
+        {% include 'account/includes/form_field.html' with field=form.company_uin %}
       </div>
     {% endif %}
 
