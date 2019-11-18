@@ -36,19 +36,17 @@
     {% credit_card_logos_tag %}
   </div>
 
-  <!--<div class="paypal-wrapper">
-    <span class="checkout-radio-wrapper">
-      <input type="radio" id="paypal" name="payment-method" value="paypal" disabled>
-      <label for="paypal">Use Paypal</label>
-    </span>
-  </div>-->
-  <div id="cash-on-delivery-submit-wrapper" method="post">
-    {% csrf_token %}
+  <div id="cash-on-delivery-submit-wrapper">
     {% include 'account/includes/form_field.html' with field=form.phone_number %}
 
     <button id="cash-on-delivery-submit-button">
       Place order
     </button>
   </div>
+</form>
+
   {% include 'shop/includes/checkout_ipg_form.html' %}
+  <a href="#" class="previous-step-link">
+    Previous step
+  </a>
 </div>

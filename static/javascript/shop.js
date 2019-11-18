@@ -205,13 +205,15 @@ ready(() => {
   cashOnDeliveryWrapper && cashOnDeliveryWrapper.addEventListener('click', (event) => {
     if (!cashOnDeliveryRadio.checked) {
       cashOnDeliveryRadio.checked = true
+      phoneNumberInput.required = true
       updatePaymentMethod(cashOnDeliveryRadio.value)
     }
   })
 
   creditCardWrapper && creditCardWrapper.addEventListener('click', (event) => {
     if (!creditCardRadio.checked) {
-      creditCardWrapper.checked = true
+      creditCardRadio.checked = true
+      phoneNumberInput.required = false
       updatePaymentMethod(creditCardRadio.value)
     }
   })
@@ -285,6 +287,8 @@ ready(() => {
         ipgCardholderSurname.value = response.user_information.last_name
 
         if (response.region === 'hr') {
+          cashOnDeliveryRadio.checked = true
+          phoneNumberInput.required = true
           updatePaymentMethod(cashOnDeliveryRadio.value)
         } else {
           updatePaymentMethod(creditCardRadio.value)
