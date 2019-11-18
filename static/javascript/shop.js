@@ -39,6 +39,7 @@ ready(() => {
             cache: 'no-cache',
             credentials: 'same-origin',
             headers: {
+              'Authorization': 'Basic ' + window.btoa('anarniel' + ':' + 'brushybrush'),
               'Content-Type': 'application/json',
               'X-CSRFToken': getCookie('csrftoken'),
             },
