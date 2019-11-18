@@ -1,9 +1,16 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <div class="navigation-wrapper">
   <ul class="inner-wrapper">
     {% for navigation_item in navigation_items %}
       <li class="nav-item{% if navigation_item.css_class %} {{ navigation_item.css_class }}{% endif %}">
         <a href="{{ navigation_item.location }}" {% if current_url == navigation_item.location %} class="active"{% endif %}>
-          {{ navigation_item.name }}
+          {% if LANGUAGE_CODE == 'hr' %}
+            {{ navigation_item.name_cro }}
+          {% else %}
+            {{ navigation_item.name }}
+          {% endif %}
         </a>
       </li>
       <span class="nav-divider"></span>

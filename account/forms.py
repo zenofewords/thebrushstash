@@ -93,6 +93,15 @@ class AddressForm(forms.ModelForm):
         self.fields['state_county'].required = False
         self.fields['state_county'].widget.attrs['placeholder'] = 'State/County (optional)'
 
+        self.fields['company_name'].required = False
+        self.fields['company_name'].widget.attrs['placeholder'] = 'Company name'
+
+        self.fields['company_address'].required = False
+        self.fields['company_address'].widget.attrs['placeholder'] = 'Company address'
+
+        self.fields['company_uin'].required = False
+        self.fields['company_uin'].widget.attrs['placeholder'] = 'Company UIN'
+
         self.fields['register'].label = 'Create an account'
         self.fields['register'].label_suffix = ''
         self.fields['register'].initial = True

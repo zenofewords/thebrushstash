@@ -30,6 +30,7 @@ class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
         default=0, blank=True,
         help_text='If set to 0, products are ordered by "new", then by creation date'
     )
+
     price_hrk = models.DecimalField(
         verbose_name='Price (HRK)', max_digits=14, decimal_places=2, blank=True, null=True,
     )
@@ -45,6 +46,10 @@ class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
         verbose_name='Price (GBP)', max_digits=14, decimal_places=2, blank=True, null=True,
         help_text="Auto populates from HRK when saved"
     )
+
+    title_cro = models.CharField(max_length=500, blank=True)
+    foreword_cro = models.TextField(max_length=300, blank=True)
+    description_cro = models.TextField(blank=True)
 
     class Meta:
         verbose_name = 'Product'
@@ -135,6 +140,8 @@ class Invoice(TimeStampMixin):
 
 
 class Showcase(ShopObjectMixin, PublishedMixin):
+    name_cro = models.CharField(max_length=500, blank=True)
+    description_cro = models.TextField(blank=True)
 
     class Meta:
         verbose_name = 'Showcase'

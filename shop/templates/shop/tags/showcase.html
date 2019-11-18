@@ -1,13 +1,23 @@
+{% load i18n %}
 {% load shop_tags %}
 
 {% if showcase %}
+  {% get_current_language as LANGUAGE_CODE %}
   <div class="showcase-wrapper">
     <div class="text-wrapper">
       <h1>
-        {{ showcase.name }}
+        {% if LANGUAGE_CODE == 'hr' %}
+          {{ showcase.name_cro }}
+        {% else %}
+          {{ showcase.name }}
+        {% endif %}
       </h1>
       <p>
-        {{ showcase.description|linebreaks }}
+        {% if LANGUAGE_CODE == 'hr' %}
+          {{ showcase.description_cro|linebreaks }}
+        {% else %}
+          {{ showcase.description|linebreaks }}
+        {% endif %}
       </p>
     </div>
     {% get_image_for_model obj=showcase standalone=True as lead_image %}

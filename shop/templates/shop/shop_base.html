@@ -12,6 +12,7 @@
 {% endblock meta_description %}
 
 {% block content %}
+  {% get_current_language as LANGUAGE_CODE %}
   {% showcase_tag %}
   <div class="content-wrapper">
     <div id="products-anchor" class="products-wrapper">
