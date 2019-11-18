@@ -191,15 +191,15 @@ ready(() => {
   const summaryRowFeesValue = document.getElementById('summary-value-fees')
   const phoneNumberInput = document.getElementById('id_phone_number')
 
-  const corvusOrderNumber = document.getElementById('order_number')
-  const corvusAmount = document.getElementById('amount')
-  const corvusCart = document.getElementById('cart')
-  const corvusSignature = document.getElementById('signature')
-  const corvusCardholderName = document.getElementById('cardholder_name')
-  const corvusCardholderSurname = document.getElementById('cardholder_surname')
-  const corvusCardholderEmail = document.getElementById('cardholder_email')
+  const ipgOrderNumber = document.getElementById('order_number')
+  const ipgAmount = document.getElementById('amount')
+  const ipgCart = document.getElementById('cart')
+  const ipgSignature = document.getElementById('signature')
+  const ipgCardholderName = document.getElementById('cardholder_name')
+  const ipgCardholderSurname = document.getElementById('cardholder_surname')
+  const ipgCardholderEmail = document.getElementById('cardholder_email')
 
-  const corvusFormSubmitButton = document.getElementById('corvus-form-submit-button')
+  const ipgFormSubmitButton = document.getElementById('ipg-form-submit-button')
   const cashOnDeliverySubmitWrapper = document.getElementById('cash-on-delivery-submit-wrapper')
 
   cashOnDeliveryWrapper && cashOnDeliveryWrapper.addEventListener('click', (event) => {
@@ -234,15 +234,15 @@ ready(() => {
       if (response.bag.fees) {
         summaryRowFees.classList.remove('hidden')
         summaryRowFeesValue.innerHTML = `${response.bag.fees} kn`
-        corvusFormSubmitButton.classList.add('hidden')
+        ipgFormSubmitButton.classList.add('hidden')
         cashOnDeliverySubmitWrapper.classList.remove('hidden')
       } else {
         summaryRowFees.classList.add('hidden')
-        corvusFormSubmitButton.classList.remove('hidden')
+        ipgFormSubmitButton.classList.remove('hidden')
         cashOnDeliverySubmitWrapper.classList.add('hidden')
         summaryRowFeesValue.innerHTML = null
       }
-      corvusAmount.value = response.bag.grand_total
+      ipgAmount.value = response.bag.grand_total
       summaryGrandTotal.innerHTML = response.bag.grand_total
     }))
   }
@@ -276,13 +276,13 @@ ready(() => {
           body: JSON.stringify(data),
         }
       ).then((data) => data.json().then((response) => {
-        corvusOrderNumber.value = response.order_number
-        corvusAmount.value = response.grand_total
-        corvusCart.value = response.cart
-        corvusSignature.value = response.signature
-        corvusCardholderEmail.value = response.user_information.email
-        corvusCardholderName.value = response.user_information.first_name
-        corvusCardholderSurname.value = response.user_information.last_name
+        ipgOrderNumber.value = response.order_number
+        ipgAmount.value = response.grand_total
+        ipgCart.value = response.cart
+        ipgSignature.value = response.signature
+        ipgCardholderEmail.value = response.user_information.email
+        ipgCardholderName.value = response.user_information.first_name
+        ipgCardholderSurname.value = response.user_information.last_name
 
         if (response.region === 'hr') {
           updatePaymentMethod(cashOnDeliveryRadio.value)

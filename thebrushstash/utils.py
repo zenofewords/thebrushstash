@@ -10,6 +10,7 @@ from PIL import Image
 from webptools import webplib
 
 from django.conf import settings
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -24,6 +25,7 @@ from account.models import (
 from account.tokens import account_activation_token
 from shop.constants import (
     DEFAULT_IMAGE_QUALITY,
+    EMPTY_BAG,
     SLOTS,
     SQUARE,
     SRCSET_MAPPING,
@@ -327,11 +329,11 @@ def get_signature(order_number, grand_total, cart, user_information):
         order_number,
         require_complete,
         settings.STORE_ID,
-        settings.CORVUS_API_VERSION
+        settings.IPG_API_VERSION
     )
 
     return hmac.new(
-        bytes(settings.CORVUS_API_KEY, 'utf-8'),
+        bytes(settings.IPG_API_KEY, 'utf-8'),
         msg=bytes(data, 'utf-8'),
         digestmod=hashlib.sha256
     ).hexdigest().lower()
@@ -343,10 +345,27 @@ def signature_is_valid(data):
     order_number = data.get('order_number')
 
     return data.get('signature') == hmac.new(
-        bytes(settings.CORVUS_API_KEY, 'utf-8'),
+        bytes(settings.IPG_API_KEY, 'utf-8'),
         msg=bytes('approval_code{}language{}order_number{}'.format(
             approval_code, language, order_number),
             'utf-8'
         ),
         digestmod=hashlib.sha256
     ).hexdigest().lower()
+
+
+def complete_purchase(session, invoice_status, request):
+    invoice = Invoice.objects.filter(order_number=session['order_number']).first()
+
+    if invoice:
+        invoice.status = invoice_status
+        invoice.order_total = session['bag']['grand_total']
+        invoice.payment_method = session['payment_method']
+        invoice.phone_number = request.POST.get('phone_number', '')
+        invoice.save()
+
+        session['bag'] = EMPTY_BAG
+        session['order_number'] = None
+        session['user_information']['note'] = None
+
+        send_purchase_mail(session['user_information']['email'], get_current_site(request))

@@ -9,8 +9,8 @@ DEBUG_TOOLBAR = bool(os.getenv('DEBUG_TOOLBAR', False) and DEBUG)
 CACHE = bool(os.getenv('CACHE', False))
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-CORVUS_API_KEY = os.getenv('CORVUS_API_KEY')
-CORVUS_API_VERSION = os.getenv('CORVUS_API_VERSION')
+IPG_API_KEY = os.getenv('IPG_API_KEY')
+IPG_API_VERSION = os.getenv('IPG_API_VERSION')
 STORE_ID = os.getenv('STORE_ID')
 SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = not DEBUG and bool(os.getenv('SESSION_COOKIE_SECURE', False))
@@ -18,7 +18,7 @@ CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
 CSRF_COOKIE_HTTPONLY = SESSION_COOKIE_SECURE
 SECURE_SSL_REDIRECT = not DEBUG and bool(os.getenv('SECURE_SSL_REDIRECT', False))
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# corvus forces a POST redirect which will normally wipe session data
+# IPG forces a POST redirect which will normally wipe session data
 SESSION_COOKIE_SAMESITE = None
 
 ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS').split(',')]

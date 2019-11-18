@@ -1,4 +1,3 @@
-from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import (
@@ -14,7 +13,6 @@ from account.forms import AddressForm
 from account.models import (
     NewsletterRecipient,
 )
-from shop.constants import EMPTY_BAG
 from shop.models import (
     Invoice,
     InvoicePaymentMethod,
@@ -22,7 +20,7 @@ from shop.models import (
     Product,
 )
 from thebrushstash.utils import (
-    send_purchase_mail,
+    complete_purchase,
     signature_is_valid,
 )
 
@@ -79,59 +77,31 @@ class PurchaseCompletedView(TemplateView):
         session = request.session
 
         if session['payment_method'] == InvoicePaymentMethod.CASH_ON_DELIVERY:
-            invoice = Invoice.objects.filter(order_number=session['order_number']).first()
-
-            if invoice:
-                invoice.status = InvoiceStatus.PROCESSED
-                invoice.order_total = session['bag']['grand_total']
-                invoice.payment_method = session['payment_method']
-                invoice.phone_number = request.POST.get('phone_number')
-                invoice.save()
-
-                session['bag'] = EMPTY_BAG
-                session['order_number'] = None
-
-                send_purchase_mail(
-                    session['user_information']['email'],
-                    get_current_site(request)
-                )
+            complete_purchase(session, InvoiceStatus.PROCESSED, request)
         return render(request, self.template_name)
 
 
-# corvus forces a POST redirect which will not contain but requires the csrf token
+# ipg forces a POST redirect which will not contain but requires the csrf token
 @method_decorator(csrf_exempt, name='dispatch')
 class IPGPurchaseCompletedView(TemplateView):
     template_name = 'shop/purchase_completed.html'
-    http_method_names = ['get', 'post']
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
         if signature_is_valid(request.POST):
-            invoice = Invoice.objects.filter(order_number=request.POST.get('order_number')).first()
-
-            if invoice:
-                invoice.status = InvoiceStatus.PAID
-                invoice.order_total = request.session['bag']['grand_total']
-                invoice.payment_method = request.session['payment_method']
-                invoice.save()
-
-                request.session['bag'] = EMPTY_BAG
-                request.session['order_number'] = None
-
+            session = request.session
+            complete_purchase(session, InvoiceStatus.PAID, request)
         return render(
-            request,
-            self.template_name,
-            {'user_information': request.session['user_information']}
+            request, self.template_name, {'user_information': session['user_information']}
         )
 
 
-# corvus forces a POST redirect which will not contain but requires the csrf token
+# ipg forces a POST redirect which will not contain but requires the csrf token
 @method_decorator(csrf_exempt, name='dispatch')
 class IPGPurchaseCancelledView(TemplateView):
     template_name = 'shop/purchase_cancelled.html'
-    http_method_names = ['get', 'post']
 
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
