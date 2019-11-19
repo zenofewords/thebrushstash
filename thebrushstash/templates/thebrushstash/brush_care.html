@@ -1,8 +1,9 @@
 {% extends 'thebrushstash/base.html' %}
+{% load i18n %}
 {% load thebrushstash_tags %}
 
 {% block title %}
-  {{ block.super }} - Brush Care
+  {{ block.super }} - {% trans "Brush Care" %}
 {% endblock title %}
 
 {% block meta_description %}
@@ -12,7 +13,7 @@
 
 {% block content %}
   <div class="brush-care-wrapper">
-    <h1>Brush Care</h1>
-    Coming soon!
+    <h1>{% trans "Brush Care" %}</h1>
+    {% trans "Coming soon!" %}
   </div>
 {% endblock content %}

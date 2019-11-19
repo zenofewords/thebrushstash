@@ -1,8 +1,10 @@
+{% load i18n %}
+
 <div class="summary-wrapper">
-  <h2>Order summary</h2>
+  <h2>{% trans "Order summary" %}</h2>
   <div class="summary-row">
     <span class="summary-label">
-      Total:
+      {% trans "Total:" %}
     </span>
     <span id="summary-total" class="summary-value">
        {{ bag.total|default:"0.00" }} kn
@@ -10,7 +12,7 @@
   </div>
   <div class="summary-row">
     <span class="summary-label">
-      Ship to: {{ region }}
+      {% trans "Ship to:" %} {{ region }}
     </span>
     <span class="summary-value">
       {{ bag.shipping|default:"0.00" }} kn
@@ -18,7 +20,7 @@
   </div>
   <div id="summary-row-fees" class="summary-row{% if not bag.fees %} hidden{% endif %}">
     <span class="summary-label">
-      GLS:
+      {% trans "GLS:" %}
     </span>
     <span id="summary-value-fees" class="summary-value">
       {{ bag.fees|default:"0.00" }} kn
@@ -26,7 +28,7 @@
   </div>
   <div class="summary-row">
     <span class="summary-grand-total-label">
-      Grand total:
+      {% trans "Grand total:" %}
     </span>
     <span id="summary-grand-total" class="summary-grand-total-value">
       {{ bag.grand_total|default:"0.00" }} kn
@@ -35,10 +37,10 @@
 
   {% if show_links %}
     <a href="{% url 'shop:checkout' %}" class="summary-check-out-button">
-      <span>Check out</span>
+      <span>{% trans "Check out" %}</span>
     </a>
     <a href="{% url 'shop:shop' %}#products-anchor" class="summary-continue-shopping-link">
-      Continue shopping
+      {% trans "Continue shopping" %}
     </a>
   {% endif %}
 </div>

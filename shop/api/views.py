@@ -6,7 +6,9 @@ from rest_framework import (
 )
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
+from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
+from django.utils.translation import get_language
 
 from shop.api.serializers import (
     PaymentMethodSerializer,
@@ -16,6 +18,10 @@ from shop.api.serializers import (
 )
 from shop.constants import EMPTY_BAG
 from shop.models import InvoicePaymentMethod
+from thebrushstash.constants import (
+    ipg_fields,
+    form_mandatory_fields,
+)
 from thebrushstash.utils import (
     create_or_update_invoice,
     get_cart,
@@ -157,9 +163,15 @@ class ProcessOrderView(GenericAPIView):
         )
         request.session['user_information'] = serializer.data
         order_number = request.session.get('order_number')
-        total = Decimal(bag.get('total'))
-        shipping = Decimal(bag.get('shipping'))
-        grand_total = total + shipping
+        grand_total = Decimal(bag.get('total')) + Decimal(bag.get('shipping'))
+
+        user_info = {}
+        for key, ipg_key in dict(zip(form_mandatory_fields, ipg_fields)).items():
+            if key in form_mandatory_fields:
+                user_info[ipg_key] = serializer.data[key]
+
+        if not request.session.get('_language'):
+            request.session['_language'] = get_language()
 
         return response.Response({
             'order_number': order_number,
@@ -167,10 +179,16 @@ class ProcessOrderView(GenericAPIView):
             'grand_total': str(grand_total),
             'user_information': serializer.data,
             'region': request.session.get('region'),
-            'signature': get_signature(
-                order_number,
-                str(grand_total),
-                cart,
-                serializer.data
-            ),
+            'language': request.session.get('_language'),
+            'signature': get_signature({
+                'amount': str(grand_total),
+                **user_info,  # noqa
+                'cart': cart,
+                'currency': 'HRK',
+                'language': request.session.get('_language'),
+                'order_number': order_number,
+                'require_complete': 'false',
+                'store_id': settings.IPG_STORE_ID,
+                'version': settings.IPG_API_VERSION,
+            }),
         }, status=status.HTTP_200_OK)

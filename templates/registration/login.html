@@ -1,19 +1,26 @@
 {% extends 'thebrushstash/auth_base.html' %}
+{% load i18n %}
 
 {% block title %}
-  {{ block.super }} - Login
+  {{ block.super }} - {% trans "Login" %}
 {% endblock %}
 
 {% block auth_content %}
   {% if user.is_authenticated %}
-    You are logged in and ready to buy some <a href="{% url 'shop:shop' %}">awesome brushes</a>
-
-    Unless you'd like to <a href="{% url 'logout' %}">logout</a> instead.
-  {% else %}
-    <h1>Login</h1>
+    <h1>{% trans "You are already logged in" %}</h1>
     <p>
-      Don't have an account?
-      <a href="{% url 'account:register' %}" class="register">Register here</a>
+      {% url 'shop:shop' as shop_url %}
+      {% blocktrans %}You can find some brushes <a href="{{ shop_url }}">here</a>.{% endblocktrans %}
+    </p>
+    <p>
+      {% url 'logout' as logut_url %}
+      {% blocktrans %}Unless you'd like to <a href="{{ logut_url }}">logout</a> instead.{% endblocktrans %}
+    </p>
+  {% else %}
+    <h1>{% trans "Login" %}</h1>
+    <p>
+      {% url 'account:register' as register_url %}
+      {% blocktrans %}Don't have an account? <a href="{{ register_url }}" class="register">Register here</a>{% endblocktrans %}
     </p>
     <form method="post">
       {% csrf_token %}
@@ -23,12 +30,12 @@
       {% include 'account/includes/form_field.html' with field=form.password type='password' %}
 
       <button type="submit">
-        Login
+        {% trans "Login" %}
       </button>
 
       <p class="reset-password">
         <a href="{% url 'password_reset' %}">
-          Forgot your password?
+          {% trans "Forgot your password?" %}
         </a>
       </p>
     </form>

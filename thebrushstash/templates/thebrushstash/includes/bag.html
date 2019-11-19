@@ -1,12 +1,13 @@
+{% load i18n %}
 {% load shop_tags %}
 
 <div class="bag bag-hide">
   <div class="bag-header">
     <span>
-      In your bag
+      {% trans 'In your bag' %}
     </span>
     <span>
-      Total: <span class="bag-total">
+      {% trans 'Total:' %} <span class="bag-total">
         {{ bag.total|default:"0.00" }} kn
       </span>
     </span>
@@ -29,10 +30,10 @@
           </div>
           <div class="bag-product-stats">
             <div class="bag-product-quantity">
-              Quantity: {{ value.quantity }}
+              {% trans 'Quantity:' %} {{ value.quantity }}
             </div>
             <div class="bag-product-subtotal">
-              Subtotal: {{ value.subtotal }} kn
+              {% trans 'Subtotal:' %} {{ value.subtotal }} kn
             </div>
           </div>
         </div>
@@ -40,6 +41,6 @@
     {% endfor %}
   </div>
   <a href="{% url 'shop:review-bag' %}" class="review-bag-link"{% if not bag.products.items %} hidden{% endif %}>
-    Review bag
+    {% trans 'Review bag' %}
   </a>
 </div>

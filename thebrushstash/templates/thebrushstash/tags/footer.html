@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load thebrushstash_tags %}
 
 {% if not hide_social %}
@@ -6,7 +7,7 @@
       {% for footer_share_link in footer_share_links %}
         <a class="social-link" href="{{ footer_share_link.location }}" target="_blank" rel="noopener noreferrer">
           <span class="icon {{ footer_share_link.css_class }}"></span>
-          Follow us on {{ footer_share_link.name }}
+          {% trans 'Follow us on' %} {{ footer_share_link.name }}
         </a>
       {% endfor %}
     </div>
@@ -29,6 +30,6 @@
 
 <div class="copyright-wrapper">
   <div class="copyright-claim">
-    {% now 'Y' %} &copy; The Brush Stash. All rights reserved.
+    {% now 'Y' %} &copy; {% trans 'The Brush Stash. All rights reserved.' %}
   </div>
 </div>

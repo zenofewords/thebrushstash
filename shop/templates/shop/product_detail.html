@@ -1,4 +1,5 @@
 {% extends 'shop/shop_base.html' %}
+{% load i18n %}
 {% load shop_tags %}
 {% load render_bundle from webpack_loader %}
 
@@ -32,7 +33,7 @@
     <div class="detail-wrapper">
       <ul class="breadcrumbs">
         <li>
-          <a href="{% url 'shop:shop' %}">Shop</a>
+          <a href="{% url 'shop:shop' %}">{% trans "Shop" %}</a>
         </li>
         <li>
           {{ object.name }}
@@ -67,10 +68,11 @@
       </div>
 
       <p class="fine-copy">
-        *Prices include VAT.
-        <a class="link" href="{% url 'payment-and-delivery' %}">
-          Shipping costs apply
-        </a>
+        {% url 'payment-and-delivery' as pandd_url %}
+        {% blocktrans %}*Prices include VAT.
+          <a class="link" href="{{ pandd_url }}">
+            Shipping costs apply
+          </a>{% endblocktrans %}
       </p>
     </div>
   </div>
@@ -96,7 +98,7 @@
   </div>
   <div class="more-from-shop-wrapper">
     <h3>
-      More from our shop
+      {% trans "More from our shop" %}
     </h3>
     <div class="more-products-wrapper">
       {% for product in other_products %}

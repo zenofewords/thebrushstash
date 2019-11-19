@@ -1,18 +1,24 @@
+{% load i18n %}
+
 <form action="https://test-wallet.corvuspay.com/checkout/" method="post">
-  <input id="version" name="version" value="1.3" hidden>
-  <input id="store_id" name="store_id" value="9079" hidden>
-  <input id="order_number" name="order_number" value="{{ order_number }}" hidden>
-  <input id="language" name="language" value="hr" hidden>
-  <input id="currency" name="currency" value="HRK" hidden>
-  <input id="amount" name="amount" value="{{ grand_total }}" hidden>
-  <input id="cart" name="cart" value="{{ cart }}" hidden>
-  <input id="require_complete" name="require_complete" value="false" hidden>
-  <input id="signature" name="signature" value="{{ signature }}" hidden>
-  <input id="cardholder_name" name="cardholder_name" value="{{ cardholder_name }}" hidden>
-  <input id="cardholder_surname" name="cardholder_surname" value="{{ cardholder_surname }}" hidden>
-  <input id="cardholder_email" name="cardholder_email" value="{{ cardholder_email }}" hidden>
+  <input id="version" name="version" value="{{ api_version }}" hidden>
+  <input id="store_id" name="store_id" value="{{ store_id }}" hidden>
+  <input id="order_number" name="order_number" value="" hidden>
+  <input id="language" name="language" value="{{ language }}" hidden>
+  <input id="currency" name="currency" value="{{ currency }}" hidden>
+  <input id="amount" name="amount" value="" hidden>
+  <input id="cart" name="cart" value="" hidden>
+  <input id="require_complete" name="require_complete" value="{{ require_complete }}" hidden>
+  <input id="signature" name="signature" value="" hidden>
+  <input id="cardholder_name" name="cardholder_name" value="" hidden>
+  <input id="cardholder_surname" name="cardholder_surname" value="" hidden>
+  <input id="cardholder_email" name="cardholder_email" value="" hidden>
+  <input id="cardholder_address" name="cardholder_address" value="" hidden>
+  <input id="cardholder_city" name="cardholder_city" value="" hidden>
+  <input id="cardholder_zip_code" name="cardholder_zip_code" value="" hidden>
+  <input id="cardholder_country" name="cardholder_country" value="" hidden>
 
   <button id="ipg-form-submit-button" class="{% if region == 'hr' %} hidden{% endif %}">
-    Place order
+    {% trans "Place order" %}
   </button>
 </form>

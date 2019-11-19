@@ -39,7 +39,6 @@ ready(() => {
             cache: 'no-cache',
             credentials: 'same-origin',
             headers: {
-              'Authorization': 'Basic ' + window.btoa('anarniel' + ':' + 'brushybrush'),
               'Content-Type': 'application/json',
               'X-CSRFToken': getCookie('csrftoken'),
             },
@@ -201,10 +200,15 @@ ready(() => {
   const ipgOrderNumber = document.getElementById('order_number')
   const ipgAmount = document.getElementById('amount')
   const ipgCart = document.getElementById('cart')
+  const ipgLanguage = document.getElementById('language')
   const ipgSignature = document.getElementById('signature')
   const ipgCardholderName = document.getElementById('cardholder_name')
   const ipgCardholderSurname = document.getElementById('cardholder_surname')
   const ipgCardholderEmail = document.getElementById('cardholder_email')
+  const ipgCardholderAddress = document.getElementById('cardholder_address')
+  const ipgCardholderCity = document.getElementById('cardholder_city')
+  const ipgCardholderZipCode = document.getElementById('cardholder_zip_code')
+  const ipgCardholderCountry = document.getElementById('cardholder_country')
 
   const ipgFormSubmitButton = document.getElementById('ipg-form-submit-button')
   const cashOnDeliverySubmitWrapper = document.getElementById('cash-on-delivery-submit-wrapper')
@@ -296,10 +300,15 @@ ready(() => {
         ipgOrderNumber.value = response.order_number
         ipgAmount.value = response.grand_total
         ipgCart.value = response.cart
+        ipgLanguage.value = response.language
         ipgSignature.value = response.signature
         ipgCardholderEmail.value = response.user_information.email
         ipgCardholderName.value = response.user_information.first_name
         ipgCardholderSurname.value = response.user_information.last_name
+        ipgCardholderAddress.value = response.user_information.address
+        ipgCardholderCity.value = response.user_information.city
+        ipgCardholderZipCode.value = response.user_information.zip_code
+        ipgCardholderCountry.value = response.user_information.country
 
         if (response.region === 'hr') {
           cashOnDeliveryRadio.checked = true

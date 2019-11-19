@@ -1,21 +1,22 @@
 {% extends 'shop/shop_base.html' %}
+{% load i18n %}
 {% load shop_tags %}
 
 {% block title %}
-  {{ block.super }} - Review Bag
+  {{ block.super }} - {% trans "Review Your Bag" %}
 {% endblock title %}
 
 {% block content %}
   <h1 class="review-bag-title">
-    Review your bag
+    {% trans "Review Your Bag" %}
   </h1>
   <div class="review-bag-wrapper">
     <div class="bag-content-wrapper">
       <div class="bag-content-headers">
-        <span>Product &amp; price</span>
+        <span>{% trans "Product &amp; price" %}</span>
         <span>&nbsp;</span>
-        <span>Quantity</span>
-        <span>Subtotal</span>
+        <span>{% trans "Quantity" %}</span>
+        <span>{% trans "Subtotal" %}</span>
       </div>
       <div class="bag-content">
         {% for key, value in bag.products.items %}

@@ -1,8 +1,11 @@
+{% load i18n %}
 {% load static %}
 
 <div class="ship-to-wrapper">
   <div class="ship-to-select-wrapper">
-    <span class="text">Ship to:</span>
+    <span class="text">
+      {% trans 'Ship to:' %}
+    </span>
     <a class="ship-to-select" href="/">
       <span class="flag-icon {{ selected_region }}"></span>
       {{ selected_region }}
