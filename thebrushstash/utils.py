@@ -13,10 +13,11 @@ from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-from django.utils.safestring import mark_safe
-from django.utils.timezone import now
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.utils.safestring import mark_safe
+from django.utils.text import slugify
+from django.utils.timezone import now
 
 from account.models import (
     CustomUser,
@@ -35,6 +36,10 @@ from shop.models import (
     InvoiceStatus,
 )
 from thebrushstash.models import Country
+
+
+def get_country(country_name):
+    return Country.objects.get(slug=slugify(country_name))
 
 
 def get_default_link_data(data):
@@ -192,7 +197,7 @@ def update_user_information(user, email, data):
 
     user.first_name = data.get('first_name')
     user.last_name = data.get('last_name')
-    user.country = Country.objects.get(pk=data.get('country'))
+    user.country = get_country(data.get('country'))
     user.city = data.get('city')
     user.address = data.get('address')
     user.zip_code = data.get('zip_code')
@@ -249,7 +254,7 @@ def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
     invoice.email = data.get('email')
     invoice.first_name = data.get('first_name')
     invoice.last_name = data.get('last_name')
-    invoice.country = Country.objects.get(pk=data.get('country'))
+    invoice.country = get_country(data.get('country'))
     invoice.city = data.get('city')
     invoice.address = data.get('address')
     invoice.zip_code = data.get('zip_code')
@@ -313,41 +318,23 @@ def get_cart(bag):
     return ' '.join(cart)
 
 
-def get_signature(order_number, grand_total, cart, user_information):
-    language = 'hr'
-    currency = 'HRK'
-    require_complete = 'false'
-
-    data = 'amount{}cardholder_email{}cardholder_name{}cardholder_surname{}cart{}currency{}language{}order_number{}require_complete{}store_id{}version{}'.format(
-        grand_total,
-        user_information.get('email'),
-        user_information.get('first_name'),
-        user_information.get('last_name'),
-        cart,
-        currency,
-        language,
-        order_number,
-        require_complete,
-        settings.STORE_ID,
-        settings.IPG_API_VERSION
-    )
-
+def get_signature(data):
     return hmac.new(
         bytes(settings.IPG_API_KEY, 'utf-8'),
-        msg=bytes(data, 'utf-8'),
+        msg=bytes(''.join(['{}{}'.format(x, y) for x, y in data.items()]), 'utf-8'),
         digestmod=hashlib.sha256
     ).hexdigest().lower()
 
 
 def signature_is_valid(data):
-    approval_code = data.get('approval_code')
-    language = data.get('language')
-    order_number = data.get('order_number')
-
     return data.get('signature') == hmac.new(
         bytes(settings.IPG_API_KEY, 'utf-8'),
-        msg=bytes('approval_code{}language{}order_number{}'.format(
-            approval_code, language, order_number),
+        msg=bytes(
+            'approval_code{}language{}order_number{}'.format(
+                data.get('approval_code'),
+                data.get('language'),
+                data.get('order_number')
+            ),
             'utf-8'
         ),
         digestmod=hashlib.sha256

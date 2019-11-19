@@ -5,6 +5,10 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from account.models import CustomUser
+from thebrushstash.constants import (
+    form_mandatory_fields,
+    form_extra_fields,
+)
 
 
 class RegistrationForm(forms.ModelForm):
@@ -69,6 +73,7 @@ class AddressForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['country'].empty_label = _('Select country')
         self.fields['country'].required = True
+        self.fields['country'].to_field_name = 'name'
 
         self.fields['first_name'].required = True
         self.fields['first_name'].widget.attrs['placeholder'] = _('First name')
@@ -130,11 +135,7 @@ class AddressForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = (
-            'first_name', 'last_name', 'email', 'phone_number', 'country', 'address', 'city',
-            'state_county', 'zip_code', 'company_name', 'company_address', 'company_uin',
-            'note', 'register', 'subscribe_to_newsletter', 'agree_to_terms',
-        )
+        fields = form_mandatory_fields + form_extra_fields
 
 
 class CustomUserForm(forms.ModelForm):
