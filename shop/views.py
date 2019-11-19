@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import (
@@ -8,6 +9,7 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.text import slugify
+from django.utils.translation import get_language
 
 from account.forms import AddressForm
 from account.models import (
@@ -19,6 +21,7 @@ from shop.models import (
     InvoiceStatus,
     Product,
 )
+from thebrushstash.constants import DEFAULT_CURRENCY
 from thebrushstash.utils import (
     complete_purchase,
     signature_is_valid,
@@ -63,8 +66,13 @@ class CheckoutView(FormView):
             subscribed_to_newsletter = NewsletterRecipient.objects.filter(user=user).first()
 
         context.update({
+            'api_version': settings.IPG_API_VERSION,
             'bag': session.get('bag'),
             'region': session.get('region'),
+            'language': get_language(),
+            'currency': DEFAULT_CURRENCY,
+            'store_id': settings.IPG_STORE_ID,
+            'require_complete': 'false',
             'subscribed_to_newsletter': subscribed_to_newsletter,
         })
         return context

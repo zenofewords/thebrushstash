@@ -199,6 +199,38 @@ country_name_list = (
     'Zimbabwe',
 )
 
+form_mandatory_fields = (
+    'address',
+    'city',
+    'country',
+    'email',
+    'first_name',
+    'last_name',
+    'zip_code',
+)
+ipg_fields = (
+    'cardholder_address',
+    'cardholder_city',
+    'cardholder_country',
+    'cardholder_email',
+    'cardholder_name',
+    'cardholder_surname',
+    'cardholder_zip_code',
+)
+form_extra_fields = (
+    'state_county',
+    'phone_number',
+    'state_county',
+    'phone_number',
+    'note',
+    'company_name',
+    'company_address',
+    'company_uin',
+    'register',
+    'subscribe_to_newsletter',
+    'agree_to_terms',
+)
+
 initial_credit_card_logos = (
     {
         'name': 'American Express',
@@ -371,6 +403,7 @@ inital_exchange_rates = (
 )
 
 DEFAULT_REGION = 'hr'
+DEFAULT_CURRENCY = 'HRK'
 REGIONS = {
     DEFAULT_REGION: {'language': DEFAULT_REGION},
     'eu': {'language': 'en'},
