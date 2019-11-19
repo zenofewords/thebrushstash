@@ -1,6 +1,7 @@
 import copy
 
 from django import template
+from django.utils.translation import get_language
 
 from thebrushstash.constants import (
     DEFAULT_REGION,
@@ -23,6 +24,7 @@ def navigation_tag(context):
         'current_url': request.path if request else '/',
         'navigation_items': NavigationItem.published_objects.all(),
         'bag': request.session.get('bag'),
+        'LANGUAGE_CODE': get_language(),
     }
 
 

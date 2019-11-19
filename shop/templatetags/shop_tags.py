@@ -1,5 +1,6 @@
 from django import template
 from django.contrib.contenttypes.models import ContentType
+from django.utils.translation import get_language
 
 from shop.constants import VARIATIONS
 from shop.models import (
@@ -14,6 +15,7 @@ register = template.Library()
 def showcase_tag():
     return {
         'showcase': Showcase.published_objects.last(),
+        'LANGUAGE_CODE': get_language(),
     }
 
 
