@@ -1,16 +1,20 @@
 {% extends 'thebrushstash/auth_base.html' %}
+{% load i18n %}
 
 {% block title %}
-  {{ block.super }} - Register
+  {{ block.super }} - {% trans "Register" %}
 {% endblock %}
 
 {% block auth_content %}
   {% if user.is_authenticated %}
-    You already have an account and are currently logged in. Why don't you check out <a href="{% url 'shop:shop' %}">some brushes</a>?
-  {% else %}
-    <h1>Register</h1>
     <p>
-      Provide us with an email address so we can send you an activation link for your account.
+      {% url 'shop:shop' as shop_url %}
+      {% blocktrans %}You already have an account and are currently logged in. Why don't you check out some <a href="{{ shop_url }}">brushes</a>?{% endblocktrans %}
+    </p>
+  {% else %}
+    <h1>{% trans "Register" %}</h1>
+    <p>
+      {% blocktrans %}Provide us with an email address so we can send you an activation link for your account.{% endblocktrans %}
     </p>
     <form method="post">
       {% csrf_token %}
@@ -19,7 +23,7 @@
       {% include 'account/includes/form_field.html' with field=form.email %}
 
       <button type="submit">
-        Send me my activation link
+        {% trans "Send me my activation link" %}
       </button>
     </form>
   {% endif %}

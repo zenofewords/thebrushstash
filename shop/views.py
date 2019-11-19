@@ -81,7 +81,7 @@ class PurchaseCompletedView(TemplateView):
         return render(request, self.template_name)
 
 
-# ipg forces a POST redirect which will not contain but requires the csrf token
+# IPG forces a POST redirect which will not contain but requires the csrf token
 @method_decorator(csrf_exempt, name='dispatch')
 class IPGPurchaseCompletedView(TemplateView):
     template_name = 'shop/purchase_completed.html'
@@ -98,7 +98,7 @@ class IPGPurchaseCompletedView(TemplateView):
         )
 
 
-# ipg forces a POST redirect which will not contain but requires the csrf token
+# IPG forces a POST redirect which will not contain but requires the csrf token
 @method_decorator(csrf_exempt, name='dispatch')
 class IPGPurchaseCancelledView(TemplateView):
     template_name = 'shop/purchase_cancelled.html'

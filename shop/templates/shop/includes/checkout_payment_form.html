@@ -1,25 +1,28 @@
+{% load i18n %}
 {% load static %}
 {% load thebrushstash_tags %}
 
 <h2 class="checkout-payment-title inactive">
-  2. Payment
+  {% trans "2. Payment" %}
 </h2>
 <div class="checkout-payment-wrapper inactive">
   <p>
-    Almost there, select your payment method and place your order.
+    {% trans "Almost there, select your payment method and place your order." %}
   </p>
 
   {% if region == 'hr' %}
     <div class="cash-on-delivery-wrapper">
       <span class="checkout-radio-wrapper">
         <input type="radio" id="cash-on-delivery" name="payment-method" value="cash-on-delivery" checked>
-        <label for="cash-on-delivery">Cash on delivery</label>
+        <label for="cash-on-delivery">
+          {% trans "Cash on delivery" %}
+        </label>
       </span>
       <p>
-        Note: requires an additional fee for the GLS service.
+        {% trans "Note: requires an additional fee for the GLS service." %}
       </p>
       <p>
-        For security reasons, every cash on delivery order must be verified by phone.
+        {% trans "For security reasons, every cash on delivery order must be verified by phone." %}
       </p>
     </div>
   {% endif %}
@@ -27,11 +30,13 @@
   <div class="credit-card-wrapper">
     <span class="checkout-radio-wrapper">
       <input type="radio" id="credit-card" name="payment-method" value="credit-card"{% if region != 'hr' %} checked{% endif %}>
-      <label for="credit-card">Use a credit card</label>
+      <label for="credit-card">
+        {% trans "Use a credit card" %}
+      </label>
       <span class="ipg-logo-icon"></span>
     </span>
     <p>
-      Note: Napisat neš pametno o tome kako smo hrvati i moramo naplatiti u kunama.
+      {% trans "Note: Napisat neš pametno o tome kako smo hrvati i moramo naplatiti u kunama." %}
     </p>
     {% credit_card_logos_tag %}
   </div>
@@ -40,13 +45,13 @@
     {% include 'account/includes/form_field.html' with field=form.phone_number %}
 
     <button id="cash-on-delivery-submit-button">
-      Place order
+      {% trans "Place order" %}
     </button>
   </div>
 </form>
 
   {% include 'shop/includes/checkout_ipg_form.html' %}
   <a href="#" class="previous-step-link">
-    Previous step
+    {% trans "Previous step" %}
   </a>
 </div>

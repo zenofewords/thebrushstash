@@ -1,14 +1,15 @@
 {% extends 'thebrushstash/base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block title %}
-  {{ block.super }} - Returns and Complaints
+  {{ block.super }} - {% trans "Returns and Complaints" %}
 {% endblock title %}
 
 {% block content %}
   <div class="returns-and-complaints-wrapper">
     <h1>
-      POVRATI I REKLAMACIJE
+      {% trans "Returns and Complaints" %}
     </h1>
 
     <p>

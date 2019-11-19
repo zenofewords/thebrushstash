@@ -1,15 +1,16 @@
 {% extends 'shop/shop_base.html' %}
+{% load i18n %}
 {% load thebrushstash_tags %}
 
 {% block title %}
-  {{ block.super }} - Purchase Complete
+  {{ block.super }} - {% trans "Purchase Cancelled" %}
 {% endblock title %}
 
 {% block content %}
   <div class="purchase-cancelled-wrapper">
-    <h1>You have cancelled your order</h1>
+    <h1>{% trans "You have cancelled your order" %}</h1>
     <p>
-        You can always continue from where you left off if you change your mind.
+      {% trans "You can always continue from where you left off if you change your mind." %}
     </p>
   </div>
 {% endblock content %}

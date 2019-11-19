@@ -1,13 +1,14 @@
 {% extends 'thebrushstash/base.html' %}
+{% load i18n %}
 {% load thebrushstash_tags %}
 
 {% block title %}
-  {{ block.super }} - Contact
+  {{ block.super }} - {% trans "Contact" %}
 {% endblock title %}
 
 {% block content %}
   <div class="contact-wrapper">
-    <h1>Contact</h1>
-    Coming soon!
+    <h1>{% trans "Contact" %}</h1>
+    {% trans "Coming soon!" %}
   </div>
 {% endblock content %}

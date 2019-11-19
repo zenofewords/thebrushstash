@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-25 22:45+0200\n"
+"POT-Creation-Date: 2019-11-19 20:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,460 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: shop/templates/shop/
-shop_base.html:6
+#: shop/templates/shop/checkout.html:7
+msgid "Checkout"
+msgstr ""
+
+#: shop/templates/shop/includes/add_to_bag_button.html:6
+msgid "Add to bag"
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_address_form.html:4
+msgid "1. Delivery address"
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_address_form.html:8
+msgid "Fill out the form to complete your purchase."
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_address_form.html:14
+#, python-format
+msgid ""
+"If you already have an account you should <a href=\"%(login_url)s?next="
+"%(checkout_url)s\">log in</a>. Your address information will be "
+"automatically populated."
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_address_form.html:18
+msgid "Please make sure the information listed below is correct."
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_address_form.html:66
+#, python-format
+msgid ""
+"Your personal data will be used to process your order, support your "
+"experience throughout this website, and for other purposes described in our "
+"<a href=\"%(terms_url)s\" target=\"_blank\" rel=\"noopener noreferrer"
+"\">privacy policy</a>."
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_address_form.html:82
+msgid "Continue to payment"
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_ipg_form.html:18
+#: shop/templates/shop/includes/checkout_payment_form.html:48
+msgid "Place order"
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_payment_form.html:6
+msgid "2. Payment"
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_payment_form.html:10
+msgid "Almost there, select your payment method and place your order."
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_payment_form.html:18
+msgid "Cash on delivery"
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_payment_form.html:22
+msgid "Note: requires an additional fee for the GLS service."
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_payment_form.html:25
+msgid ""
+"For security reasons, every cash on delivery order must be verified by phone."
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_payment_form.html:34
+msgid "Use a credit card"
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_payment_form.html:39
+msgid ""
+"Note: Napisat neš pametno o tome kako smo hrvati i moramo naplatiti u kunama."
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_payment_form.html:55
+msgid "Previous step"
+msgstr ""
+
+#: shop/templates/shop/product_detail.html:36
+#: shop/templates/shop/shop_base.html:6
 msgid "Shop"
-msgstr "Butiga"
+msgstr ""
+
+#: shop/templates/shop/product_detail.html:72
+#, python-format
+msgid ""
+"*Prices include VAT.\n"
+"          <a class=\"link\" href=\"%(pandd_url)s\">\n"
+"            Shipping costs apply\n"
+"          </a>"
+msgstr ""
+
+#: shop/templates/shop/product_detail.html:101
+msgid "More from our shop"
+msgstr ""
+
+#: shop/templates/shop/purchase_cancelled.html:6
+msgid "Purchase Cancelled"
+msgstr ""
+
+#: shop/templates/shop/purchase_cancelled.html:11
+msgid "You have cancelled your order"
+msgstr ""
+
+#: shop/templates/shop/purchase_cancelled.html:13
+msgid ""
+"You can always continue from where you left off if you change your mind."
+msgstr ""
+
+#: shop/templates/shop/purchase_completed.html:6
+msgid "Purchase Complete"
+msgstr ""
+
+#: shop/templates/shop/purchase_completed.html:11
+msgid "Thank you for your purchase"
+msgstr ""
+
+#: shop/templates/shop/purchase_completed.html:13
+msgid ""
+"Your order was successfully processed and will be shipped soon. Check your "
+"email for details."
+msgstr ""
+
+#: shop/templates/shop/purchase_completed.html:16
+msgid "Check your email to finish registration"
+msgstr ""
+
+#: shop/templates/shop/purchase_completed.html:18
+msgid ""
+"To finish your registration you need to visit the activation link which was "
+"sent to your email address."
+msgstr ""
+
+#: shop/templates/shop/purchase_completed.html:23
+msgid "You have been subscribed to our newsletter."
+msgstr ""
+
+#: shop/templates/shop/review_bag.html:6 shop/templates/shop/review_bag.html:11
+msgid "Review Your Bag"
+msgstr ""
+
+#: shop/templates/shop/review_bag.html:16
+msgid "Product &amp; price"
+msgstr ""
+
+#: shop/templates/shop/review_bag.html:18
+msgid "Quantity"
+msgstr ""
+
+#: shop/templates/shop/review_bag.html:19
+msgid "Subtotal"
+msgstr ""
+
+#: shop/templates/shop/tags/purchase_summary.html:4
+msgid "Order summary"
+msgstr ""
+
+#: shop/templates/shop/tags/purchase_summary.html:7
+#: thebrushstash/templates/thebrushstash/includes/bag.html:10
+msgid "Total:"
+msgstr ""
+
+#: shop/templates/shop/tags/purchase_summary.html:15
+#: thebrushstash/templates/thebrushstash/tags/ship_to.html:7
+msgid "Ship to:"
+msgstr ""
+
+#: shop/templates/shop/tags/purchase_summary.html:23
+msgid "GLS:"
+msgstr ""
+
+#: shop/templates/shop/tags/purchase_summary.html:31
+msgid "Grand total:"
+msgstr ""
+
+#: shop/templates/shop/tags/purchase_summary.html:40
+msgid "Check out"
+msgstr ""
+
+#: shop/templates/shop/tags/purchase_summary.html:43
+msgid "Continue shopping"
+msgstr ""
+
+#: templates/account/account_verification_email.html:4
+#, python-format
+msgid ""
+"You're receiving this email because you created an account at %(site_name)s."
+msgstr ""
+
+#: templates/account/account_verification_email.html:6
+msgid "You can activate your account at the following page:"
+msgstr ""
+
+#: templates/account/account_verification_email.html:8
+#: templates/registration/password_reset_email.html:7
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: templates/account/account_verification_email.html:10
+#: templates/registration/password_reset_email.html:9
+#, python-format
+msgid "Thank you for using %(site_name)s!"
+msgstr ""
+
+#: templates/account/activate.html:5 templates/account/activate.html:10
+msgid "Success"
+msgstr ""
+
+#: templates/account/activate.html:12
+msgid ""
+"Your account has been successfully activated, but you still need a password. "
+"Pick a strong one!"
+msgstr ""
+
+#: templates/account/activate.html:23
+msgid "Submit"
+msgstr ""
+
+#: templates/account/activate.html:27
+msgid "Great failure"
+msgstr ""
+
+#: templates/account/activate.html:29
+msgid "Your activation token is not valid."
+msgstr ""
+
+#: templates/account/confirmation_sent.html:5
+#: templates/account/confirmation_sent.html:15
+msgid "Verification Email Sent"
+msgstr ""
+
+#: templates/account/confirmation_sent.html:12
+#: templates/account/register.html:12
+#, python-format
+msgid ""
+"You already have an account and are currently logged in. Why don't you check "
+"out some <a href=\"%(shop_url)s\">brushes</a>?"
+msgstr ""
+
+#: templates/account/confirmation_sent.html:17
+msgid ""
+"We've sent you a verification email. Check your inbox and click on the link "
+"to complete the registration."
+msgstr ""
+
+#: templates/account/register.html:5 templates/account/register.html:15
+msgid "Register"
+msgstr ""
+
+#: templates/account/register.html:17
+msgid ""
+"Provide us with an email address so we can send you an activation link for "
+"your account."
+msgstr ""
+
+#: templates/account/register.html:26
+msgid "Send me my activation link"
+msgstr ""
+
+#: templates/registration/login.html:5 templates/registration/login.html:20
+#: templates/registration/login.html:33
+msgid "Login"
+msgstr ""
+
+#: templates/registration/login.html:10
+msgid "You are already logged in"
+msgstr ""
+
+#: templates/registration/login.html:13
+#, python-format
+msgid "You can find some brushes <a href=\"%(shop_url)s\">here</a>."
+msgstr ""
+
+#: templates/registration/login.html:17
+#, python-format
+msgid "Unless you'd like to <a href=\"%(logut_url)s\">logout</a> instead."
+msgstr ""
+
+#: templates/registration/login.html:23
+#, python-format
+msgid ""
+"Don't have an account? <a href=\"%(register_url)s\" class=\"register"
+"\">Register here</a>"
+msgstr ""
+
+#: templates/registration/login.html:38
+msgid "Forgot your password?"
+msgstr ""
+
+#: templates/registration/password_reset_complete.html:5
+#: templates/registration/password_reset_complete.html:9
+msgid "Password Reset"
+msgstr ""
+
+#: templates/registration/password_reset_complete.html:10
+msgid "Your password has been reset."
+msgstr ""
+
+#: templates/registration/password_reset_complete.html:12
+msgid "Log in"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:5
+#: templates/registration/password_reset_confirm.html:10
+#: templates/registration/password_reset_confirm.html:20
+msgid "Set new password"
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:11
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: templates/registration/password_reset_confirm.html:25
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+
+#: templates/registration/password_reset_done.html:5
+#: templates/registration/password_reset_done.html:9
+msgid "Password Reset Email Sent"
+msgstr ""
+
+#: templates/registration/password_reset_done.html:10
+msgid "We've emailed you instructions for resetting your password."
+msgstr ""
+
+#: templates/registration/password_reset_done.html:12
+msgid ""
+"If you don't find the reset email, please make sure you've entered the "
+"correct information and check your spam folder."
+msgstr ""
+
+#: templates/registration/password_reset_email.html:3
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: templates/registration/password_reset_email.html:5
+msgid "You can choose a new password at the following page:"
+msgstr ""
+
+#: templates/registration/password_reset_form.html:5
+#: templates/registration/password_reset_form.html:12
+#: templates/registration/password_reset_form.html:23
+msgid "Reset Password"
+msgstr ""
+
+#: templates/registration/password_reset_form.html:10
+msgid "You are currently logged in."
+msgstr ""
+
+#: templates/registration/password_reset_form.html:14
+msgid ""
+"Type in the email which you used to register and we'll send you a password "
+"reset link."
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/about_the_story.html:6
+#: thebrushstash/templates/thebrushstash/about_the_story.html:16
+msgid "About / The Story"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/about_the_story.html:17
+#: thebrushstash/templates/thebrushstash/brush_care.html:17
+#: thebrushstash/templates/thebrushstash/contact.html:12
+#: thebrushstash/templates/thebrushstash/faq.html:17
+msgid "Coming soon!"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/brush_care.html:6
+#: thebrushstash/templates/thebrushstash/brush_care.html:16
+msgid "Brush Care"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/contact.html:6
+#: thebrushstash/templates/thebrushstash/contact.html:11
+msgid "Contact"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/faq.html:6
+#: thebrushstash/templates/thebrushstash/faq.html:16
+msgid "FAQ"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/general_terms_and_conditions.html:5
+msgid "General Terms and Conditions"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/includes/bag.html:7
+msgid "In your bag"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/includes/bag.html:33
+msgid "Quantity:"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/includes/bag.html:36
+msgid "Subtotal:"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/includes/bag.html:44
+msgid "Review bag"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/payment_and_delivery.html:6
+#: thebrushstash/templates/thebrushstash/payment_and_delivery.html:12
+msgid "Payment and Delivery"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/returns_and_complaints.html:6
+#: thebrushstash/templates/thebrushstash/returns_and_complaints.html:12
+msgid "Returns and Complaints"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/tags/cookie.html:7
+#, python-format
+msgid ""
+"The Brush Stash uses cookies to ensure a better user experience and the "
+"functionality of the site. By continuing to browse you agree to the use of "
+"cookies. Learn more\n"
+"        <a class=\"link-in-text\" href=\"%(terms_url)s\">here</a>."
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/tags/footer.html:10
+msgid "Follow us on"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/tags/footer.html:33
+msgid "The Brush Stash. All rights reserved."
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/tags/navigation.html:20
+msgid "Login/Register"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/tags/navigation.html:26
+msgid "Bag"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/tags/newsletter.html:7
+msgid "Join our newsletter!"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/tags/newsletter.html:10
+msgid "Learn about new products and special offers"
+msgstr ""
+
+#: thebrushstash/templates/thebrushstash/tags/newsletter.html:15
+msgid "Join"
+msgstr ""

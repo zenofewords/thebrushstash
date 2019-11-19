@@ -1,14 +1,15 @@
 {% extends 'thebrushstash/auth_base.html' %}
+{% load i18n %}
 
 {% block title %}
-  {{ block.super }} - Activate
+  {{ block.super }} - {% trans "Success" %}
 {% endblock %}
 
 {% block auth_content %}
   {% if authenticated %}
-    <h1>Success</h1>
+    <h1>{% trans "Success" %}</h1>
     <p>
-      Your account has been successfully activated, but you still need a password. Pick a strong one!
+      {% trans "Your account has been successfully activated, but you still need a password. Pick a strong one!" %}
     </p>
 
     <form method="post">
@@ -19,13 +20,13 @@
       {% include 'account/includes/form_field.html' with field=form.password2 %}
 
       <button>
-        Submit
+        {% trans "Submit" %}
       </button>
     </form>
   {% else %}
-    <h1>Great failure</h1>
+    <h1>{% trans "Great failure" %}</h1>
     <p>
-      Your activation token is not valid.
+      {% trans "Your activation token is not valid." %}
     </p>
   {% endif %}
 {% endblock auth_content %}

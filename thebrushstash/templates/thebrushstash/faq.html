@@ -1,8 +1,9 @@
 {% extends 'thebrushstash/base.html' %}
+{% load i18n %}
 {% load thebrushstash_tags %}
 
 {% block title %}
-  {{ block.super }} - Faq
+  {{ block.super }} - {% trans "FAQ" %}
 {% endblock title %}
 
 {% block meta_description %}
@@ -12,7 +13,7 @@
 
 {% block content %}
   <div class="faq-wrapper">
-    <h1>FAQ</h1>
-    Coming soon!
+    <h1>{% trans "FAQ" %}</h1>
+    {% trans "Coming soon!" %}
   </div>
 {% endblock content %}

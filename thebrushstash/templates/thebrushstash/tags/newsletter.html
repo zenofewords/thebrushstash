@@ -1,15 +1,18 @@
+{% load i18n %}
+
 <div class="newsletter-wrapper">
   <div class="inner-wrapper">
     <div class="info-wrapper">
       <p class="join-text">
-        Join our newsletter!
+         {% trans 'Join our newsletter!' %}
       </p>
       <p class="info-text">
-        Learn about new products and special offers
+         {% trans 'Learn about new products and special offers' %}
       </p>
     </div>
     <div class="join-wrapper">
-      <input class="email-input" type="email" name="email" placeholder="Enter your email" maxlength="50"><button>Join</button>
+      <input class="email-input" type="email" name="email" placeholder="Enter your email" maxlength="50">
+      <button>{% trans 'Join' %}</button>
     </div>
   </div>
 </div>

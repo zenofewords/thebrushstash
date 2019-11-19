@@ -1,14 +1,15 @@
 {% extends 'thebrushstash/base.html' %}
+{% load i18n %}
 {% load thebrushstash_tags %}
 
 {% block title %}
-  {{ block.super }} - Payment and Delivery
+  {{ block.super }} - {% trans "Payment and Delivery" %}
 {% endblock title %}
 
 {% block content %}
   <div class="payment-and-delivery-wrapper">
     <h1>
-      PLAĆANJE I DOSTAVA
+      {% trans "Payment and Delivery" %}
     </h1>
     <p>
       Plaćanje robe
