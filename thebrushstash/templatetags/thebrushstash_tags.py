@@ -1,17 +1,19 @@
-import copy
+from decimal import Decimal
 
 from django import template
 from django.utils.translation import get_language
 
+from shop.constants import EMPTY_BAG
+from shop.utils import get_shipping_cost
 from thebrushstash.constants import (
     DEFAULT_REGION,
-    REGIONS,
 )
 from thebrushstash.models import (
     CreditCardLogo,
     FooterItem,
     FooterShareLink,
     NavigationItem,
+    Region,
 )
 
 register = template.Library()
@@ -24,7 +26,7 @@ def navigation_tag(context):
         'current_url': request.path if request else '/',
         'navigation_items': NavigationItem.published_objects.all(),
         'bag': request.session.get('bag'),
-        'LANGUAGE_CODE': get_language(),
+        'LANGUAGE_CODE': request.session.get('_language'),
     }
 
 
@@ -32,20 +34,37 @@ def navigation_tag(context):
 def ship_to_tag(context):
     request = context.get('request')
 
-    default_region = DEFAULT_REGION if request.LANGUAGE_CODE == DEFAULT_REGION else 'eu'
+    language = get_language()
+    if not request.session.get('_language'):
+        request.session['_language'] = language
+
+    regions = Region.published_objects.all()
+    default = regions.get(name=DEFAULT_REGION)
+    default_region = default if language == default.name else regions.first()
     region = request.session.get('region')
 
     if not region:
-        request.session['region'] = default_region
+        request.session['region'] = default_region.name
         selected_region = default_region
     else:
-        selected_region = region
-    regions_copy = copy.deepcopy(REGIONS)
-    regions_copy.pop(selected_region)
+        selected_region = regions.get(name=region)
+
+    bag = request.session.get('bag')
+    if not bag:
+        request.session['bag'] = EMPTY_BAG
+
+    shipping_cost = get_shipping_cost(
+        Decimal(selected_region.shipping_cost), request.session['bag']
+    )
+    request.session['bag']['shipping_cost'] = str(shipping_cost)
+    request.session['bag']['grand_total'] = str(
+        Decimal(request.session['bag']['total']) + shipping_cost
+    )
+    request.session.modified = True
 
     return {
         'selected_region': selected_region,
-        'regions': regions_copy,
+        'regions': regions.exclude(name=selected_region.name),
     }
 
 

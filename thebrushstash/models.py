@@ -61,3 +61,21 @@ class FooterItem(LinkedMixin, PublishedMixin):
 
 class FooterShareLink(LinkedMixin, PublishedMixin):
     pass
+
+
+class Region(PublishedMixin):
+    name = models.CharField(max_length=10)
+    language = models.CharField(max_length=10)
+    currency = models.CharField(max_length=10)
+    shipping_cost = models.DecimalField(
+        verbose_name='Shipping cost', max_digits=14, decimal_places=2, blank=True, null=True,
+    )
+    ordering = models.IntegerField(default=0, blank=True)
+
+    class Meta:
+        verbose_name = 'Region'
+        verbose_name_plural = 'Regions'
+        ordering = ('-ordering', )
+
+    def __str__(self):
+        return self.name

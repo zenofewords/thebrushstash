@@ -402,11 +402,40 @@ inital_exchange_rates = (
     },
 )
 
+initial_region_data = (
+    {
+        'name': 'eu',
+        'language': 'en',
+        'currency': 'EUR',
+        'shipping_cost': '20',
+        'published': True,
+        'ordering': 3,
+    },
+    {
+        'name': 'hr',
+        'language': 'hr',
+        'currency': 'HRK',
+        'shipping_cost': '10',
+        'published': True,
+        'ordering': 2,
+    },
+    {
+        'name': 'uk',
+        'language': 'en',
+        'currency': 'GBP',
+        'shipping_cost': '20',
+        'published': True,
+        'ordering': 1,
+    },
+    {
+        'name': 'us',
+        'language': 'en',
+        'currency': 'USD',
+        'shipping_cost': '30',
+        'published': True,
+        'ordering': 0,
+    },
+)
+
 DEFAULT_REGION = 'hr'
 DEFAULT_CURRENCY = 'HRK'
-REGIONS = {
-    DEFAULT_REGION: {'language': DEFAULT_REGION},
-    'eu': {'language': 'en'},
-    'uk': {'language': 'en'},
-    'us': {'language': 'en'},
-}

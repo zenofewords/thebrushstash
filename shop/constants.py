@@ -1,8 +1,10 @@
+from decimal import Decimal
+
 EMPTY_BAG = {
     'products': {},
     'total': 0,
     'total_quantity': 0,
-    'shipping': 0,
+    'shipping_cost': 0,
     'fees': 0,
     'grand_total': 0,
 }
@@ -63,3 +65,7 @@ SRCSET_MAPPING = {}
 for variation in VARIATIONS:
     for shape in [slot.get('shape') for slot in SLOTS]:
         SRCSET_MAPPING['{}_{}'.format(variation, shape)] = []
+
+DEFAULT_SHIPPING_COST = 10
+GLS_FEE = Decimal('10.00')
+FREE_SHIPPING_PRODUCTS = 3
