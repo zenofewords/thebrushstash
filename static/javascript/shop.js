@@ -172,6 +172,7 @@ ready(() => {
   const bagItemCount = document.querySelector('.bag-item-count')
 
   const reviewBagLink = document.querySelector('.review-bag-link')
+  const summaryShippingCost = document.getElementById('summary-value-shipping-cost')
   const summaryTotal = document.getElementById('summary-total')
   const summaryGrandTotal = document.getElementById('summary-grand-total')
 
@@ -432,8 +433,9 @@ ready(() => {
     const product = document.getElementById(slug)
     product.remove()
 
-    summaryTotal.innerHTML = response.bag.total
-    summaryGrandTotal.innerHTML = response.bag.grand_total
+    summaryShippingCost.innerHTML = `${response.bag.shipping_cost} kn`
+    summaryTotal.innerHTML = `${response.bag.total} kn`
+    summaryGrandTotal.innerHTML = `${response.bag.grand_total} kn`
   }
 
   const removeProduct = (slug) => {

@@ -15,11 +15,15 @@ from shop.api.serializers import (
     SimpleProductSerializer,
     UserInformationSerializer,
 )
-from shop.constants import EMPTY_BAG
+from shop.constants import (
+    DEFAULT_SHIPPING_COST,
+    GLS_FEE,
+    EMPTY_BAG,
+)
 from shop.models import InvoicePaymentMethod
+from shop.utils import get_shipping_cost
 from thebrushstash.constants import (
     DEFAULT_CURRENCY,
-    DEFAULT_SHIPPING_COST,
     ipg_fields,
     form_mandatory_fields,
 )
@@ -74,6 +78,8 @@ class AddToBagView(GenericAPIView):
             products[product_id] = product
 
         total = Decimal(bag['total']) + Decimal(subtotal)
+        shipping_cost = get_shipping_cost(shipping_cost, bag)
+
         bag = {
             'products': products,
             'total': str(total),
@@ -106,6 +112,12 @@ class RemoveFromBagView(GenericAPIView):
             )
             del products[product_id]
 
+        shipping_cost = get_shipping_cost(
+            Region.objects.get(name=request.session['region']).shipping_cost,
+            bag
+        )
+        bag['shipping_cost'] = str(shipping_cost)
+        bag['grand_total'] = str(Decimal(bag['grand_total']) + shipping_cost)
         request.session['bag'] = bag
         return response.Response({'bag': bag}, status=status.HTTP_200_OK)
 
@@ -118,22 +130,24 @@ class UpdatePaymentMethodView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        gls_fee = Decimal('10.00')
-        request.session['payment_method'] = serializer.data.get('payment_method')
+        bag = request.session['bag']
         total = Decimal(request.session['bag']['total'])
         shipping_cost = Decimal(request.session['bag']['shipping_cost'])
+
+        shipping_cost = get_shipping_cost(shipping_cost, bag)
         grand_total = total + shipping_cost
 
+        request.session['payment_method'] = serializer.data.get('payment_method')
         if request.session['payment_method'] == InvoicePaymentMethod.CASH_ON_DELIVERY:
-            request.session['bag']['fees'] = str(gls_fee)
-            grand_total = total + shipping_cost + gls_fee
+            request.session['bag']['fees'] = str(GLS_FEE)
+            grand_total = total + shipping_cost + GLS_FEE
         else:
             request.session['bag']['fees'] = None
         request.session['bag']['grand_total'] = str(grand_total)
         request.session.modified = True
 
         return response.Response({
-            'bag': request.session['bag'],
+            'bag': bag,
             'payment_method': request.session['payment_method']
         }, status=status.HTTP_200_OK)
 

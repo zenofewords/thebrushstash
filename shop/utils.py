@@ -1,5 +1,7 @@
 from django.apps import apps
 
+from shop.constants import FREE_SHIPPING_PRODUCTS
+
 defaultProductType = 'brush'
 
 
@@ -20,3 +22,7 @@ def update_product_prices(product):
         for er in exchange_rates:
             price = product.price_hrk + product.price_hrk * er.added_value / 100
             setattr(product, 'price_{}'.format(er.currency.lower()), price / er.middle_rate)
+
+
+def get_shipping_cost(shipping_cost, bag):
+    return 0 if int(bag.get('total_quantity', 0)) >= FREE_SHIPPING_PRODUCTS else shipping_cost

@@ -439,4 +439,3 @@ initial_region_data = (
 
 DEFAULT_REGION = 'hr'
 DEFAULT_CURRENCY = 'HRK'
-DEFAULT_SHIPPING_COST = 10

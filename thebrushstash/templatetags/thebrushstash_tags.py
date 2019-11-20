@@ -4,6 +4,7 @@ from django import template
 from django.utils.translation import get_language
 
 from shop.constants import EMPTY_BAG
+from shop.utils import get_shipping_cost
 from thebrushstash.constants import (
     DEFAULT_REGION,
 )
@@ -52,7 +53,9 @@ def ship_to_tag(context):
     if not bag:
         request.session['bag'] = EMPTY_BAG
 
-    shipping_cost = Decimal(selected_region.shipping_cost)
+    shipping_cost = get_shipping_cost(
+        Decimal(selected_region.shipping_cost), request.session['bag']
+    )
     request.session['bag']['shipping_cost'] = str(shipping_cost)
     request.session['bag']['grand_total'] = str(
         Decimal(request.session['bag']['total']) + shipping_cost
