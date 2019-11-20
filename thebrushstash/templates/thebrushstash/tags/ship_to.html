@@ -7,8 +7,8 @@
       {% trans 'Ship to:' %}
     </span>
     <a class="ship-to-select" href="/">
-      <span class="flag-icon {{ selected_region }}"></span>
-      {{ selected_region }}
+      <span class="flag-icon {{ selected_region.name }}"></span>
+      {{ selected_region.name }}
     </a>
   </div>
   <div class="ship-to-menu" hidden>
@@ -16,10 +16,10 @@
       {% csrf_token %}
       <input id="language-input" name="language" type="hidden" value="hr">
 
-      {% for key, data in regions.items %}
-        <a class="language-option" href="/" data-language="{{ data.language }}" data-region="{{ key }}">
-          <span class="flag-icon {{ key }}"></span>
-          {{ key|upper }}
+      {% for region in regions %}
+        <a class="language-option" href="/" data-language="{{ region.language }}" data-region="{{ region.name }}">
+          <span class="flag-icon {{ region.name }}"></span>
+          {{ region.name|upper }}
         </a>
       {% endfor %}
     </form>

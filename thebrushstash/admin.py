@@ -7,6 +7,7 @@ from thebrushstash.models import (
     FooterItem,
     FooterShareLink,
     NavigationItem,
+    Region,
     TestImage,
 )
 from shop.admin import (
@@ -32,10 +33,17 @@ class TestImageAdmin(admin.ModelAdmin):
     inlines = [SingleGalleryItemInline, GalleryItemInline, ]
 
 
+class RegionAdmin(admin.ModelAdmin):
+    list_display_links = ('name', )
+    list_display = ('name', 'language', 'currency', 'shipping_cost', 'published', 'ordering', )
+    list_editable = ('shipping_cost', 'published', )
+
+
 admin.site.register(Country)
 admin.site.register(CreditCardLogo)
 admin.site.register(ExchangeRate, ExchangeRateAdmin)
 admin.site.register(FooterItem)
 admin.site.register(FooterShareLink)
 admin.site.register(NavigationItem, NavigationItemAdmin)
+admin.site.register(Region, RegionAdmin)
 admin.site.register(TestImage, TestImageAdmin)

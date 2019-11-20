@@ -15,7 +15,7 @@
       {% trans "Ship to:" %} {{ region }}
     </span>
     <span class="summary-value">
-      {{ bag.shipping|default:"0.00" }} kn
+      {{ bag.shipping_cost|default:"0.00" }} kn
     </span>
   </div>
   <div id="summary-row-fees" class="summary-row{% if not bag.fees %} hidden{% endif %}">

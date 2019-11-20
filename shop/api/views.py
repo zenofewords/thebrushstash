@@ -8,7 +8,6 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
-from django.utils.translation import get_language
 
 from shop.api.serializers import (
     PaymentMethodSerializer,
@@ -19,6 +18,8 @@ from shop.api.serializers import (
 from shop.constants import EMPTY_BAG
 from shop.models import InvoicePaymentMethod
 from thebrushstash.constants import (
+    DEFAULT_CURRENCY,
+    DEFAULT_SHIPPING_COST,
     ipg_fields,
     form_mandatory_fields,
 )
@@ -29,6 +30,7 @@ from thebrushstash.utils import (
     register_user,
     subscribe_to_newsletter,
 )
+from thebrushstash.models import Region
 
 
 class AddToBagView(GenericAPIView):
@@ -43,13 +45,10 @@ class AddToBagView(GenericAPIView):
         quantity = product_data.get('quantity')
         price = product_data.get('price')
         subtotal = quantity * price
-        shipping = Decimal(10.0)
 
-        products = {}
-        bag = EMPTY_BAG
-        if request.session.get('bag'):
-            bag = request.session.get('bag')
-            products = bag.get('products')
+        bag = request.session.get('bag')
+        products = bag.get('products')
+        shipping_cost = Decimal(bag.get('shipping_cost'))
 
         product = None
         product_id = product_data.get('slug')
@@ -79,8 +78,8 @@ class AddToBagView(GenericAPIView):
             'products': products,
             'total': str(total),
             'total_quantity': bag['total_quantity'] + quantity,
-            'shipping': str(shipping),
-            'grand_total': str(total + shipping),
+            'shipping_cost': str(shipping_cost),
+            'grand_total': str(total + shipping_cost),
         }
         request.session['bag'] = bag
         return response.Response({'bag': bag}, status=status.HTTP_200_OK)
@@ -119,16 +118,15 @@ class UpdatePaymentMethodView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        gls_fee = Decimal(10.0)
-
+        gls_fee = Decimal('10.00')
         request.session['payment_method'] = serializer.data.get('payment_method')
         total = Decimal(request.session['bag']['total'])
-        shipping = Decimal(request.session['bag']['shipping'])
-        grand_total = total + shipping
+        shipping_cost = Decimal(request.session['bag']['shipping_cost'])
+        grand_total = total + shipping_cost
 
         if request.session['payment_method'] == InvoicePaymentMethod.CASH_ON_DELIVERY:
             request.session['bag']['fees'] = str(gls_fee)
-            grand_total = total + shipping + gls_fee
+            grand_total = total + shipping_cost + gls_fee
         else:
             request.session['bag']['fees'] = None
         request.session['bag']['grand_total'] = str(grand_total)
@@ -163,15 +161,13 @@ class ProcessOrderView(GenericAPIView):
         )
         request.session['user_information'] = serializer.data
         order_number = request.session.get('order_number')
-        grand_total = Decimal(bag.get('total')) + Decimal(bag.get('shipping'))
+        grand_total = Decimal(bag.get('total')) + Decimal(bag.get('shipping_cost'))
 
         user_info = {}
         for key, ipg_key in dict(zip(form_mandatory_fields, ipg_fields)).items():
             if key in form_mandatory_fields:
                 user_info[ipg_key] = serializer.data[key]
-
-        if not request.session.get('_language'):
-            request.session['_language'] = get_language()
+        language = request.session.get('_language')
 
         return response.Response({
             'order_number': order_number,
@@ -179,13 +175,13 @@ class ProcessOrderView(GenericAPIView):
             'grand_total': str(grand_total),
             'user_information': serializer.data,
             'region': request.session.get('region'),
-            'language': request.session.get('_language'),
+            'language': language,
             'signature': get_signature({
                 'amount': str(grand_total),
                 **user_info,  # noqa
                 'cart': cart,
-                'currency': 'HRK',
-                'language': request.session.get('_language'),
+                'currency': DEFAULT_CURRENCY,
+                'language': language,
                 'order_number': order_number,
                 'require_complete': 'false',
                 'store_id': settings.IPG_STORE_ID,

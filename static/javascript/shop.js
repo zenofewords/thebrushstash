@@ -264,7 +264,7 @@ ready(() => {
         summaryRowFeesValue.innerHTML = null
       }
       ipgAmount.value = response.bag.grand_total
-      summaryGrandTotal.innerHTML = response.bag.grand_total
+      summaryGrandTotal.innerHTML = `${response.bag.grand_total} kn`
     }))
   }
 
