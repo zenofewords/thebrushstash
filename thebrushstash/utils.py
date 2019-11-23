@@ -346,7 +346,7 @@ def complete_purchase(session, invoice_status, request):
 
     if invoice:
         invoice.status = invoice_status
-        invoice.order_total = session['bag']['grand_total']
+        invoice.order_total = session['bag']['grand_total_hrk']  # must be in hrk
         invoice.payment_method = session['payment_method']
         invoice.phone_number = request.POST.get('phone_number', '')
         invoice.save()

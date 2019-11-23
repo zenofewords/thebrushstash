@@ -28,7 +28,7 @@
           {{ bag.total_quantity|default:"0" }}
         </span>
       </a>
-      {% include 'thebrushstash/includes/bag.html' %}
+      {% include 'thebrushstash/includes/bag.html' with current_url=current_url %}
     </li>
   </ul>
 </div>

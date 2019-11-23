@@ -30,7 +30,7 @@
                 {{ value.name }}
               </span>
               <span class="bag-product-price">
-                {{ value.price }} kn
+                {% get_price_for_currency value 'price' currency %}
               </span>
             </div>
             <div class="bag-product-quantity">
@@ -41,7 +41,7 @@
                 &times;
               </span>
               <span class="bag-product-subtotal">
-                {{ value.subtotal }} kn
+                {% get_price_for_currency value 'subtotal' currency %}
               </span>
             </div>
           </div>
@@ -49,6 +49,6 @@
       </div>
     </div>
 
-    {% purchase_summary_tag bag region show_links='true' %}
+    {% purchase_summary_tag bag region currency show_links='true' %}
   </div>
 {% endblock content %}

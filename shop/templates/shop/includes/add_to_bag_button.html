@@ -2,6 +2,17 @@
 {% load shop_tags %}
 {% get_image_for_model object as lead_image %}
 
-<button class="add-to-bag-button" data-id="{{ object.pk }}" data-slug="{{ object.slug }}" data-name="{{ object.name }}" data-price="{{ object.price_hrk }}" data-image-url="{{ lead_image.image.url }}" data-multiple="{{ multiple }}">
+<button
+    class="add-to-bag-button"
+    data-id="{{ object.pk }}"
+    data-slug="{{ object.slug }}"
+    data-name="{{ object.name }}"
+    data-price-hrk="{{ object.price_hrk }}"
+    data-price-eur="{{ object.price_eur }}"
+    data-price-gbp="{{ object.price_gbp }}"
+    data-price-usd="{{ object.price_usd }}"
+    data-image-url="{{ lead_image.image.url }}"
+    data-multiple="{{ multiple }}"
+>
   {% trans "Add to bag" %}
 </button>

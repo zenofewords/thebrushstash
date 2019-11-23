@@ -20,10 +20,11 @@ def showcase_tag():
 
 
 @register.inclusion_tag('shop/tags/purchase_summary.html')
-def purchase_summary_tag(bag, region, show_links=False):
+def purchase_summary_tag(bag, region, currency, show_links=False):
     return {
         'bag': bag,
         'region': region,
+        'currency': currency,
         'show_links': show_links,
     }
 
@@ -91,3 +92,19 @@ def gallery_item(obj, item, selected_item_id, first_item):
         'item': item,
         'selected': selected,
     }
+
+
+@register.simple_tag(takes_context=True)
+def get_localized_price(context, key, obj):
+    currency = context['request'].session['currency']
+    return getattr(obj, '{}_{}'.format(key, currency))
+
+
+@register.simple_tag()
+def get_price_for_currency(obj, key, currency):
+    price = obj.get('{}_{}'.format(key, currency))
+    return price
+    if currency == 'hr':
+        return '{} kn'.format(price)
+    elif currency == '':
+        pass

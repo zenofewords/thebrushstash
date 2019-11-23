@@ -22,7 +22,7 @@
     {% endif %}
   </p>
   <div class="price-tag">
-    {{ product.price_hrk }} kn
+    {% get_localized_price 'price' product %}
   </div>
   {% include 'shop/includes/add_to_bag_button.html' with object=product %}
 </div>

@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load shop_tags %}
 
 <div class="summary-wrapper">
   <h2>{% trans "Order summary" %}</h2>
@@ -7,7 +8,7 @@
       {% trans "Total:" %}
     </span>
     <span id="summary-total" class="summary-value">
-       {{ bag.total|default:"0.00" }} kn
+      {% get_price_for_currency bag 'total' currency %}
     </span>
   </div>
   <div class="summary-row">
@@ -15,15 +16,15 @@
       {% trans "Ship to:" %} {{ region }}
     </span>
     <span id="summary-value-shipping-cost" class="summary-value">
-      {{ bag.shipping_cost|default:"0.00" }} kn
+      {% get_price_for_currency bag 'shipping_cost' currency %}
     </span>
   </div>
-  <div id="summary-row-fees" class="summary-row{% if not bag.fees %} hidden{% endif %}">
+  <div id="summary-row-fees" class="summary-row{% if region != 'hr' or not bag.fee %} hidden{% endif %}">
     <span class="summary-label">
       {% trans "GLS:" %}
     </span>
     <span id="summary-value-fees" class="summary-value">
-      {{ bag.fees|default:"0.00" }} kn
+      {{ bag.fees|default:"0.00" }}
     </span>
   </div>
   <div class="summary-row">
@@ -31,9 +32,19 @@
       {% trans "Grand total:" %}
     </span>
     <span id="summary-grand-total" class="summary-grand-total-value">
-      {{ bag.grand_total|default:"0.00" }} kn
+      {% get_price_for_currency bag 'grand_total' currency %}
     </span>
   </div>
+  {% if region != 'hr' %}
+    <div class="summary-row">
+      <span class="summary-label">
+        {% trans "Grand total (HRK):" %}
+      </span>
+      <span id="summary-grand-total-hrk" class="summary-value">
+        {% get_price_for_currency bag 'grand_total' 'hrk' %}
+      </span>
+    </div>
+  {% endif %}
 
   {% if show_links %}
     <a href="{% url 'shop:checkout' %}" class="summary-check-out-button">

@@ -81,6 +81,7 @@
 
   .bag-product-stats
     display: flex
+    justify-content: space-between
     margin-top: 7px
     font-size: 12px
     font-weight: $regular
@@ -259,6 +260,9 @@
         line-height: 17px
         margin: 0 0 15px
 
+      a
+        pointer-events: none
+
     .checkout-checkbox-wrapper,
     .checkout-radio-wrapper
       display: flex
@@ -296,6 +300,16 @@
 
     #cash-on-delivery-submit-wrapper.hidden
       display: none
+
+    .checkout-address-wrapper,
+    .checkout-payment-wrapper,
+    .cash-on-delivery-submit-wrapper
+      button:disabled
+        opacity: 0.3
+        cursor: not-allowed
+
+        &:hover
+          background-color: $colorGreen
 
     .checkout-help-text
       font-size: 16px
