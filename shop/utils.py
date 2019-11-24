@@ -58,7 +58,6 @@ def get_totals(data, key, operator, product={}):
     subtotal_eur = quantity * price_eur
     subtotal_gbp = quantity * price_gbp
     subtotal_usd = quantity * price_usd
-
     prices = {
         'price_hrk': str(price_hrk),
         'price_eur': str(price_eur),
