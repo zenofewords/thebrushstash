@@ -48,7 +48,6 @@ a
   font-weight: $heavy
   text-decoration: none
   color: #000
-  transition: $transitionDuration
 
 button,
 select
@@ -103,64 +102,23 @@ button
     margin: 0 auto
     height: $headerHeight
 
-    a
+    .logo
       display: flex
-
-      .logo
-        width: 505px
-        height: 58px
-        background: url('data:image/svg+xml;base64,#{$tbsLogo}') no-repeat
+      width: 505px
+      height: 58px
+      background: url('data:image/svg+xml;base64,#{$tbsLogo}') no-repeat
 
     .ship-to-wrapper
-      position: absolute
-      top: 12px
-      right: 34px
-      color: #fff
-      font-family: $bodyFont
-      font-size: 12px
-      line-height: 15px
-      text-transform: uppercase
+      @include ship-to-wrapper
 
-      &:after
-        @extend %input-arrow
+    .nav-mobile-open-button
+      display: none
 
-      .ship-to-select-wrapper
-        display: flex
+    .bag-mobile-open-button
+      display: none
 
-        .text
-          white-space: nowrap
-          width: 50px
-
-      .ship-to-select
-        width: 67px
-        color: #fff
-
-      .ship-to-menu
-        position: absolute
-        top: 20px
-        left: 50px
-        margin-top: 5px
-
-        a
-          color: #fff
-
-      .flag-icon
-        width: 20px
-        height: 13px
-        margin: 1px 6px 11px 7px
-        pointer-events: none
-
-        &.hr
-          background: url('data:image/svg+xml;base64,#{$flagCro}') no-repeat
-
-        &.eu
-          background: url('data:image/svg+xml;base64,#{$flagEU}') no-repeat
-
-        &.uk
-          background: url('data:image/svg+xml;base64,#{$flagUK}') no-repeat
-
-        &.us
-          background: url('data:image/svg+xml;base64,#{$flagUSA}') no-repeat
+    #bag-mobile
+      display: none
 
 .link-in-text
   text-decoration: underline

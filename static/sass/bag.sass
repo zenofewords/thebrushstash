@@ -26,6 +26,7 @@
     font-size: 11px
     font-weight: $heavy
     line-height: 13px
+    text-transform: uppercase
 
   .bag-product
     display: flex
@@ -65,7 +66,6 @@
       font-size: 16px
       cursor: pointer
       color: #fff
-      cursor: pointer
       position: relative
       margin-top: 2px
       padding: 3px
@@ -91,15 +91,23 @@
     .bag-product-quantity
       width: 75px
 
-  a
+  .review-bag-link
+    display: block
+    font-family: Lato
+    font-size: 12px
+    line-height: 15px
     padding: 10px 0
     margin: 10px 15px 15px
     color: #fff
     background-color: $colorBlue
     text-align: center
+    text-transform: uppercase
 
     &:hover
       background-color: #333
+
+    &.hidden
+      display: none
 
 .review-bag-title
   margin: -50px $gutter 0
@@ -111,6 +119,9 @@
 .review-bag-wrapper
   display: flex
   margin: 28px $gutter 135px
+
+  .review-bag-mobile-ship-to-wrapper
+    display: none
 
   .bag-content-wrapper
     flex: 7 1 0px
@@ -322,23 +333,24 @@
 
       .checkout-select-wrapper
         position: relative
+        max-width: 480px
 
         &:after
           @extend %input-arrow
-          top: 7px
-          left: 87%
+          top: 35%
+          left: 92%
           border-color: #000 transparent transparent
 
         select
           @extend %hollow-select
           width: 100%
-          margin-bottom: 16px
-          max-width: calc(#{$checkoutFormInputWidth} - 3px)
+          margin: 0 0 16px
+          max-width: calc(#{$checkoutFormInputWidth} - 1px)
 
       textarea
         width: 100%
         height: 100px
-        max-width: calc(#{$checkoutFormInputWidth} - 5px)
+        max-width: calc(#{$checkoutFormInputWidth} - 3px)
         font-family: $bodyFont
         font-size: 16px
         line-height: 19px
@@ -354,7 +366,7 @@
     button
       @extend %summary-check-out-button
       width: 100%
-      max-width: calc(#{$checkoutFormInputWidth} - 5px)
+      max-width: calc(#{$checkoutFormInputWidth} - 1px)
       margin: 10px 0 50px
 
       &:last-of-type
@@ -373,6 +385,7 @@
       display: block
       text-align: center
       max-width: $checkoutFormInputWidth
+      margin-bottom: 30px
 
   .summary-wrapper
     @extend %summary-wrapper

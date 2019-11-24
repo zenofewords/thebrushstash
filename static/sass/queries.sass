@@ -21,30 +21,166 @@
         max-height: 435px
 
 @media only screen and (max-width: $mediaMobile)
+  .main-wrapper
+    margin-top: 80px
+
+    &.sticky-nav-margin
+      margin-top: 80px
+
   %content-wrapper
     flex-direction: column
 
   .header-wrapper
-    background: #000
+    position: fixed
+    width: 100%
+    background-size: 90% 130%
+    z-index: 1
 
     .header
-      a
-        .logo
-          width: 300px
+      height: 56px
+      justify-content: space-between
+
+      .nav-mobile-open-button
+        display: initial
+        color: #fff
+        border-top: 1px solid #fff
+        border-bottom: 1px solid #fff
+        width: 14px
+        height: 9px
+        margin: 0 30px 2px 25px
+
+        hr
+          border: 0
+          margin: 4px 0 0
+          border-top: 1px solid #fff
+
+      .bag-mobile-open-button
+        display: initial
+        @include nav-item-bag
+        padding: 0
+        margin-right: 15px
+
+        a
+          padding: 10px 0
+
+        .bag-item-count
+          @include bag-item-count
+          position: initial
+          margin: 5px 0
+
+      #bag-mobile
+        display: initial
+        top: 56px
+        right: 0
+
+        &.bag-hide
+          opacity: 1
+          right: -100%
+
+        .bag-product-remove
+          padding: 0 3px
+
+      .logo
+        width: 180px
+        height: 20px
 
       .ship-to-wrapper
         display: none
 
-  .navigation-wrapper
+  .navigation-wrapper,
+  .navigation-wrapper.sticky-nav
+    position: absolute
+    top: 0
+    left: 0
+    width: 80%
+    min-height: 550px
+    height: 100vh
+    z-index: 1
+    margin-top: 0
+    transition: $transitionDuration
+
+    &.nav-mobile-close
+      left: -100%
+
+    .navigation-mobile-controls
+      display: flex
+      justify-content: space-between
+      padding: 20px 15px
+
+      .nav-mobile-close-button
+        color: #fff
+        font-size: 40px
+        line-height: 13px
+        font-weight: 100
+
+      .ship-to-wrapper
+        @include ship-to-wrapper
+        position: relative
+        top: 0
+        left: 0
+
+        &:after
+          @include input-arrow
+
     .inner-wrapper
-      display: none
+      .nav-item
+        padding: 0
+        width: 100%
+
+        &:first-child
+          margin: 50px auto 0
+
+        a
+          display: flex
+          justify-content: center
+          padding: 23px 0
+
+      .nav-divider
+        display: none
+
+      .nav-item-log-in-register
+        border-top: $discreetGreyBorder
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 90%
+        margin: 0 5%
+        padding: 25px 0 30px
+        text-align: center
+
+      .nav-item-bag
+        display: none
 
   .review-bag-title
     display: none
 
   .review-bag-wrapper
     flex-direction: column
-    margin: -40px 0 0 0
+    margin: 0
+
+    .review-bag-mobile-ship-to-wrapper
+      display: flex
+      margin-top: -25px
+      padding: 15px 0 5px
+      background-color: $colorLightGrey
+
+      .ship-to-wrapper
+        @include ship-to-wrapper
+        color: #000
+        position: relative
+        top: 0
+        right: 0
+        margin: 0 auto
+
+        &:after
+          border-color: #000 transparent transparent
+
+        .ship-to-select
+          color: #000
+
+        .ship-to-menu
+          .language-option
+            color: #000
 
     .bag-content-wrapper
       margin: 0 15px
@@ -54,12 +190,93 @@
 
     .bag-content
       .bag-item-row
+        padding: 10px 0
+
+        .bag-product-and-price
+          padding: 0
+
+          .bag-product-name
+            font-size: 17px
+            line-height: 23px
+
+          .bag-product-price
+            font-size: 14px
+            letter-spacing: -0.35px
+            line-height: 17px
+
+        .bag-subtotal
+          .bag-product-subtotal
+            font-size: 14px
+            letter-spacing: -0.35px
+            line-height: 17px
+
         .image-wrapper
           width: 78px
           height: 78px
 
+    .summary-wrapper
+      h2
+        font-size: 16px
+        line-height: 19px
+        text-align: center
+
+      .summary-row
+        .summary-label
+          font-size: 13px
+          line-height: 16px
+
+        .summary-value,
+        .summary-grand-total-label,
+        .summary-grand-total-value
+          font-size: 16px
+          line-height: 19px
+
+      .summary-check-out-button
+        font-size: 14px
+        line-height: 15px
+
+  .checkout-wrapper
+    flex-direction: column
+    margin: 0 0 120px
+
+    #checkout-address-form
+      margin: 0 $gutter
+
+    .summary-wrapper
+      h2
+        font-size: 16px
+        line-height: 19px
+        text-align: center
+
+      .summary-row
+        .summary-label
+          font-size: 13px
+          line-height: 16px
+
+        .summary-value,
+        .summary-grand-total-label,
+        .summary-grand-total-value
+          font-size: 16px
+          line-height: 19px
+
+      .summary-check-out-button
+        font-size: 14px
+        line-height: 15px
+
   .showcase-wrapper
     margin: -60px 0 70px
+
+    .text-wrapper
+      h1
+        font-size: 23px
+        line-height: 26px
+        padding: 25px 60px 5px
+
+      p
+        font-size: 14px
+        line-height: 22px
+        text-align: left
+        padding: 0 30px
 
   .social-wrapper
     border: none

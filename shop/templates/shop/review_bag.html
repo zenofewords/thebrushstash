@@ -1,6 +1,7 @@
 {% extends 'shop/shop_base.html' %}
 {% load i18n %}
 {% load shop_tags %}
+{% load thebrushstash_tags %}
 
 {% block title %}
   {{ block.super }} - {% trans "Review Your Bag" %}
@@ -11,6 +12,9 @@
     {% trans "Review Your Bag" %}
   </h1>
   <div class="review-bag-wrapper">
+    <div class="review-bag-mobile-ship-to-wrapper">
+      {% ship_to_tag %}
+    </div>
     <div class="bag-content-wrapper">
       <div class="bag-content-headers">
         <span>{% trans "Product &amp; price" %}</span>

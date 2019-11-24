@@ -1,18 +1,18 @@
 {% load i18n %}
 {% load shop_tags %}
 
-<div class="bag bag-hide">
+<div id="{{ id }}" class="bag bag-hide">
   <div class="bag-header">
     <span>
       {% trans 'In your bag' %}
     </span>
     <span>
-      {% trans 'Total:' %} <span class="bag-total">
+      {% trans 'Total:' %} <span id="{{ id }}-total" class="bag-total">
         {% get_price_for_currency bag 'total' currency %}
       </span>
     </span>
   </div>
-  <div class="bag-content">
+  <div id="{{ id }}-content" class="bag-content">
     {% for key, value in bag.products.items %}
       <div class="bag-product">
         <div class="bag-product-image">
@@ -42,7 +42,7 @@
       </div>
     {% endfor %}
   </div>
-  <a href="{% url 'shop:review-bag' %}" class="review-bag-link"{% if not bag.products.items %} hidden{% endif %}>
+  <a href="{% url 'shop:review-bag' %}" id="{{ id }}-review-link" class="review-bag-link{% if not bag.products.items %} hidden{% endif %}">
     {% trans 'Review bag' %}
   </a>
 </div>

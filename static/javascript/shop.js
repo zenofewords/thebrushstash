@@ -34,6 +34,9 @@ ready(() => {
   const imageWrappers = document.getElementsByClassName('image-wrapper portrait')
   const thumbnailWrappers = document.getElementsByClassName('image-wrapper thumbnail')
   const videoWrappers = document.getElementsByClassName('video-wrapper')
+  const navMobileOpenButton = document.querySelector('.nav-mobile-open-button')
+  const navMobileCloseButton = document.querySelector('.nav-mobile-close-button')
+  const bagMobileOpenButton = document.querySelector('.bag-mobile-open-button')
 
   const onSelectFocus = (event) => {
     shipToMenu.hidden = false
@@ -113,6 +116,20 @@ ready(() => {
     }
   }
 
+  bagMobileOpenButton && bagMobileOpenButton.addEventListener('click', (event) => {
+    bagMobile.classList.toggle('bag-hide')
+  })
+
+  navMobileOpenButton && navMobileOpenButton.addEventListener('click', (event) => {
+    navigationWrapper.classList.remove('nav-mobile-close')
+    document.body.classList.add('lock-scroll')
+  })
+
+  navMobileCloseButton && navMobileCloseButton.addEventListener('click', (event) => {
+    navigationWrapper.classList.add('nav-mobile-close')
+    document.body.classList.remove('lock-scroll')
+  })
+
   for (var i = 0; i < thumbnailWrappers.length; i++) {
     thumbnailWrappers[i].addEventListener('click', (event) => {
       event.preventDefault()
@@ -181,14 +198,19 @@ ready(() => {
     })
   })
   const bagLink = document.querySelector('.bag-link')
-  const bag = document.querySelector('.bag')
-  const bagContent = document.querySelector('.bag-content')
+  const bag = document.getElementById('bag')
+  const bagMobile = document.getElementById('bag-mobile')
+  const bagContent = document.getElementById('bag-content')
+  const bagContentMobile = document.getElementById('bag-mobile-content')
+  const bagTotal = document.getElementById('bag-total')
+  const bagTotalMobile = document.getElementById('bag-mobile-total')
+  const bagItemCount = document.getElementById('bag-item-count')
+  const bagItemCountMobile = document.getElementById('bag-mobile-item-count')
   const addToBagSelect = document.getElementById('add-to-bag-select')
   const addToBagButtons = document.getElementsByClassName('add-to-bag-button')
-  const bagTotal = document.querySelector('.bag-total')
-  const bagItemCount = document.querySelector('.bag-item-count')
 
-  const reviewBagLink = document.querySelector('.review-bag-link')
+  const reviewBagLink = document.getElementById('bag-review-link')
+  const reviewBagLinkMobile = document.getElementById('bag-mobile-review-link')
   const summaryShippingCost = document.getElementById('summary-value-shipping-cost')
   const summaryTotal = document.getElementById('summary-total')
   const summaryGrandTotal = document.getElementById('summary-grand-total')
@@ -447,18 +469,30 @@ ready(() => {
     bagTotal.innerHTML = formatPrice(
       `${response.bag[`total_${response.currency}`]}`, response.currency
     )
+    bagTotalMobile.innerHTML = formatPrice(
+      `${response.bag[`total_${response.currency}`]}`, response.currency
+    )
     bagContent.innerHTML = ''
+    bagContentMobile.innerHTML = ''
 
     for (const [key, values] of Object.entries(response.bag.products)) {
       bagContent.appendChild(createProductNode(key, values, response))
+      bagContentMobile.appendChild(createProductNode(key, values, response))
     }
     bagItemCount.innerHTML = response.bag.total_quantity
+    bagItemCountMobile.innerHTML = response.bag.total_quantity
 
     if (window.location.pathname !== '/review-bag/') {
       bag.classList.remove('bag-hide')
       hideBagTimer = setTimeout(hideBag, 3000)
     }
-    reviewBagLink.hidden = Object.keys(response.bag.products).length < 1
+    if (Object.keys(response.bag.products).length < 1) {
+      reviewBagLink.classList.add('hidden')
+      reviewBagLinkMobile.classList.add('hidden')
+    } else {
+      reviewBagLink.classList.remove('hidden')
+      reviewBagLinkMobile.classList.remove('hidden')
+    }
   }
 
   const refreshReviewBag = (response, slug) => {
