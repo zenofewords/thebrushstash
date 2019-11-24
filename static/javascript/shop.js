@@ -9,6 +9,20 @@ const ready = (runScript) => {
 }
 
 ready(() => {
+  const currencySymbolMapping = {
+    hrk: 'kn',
+    eur: '€',
+    gbp: '£',
+    usd: '$',
+  }
+
+  const formatPrice = (price, currency) => {
+    if (currency === 'hrk') {
+      return `${price} ${currencySymbolMapping[currency]}`
+    }
+    return `${currencySymbolMapping[currency]}${price}`
+  }
+
   const navigationWrapper = document.querySelector('.navigation-wrapper')
   const mainWrapper = document.querySelector('.main-wrapper')
   const cookieInfo = document.querySelector('.accept-cookie')
@@ -259,7 +273,7 @@ ready(() => {
     ).then((data) => data.json().then((response) => {
       if (parseInt(response.bag.fees)) {
         summaryRowFees.classList.remove('hidden')
-        summaryRowFeesValue.innerHTML = `${response.bag.fees}`
+        summaryRowFeesValue.innerHTML = `${response.bag.fees} kn` // must be in hrk
         ipgFormSubmitButton.classList.add('hidden')
         cashOnDeliverySubmitWrapper.classList.remove('hidden')
       } else {
@@ -269,8 +283,17 @@ ready(() => {
         summaryRowFeesValue.innerHTML = null
       }
       ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
-      summaryShippingCost.innerHTML = `${response.bag[`shipping_cost_${response.currency}`]}`
-      summaryGrandTotal.innerHTML = `${response.bag[`grand_total_${response.currency}`]}`
+
+      if (summaryShippingCost) {
+        summaryShippingCost.innerHTML = formatPrice(
+          `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
+        )
+      }
+      if (summaryGrandTotal) {
+        summaryGrandTotal.innerHTML = formatPrice(
+          `${response.bag[`grand_total_${response.currency}`]}`, response.currency
+        )
+      }
     }))
   }
 
@@ -393,7 +416,9 @@ ready(() => {
     productQuantity.classList.add('bag-product-quantity')
     const productSubtotal = document.createElement('span')
     productQuantity.innerHTML = `Quantity: ${values.quantity}`
-    productSubtotal.innerHTML = `Subtotal: ${values[`subtotal_${response.currency}`]}`
+    productSubtotal.innerHTML = `Subtotal: ${formatPrice(
+      `${values[`subtotal_${response.currency}`]}`, response.currency
+    )}`
     bagProductStats.appendChild(productQuantity)
     bagProductStats.appendChild(productSubtotal)
 
@@ -419,7 +444,9 @@ ready(() => {
 
   const refreshBag = (response) => {
     clearTimeout(hideBagTimer)
-    bagTotal.innerHTML = `${response.bag[`total_${response.currency}`]}`
+    bagTotal.innerHTML = formatPrice(
+      `${response.bag[`total_${response.currency}`]}`, response.currency
+    )
     bagContent.innerHTML = ''
 
     for (const [key, values] of Object.entries(response.bag.products)) {
@@ -439,13 +466,20 @@ ready(() => {
 
     if (product) {
       product.remove()
+
+      summaryShippingCost.innerHTML = formatPrice(
+        `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
+      )
+      summaryTotal.innerHTML = formatPrice(
+        `${response.bag[`total_${response.currency}`]}`, response.currency
+      )
+      summaryGrandTotal.innerHTML = formatPrice(
+        `${response.bag[`grand_total_${response.currency}`]}`, response.currency
+      )
     }
-    summaryShippingCost.innerHTML = `${response.bag[`shipping_cost_${response.currency}`]}`
-    summaryTotal.innerHTML = `${response.bag[`total_${response.currency}`]}`
-    summaryGrandTotal.innerHTML = `${response.bag[`grand_total_${response.currency}`]}`
 
     if (summaryGrandTotalHrk) {
-      summaryGrandTotalHrk.innerHTML = response.bag.grand_total_hrk
+      summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total_hrk} kn`
     }
   }
 
@@ -466,8 +500,11 @@ ready(() => {
     ).then((data) => data.json().then((response) => {
       refreshBag(response)
       refreshReviewBag(response, slug)
-      ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
-      ipgCart.value = response.cart
+
+      if (ipgAmount && ipgCart) {
+        ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
+        ipgCart.value = response.cart
+      }
     }))
   }
 

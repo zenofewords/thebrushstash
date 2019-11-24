@@ -7,6 +7,7 @@ from shop.models import (
     GalleryItem,
     Showcase,
 )
+from thebrushstash.utils import format_price
 
 register = template.Library()
 
@@ -97,14 +98,13 @@ def gallery_item(obj, item, selected_item_id, first_item):
 @register.simple_tag(takes_context=True)
 def get_localized_price(context, key, obj):
     currency = context['request'].session['currency']
-    return getattr(obj, '{}_{}'.format(key, currency))
+    price = getattr(obj, '{}_{}'.format(key, currency))
+
+    return format_price(currency, price)
 
 
 @register.simple_tag()
 def get_price_for_currency(obj, key, currency):
     price = obj.get('{}_{}'.format(key, currency))
-    return price
-    if currency == 'hr':
-        return '{} kn'.format(price)
-    elif currency == '':
-        pass
+
+    return format_price(currency, price)

@@ -35,6 +35,7 @@ from shop.models import (
     Invoice,
     InvoiceStatus,
 )
+from thebrushstash.constants import currency_symbol_mapping
 from thebrushstash.models import Country
 
 
@@ -356,3 +357,9 @@ def complete_purchase(session, invoice_status, request):
         session['user_information']['note'] = None
 
         send_purchase_mail(session['user_information']['email'], get_current_site(request))
+
+
+def format_price(currency, price):
+    if currency == 'hrk':
+        return '{} {}'.format(price, currency_symbol_mapping[currency])
+    return '{}{}'.format(currency_symbol_mapping[currency], price)
