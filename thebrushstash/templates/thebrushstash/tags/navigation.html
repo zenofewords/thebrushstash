@@ -1,34 +1,33 @@
 {% load i18n %}
+{% load thebrushstash_tags %}
 
-<div class="navigation-wrapper">
-  <ul class="inner-wrapper">
-    {% for navigation_item in navigation_items %}
-      <li class="nav-item{% if navigation_item.css_class %} {{ navigation_item.css_class }}{% endif %}">
-        <a href="{{ navigation_item.location }}" {% if current_url == navigation_item.location %} class="active"{% endif %}>
-          {% if LANGUAGE_CODE == 'hr' %}
-            {{ navigation_item.name_cro }}
-          {% else %}
-            {{ navigation_item.name }}
-          {% endif %}
-        </a>
-      </li>
-      <span class="nav-divider"></span>
-    {% endfor %}
-    <li class="nav-item-log-in-register">
-      <a href="/login/">
-        <span class="user-icon"></span>
-        {% trans 'Login/Register' %}
+<ul class="inner-wrapper">
+  {% for navigation_item in navigation_items %}
+    <li class="nav-item{% if navigation_item.css_class %} {{ navigation_item.css_class }}{% endif %}">
+      <a href="{{ navigation_item.location }}" {% if current_url == navigation_item.location %} class="active"{% endif %}>
+        {% if LANGUAGE_CODE == 'hr' %}
+          {{ navigation_item.name_cro }}
+        {% else %}
+          {{ navigation_item.name }}
+        {% endif %}
       </a>
     </li>
-    <li class="nav-item-bag">
-      <a href="/bag/" class="bag-link" {% if current_url == navigation_item.location %} class="active"{% endif %}>
-        <span class="bag-icon"></span>
-        {% trans 'Bag' %}
-        <span class="bag-item-count">
-          {{ bag.total_quantity|default:"0" }}
-        </span>
-      </a>
-      {% include 'thebrushstash/includes/bag.html' with current_url=current_url %}
-    </li>
-  </ul>
-</div>
+    <span class="nav-divider"></span>
+  {% endfor %}
+  <li class="nav-item-log-in-register">
+    <a href="{% url 'login' %}">
+      <span class="user-icon"></span>
+      {% trans 'Login/Register' %}
+    </a>
+  </li>
+  <li class="nav-item-bag">
+    <a href="#" class="bag-link">
+      <span class="bag-icon"></span>
+      {% trans 'Bag' %}
+      <span id="bag-item-count" class="bag-item-count">
+        {{ bag.total_quantity|default:"0" }}
+      </span>
+    </a>
+    {% include 'thebrushstash/includes/bag.html' with current_url=current_url id="bag" %}
+  </li>
+</ul>

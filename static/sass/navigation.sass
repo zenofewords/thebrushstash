@@ -7,6 +7,9 @@
   border-top: $discreetGreyBorder
   border-bottom: $greyBorder
 
+  .navigation-mobile-controls
+    display: none
+
   &.sticky-nav
     position: fixed
     margin-top: -$headerHeight
@@ -50,17 +53,7 @@
 
     .nav-item-log-in-register,
     .nav-item-bag
-      position: relative
-      font-family: $bodyFont
-      font-size: 12px
-      font-weight: $regular
-      line-height: 15px
-      text-transform: uppercase
-      white-space: nowrap
-      padding: 19px 0
-
-      a
-        padding: 12px 5px 12px 0
+      @include nav-item-bag
 
       .user-icon
         position: relative
@@ -68,18 +61,5 @@
         margin-right: 4px
         background: url('data:image/svg+xml;base64,#{$userIcon}') no-repeat center
 
-      .bag-icon
-        padding: 12px 18px
-        margin-right: 4px
-        background: url('data:image/svg+xml;base64,#{$bagIcon}') no-repeat top
-
     .bag-item-count
-      position: absolute
-      top: 17px
-      color: #fff
-      font-family: $bodyFont
-      font-weight: $heavy
-      padding: 2px 6px
-      margin: 0 0 20px 5px
-      background-color: $colorBlue
-      border-radius: $borderRadius
+      @include bag-item-count

@@ -22,9 +22,9 @@
   <div class="checkout-formfields">
     {% include 'account/includes/form_field.html' with field=form.first_name %}
     {% include 'account/includes/form_field.html' with field=form.last_name %}
-    <span class="checkout-select-wrapper">
+    <div class="checkout-select-wrapper">
       {{ form.country }}
-    </span>
+    </div>
     {% include 'account/includes/form_field.html' with field=form.address %}
     {% include 'account/includes/form_field.html' with field=form.city %}
     {% include 'account/includes/form_field.html' with field=form.state_county %}

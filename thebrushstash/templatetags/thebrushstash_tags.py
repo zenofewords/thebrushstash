@@ -29,7 +29,7 @@ def navigation_tag(context):
 
 @register.inclusion_tag('thebrushstash/tags/ship_to.html', takes_context=True)
 def ship_to_tag(context):
-    session = context.get('request').session
+    session = context['request'].session
     regions = Region.published_objects.all()
     default = regions.get(name=DEFAULT_REGION)
 
@@ -58,6 +58,16 @@ def ship_to_tag(context):
         'selected_region': selected_region,
         'regions': regions.exclude(name=selected_region.name),
         'bag': session['bag'],
+    }
+
+
+@register.inclusion_tag('thebrushstash/tags/bag_tag.html', takes_context=True)
+def bag_tag(context):
+    request = context['request']
+    return {
+        'current_url': request.path,
+        'currency': request.session.get('currency', 'hrk'),
+        'bag': request.session.get('bag', EMPTY_BAG),
     }
 
 

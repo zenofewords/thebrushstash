@@ -33,13 +33,23 @@
         {% block header %}
           <div class="header-wrapper">
             <div class="header">
-              <a href="{% url 'shop:shop' %}">
-                <span class="logo"></span>
-              </a>
+              <div class="nav-mobile-open-button">
+                <hr>
+              </div>
+              <a href="{% url 'shop:shop' %}" class="logo"></a>
+              {% bag_tag %}
               {% ship_to_tag %}
             </div>
+            <div class="navigation-wrapper nav-mobile-close">
+              <div class="navigation-mobile-controls">
+                {% ship_to_tag %}
+                <div class="nav-mobile-close-button">
+                  &times;
+                </div>
+              </div>
+              {% navigation_tag %}
+            </div>
           </div>
-          {% navigation_tag %}
         {% endblock header %}
       </header>
 
