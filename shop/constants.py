@@ -2,11 +2,20 @@ from decimal import Decimal
 
 EMPTY_BAG = {
     'products': {},
-    'total': 0,
     'total_quantity': 0,
-    'shipping_cost': 0,
     'fees': 0,
-    'grand_total': 0,
+    'total_hrk': 0,
+    'total_eur': 0,
+    'total_gbp': 0,
+    'total_usd': 0,
+    'shipping_cost_hrk': 0,
+    'shipping_cost_eur': 0,
+    'shipping_cost_gbp': 0,
+    'shipping_cost_usd': 0,
+    'grand_total_hrk': 0,
+    'grand_total_eur': 0,
+    'grand_total_gbp': 0,
+    'grand_total_usd': 0,
 }
 
 DEFAULT_IMAGE_QUALITY = 70

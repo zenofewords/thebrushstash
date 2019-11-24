@@ -9,6 +9,20 @@ const ready = (runScript) => {
 }
 
 ready(() => {
+  const currencySymbolMapping = {
+    hrk: 'kn',
+    eur: '€',
+    gbp: '£',
+    usd: '$',
+  }
+
+  const formatPrice = (price, currency) => {
+    if (currency === 'hrk') {
+      return `${price} ${currencySymbolMapping[currency]}`
+    }
+    return `${currencySymbolMapping[currency]}${price}`
+  }
+
   const navigationWrapper = document.querySelector('.navigation-wrapper')
   const mainWrapper = document.querySelector('.main-wrapper')
   const cookieInfo = document.querySelector('.accept-cookie')
@@ -46,7 +60,10 @@ ready(() => {
               region: event.target.dataset.region,
             }),
           }
-        ).then((data) => languageForm.submit())
+        ).then((data) => data.json().then((response) => {
+          refreshBag(response)
+          languageForm.submit()
+        }))
       }
     }
 
@@ -175,6 +192,7 @@ ready(() => {
   const summaryShippingCost = document.getElementById('summary-value-shipping-cost')
   const summaryTotal = document.getElementById('summary-total')
   const summaryGrandTotal = document.getElementById('summary-grand-total')
+  const summaryGrandTotalHrk = document.getElementById('summary-grand-total-hrk')
 
   const continueToPaymentButton = document.getElementById('continue-to-payment')
   const checkoutAddressForm = document.getElementById('checkout-address-form')
@@ -253,9 +271,9 @@ ready(() => {
         }),
       }
     ).then((data) => data.json().then((response) => {
-      if (response.bag.fees) {
+      if (parseInt(response.bag.fees)) {
         summaryRowFees.classList.remove('hidden')
-        summaryRowFeesValue.innerHTML = `${response.bag.fees} kn`
+        summaryRowFeesValue.innerHTML = `${response.bag.fees} kn` // must be in hrk
         ipgFormSubmitButton.classList.add('hidden')
         cashOnDeliverySubmitWrapper.classList.remove('hidden')
       } else {
@@ -264,8 +282,18 @@ ready(() => {
         cashOnDeliverySubmitWrapper.classList.add('hidden')
         summaryRowFeesValue.innerHTML = null
       }
-      ipgAmount.value = response.bag.grand_total
-      summaryGrandTotal.innerHTML = `${response.bag.grand_total} kn`
+      ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
+
+      if (summaryShippingCost) {
+        summaryShippingCost.innerHTML = formatPrice(
+          `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
+        )
+      }
+      if (summaryGrandTotal) {
+        summaryGrandTotal.innerHTML = formatPrice(
+          `${response.bag[`grand_total_${response.currency}`]}`, response.currency
+        )
+      }
     }))
   }
 
@@ -299,7 +327,7 @@ ready(() => {
         }
       ).then((data) => data.json().then((response) => {
         ipgOrderNumber.value = response.order_number
-        ipgAmount.value = response.grand_total
+        ipgAmount.value = response.grand_total_hrk // must be in hrk
         ipgCart.value = response.cart
         ipgLanguage.value = response.language
         ipgSignature.value = response.signature
@@ -351,7 +379,7 @@ ready(() => {
     button.addEventListener('click', () => removeProduct(button.dataset.slug))
   }
 
-  const createProductNode = (key, values) => {
+  const createProductNode = (key, values, response) => {
     const bagProduct = document.createElement('div')
     bagProduct.classList.add('bag-product')
     bagProduct.slug = key
@@ -388,7 +416,9 @@ ready(() => {
     productQuantity.classList.add('bag-product-quantity')
     const productSubtotal = document.createElement('span')
     productQuantity.innerHTML = `Quantity: ${values.quantity}`
-    productSubtotal.innerHTML = `Subtotal: ${values.subtotal} kn`
+    productSubtotal.innerHTML = `Subtotal: ${formatPrice(
+      `${values[`subtotal_${response.currency}`]}`, response.currency
+    )}`
     bagProductStats.appendChild(productQuantity)
     bagProductStats.appendChild(productSubtotal)
 
@@ -414,11 +444,13 @@ ready(() => {
 
   const refreshBag = (response) => {
     clearTimeout(hideBagTimer)
-    bagTotal.innerHTML = `${response.bag.total} kn`
+    bagTotal.innerHTML = formatPrice(
+      `${response.bag[`total_${response.currency}`]}`, response.currency
+    )
     bagContent.innerHTML = ''
 
     for (const [key, values] of Object.entries(response.bag.products)) {
-      bagContent.appendChild(createProductNode(key, values))
+      bagContent.appendChild(createProductNode(key, values, response))
     }
     bagItemCount.innerHTML = response.bag.total_quantity
 
@@ -431,11 +463,24 @@ ready(() => {
 
   const refreshReviewBag = (response, slug) => {
     const product = document.getElementById(slug)
-    product.remove()
 
-    summaryShippingCost.innerHTML = `${response.bag.shipping_cost} kn`
-    summaryTotal.innerHTML = `${response.bag.total} kn`
-    summaryGrandTotal.innerHTML = `${response.bag.grand_total} kn`
+    if (product) {
+      product.remove()
+
+      summaryShippingCost.innerHTML = formatPrice(
+        `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
+      )
+      summaryTotal.innerHTML = formatPrice(
+        `${response.bag[`total_${response.currency}`]}`, response.currency
+      )
+      summaryGrandTotal.innerHTML = formatPrice(
+        `${response.bag[`grand_total_${response.currency}`]}`, response.currency
+      )
+    }
+
+    if (summaryGrandTotalHrk) {
+      summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total_hrk} kn`
+    }
   }
 
   const removeProduct = (slug) => {
@@ -454,9 +499,11 @@ ready(() => {
       }
     ).then((data) => data.json().then((response) => {
       refreshBag(response)
+      refreshReviewBag(response, slug)
 
-      if (window.location.pathname === '/review-bag/') {
-        refreshReviewBag(response, slug)
+      if (ipgAmount && ipgCart) {
+        ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
+        ipgCart.value = response.cart
       }
     }))
   }
@@ -476,7 +523,10 @@ ready(() => {
           slug: dataset.slug,
           name: dataset.name,
           quantity: parseInt(dataset.multiple ? addToBagSelect.value : 1),
-          price: parseFloat(dataset.price),
+          price_hrk: parseFloat(dataset.priceHrk),
+          price_eur: parseFloat(dataset.priceEur),
+          price_gbp: parseFloat(dataset.priceGbp),
+          price_usd: parseFloat(dataset.priceUsd),
           image_url: dataset.imageUrl,
         }),
       }

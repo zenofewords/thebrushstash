@@ -5,6 +5,7 @@ from rest_framework import (
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 
+from thebrushstash.models import Region
 from thebrushstash.constants import DEFAULT_REGION
 from thebrushstash.api.serializers import (
     CookieSerializer,
@@ -35,4 +36,9 @@ class RegionView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
 
         request.session['region'] = serializer.data.get('region', DEFAULT_REGION)
-        return response.Response({'region': request.session['region']}, status=status.HTTP_200_OK)
+        request.session['currency'] = Region.objects.get(name=request.session['region']).currency
+        return response.Response({
+            'region': request.session['region'],
+            'currency': request.session['currency'],
+            'bag': request.session['bag'],
+        }, status=status.HTTP_200_OK)

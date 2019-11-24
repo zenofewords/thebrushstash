@@ -20,7 +20,6 @@ from shop.models import (
     InvoiceStatus,
     Product,
 )
-from thebrushstash.constants import DEFAULT_CURRENCY
 from thebrushstash.utils import (
     complete_purchase,
     signature_is_valid,
@@ -69,7 +68,7 @@ class CheckoutView(FormView):
             'bag': session.get('bag'),
             'region': session.get('region'),
             'language': session.get('_language'),
-            'currency': DEFAULT_CURRENCY,
+            'currency': session.get('currency'),
             'store_id': settings.IPG_STORE_ID,
             'require_complete': 'false',
             'subscribed_to_newsletter': subscribed_to_newsletter,
@@ -131,6 +130,7 @@ class ReviewBagView(TemplateView):
         context.update({
             'bag': session.get('bag'),
             'region': session.get('region'),
+            'currency': session.get('currency'),
         })
         return context
 
