@@ -2,4 +2,12 @@
   {{ field.errors }}
   <label for="{{ field.id_for_label }}" class="screen-reader-only">{{ field.label }}</label>
   {{ field }}
+
+  {% if info %}
+    <span class="field-info-icon">
+    </span>
+    <span class="field-info" hidden>
+      {{ info }}
+    </span>
+  {% endif %}
 </div>

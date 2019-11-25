@@ -26,8 +26,8 @@ ready(() => {
   const navigationWrapper = document.querySelector('.navigation-wrapper')
   const mainWrapper = document.querySelector('.main-wrapper')
   const cookieInfo = document.querySelector('.accept-cookie')
-  const shipToSelect = document.querySelector('.ship-to-select')
-  const shipToMenu = document.querySelector('.ship-to-menu')
+  const shipToSelects = document.getElementsByClassName('ship-to-select')
+  const shipToMenu = document.getElementsByClassName('ship-to-menu')
   const languageOptions = document.getElementsByClassName('language-option')
   const languageInput = document.getElementById('language-input')
   const languageForm = document.getElementById('language-form')
@@ -39,13 +39,17 @@ ready(() => {
   const bagMobileOpenButton = document.querySelector('.bag-mobile-open-button')
 
   const onSelectFocus = (event) => {
-    shipToMenu.hidden = false
+    for (let i = 0; i < shipToMenu.length; i++) {
+      shipToMenu[i].hidden = false
+    }
 
     const menuItemClick = (event) => {
       event.preventDefault()
 
       if (!event.target.firstElementChild || !event.target.firstElementChild.classList.contains('flag-icon')) {
-        shipToMenu.hidden = true
+        for (let i = 0; i < shipToMenu.length; i++) {
+          shipToMenu[i].hidden = true
+        }
         removeClickListener(event)
       } else if (event.target.classList.contains('language-option')) {
         languageInput.value = event.target.dataset.language
@@ -157,19 +161,21 @@ ready(() => {
     })
   }
 
-  shipToSelect.addEventListener('blur', (event) => {
-    if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
-      shipToMenu.hidden = true
-    }
-  })
-  shipToSelect.addEventListener('focus', onSelectFocus)
-  shipToSelect.addEventListener('click', (event) => {
-    event.preventDefault()
+  for (let i = 0; i < shipToSelects.length; i++) {
+    shipToSelects[i].addEventListener('blur', (event) => {
+      if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
+        shipToMenu.hidden = true
+      }
+    })
+    shipToSelects[i].addEventListener('focus', onSelectFocus)
+    shipToSelects[i].addEventListener('click', (event) => {
+      event.preventDefault()
 
-    if (shipToMenu.hidden) {
-      onSelectFocus(event)
-    }
-  })
+      if (shipToMenu.hidden) {
+        onSelectFocus(event)
+      }
+    })
+  }
 
   for (let i = 0; i < languageOptions.length; i++) {
     languageOptions[i].addEventListener('blur', (event) => {
@@ -233,6 +239,8 @@ ready(() => {
   const summaryRowFeesValue = document.getElementById('summary-value-fees')
   const phoneNumberInput = document.getElementById('id_phone_number')
   const r1ReceiptCheckbox = document.getElementById('id_r1_receipt')
+  const fieldInfoIcon = document.querySelector('.field-info-icon')
+  const fieldInfo = document.querySelector('.field-info')
 
   const checkoutR1CompanyName = document.getElementById('id_company_name')
   const checkoutR1CompanyAddress = document.getElementById('id_company_address')
@@ -276,6 +284,10 @@ ready(() => {
       phoneNumberInput.required = false
       updatePaymentMethod(creditCardRadio.value)
     }
+  })
+
+  fieldInfoIcon && fieldInfoIcon.addEventListener('click', (event) => {
+    fieldInfo.hidden = !fieldInfo.hidden
   })
 
   const updatePaymentMethod = (paymentMethod) => {
@@ -456,6 +468,9 @@ ready(() => {
   const hideBag = () => {
     bag.classList.add('bag-hide')
   }
+  const hideBagMobile = () => {
+    bagMobile.classList.add('bag-hide')
+  }
 
   bag.addEventListener('mouseover', (event) => {
     clearTimeout(hideBagTimer)
@@ -466,6 +481,7 @@ ready(() => {
 
   const refreshBag = (response) => {
     clearTimeout(hideBagTimer)
+
     bagTotal.innerHTML = formatPrice(
       `${response.bag[`total_${response.currency}`]}`, response.currency
     )
@@ -489,6 +505,7 @@ ready(() => {
     if (Object.keys(response.bag.products).length < 1) {
       reviewBagLink.classList.add('hidden')
       reviewBagLinkMobile.classList.add('hidden')
+      setTimeout(hideBagMobile, 1000)
     } else {
       reviewBagLink.classList.remove('hidden')
       reviewBagLinkMobile.classList.remove('hidden')

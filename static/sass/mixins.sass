@@ -40,6 +40,7 @@
   margin-top: 17px
 
 %field-wrapper
+  position: relative
   margin: 23px 0 29px
 
   input
@@ -62,6 +63,28 @@
       font-size: 16px
       font-style: italic
       line-height: 19px
+
+  .field-info-icon
+    cursor: pointer
+
+    &:after
+      position: absolute
+      top: 16px
+      right: 23px
+      content: '?'
+      color: #fff
+      padding: 2px 8px
+      background-color: #000
+      border-radius: 50%
+
+  .field-info
+    position: absolute
+    top: -25px
+    left: 0
+    color: #fff
+    padding: 3px
+    border-radius: 3px
+    background-color: rgba(0, 0, 0, .7)
 
 %summary-check-out-button
   display: flex
@@ -193,6 +216,7 @@
     .language-option
       display: flex
       color: #fff
+      z-index: 1
 
   .flag-icon
     width: 20px

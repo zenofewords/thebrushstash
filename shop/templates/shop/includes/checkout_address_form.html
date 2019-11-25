@@ -4,9 +4,6 @@
   {% trans "1. Delivery address" %}
 </h1>
 <div class="checkout-address-wrapper">
-  <p class="checkout-help-text">
-    {% trans "Fill out the form to complete your purchase." %}
-  </p>
   {% if not user.is_authenticated %}
     <p class="checkout-help-text">
       {% url 'login' as login_url %}
@@ -26,10 +23,14 @@
       {{ form.country }}
     </div>
     {% include 'account/includes/form_field.html' with field=form.address %}
+    {% if region != 'hr' %}
+      {% include 'account/includes/form_field.html' with field=form.state_county %}
+    {% endif %}
     {% include 'account/includes/form_field.html' with field=form.city %}
-    {% include 'account/includes/form_field.html' with field=form.state_county %}
     {% include 'account/includes/form_field.html' with field=form.zip_code %}
     {% include 'account/includes/form_field.html' with field=form.email %}
+    {% trans 'If we need to contact you about your order' as phone_info %}
+    {% include 'account/includes/form_field.html' with field=form.phone_number info=phone_info %}
     {% include 'account/includes/form_field.html' with field=form.note %}
   </div>
 

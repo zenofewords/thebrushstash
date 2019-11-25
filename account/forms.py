@@ -21,7 +21,7 @@ class RegistrationForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data['email']
         if CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError(_('An account with this email address already exits.'))
+            raise forms.ValidationError(_('An account with this e-mail address already exits.'))
         return email
 
 
@@ -82,9 +82,9 @@ class AddressForm(forms.ModelForm):
         self.fields['last_name'].widget.attrs['placeholder'] = _('Last name')
 
         self.fields['email'].required = True
-        self.fields['email'].widget.attrs['placeholder'] = _('Email address')
+        self.fields['email'].widget.attrs['placeholder'] = _('E-mail address')
 
-        self.fields['phone_number'].required = False
+        self.fields['phone_number'].required = True
         self.fields['phone_number'].widget.attrs['placeholder'] = _('Phone number')
 
         self.fields['address'].required = True
@@ -113,7 +113,7 @@ class AddressForm(forms.ModelForm):
         self.fields['register'].initial = True
         self.fields['register'].required = False
 
-        self.fields['subscribe_to_newsletter'].label = _('Subscribe to our newsletter')
+        self.fields['subscribe_to_newsletter'].label = _('Join to get the latest news from TBS')
         self.fields['subscribe_to_newsletter'].label_suffix = ''
         self.fields['subscribe_to_newsletter'].initial = True
         self.fields['subscribe_to_newsletter'].required = False
@@ -154,7 +154,7 @@ class CustomUserForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data['email']
         if CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError(_('An account with this email address already exits.'))
+            raise forms.ValidationError(_('An account with this e-mail address already exits.'))
         return email
 
     def clean_password2(self):

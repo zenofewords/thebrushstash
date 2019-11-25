@@ -7,8 +7,17 @@
 {% endblock title %}
 
 {% block meta_description %}
+  <meta name="title" content="The Brush Stash {% trans 'Shop' %}">
   <meta name="description" content="TODO SEO shop description">
   <meta name="keywords" content="TODO SEO shop keywords">
+
+  <meta property="og:title" content="The Brush Stash {% trans 'Shop' %}">
+  <meta property="og:description" content="TODO SEO shop description">
+  <meta property="og:image" content="TODO SEO add shop image">
+  <meta property="og:url" content="{% url 'shop:shop' %}">
+  <meta property="og:site_name" content="The Brush Stash {% trans 'Shop' %}">
+  <meta name="twitter:card" content="shop_image">
+  <meta name="twitter:image:alt" content="The Brush Stash shop image">
 {% endblock meta_description %}
 
 {% block content %}
