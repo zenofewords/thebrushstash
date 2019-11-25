@@ -8,8 +8,18 @@
 {% endblock title %}
 
 {% block meta_description %}
-  <meta name="description" content="TODO SEO product description">
-  <meta name="keywords" content="TODO SEO product keywords">
+  <meta name="title" content="{{ object.name }}">
+  <meta name="description" content="{% if LANGUAGE_CODE == 'hr' %}{{ product.foreword_cro }}{% else %}{{ product.foreword }}{% endif %}">
+
+  <meta property="og:title" content="{{ object.name }}">
+  <meta property="og:description" content="{% if LANGUAGE_CODE == 'hr' %}{{ product.foreword_cro }}{% else %}{{ product.foreword }}{% endif %}">
+  {% get_image_for_model object as lead_image %}
+  <meta property="og:image" content="{{ lead_image.image.url }}">
+  <meta property="og:url" content="{% url 'shop:product-detail' object.slug %}">
+  <meta property="og:site_name" content="The Brush Stash {% trans 'Shop' %}">
+
+  <meta name="twitter:card" content="product_image">
+  <meta name="twitter:image:alt" content="{{ object.name }}">
 {% endblock meta_description %}
 
 {% block content %}
