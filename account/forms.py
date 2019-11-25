@@ -84,7 +84,7 @@ class AddressForm(forms.ModelForm):
         self.fields['email'].required = True
         self.fields['email'].widget.attrs['placeholder'] = _('Email address')
 
-        self.fields['phone_number'].required = False
+        self.fields['phone_number'].required = True
         self.fields['phone_number'].widget.attrs['placeholder'] = _('Phone number')
 
         self.fields['address'].required = True

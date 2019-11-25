@@ -233,6 +233,8 @@ ready(() => {
   const summaryRowFeesValue = document.getElementById('summary-value-fees')
   const phoneNumberInput = document.getElementById('id_phone_number')
   const r1ReceiptCheckbox = document.getElementById('id_r1_receipt')
+  const fieldInfoIcon = document.querySelector('.field-info-icon')
+  const fieldInfo = document.querySelector('.field-info')
 
   const checkoutR1CompanyName = document.getElementById('id_company_name')
   const checkoutR1CompanyAddress = document.getElementById('id_company_address')
@@ -276,6 +278,10 @@ ready(() => {
       phoneNumberInput.required = false
       updatePaymentMethod(creditCardRadio.value)
     }
+  })
+
+  fieldInfoIcon && fieldInfoIcon.addEventListener('click', (event) => {
+    fieldInfo.hidden = !fieldInfo.hidden
   })
 
   const updatePaymentMethod = (paymentMethod) => {
