@@ -456,6 +456,9 @@ ready(() => {
   const hideBag = () => {
     bag.classList.add('bag-hide')
   }
+  const hideBagMobile = () => {
+    bagMobile.classList.add('bag-hide')
+  }
 
   bag.addEventListener('mouseover', (event) => {
     clearTimeout(hideBagTimer)
@@ -466,6 +469,7 @@ ready(() => {
 
   const refreshBag = (response) => {
     clearTimeout(hideBagTimer)
+
     bagTotal.innerHTML = formatPrice(
       `${response.bag[`total_${response.currency}`]}`, response.currency
     )
@@ -489,6 +493,7 @@ ready(() => {
     if (Object.keys(response.bag.products).length < 1) {
       reviewBagLink.classList.add('hidden')
       reviewBagLinkMobile.classList.add('hidden')
+      setTimeout(hideBagMobile, 1000)
     } else {
       reviewBagLink.classList.remove('hidden')
       reviewBagLinkMobile.classList.remove('hidden')
