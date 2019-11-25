@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% autoescape off %}
-  {% blocktrans %}You're receiving this email because you created an account at {{ site_name }}.{% endblocktrans %}
+  {% blocktrans %}You're receiving this e-mail because you created an account at {{ site_name }}.{% endblocktrans %}
 
   {% trans "You can activate your account at the following page:" %}
   {% block reset_link %}{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}{% endblock %}

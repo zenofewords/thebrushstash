@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block title %}
-  {{ block.super }} - {% trans "Verification Email Sent" %}
+  {{ block.super }} - {% trans "Verification e-mail Sent" %}
 {% endblock %}
 
 {% block auth_content %}
@@ -12,9 +12,9 @@
       {% blocktrans %}You already have an account and are currently logged in. Why don't you check out some <a href="{{ shop_url }}">brushes</a>?{% endblocktrans %}
     </p>
   {% else %}
-    <h1>{% trans "Verification Email Sent" %}</h1>
+    <h1>{% trans "Verification e-mail Sent" %}</h1>
     <p>
-      {% trans "We've sent you a verification email. Check your inbox and click on the link to complete the registration." %}
+      {% trans "We've sent you a verification e-mail. Check your inbox and click on the link to complete the registration." %}
     </p>
   {% endif %}
 {% endblock auth_content %}

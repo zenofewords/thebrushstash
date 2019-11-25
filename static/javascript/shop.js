@@ -26,8 +26,8 @@ ready(() => {
   const navigationWrapper = document.querySelector('.navigation-wrapper')
   const mainWrapper = document.querySelector('.main-wrapper')
   const cookieInfo = document.querySelector('.accept-cookie')
-  const shipToSelect = document.querySelector('.ship-to-select')
-  const shipToMenu = document.querySelector('.ship-to-menu')
+  const shipToSelects = document.getElementsByClassName('ship-to-select')
+  const shipToMenu = document.getElementsByClassName('ship-to-menu')
   const languageOptions = document.getElementsByClassName('language-option')
   const languageInput = document.getElementById('language-input')
   const languageForm = document.getElementById('language-form')
@@ -39,13 +39,17 @@ ready(() => {
   const bagMobileOpenButton = document.querySelector('.bag-mobile-open-button')
 
   const onSelectFocus = (event) => {
-    shipToMenu.hidden = false
+    for (let i = 0; i < shipToMenu.length; i++) {
+      shipToMenu[i].hidden = false
+    }
 
     const menuItemClick = (event) => {
       event.preventDefault()
 
       if (!event.target.firstElementChild || !event.target.firstElementChild.classList.contains('flag-icon')) {
-        shipToMenu.hidden = true
+        for (let i = 0; i < shipToMenu.length; i++) {
+          shipToMenu[i].hidden = true
+        }
         removeClickListener(event)
       } else if (event.target.classList.contains('language-option')) {
         languageInput.value = event.target.dataset.language
@@ -157,19 +161,21 @@ ready(() => {
     })
   }
 
-  shipToSelect.addEventListener('blur', (event) => {
-    if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
-      shipToMenu.hidden = true
-    }
-  })
-  shipToSelect.addEventListener('focus', onSelectFocus)
-  shipToSelect.addEventListener('click', (event) => {
-    event.preventDefault()
+  for (let i = 0; i < shipToSelects.length; i++) {
+    shipToSelects[i].addEventListener('blur', (event) => {
+      if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
+        shipToMenu.hidden = true
+      }
+    })
+    shipToSelects[i].addEventListener('focus', onSelectFocus)
+    shipToSelects[i].addEventListener('click', (event) => {
+      event.preventDefault()
 
-    if (shipToMenu.hidden) {
-      onSelectFocus(event)
-    }
-  })
+      if (shipToMenu.hidden) {
+        onSelectFocus(event)
+      }
+    })
+  }
 
   for (let i = 0; i < languageOptions.length; i++) {
     languageOptions[i].addEventListener('blur', (event) => {

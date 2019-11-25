@@ -21,96 +21,96 @@ msgstr ""
 
 #: account/forms.py:15 account/forms.py:145
 msgid "Required"
-msgstr ""
+msgstr "Obavezno"
 
 #: account/forms.py:24 account/forms.py:157
-msgid "An account with this email address already exits."
-msgstr ""
+msgid "An account with this e-mail address already exits."
+msgstr "Korisnički račun s ovom e-mail adresom već postoji"
 
 #: account/forms.py:30 account/forms.py:143
 msgid "The two password fields didn't match."
-msgstr ""
+msgstr "Lozinke se ne podudaraju"
 
 #: account/forms.py:33 account/forms.py:35 account/forms.py:146
 #: account/forms.py:180
 msgid "Password"
-msgstr ""
+msgstr "Lozinka"
 
 #: account/forms.py:39 account/forms.py:147
 msgid "Password confirmation"
-msgstr ""
+msgstr "Potvrdite lozinku"
 
 #: account/forms.py:41
 msgid "Repeat password"
-msgstr ""
+msgstr "Ponovite lozinku"
 
 #: account/forms.py:43 account/forms.py:148
 msgid "Enter the same password as above, for verification."
-msgstr ""
+msgstr "Ponovite istu lozinku za potvrdu"
 
 #: account/forms.py:65
 msgid "Note (optional)"
-msgstr ""
+msgstr "Napomena (neobavezno)"
 
 #: account/forms.py:74
 msgid "Select country"
-msgstr ""
+msgstr "Odaberite državu"
 
 #: account/forms.py:79
 msgid "First name"
-msgstr ""
+msgstr "Ime"
 
 #: account/forms.py:82
 msgid "Last name"
-msgstr ""
+msgstr "Prezime"
 
 #: account/forms.py:85
-msgid "Email address"
-msgstr ""
+msgid "E-mail"
+msgstr "E-mail"
 
 #: account/forms.py:88
 msgid "Phone number"
-msgstr ""
+msgstr "Telefon"
 
 #: account/forms.py:91
 msgid "Address"
-msgstr ""
+msgstr "Adresa"
 
 #: account/forms.py:94
 msgid "City"
-msgstr ""
+msgstr "Grad"
 
 #: account/forms.py:97
 msgid "Postcode/ZIP"
-msgstr ""
+msgstr "Poštanski broj"
 
 #: account/forms.py:100
 msgid "State/County (optional)"
-msgstr ""
+msgstr "Kat"
 
 #: account/forms.py:103
 msgid "Company name"
-msgstr ""
+msgstr "Ime tvrtke"
 
 #: account/forms.py:106
 msgid "Company address"
-msgstr ""
+msgstr "Adresa tvrtke"
 
 #: account/forms.py:109
 msgid "Company UIN"
-msgstr ""
+msgstr "OIB tvrtke"
 
 #: account/forms.py:111
 msgid "Create an account"
-msgstr ""
+msgstr "Kreirajte korisnički račun"
 
 #: account/forms.py:116
-msgid "Subscribe to our newsletter"
-msgstr ""
+msgid "Join to get the latest news from TBS"
+msgstr "Saznajte najnovije TBS vijesti"
 
 #: account/forms.py:121
 msgid "I need an R1 receipt"
-msgstr ""
+msgstr "Želim R1 račun"
 
 #: account/forms.py:127
 msgid ""
@@ -118,26 +118,25 @@ msgid ""
 "            target=\"_blank\" rel=\"noopener noreferrer\">terms and "
 "conditions</a>"
 msgstr ""
+"Pročitao sam i pristajem na <a href=\"/general-terms-and-conditions/\"\n"
+"            target=\"_blank\" rel=\"noopener noreferrer\">uvjete korištenja"
+"</a>"
 
 #: account/forms.py:133
 msgid "You must agree to the terms and conditions to continue."
-msgstr ""
+msgstr "Potrebno je pristati na uvjete korištenja prije nastavka kupnje."
 
 #: shop/templates/shop/checkout.html:7
 msgid "Checkout"
-msgstr ""
+msgstr "Blagajna"
 
 #: shop/templates/shop/includes/add_to_bag_button.html:6
 msgid "Add to bag"
-msgstr ""
+msgstr "Dodaj u košaricu"
 
 #: shop/templates/shop/includes/checkout_address_form.html:4
 msgid "1. Delivery address"
-msgstr ""
-
-#: shop/templates/shop/includes/checkout_address_form.html:8
-msgid "Fill out the form to complete your purchase."
-msgstr ""
+msgstr "1. Adresa za dostavu"
 
 #: shop/templates/shop/includes/checkout_address_form.html:14
 #, python-format
@@ -146,10 +145,12 @@ msgid ""
 "%(checkout_url)s\">log in</a>. Your address information will be "
 "automatically populated."
 msgstr ""
+"Ukoliko već imate korisnički račun, <a href=\"%(login_url)s?next="
+"%(checkout_url)s\">logirajte se</a> kako bi se vaši podaci za dostavu automatski popunili"
 
 #: shop/templates/shop/includes/checkout_address_form.html:18
 msgid "Please make sure the information listed below is correct."
-msgstr ""
+msgstr "Molimo provjerite točnost unešenih podataka."
 
 #: shop/templates/shop/includes/checkout_address_form.html:66
 #, python-format
@@ -159,54 +160,58 @@ msgid ""
 "<a href=\"%(terms_url)s\" target=\"_blank\" rel=\"noopener noreferrer"
 "\">privacy policy</a>."
 msgstr ""
+"Vaši osobni podaci koristit će se isključivo u svrhu procesuiranja narudžbi, poboljšanja korisničkog "
+"iskustva na ovim stranicama te ostale svrhe opisane u našim "
+"<a href=\"%(terms_url)s\" target=\"_blank\" rel=\"noopener noreferrer"
+"\">Općim uvjetima i politici privatnosti</a>."
 
 #: shop/templates/shop/includes/checkout_address_form.html:82
 msgid "Continue to payment"
-msgstr ""
+msgstr "Nastavite na plaćanje"
 
 #: shop/templates/shop/includes/checkout_ipg_form.html:22
 #: shop/templates/shop/includes/checkout_payment_form.html:48
 msgid "Place order"
-msgstr ""
+msgstr "Potvrdite narudžbu"
 
 #: shop/templates/shop/includes/checkout_payment_form.html:6
 msgid "2. Payment"
-msgstr ""
+msgstr "2. Plaćanje"
 
 #: shop/templates/shop/includes/checkout_payment_form.html:10
-msgid "Almost there, select your payment method and place your order."
-msgstr ""
+msgid "Select your payment method and place your order."
+msgstr "Odaberite način plaćanja i potvrdite narudžbu."
 
 #: shop/templates/shop/includes/checkout_payment_form.html:18
 msgid "Cash on delivery"
-msgstr ""
+msgstr "Plaćanje pouzećem"
 
 #: shop/templates/shop/includes/checkout_payment_form.html:22
 msgid "Note: requires an additional fee for the GLS service."
-msgstr ""
+msgstr "Napomena: GLS naplaćuje dodatnu naknadu za ovu uslugu"
 
 #: shop/templates/shop/includes/checkout_payment_form.html:25
 msgid ""
 "For security reasons, every cash on delivery order must be verified by phone."
-msgstr ""
+msgstr "Iz sigurnosnih razloga, sve narudžbe koje uključuju plaćanje pouzećem, prije slanja potvrdit ćemo telefonski."
 
 #: shop/templates/shop/includes/checkout_payment_form.html:34
 msgid "Use a credit card"
-msgstr ""
+msgstr "Kartična plaćanja"
 
 #: shop/templates/shop/includes/checkout_payment_form.html:39
 msgid ""
-"Note: Napisat neš pametno o tome kako smo hrvati i moramo naplatiti u kunama."
+"Note: all payments are processed in Croatian Kuna (HRK)"
 msgstr ""
 
 #: shop/templates/shop/includes/checkout_payment_form.html:55
 msgid "Previous step"
-msgstr ""
+msgstr "Prethodni korak"
 
 #: shop/templates/shop/product_detail.html:36
 #: shop/templates/shop/shop_base.html:6
 msgid "Shop"
-msgstr ""
+msgstr "Dućan"
 
 #: shop/templates/shop/product_detail.html:72
 #, python-format
@@ -216,145 +221,152 @@ msgid ""
 "            Shipping costs apply\n"
 "          </a>"
 msgstr ""
+"*U cijene je uključen PDV.\n"
+"          <a class=\"link\" href=\"%(pandd_url)s\">\n"
+"            Opcije dostave\n"
+"          </a>"
 
 #: shop/templates/shop/product_detail.html:101
 msgid "More from our shop"
-msgstr ""
+msgstr "Više iz naše ponude"
 
 #: shop/templates/shop/purchase_cancelled.html:6
 msgid "Purchase Cancelled"
-msgstr ""
+msgstr "Narudžba otkazana"
 
 #: shop/templates/shop/purchase_cancelled.html:11
 msgid "You have cancelled your order"
-msgstr ""
+msgstr "Vaša narudžba je otkazana"
 
 #: shop/templates/shop/purchase_cancelled.html:13
 msgid ""
 "You can always continue from where you left off if you change your mind."
-msgstr ""
+msgstr "U slučaju da se predomislite, uvijek možete nastaviti gdje ste stali."
 
 #: shop/templates/shop/purchase_completed.html:6
 msgid "Purchase Complete"
-msgstr ""
+msgstr "Narudžba izvršena"
 
 #: shop/templates/shop/purchase_completed.html:11
-msgid "Thank you for your purchase"
-msgstr ""
+msgid "Thank you for your purchase!"
+msgstr "Zahvaljujemo Vam na kupnji!"
 
 #: shop/templates/shop/purchase_completed.html:13
 msgid ""
 "Your order was successfully processed and will be shipped soon. Check your "
 "email for details."
-msgstr ""
+msgstr "Vaša narudžba je uspješno izvršena i uskoro će biti poslana. Provjerite e-mail za detalje!"
 
 #: shop/templates/shop/purchase_completed.html:16
-msgid "Check your email to finish registration"
-msgstr ""
+msgid "Check your e-mail to complete the registration"
+msgstr "Provjerite svoj e-mail kako biste potvrdili registraciju"
 
 #: shop/templates/shop/purchase_completed.html:18
 msgid ""
 "To finish your registration you need to visit the activation link which was "
 "sent to your email address."
-msgstr ""
+msgstr "Kako biste završili registraciju, kliknite na aktivacijski link koji smo poslali na Vašu e-mail adresu."
 
 #: shop/templates/shop/purchase_completed.html:23
 msgid "You have been subscribed to our newsletter."
-msgstr ""
+msgstr "Uspješno ste se pretplatili na naš newsletter."
 
 #: shop/templates/shop/review_bag.html:6 shop/templates/shop/review_bag.html:11
 msgid "Review Your Bag"
-msgstr ""
+msgstr "Pregled košarice"
 
 #: shop/templates/shop/review_bag.html:16
 msgid "Product &amp; price"
-msgstr ""
+msgstr "Proizvod i cijena"
 
 #: shop/templates/shop/review_bag.html:18
 msgid "Quantity"
-msgstr ""
+msgstr "Količina"
 
 #: shop/templates/shop/review_bag.html:19
 msgid "Subtotal"
-msgstr ""
+msgstr "Cijena"
 
 #: shop/templates/shop/tags/purchase_summary.html:4
 msgid "Order summary"
-msgstr ""
+msgstr "Pregled narudžbe"
 
 #: shop/templates/shop/tags/purchase_summary.html:7
 #: thebrushstash/templates/thebrushstash/includes/bag.html:10
 msgid "Total:"
-msgstr ""
+msgstr "Cijena proizvoda:"
 
 #: shop/templates/shop/tags/purchase_summary.html:15
 #: thebrushstash/templates/thebrushstash/tags/ship_to.html:7
 msgid "Ship to:"
-msgstr ""
+msgstr "Dostava u:"
 
 #: shop/templates/shop/tags/purchase_summary.html:23
 msgid "GLS:"
-msgstr ""
+msgstr "GLS:"
 
 #: shop/templates/shop/tags/purchase_summary.html:31
 msgid "Grand total:"
-msgstr ""
+msgstr "Ukupna cijena:"
 
 #: shop/templates/shop/tags/purchase_summary.html:40
 msgid "Check out"
-msgstr ""
+msgstr "Plaćanje"
 
 #: shop/templates/shop/tags/purchase_summary.html:43
 msgid "Continue shopping"
-msgstr ""
+msgstr "Nastavak kupnje"
 
 #: templates/account/account_verification_email.html:4
 #, python-format
 msgid ""
-"You're receiving this email because you created an account at %(site_name)s."
+"You're receiving this e-mail because you created an account at %(site_name)s."
 msgstr ""
+"Uspješno ste kreirali korisnički račun na %(site_name)s."
 
 #: templates/account/account_verification_email.html:6
 msgid "You can activate your account at the following page:"
-msgstr ""
+msgstr "Svoj korisnički račun možete aktivirati ovdje:"
 
 #: templates/account/account_verification_email.html:8
 #: templates/registration/password_reset_email.html:7
 msgid "Your username, in case you've forgotten:"
-msgstr ""
+msgstr "Vaše korisničko ime, u slučaju da ste ga zaboravili:"
 
 #: templates/account/account_verification_email.html:10
 #: templates/registration/password_reset_email.html:9
 #, python-format
 msgid "Thank you for using %(site_name)s!"
-msgstr ""
+msgstr "Hvala Vam što koristite %(site_name)s!"
 
 #: templates/account/activate.html:5 templates/account/activate.html:10
 msgid "Success"
-msgstr ""
+msgstr "Uspjeh!"
 
 #: templates/account/activate.html:12
 msgid ""
 "Your account has been successfully activated, but you still need a password. "
 "Pick a strong one!"
 msgstr ""
+"Vaš korisnički račun je kreiran, ali još uvijek trebate lozinku. "
+"Odaberite složeniju i sigurniju lozinku!"
 
 #: templates/account/activate.html:23
 msgid "Submit"
-msgstr ""
+msgstr "Potvrdi unos"
 
 #: templates/account/activate.html:27
 msgid "Great failure"
-msgstr ""
+msgstr "Veliki neuspjeh"
 
 #: templates/account/activate.html:29
 msgid "Your activation token is not valid."
-msgstr ""
+msgstr "Vaš aktivacijski token nije ispravan."
 
 #: templates/account/confirmation_sent.html:5
 #: templates/account/confirmation_sent.html:15
-msgid "Verification Email Sent"
-msgstr ""
+msgid "Verification e-mail Sent"
+msgstr "E-mail za verifikaciju poslan"
 
 #: templates/account/confirmation_sent.html:12
 #: templates/account/register.html:12
@@ -363,12 +375,16 @@ msgid ""
 "You already have an account and are currently logged in. Why don't you check "
 "out some <a href=\"%(shop_url)s\">brushes</a>?"
 msgstr ""
+"Već ste ulogirani u svoj postojeći korisnički račun. Bacite pogled na "
+"naše <a href=\"%(shop_url)s\">kistove</a>?"
 
 #: templates/account/confirmation_sent.html:17
 msgid ""
-"We've sent you a verification email. Check your inbox and click on the link "
+"We've sent you a verification e-mail. Check your inbox and click on the link "
 "to complete the registration."
 msgstr ""
+"Na Vašu e-mail adresu stiže poruka za verifikaciju! Provjerite inbox i kliknite na link "
+"kako biste dovršili registraciju."
 
 #: templates/account/register.html:5 templates/account/register.html:15
 msgid "Register"
@@ -376,32 +392,34 @@ msgstr ""
 
 #: templates/account/register.html:17
 msgid ""
-"Provide us with an email address so we can send you an activation link for "
+"Provide us with an e-mail address so we can send you an activation link for "
 "your account."
 msgstr ""
+"Unesite e-mail adresu kako bismo Vam poslali link za aktivaciju "
+"korisničkog računa."
 
 #: templates/account/register.html:26
 msgid "Send me my activation link"
-msgstr ""
+msgstr "Pošaljite mi aktivacijski link"
 
 #: templates/registration/login.html:5 templates/registration/login.html:20
 #: templates/registration/login.html:33
 msgid "Login"
-msgstr ""
+msgstr "Ulogirajte se"
 
 #: templates/registration/login.html:10
 msgid "You are already logged in"
-msgstr ""
+msgstr "Već ste ulogirani"
 
 #: templates/registration/login.html:13
 #, python-format
-msgid "You can find some brushes <a href=\"%(shop_url)s\">here</a>."
-msgstr ""
+msgid "You can find our brushes <a href=\"%(shop_url)s\">here</a>."
+msgstr "Naše kistove možete pronaći <a href=\"%(shop_url)s\">ovdje</a>."
 
 #: templates/registration/login.html:17
 #, python-format
 msgid "Unless you'd like to <a href=\"%(logut_url)s\">logout</a> instead."
-msgstr ""
+msgstr "Osim ako biste se radije <a href=\"%(logut_url)s\">izlogirali</a>."
 
 #: templates/registration/login.html:23
 #, python-format
@@ -412,53 +430,59 @@ msgstr ""
 
 #: templates/registration/login.html:38
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Zaboravili ste lozinku?"
 
 #: templates/registration/password_reset_complete.html:5
 #: templates/registration/password_reset_complete.html:9
 msgid "Password Reset"
-msgstr ""
+msgstr "Resetirajte lozinku"
 
 #: templates/registration/password_reset_complete.html:10
 msgid "Your password has been reset."
-msgstr ""
+msgstr "Vaša lozinka je promijenjena."
 
 #: templates/registration/password_reset_complete.html:12
 msgid "Log in"
-msgstr ""
+msgstr "Ulogirajte se"
 
 #: templates/registration/password_reset_confirm.html:5
 #: templates/registration/password_reset_confirm.html:10
 #: templates/registration/password_reset_confirm.html:20
 msgid "Set new password"
-msgstr ""
+msgstr "Postavite novu lozinku"
 
 #: templates/registration/password_reset_confirm.html:11
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr ""
+"Molimo, unesite Vašu novu lozinku dvaput kako bismo provjerili da ste je unijeli "
+"ispravno."
 
 #: templates/registration/password_reset_confirm.html:25
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
 msgstr ""
+"Link za promjenu lozinke je nevažeći. Moguće da je već "
+"iskorišten. Molimo zatražite novu promjenu lozinke."
 
 #: templates/registration/password_reset_done.html:5
 #: templates/registration/password_reset_done.html:9
 msgid "Password Reset Email Sent"
-msgstr ""
+msgstr "E-mail poruka za promjenu lozinke poslana"
 
 #: templates/registration/password_reset_done.html:10
 msgid "We've emailed you instructions for resetting your password."
-msgstr ""
+msgstr "Poslali smo Vam upute za promjenu lozinke."
 
 #: templates/registration/password_reset_done.html:12
 msgid ""
-"If you don't find the reset email, please make sure you've entered the "
+"If you don't find the reset e-mail, please make sure you've entered the "
 "correct information and check your spam folder."
 msgstr ""
+"Ako ne možete pronaći e-mail poruku s uputama za promjenu lozinke, provjerite da li ste unijeli "
+"ispravne podatke te provjerite spam folder."
 
 #: templates/registration/password_reset_email.html:3
 #, python-format
@@ -466,31 +490,35 @@ msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
+"Dobili ste ovu poruku jer ste zatražili promjenu lozinke za Vaš "
+"korisnički račun na %(site_name)s."
 
 #: templates/registration/password_reset_email.html:5
 msgid "You can choose a new password at the following page:"
-msgstr ""
+msgstr "Možete odabrati novu lozinku na:"
 
 #: templates/registration/password_reset_form.html:5
 #: templates/registration/password_reset_form.html:12
 #: templates/registration/password_reset_form.html:23
 msgid "Reset Password"
-msgstr ""
+msgstr "Promijenite lozinku"
 
 #: templates/registration/password_reset_form.html:10
 msgid "You are currently logged in."
-msgstr ""
+msgstr "Trenutačno ste ulogirani."
 
 #: templates/registration/password_reset_form.html:14
 msgid ""
-"Type in the email which you used to register and we'll send you a password "
+"Type in the e-mail which you used to register and we'll send you a password "
 "reset link."
 msgstr ""
+"Unesite e-mail adresu s kojom ste se registrirali i poslat ćemo Vam "
+"link za izmjenu lozinke."
 
 #: thebrushstash/templates/thebrushstash/about_the_story.html:6
 #: thebrushstash/templates/thebrushstash/about_the_story.html:16
 msgid "About / The Story"
-msgstr ""
+msgstr "O nama / O kistovima"
 
 #: thebrushstash/templates/thebrushstash/about_the_story.html:17
 #: thebrushstash/templates/thebrushstash/brush_care.html:17
@@ -502,47 +530,47 @@ msgstr ""
 #: thebrushstash/templates/thebrushstash/brush_care.html:6
 #: thebrushstash/templates/thebrushstash/brush_care.html:16
 msgid "Brush Care"
-msgstr ""
+msgstr "Održavanje kistova"
 
 #: thebrushstash/templates/thebrushstash/contact.html:6
 #: thebrushstash/templates/thebrushstash/contact.html:11
 msgid "Contact"
-msgstr ""
+msgstr "Kontakt"
 
 #: thebrushstash/templates/thebrushstash/faq.html:6
 #: thebrushstash/templates/thebrushstash/faq.html:16
 msgid "FAQ"
-msgstr ""
+msgstr "Česta pitanja"
 
 #: thebrushstash/templates/thebrushstash/general_terms_and_conditions.html:5
 msgid "General Terms and Conditions"
-msgstr ""
+msgstr "Opći uvjeti i odredbe"
 
 #: thebrushstash/templates/thebrushstash/includes/bag.html:7
 msgid "In your bag"
-msgstr ""
+msgstr "U košarici"
 
 #: thebrushstash/templates/thebrushstash/includes/bag.html:33
 msgid "Quantity:"
-msgstr ""
+msgstr "Količina:"
 
 #: thebrushstash/templates/thebrushstash/includes/bag.html:36
 msgid "Subtotal:"
-msgstr ""
+msgstr "Cijena:"
 
 #: thebrushstash/templates/thebrushstash/includes/bag.html:44
 msgid "Review bag"
-msgstr ""
+msgstr "Pregled košarice"
 
 #: thebrushstash/templates/thebrushstash/payment_and_delivery.html:6
 #: thebrushstash/templates/thebrushstash/payment_and_delivery.html:12
 msgid "Payment and Delivery"
-msgstr ""
+msgstr "Plaćanje i dostava"
 
 #: thebrushstash/templates/thebrushstash/returns_and_complaints.html:6
 #: thebrushstash/templates/thebrushstash/returns_and_complaints.html:12
 msgid "Returns and Complaints"
-msgstr ""
+msgstr "Povrati i reklamacije"
 
 #: thebrushstash/templates/thebrushstash/tags/cookie.html:7
 #, python-format
@@ -552,31 +580,35 @@ msgid ""
 "cookies. Learn more\n"
 "        <a class=\"link-in-text\" href=\"%(terms_url)s\">here</a>."
 msgstr ""
+"The Brush Stash koristi kolačiće u svrhu boljeg korisničkog iskustva i "
+"poboljšane funkcionalnosti stranice. Daljnjim pregledom stranice pristajete na uporabu "
+"kolačića. Više saznajte\n"
+"        <a class=\"link-in-text\" href=\"%(terms_url)s\">ovdje</a>."
 
 #: thebrushstash/templates/thebrushstash/tags/footer.html:10
 msgid "Follow us on"
-msgstr ""
+msgstr "Pratite nas na"
 
 #: thebrushstash/templates/thebrushstash/tags/footer.html:33
 msgid "The Brush Stash. All rights reserved."
-msgstr ""
+msgstr "The Brush Stash. Sva prava pridržana."
 
 #: thebrushstash/templates/thebrushstash/tags/navigation.html:20
 msgid "Login/Register"
-msgstr ""
+msgstr "Login/Registracija"
 
 #: thebrushstash/templates/thebrushstash/tags/navigation.html:26
 msgid "Bag"
-msgstr ""
+msgstr "Košarica"
 
 #: thebrushstash/templates/thebrushstash/tags/newsletter.html:7
 msgid "Join our newsletter!"
-msgstr ""
+msgstr "Saznajte najnovije The Brush Stash vijesti!"
 
 #: thebrushstash/templates/thebrushstash/tags/newsletter.html:10
 msgid "Learn about new products and special offers"
-msgstr ""
+msgstr "Budite u toku s novim proizvodima i posebnim ponudama"
 
 #: thebrushstash/templates/thebrushstash/tags/newsletter.html:15
 msgid "Join"
-msgstr ""
+msgstr "Pošalji"

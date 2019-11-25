@@ -4,9 +4,6 @@
   {% trans "1. Delivery address" %}
 </h1>
 <div class="checkout-address-wrapper">
-  <p class="checkout-help-text">
-    {% trans "Fill out the form to complete your purchase." %}
-  </p>
   {% if not user.is_authenticated %}
     <p class="checkout-help-text">
       {% url 'login' as login_url %}
