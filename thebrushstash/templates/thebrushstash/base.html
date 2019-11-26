@@ -36,7 +36,9 @@
               <div class="nav-mobile-open-button">
                 <hr>
               </div>
-              <a href="{% url 'shop:shop' %}" class="logo"></a>
+              <a href="{% url 'shop:shop' %}" class="logo">
+                {% include 'thebrushstash/includes/tbsLogo.html' %}
+              </a>
               {% bag_tag %}
               {% ship_to_tag %}
             </div>
