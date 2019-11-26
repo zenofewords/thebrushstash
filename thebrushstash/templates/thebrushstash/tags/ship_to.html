@@ -12,9 +12,9 @@
     </a>
   </div>
   <div class="ship-to-menu" hidden>
-    <form id="language-form" action="{% url 'set_language' %}" method="post">
+    <form class="language-form" action="{% url 'set_language' %}" method="post">
       {% csrf_token %}
-      <input id="language-input" name="language" type="hidden" value="hr">
+      <input class="language-input" name="language" type="hidden" value="hr">
 
       {% for region in regions %}
         <a class="language-option" href="/" data-language="{{ region.language }}" data-region="{{ region.name }}">

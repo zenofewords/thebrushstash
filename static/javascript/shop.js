@@ -1,4 +1,40 @@
 import '../sass/shop.sass'
+import './listeners'
+import {
+  addProduct,
+  removeProduct,
+  setRegion,
+} from './requests'
+import {
+  addToBagButtons,
+  bag,
+  bagContent,
+  bagContentMobile,
+  bagItemCount,
+  bagItemCountMobile,
+  bagMobile,
+  bagTotal,
+  bagTotalMobile,
+  ipgAmount,
+  ipgCart,
+  languageForm,
+  languageInput,
+  navigationWrapper,
+  removeProductButtons,
+  reviewBagLink,
+  reviewBagLinkMobile,
+  shipToMenu,
+  shipToSelects,
+  summaryGrandTotal,
+  summaryGrandTotalHrk,
+  summaryShippingCost,
+  summaryTotal,
+  videoWrappers,
+} from './selectors'
+
+import {
+  formatPrice,
+} from './utils'
 
 const ready = (runScript) => {
   if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
@@ -9,34 +45,10 @@ const ready = (runScript) => {
 }
 
 ready(() => {
-  const currencySymbolMapping = {
-    hrk: 'kn',
-    eur: '€',
-    gbp: '£',
-    usd: '$',
+  for (let i = 0; i < addToBagButtons.length; i++) {
+    const button = addToBagButtons[i]
+    button.addEventListener('click', () => addToBag(button.dataset))
   }
-
-  const formatPrice = (price, currency) => {
-    if (currency === 'hrk') {
-      return `${price} ${currencySymbolMapping[currency]}`
-    }
-    return `${currencySymbolMapping[currency]}${price}`
-  }
-
-  const navigationWrapper = document.querySelector('.navigation-wrapper')
-  const mainWrapper = document.querySelector('.main-wrapper')
-  const cookieInfo = document.querySelector('.accept-cookie')
-  const shipToSelects = document.getElementsByClassName('ship-to-select')
-  const shipToMenu = document.getElementsByClassName('ship-to-menu')
-  const languageOptions = document.getElementsByClassName('language-option')
-  const languageInput = document.getElementById('language-input')
-  const languageForm = document.getElementById('language-form')
-  const imageWrappers = document.getElementsByClassName('image-wrapper portrait')
-  const thumbnailWrappers = document.getElementsByClassName('image-wrapper thumbnail')
-  const videoWrappers = document.getElementsByClassName('video-wrapper')
-  const navMobileOpenButton = document.querySelector('.nav-mobile-open-button')
-  const navMobileCloseButton = document.querySelector('.nav-mobile-close-button')
-  const bagMobileOpenButton = document.querySelector('.bag-mobile-open-button')
 
   const onSelectFocus = (event) => {
     for (let i = 0; i < shipToMenu.length; i++) {
@@ -54,20 +66,7 @@ ready(() => {
       } else if (event.target.classList.contains('language-option')) {
         languageInput.value = event.target.dataset.language
 
-        fetch('/api/region/',
-          {
-            method: 'POST',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRFToken': getCookie('csrftoken'),
-            },
-            body: JSON.stringify({
-              region: event.target.dataset.region,
-            }),
-          }
-        ).then((data) => data.json().then((response) => {
+        setRegion(event).then((data) => data.json().then((response) => {
           refreshBag(response)
           languageForm.submit()
         }))
@@ -81,67 +80,6 @@ ready(() => {
   }
 
   let currentModal
-  const loadVideo = (videoWrapper) => {
-    const id = videoWrapper.dataset.youtubeVideoId
-    const html = `<iframe
-      width="100%" height="100%"
-      src="https://www.youtube-nocookie.com/embed/${id}?rel=0&amp;autoplay=1"
-      frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen>
-    </iframe>`
-    const iframe = document.createElement('iframe')
-
-    videoWrapper.classList.add('fade')
-    videoWrapper.hidden = false
-    videoWrapper.appendChild(iframe)
-    iframe.contentWindow.document.open()
-    iframe.contentWindow.document.write(html)
-    iframe.contentWindow.document.close()
-
-    currentModal = iframe
-  }
-
-  const switchActiveImage = (event) => {
-    const id = event.currentTarget.id
-    const reveal = [...imageWrappers].find(x => x.id === id)
-    const hide = [...imageWrappers].find(x => x.classList.contains('selected'))
-
-    if (reveal.id !== hide.id) {
-      reveal.classList.add('selected')
-      reveal.hidden = false
-      hide.classList.remove('selected')
-      hide.hidden = true
-
-      const unselect = [...thumbnailWrappers].find(x => x.classList.contains('selected'))
-      event.currentTarget.classList.add('selected')
-      unselect.classList.remove('selected')
-
-      history.pushState({mediaObject: id}, '', `?gallery-item=${id}`)
-    }
-  }
-
-  bagMobileOpenButton && bagMobileOpenButton.addEventListener('click', (event) => {
-    bagMobile.classList.toggle('bag-hide')
-  })
-
-  navMobileOpenButton && navMobileOpenButton.addEventListener('click', (event) => {
-    navigationWrapper.classList.remove('nav-mobile-close')
-    document.body.classList.add('lock-scroll')
-  })
-
-  navMobileCloseButton && navMobileCloseButton.addEventListener('click', (event) => {
-    navigationWrapper.classList.add('nav-mobile-close')
-    document.body.classList.remove('lock-scroll')
-  })
-
-  for (var i = 0; i < thumbnailWrappers.length; i++) {
-    thumbnailWrappers[i].addEventListener('click', (event) => {
-      event.preventDefault()
-
-      switchActiveImage(event)
-    })
-  }
-
   for (let i = 0; i < videoWrappers.length; i++) {
     videoWrappers[i].addEventListener('click', (event) => {
       event.preventDefault()
@@ -177,240 +115,29 @@ ready(() => {
     })
   }
 
-  for (let i = 0; i < languageOptions.length; i++) {
-    languageOptions[i].addEventListener('blur', (event) => {
-      if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
-        shipToMenu.hidden = true
-      }
-    })
-  }
-
-  cookieInfo && cookieInfo.addEventListener('click', () => {
-    fetch('/api/cookie/',
-      {
-        method: 'POST',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCookie('csrftoken'),
-        },
-        body: JSON.stringify({
-          accepted: true,
-        }),
-      }
-    ).then(() => {
-      document.querySelector('.cookie-wrappper').hidden = true
-    })
-  })
-  const bagLink = document.querySelector('.bag-link')
-  const bag = document.getElementById('bag')
-  const bagMobile = document.getElementById('bag-mobile')
-  const bagContent = document.getElementById('bag-content')
-  const bagContentMobile = document.getElementById('bag-mobile-content')
-  const bagTotal = document.getElementById('bag-total')
-  const bagTotalMobile = document.getElementById('bag-mobile-total')
-  const bagItemCount = document.getElementById('bag-item-count')
-  const bagItemCountMobile = document.getElementById('bag-mobile-item-count')
-  const addToBagSelect = document.getElementById('add-to-bag-select')
-  const addToBagButtons = document.getElementsByClassName('add-to-bag-button')
-
-  const reviewBagLink = document.getElementById('bag-review-link')
-  const reviewBagLinkMobile = document.getElementById('bag-mobile-review-link')
-  const summaryShippingCost = document.getElementById('summary-value-shipping-cost')
-  const summaryTotal = document.getElementById('summary-total')
-  const summaryGrandTotal = document.getElementById('summary-grand-total')
-  const summaryGrandTotalHrk = document.getElementById('summary-grand-total-hrk')
-
-  const continueToPaymentButton = document.getElementById('continue-to-payment')
-  const checkoutAddressForm = document.getElementById('checkout-address-form')
-  const checkoutAddressTitle = document.querySelector('.checkout-address-title')
-  const checkoutPaymentTitle = document.querySelector('.checkout-payment-title')
-  const checkoutAddressWrapper = document.querySelector('.checkout-address-wrapper')
-  const checkoutPaymentWrapper = document.querySelector('.checkout-payment-wrapper')
-  const previousStepLink = document.querySelector('.previous-step-link')
-  const checkoutR1FieldsWrapper = document.querySelector('.checkout-r1-fields-wrapper')
-
-  const cashOnDeliveryWrapper = document.querySelector('.cash-on-delivery-wrapper')
-  const cashOnDeliveryRadio = document.getElementById('cash-on-delivery')
-  const creditCardWrapper = document.querySelector('.credit-card-wrapper')
-  const creditCardRadio = document.getElementById('credit-card')
-  const summaryRowFees = document.getElementById('summary-row-fees')
-  const summaryRowFeesValue = document.getElementById('summary-value-fees')
-  const phoneNumberInput = document.getElementById('id_phone_number')
-  const r1ReceiptCheckbox = document.getElementById('id_r1_receipt')
-  const fieldInfoIcon = document.querySelector('.field-info-icon')
-  const fieldInfo = document.querySelector('.field-info')
-
-  const checkoutR1CompanyName = document.getElementById('id_company_name')
-  const checkoutR1CompanyAddress = document.getElementById('id_company_address')
-  const checkoutR1CompanyUIN = document.getElementById('id_company_uin')
-
-  const ipgOrderNumber = document.getElementById('order_number')
-  const ipgAmount = document.getElementById('amount')
-  const ipgCart = document.getElementById('cart')
-  const ipgLanguage = document.getElementById('language')
-  const ipgSignature = document.getElementById('signature')
-  const ipgCardholderName = document.getElementById('cardholder_name')
-  const ipgCardholderSurname = document.getElementById('cardholder_surname')
-  const ipgCardholderEmail = document.getElementById('cardholder_email')
-  const ipgCardholderAddress = document.getElementById('cardholder_address')
-  const ipgCardholderCity = document.getElementById('cardholder_city')
-  const ipgCardholderZipCode = document.getElementById('cardholder_zip_code')
-  const ipgCardholderCountry = document.getElementById('cardholder_country')
-
-  const ipgFormSubmitButton = document.getElementById('ipg-form-submit-button')
-  const cashOnDeliverySubmitWrapper = document.getElementById('cash-on-delivery-submit-wrapper')
-
-  r1ReceiptCheckbox && r1ReceiptCheckbox.addEventListener('change', (event) => {
-    const checked = r1ReceiptCheckbox.checked
-    checkoutR1FieldsWrapper.hidden = !checked
-    checkoutR1CompanyName.required = checked
-    checkoutR1CompanyAddress.required = checked
-    checkoutR1CompanyUIN.required = checked
-  })
-
-  cashOnDeliveryWrapper && cashOnDeliveryWrapper.addEventListener('click', (event) => {
-    if (!cashOnDeliveryRadio.checked) {
-      cashOnDeliveryRadio.checked = true
-      phoneNumberInput.required = true
-      updatePaymentMethod(cashOnDeliveryRadio.value)
-    }
-  })
-
-  creditCardWrapper && creditCardWrapper.addEventListener('click', (event) => {
-    if (!creditCardRadio.checked) {
-      creditCardRadio.checked = true
-      phoneNumberInput.required = false
-      updatePaymentMethod(creditCardRadio.value)
-    }
-  })
-
-  fieldInfoIcon && fieldInfoIcon.addEventListener('click', (event) => {
-    fieldInfo.hidden = !fieldInfo.hidden
-  })
-
-  const updatePaymentMethod = (paymentMethod) => {
-    fetch('/api/update-payment-method/',
-      {
-        method: 'POST',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCookie('csrftoken'),
-        },
-        body: JSON.stringify({
-          payment_method: paymentMethod,
-        }),
-      }
-    ).then((data) => data.json().then((response) => {
-      if (parseInt(response.bag.fees)) {
-        summaryRowFees.classList.remove('hidden')
-        summaryRowFeesValue.innerHTML = `${response.bag.fees} kn` // must be in hrk
-        ipgFormSubmitButton.classList.add('hidden')
-        cashOnDeliverySubmitWrapper.classList.remove('hidden')
-      } else {
-        summaryRowFees.classList.add('hidden')
-        ipgFormSubmitButton.classList.remove('hidden')
-        cashOnDeliverySubmitWrapper.classList.add('hidden')
-        summaryRowFeesValue.innerHTML = null
-      }
-      ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
-
-      if (summaryShippingCost) {
-        summaryShippingCost.innerHTML = formatPrice(
-          `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
-        )
-      }
-      if (summaryGrandTotal) {
-        summaryGrandTotal.innerHTML = formatPrice(
-          `${response.bag[`grand_total_${response.currency}`]}`, response.currency
-        )
-      }
-    }))
-  }
-
-  creditCardWrapper && creditCardWrapper.addEventListener('click', (event) => {
-    creditCardRadio.checked = true
-  })
-
-  continueToPaymentButton && continueToPaymentButton.addEventListener('click', (event) => {
-    event.preventDefault()
-    const valid = checkoutAddressForm.reportValidity()
-
-    if (valid) {
-      phoneNumberInput.required = true
-
-      const formData = new FormData(checkoutAddressForm)
-      const data = {}
-      for (const [key, value] of formData.entries()) {
-        data[key] = value
-      }
-
-      fetch('/api/process-order/',
-        {
-          method: 'POST',
-          cache: 'no-cache',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken'),
-          },
-          body: JSON.stringify(data),
-        }
-      ).then((data) => data.json().then((response) => {
-        ipgOrderNumber.value = response.order_number
-        ipgAmount.value = response.grand_total_hrk // must be in hrk
-        ipgCart.value = response.cart
-        ipgLanguage.value = response.language
-        ipgSignature.value = response.signature
-        ipgCardholderEmail.value = response.user_information.email
-        ipgCardholderName.value = response.user_information.first_name
-        ipgCardholderSurname.value = response.user_information.last_name
-        ipgCardholderAddress.value = response.user_information.address
-        ipgCardholderCity.value = response.user_information.city
-        ipgCardholderZipCode.value = response.user_information.zip_code
-        ipgCardholderCountry.value = response.user_information.country
-
-        if (response.region === 'hr') {
-          cashOnDeliveryRadio.checked = true
-          phoneNumberInput.required = true
-          updatePaymentMethod(cashOnDeliveryRadio.value)
-        } else {
-          updatePaymentMethod(creditCardRadio.value)
-        }
-      }))
-
-      checkoutAddressTitle.classList.add('inactive')
-      checkoutAddressWrapper.classList.add('inactive')
-      checkoutPaymentTitle.classList.remove('inactive')
-      checkoutPaymentWrapper.classList.remove('inactive')
-
-      checkoutAddressTitle.scrollIntoView(false)
-    }
-  })
-  previousStepLink && previousStepLink.addEventListener('click', (event) => {
-    event.preventDefault()
-    phoneNumberInput.required = false
-
-    checkoutAddressTitle.classList.remove('inactive')
-    checkoutAddressWrapper.classList.remove('inactive')
-    checkoutPaymentTitle.classList.add('inactive')
-    checkoutPaymentWrapper.classList.add('inactive')
-  })
-
-  const toggleBag = (event) => {
-    event.preventDefault()
-    bag.classList.toggle('bag-hide')
-  }
-
-  bagLink.addEventListener('click', toggleBag)
-
-  const removeProductButtons = document.getElementsByClassName('bag-product-remove')
   for (let i = 0; i < removeProductButtons.length; i++) {
     const button = removeProductButtons[i]
-    button.addEventListener('click', () => removeProduct(button.dataset.slug))
+    button.addEventListener('click', () => removeFromBag(button.dataset.slug))
+  }
+
+  const loadVideo = (videoWrapper) => {
+    const id = videoWrapper.dataset.youtubeVideoId
+    const html = `<iframe
+      width="100%" height="100%"
+      src="https://www.youtube-nocookie.com/embed/${id}?rel=0&amp;autoplay=1"
+      frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>`
+    const iframe = document.createElement('iframe')
+
+    videoWrapper.classList.add('fade')
+    videoWrapper.hidden = false
+    videoWrapper.appendChild(iframe)
+    iframe.contentWindow.document.open()
+    iframe.contentWindow.document.write(html)
+    iframe.contentWindow.document.close()
+
+    currentModal = iframe
   }
 
   const createProductNode = (key, values, response) => {
@@ -441,7 +168,7 @@ ready(() => {
     const productRemove = document.createElement('span')
     productRemove.innerHTML = '&times;'
     productRemove.classList.add('bag-product-remove')
-    productRemove.addEventListener('click', () => removeProduct(key))
+    productRemove.addEventListener('click', () => removeFromBag(key))
     bagProductHeader.appendChild(productRemove)
 
     const bagProductStats = document.createElement('div')
@@ -534,21 +261,14 @@ ready(() => {
     }
   }
 
-  const removeProduct = (slug) => {
-    fetch('/api/remove-from-bag/',
-      {
-        method: 'POST',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCookie('csrftoken'),
-        },
-        body: JSON.stringify({
-          slug: slug,
-        }),
-      }
-    ).then((data) => data.json().then((response) => {
+  const addToBag = (dataset) => {
+    addProduct(dataset).then((data) => data.json().then((response) => {
+      refreshBag(response)
+    }))
+  }
+
+  const removeFromBag = (slug) => {
+    removeProduct(slug).then((data) => data.json().then((response) => {
       refreshBag(response)
       refreshReviewBag(response, slug)
 
@@ -558,102 +278,4 @@ ready(() => {
       }
     }))
   }
-
-  const addProduct = (dataset) => {
-    fetch('/api/add-to-bag/',
-      {
-        method: 'POST',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCookie('csrftoken'),
-        },
-        body: JSON.stringify({
-          pk: dataset.id,
-          slug: dataset.slug,
-          name: dataset.name,
-          quantity: parseInt(dataset.multiple ? addToBagSelect.value : 1),
-          price_hrk: parseFloat(dataset.priceHrk.replace(',', '.')),
-          price_eur: parseFloat(dataset.priceEur.replace(',', '.')),
-          price_gbp: parseFloat(dataset.priceGbp.replace(',', '.')),
-          price_usd: parseFloat(dataset.priceUsd.replace(',', '.')),
-          image_url: dataset.imageUrl,
-        }),
-      }
-    ).then((data) => data.json().then((response) => {
-      refreshBag(response)
-    }))
-  }
-
-  for (let i = 0; i < addToBagButtons.length; i++) {
-    const button = addToBagButtons[i]
-    button.addEventListener('click', () => addProduct(button.dataset))
-  }
-
-  const getCookie = (name) => {
-    let cookieValue = null
-
-    if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';')
-
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim()
-
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
-          break
-        }
-      }
-    }
-    return cookieValue
-  }
-
-  const creditCardSecureLogos = document.getElementsByClassName('credit-card-secure-logo')
-  const creditCardSecureModals = document.getElementsByClassName('credit-card-secure-modal')
-  const closeModalButtons = document.getElementsByClassName('close-modal-button')
-
-  for (let i = 0; i < creditCardSecureLogos.length; i++) {
-    creditCardSecureLogos[i].addEventListener('click', (event) => {
-      const clickedModalId = event.target.id + '-modal'
-
-      for (let i = 0; i < creditCardSecureModals.length; i++) {
-        if (creditCardSecureModals[i].id !== clickedModalId) {
-          creditCardSecureModals[i].hidden = true
-        }
-      }
-
-      const modal = document.getElementById(clickedModalId)
-      modal.hidden = !modal.hidden
-    })
-  }
-
-  for (let i = 0; i < closeModalButtons.length; i++) {
-    closeModalButtons[i].addEventListener('click', (event) => {
-      for (let i = 0; i < creditCardSecureModals.length; i++) {
-        creditCardSecureModals[i].hidden = true
-      }
-    })
-  }
-
-  const toggleStickyNav = (scrollPosition) => {
-    if (scrollPosition > 190) {
-      navigationWrapper.classList.add('sticky-nav')
-      mainWrapper.classList.add('sticky-nav-margin')
-    } else {
-      navigationWrapper.classList.remove('sticky-nav')
-      mainWrapper.classList.remove('sticky-nav-margin')
-    }
-  }
-
-  let ticking = false
-  window.addEventListener('scroll', (event) => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        toggleStickyNav(window.scrollY)
-        ticking = false
-      })
-      ticking = true
-    }
-  })
 })
