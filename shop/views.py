@@ -46,6 +46,7 @@ class CheckoutView(FormView):
                 'country': user.country,
                 'address': user.address,
                 'city': user.city,
+                'phone_number': user.phone_number,
                 'state_county': user.state_county,
                 'zip_code': user.zip_code,
                 'company_name': user.company_name,

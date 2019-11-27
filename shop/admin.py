@@ -89,7 +89,7 @@ class InvoiceAdmin(admin.ModelAdmin):
 class ProductAdmin(AutoSlugAdmin):
     list_display_links = ('name', )
     list_display = ('name', 'price_hrk', 'in_stock', 'ordering', 'published', )
-    list_editable = ('price_hrk', 'ordering', 'published', )
+    list_editable = ('price_hrk', 'in_stock', 'ordering', 'published', )
     readonly_fields = ('price_usd', 'price_eur', 'price_gbp', )
     fieldsets = (
         (None, {

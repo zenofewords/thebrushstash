@@ -29,8 +29,6 @@
     {% include 'account/includes/form_field.html' with field=form.city %}
     {% include 'account/includes/form_field.html' with field=form.zip_code %}
     {% include 'account/includes/form_field.html' with field=form.email %}
-    {% trans 'If we need to contact you about your order' as phone_info %}
-    {% include 'account/includes/form_field.html' with field=form.phone_number info=phone_info %}
     {% include 'account/includes/form_field.html' with field=form.note %}
   </div>
 
