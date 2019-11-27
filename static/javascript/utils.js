@@ -10,6 +10,7 @@ import {
   checkoutAddressWrapper,
   checkoutPaymentTitle,
   checkoutPaymentWrapper,
+  continueToPaymentButton,
   creditCardRadio,
   ipgAmount,
   ipgCardholderAddress,
@@ -140,7 +141,9 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
     } else {
       updatePaymentMethod(creditCardRadio.value)
     }
-  }))
+  }).then(
+    continueToPaymentButton.disabled = false
+  ))
 
   checkoutAddressTitle.classList.add('inactive')
   checkoutAddressWrapper.classList.add('inactive')

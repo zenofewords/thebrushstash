@@ -11,6 +11,7 @@ export const bagMobileOpenButton = document.querySelector('.bag-mobile-open-butt
 export const bagTotal = document.getElementById('bag-total')
 export const bagTotalMobile = document.getElementById('bag-mobile-total')
 export const cashOnDeliveryRadio = document.getElementById('cash-on-delivery')
+export const cashOnDeliverySubmitButton = document.getElementById('cash-on-delivery-submit-button')
 export const cashOnDeliverySubmitWrapper = document.getElementById('cash-on-delivery-submit-wrapper')
 export const cashOnDeliveryWrapper = document.querySelector('.cash-on-delivery-wrapper')
 export const checkoutAddressForm = document.getElementById('checkout-address-form')

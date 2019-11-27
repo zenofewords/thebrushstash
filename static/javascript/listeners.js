@@ -9,6 +9,7 @@ import {
   cookieWrapper,
   bagMobile,
   bagMobileOpenButton,
+  cashOnDeliverySubmitButton,
   checkoutR1CompanyAddress,
   checkoutR1CompanyName,
   checkoutR1CompanyUIN,
@@ -77,10 +78,6 @@ ready(() => {
 
   fieldInfoIcon && fieldInfoIcon.addEventListener('click', (event) => {
     fieldInfo.hidden = !fieldInfo.hidden
-  })
-
-  creditCardWrapper && creditCardWrapper.addEventListener('click', (event) => {
-    creditCardRadio.checked = true
   })
 
   previousStepLink && previousStepLink.addEventListener('click', (event) => {
@@ -169,10 +166,25 @@ ready(() => {
 
   continueToPaymentButton && continueToPaymentButton.addEventListener('click', (event) => {
     event.preventDefault()
+    continueToPaymentButton.disabled = true
     const valid = checkoutAddressForm.reportValidity()
 
     if (valid) {
       processPaymentAddressData(checkoutAddressForm)
+    } else {
+      continueToPaymentButton.disabled = false
+    }
+  })
+
+  cashOnDeliverySubmitButton && cashOnDeliverySubmitButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    cashOnDeliverySubmitButton.disabled = true
+    const valid = checkoutAddressForm.reportValidity()
+
+    if (valid) {
+      checkoutAddressForm.submit()
+    } else {
+      cashOnDeliverySubmitButton.disabled = false
     }
   })
 })
