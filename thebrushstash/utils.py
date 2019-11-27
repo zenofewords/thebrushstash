@@ -203,6 +203,7 @@ def update_user_information(user, email, data):
     user.address = data.get('address')
     user.zip_code = data.get('zip_code')
 
+    user.phone_number = data.get('phone_number', '')
     user.state_county = data.get('state_county', '')
     user.company_name = data.get('company_name', '')
     user.company_address = data.get('company_address', '')
@@ -346,14 +347,18 @@ def complete_purchase(session, invoice_status, request):
     invoice = Invoice.objects.filter(order_number=session['order_number']).first()
 
     if invoice:
+        phone_number = request.POST.get('phone_number', '')
         invoice.status = invoice_status
         invoice.order_total = session['bag']['grand_total_hrk']  # must be in hrk
         invoice.payment_method = session['payment_method']
-        invoice.phone_number = request.POST.get('phone_number', '')
+        invoice.phone_number = phone_number
         invoice.save()
+
+        update_inventory(session['bag']['products'])
 
         session['bag'] = EMPTY_BAG
         session['order_number'] = None
+        session['user_information']['phone_number'] = phone_number
         session['user_information']['note'] = None
 
         send_purchase_mail(session['user_information']['email'], get_current_site(request))
@@ -363,3 +368,7 @@ def format_price(currency, price):
     if currency == 'hrk':
         return '{} {}'.format(price, currency_symbol_mapping[currency])
     return '{}{}'.format(currency_symbol_mapping[currency], price)
+
+
+def update_inventory(products):
+    pass

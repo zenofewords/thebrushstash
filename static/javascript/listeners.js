@@ -179,12 +179,14 @@ ready(() => {
   cashOnDeliverySubmitButton && cashOnDeliverySubmitButton.addEventListener('click', (event) => {
     event.preventDefault()
     cashOnDeliverySubmitButton.disabled = true
+    previousStepLink.style.pointerEvents = 'none'
     const valid = checkoutAddressForm.reportValidity()
 
     if (valid) {
       checkoutAddressForm.submit()
     } else {
       cashOnDeliverySubmitButton.disabled = false
+      previousStepLink.style.pointerEvents = 'auto'
     }
   })
 })
