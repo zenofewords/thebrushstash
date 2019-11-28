@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
 from shop.models import (
@@ -79,11 +81,20 @@ class SingleGalleryItemInline(GenericTabularInline):
 
 
 class InvoiceAdmin(admin.ModelAdmin):
-    list_display = ('created_at', 'order_number', 'first_name', 'last_name', 'payment_method', 'status', )
+    list_display = (
+        'created_at', 'order_number', 'first_name', 'last_name', 'payment_method', 'status',
+        'print_ship_info',
+    )
     list_editable = ('status', )
     list_filter = ('status', 'payment_method', )
-    readonly_fields = ('created_at', 'modified_at', )
+    readonly_fields = ('created_at', 'modified_at', 'print_ship_info', )
     search_fields = ('created_at', 'first_name', 'last_name', )
+
+    def print_ship_info(self, obj):
+        url = reverse('print-ship-info', kwargs={'pk': obj.pk})
+        return mark_safe(
+            '<a href={} target="_blank" rel="noopener noreferrer">Print ship info</a>'.format(url)
+        )
 
 
 class ProductAdmin(AutoSlugAdmin):
