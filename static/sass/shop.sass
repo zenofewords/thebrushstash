@@ -70,25 +70,24 @@
       height: 50px
       border: $discreetGreyBorder
 
+      &:disabled
+        opacity: 0.3
+        pointer-events: none
+
+        &:hover
+          background-color: #fff
+
       &:hover
         color: #fff
         background: $hoverGrey
 
     .label-new
-      position: absolute
-      top: 35px
-      left: 18px
-      color: #fff
-      padding: 5px 9px
-      background-color: $colorBlue
-      border-radius: $borderRadius
-      text-transform: uppercase
-      pointer-events: none
+      @extend %label
 
-      font-family: $bodyFont
-      font-size: 13px
-      font-weight: $heavy
-      line-height: 13px
+    .label-out-of-stock
+      @extend %label
+      top: 5px
+      background-color: $colorGrey
 
     .price-tag
       @extend %price-tag

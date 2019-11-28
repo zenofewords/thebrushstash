@@ -28,6 +28,22 @@
   border-width: 12px 18px
   transition: $transitionDuration
 
+%label
+  position: absolute
+  top: 35px
+  left: 18px
+  color: #fff
+  padding: 5px 9px
+  background-color: $colorBlue
+  border-radius: $borderRadius
+  text-transform: uppercase
+  pointer-events: none
+
+  font-family: $bodyFont
+  font-size: 13px
+  font-weight: $heavy
+  line-height: 13px
+
 %content-wrapper
   display: flex
   justify-content: space-between
@@ -157,6 +173,14 @@
 
   .summary-check-out-button
     @extend %summary-check-out-button
+
+    &.disabled
+      opacity: 0.3
+      cursor: not-allowed
+      pointer-events: none
+
+      &:hover
+        background-color: $colorGreen
 
   .summary-continue-shopping-link
     display: block
