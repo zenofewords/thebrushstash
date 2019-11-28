@@ -20,6 +20,7 @@ from thebrushstash.views import (
     FaqView,
     GeneralTermsAndConditions,
     PaymentAndDeliveryView,
+    PrintShipInfoView,
     ReturnsAndComplaintsView,
     TakingCareOfYourBrushView,
     TestImageView,
@@ -42,6 +43,7 @@ urlpatterns = [
 
     path('', include('django.contrib.auth.urls')),
     path('', include(('shop.urls', 'shop'), namespace='shop')),
+    path('print-ship-info/<int:pk>/', PrintShipInfoView.as_view(), name='print-ship-info'),
     path('test-images/', TestImageView.as_view(), name='other-images'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
