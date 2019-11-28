@@ -33,7 +33,9 @@ from shop.constants import (
 )
 from shop.models import (
     Invoice,
+    InvoiceItem,
     InvoiceStatus,
+    Product,
 )
 from thebrushstash.constants import currency_symbol_mapping
 from thebrushstash.models import Country
@@ -354,7 +356,7 @@ def complete_purchase(session, invoice_status, request):
         invoice.phone_number = phone_number
         invoice.save()
 
-        update_inventory(session['bag']['products'])
+        update_inventory(invoice, session['bag']['products'])
 
         session['bag'] = EMPTY_BAG
         session['order_number'] = None
@@ -370,5 +372,11 @@ def format_price(currency, price):
     return '{}{}'.format(currency_symbol_mapping[currency], price)
 
 
-def update_inventory(products):
-    pass
+def update_inventory(invoice, products):
+    for _, value in products.items():
+        sold_count = value['quantity']
+
+        product = Product.objects.get(pk=value['pk'])
+        product.in_stock -= sold_count
+        product.save()
+        InvoiceItem.objects.create(invoice=invoice, product=product, sold_count=sold_count)

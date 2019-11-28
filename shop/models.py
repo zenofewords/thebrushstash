@@ -139,6 +139,12 @@ class Invoice(TimeStampMixin):
         verbose_name_plural = 'Invoices'
 
 
+class InvoiceItem(TimeStampMixin):
+    invoice = models.ForeignKey('shop.Invoice', on_delete=models.deletion.CASCADE)
+    product = models.ForeignKey('shop.Product', on_delete=models.deletion.CASCADE)
+    sold_count = models.IntegerField()
+
+
 class Showcase(ShopObjectMixin, PublishedMixin):
     name_cro = models.CharField(max_length=500, blank=True)
     description_cro = models.TextField(blank=True)
