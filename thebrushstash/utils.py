@@ -17,6 +17,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
+from django.utils.translation import gettext as _
 from django.utils.timezone import now
 
 from account.models import (
@@ -33,7 +34,9 @@ from shop.constants import (
 )
 from shop.models import (
     Invoice,
+    InvoiceItem,
     InvoiceStatus,
+    Product,
 )
 from thebrushstash.constants import currency_symbol_mapping
 from thebrushstash.models import Country
@@ -354,7 +357,7 @@ def complete_purchase(session, invoice_status, request):
         invoice.phone_number = phone_number
         invoice.save()
 
-        update_inventory(session['bag']['products'])
+        update_inventory(invoice, session['bag']['products'])
 
         session['bag'] = EMPTY_BAG
         session['order_number'] = None
@@ -370,5 +373,32 @@ def format_price(currency, price):
     return '{}{}'.format(currency_symbol_mapping[currency], price)
 
 
-def update_inventory(products):
-    pass
+def check_bag_content(products):
+    if len(products.items()) <= 0:
+        return _('There\'s nothing in your bag.')
+
+    for key, value in products.items():
+        purchase_count = value['quantity']
+        product = Product.objects.get(pk=value['pk'])
+
+        if product.in_stock <= 0:
+            return _('''
+                Looks like {} is all sold out :(
+                You\'ll have to remove it from your bag to continue.'''.format(product.name))
+        if product.in_stock < value['quantity']:
+            return _('''
+                We've got only {} {} left,
+                please remove at least {} from your bag to continue.'''.format(
+                product.in_stock, product.name, purchase_count - product.in_stock)
+            )
+    return None
+
+
+def update_inventory(invoice, products):
+    for key, value in products.items():
+        sold_count = value['quantity']
+
+        product = Product.objects.get(pk=value['pk'])
+        product.in_stock -= sold_count
+        product.save()
+        InvoiceItem.objects.create(invoice=invoice, product=product, sold_count=sold_count)

@@ -317,7 +317,7 @@
     .cash-on-delivery-submit-wrapper
       button:disabled
         opacity: 0.3
-        cursor: not-allowed
+        pointer-events: none
 
         &:hover
           background-color: $colorGreen
@@ -327,6 +327,9 @@
       line-height: 19px
       max-width: $checkoutFormInputWidth
       margin-top: 0
+
+      &.error
+        color: #f00
 
     .checkout-formfields
       margin-top: 30px
