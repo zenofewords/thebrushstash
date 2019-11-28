@@ -102,14 +102,14 @@ ready(() => {
   for (let i = 0; i < shipToSelects.length; i++) {
     shipToSelects[i].addEventListener('blur', (event) => {
       if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
-        shipToMenu.hidden = true
+        shipToMenu[i].hidden = true
       }
     })
     shipToSelects[i].addEventListener('focus', onSelectFocus)
     shipToSelects[i].addEventListener('click', (event) => {
       event.preventDefault()
 
-      if (shipToMenu.hidden) {
+      if (shipToMenu[i].hidden) {
         onSelectFocus(event)
       }
     })
