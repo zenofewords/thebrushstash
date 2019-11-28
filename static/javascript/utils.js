@@ -8,6 +8,7 @@ import {
   cashOnDeliverySubmitWrapper,
   checkoutAddressTitle,
   checkoutAddressWrapper,
+  checkoutHelpText,
   checkoutPaymentTitle,
   checkoutPaymentWrapper,
   continueToPaymentButton,
@@ -111,6 +112,29 @@ export const updatePaymentMethod = (paymentMethod) => {
   }))
 }
 
+const updateIPGInputs = (response) => {
+  ipgOrderNumber.value = response.order_number
+  ipgAmount.value = response.grand_total_hrk // must be in hrk
+  ipgCart.value = response.cart
+  ipgLanguage.value = response.language
+  ipgSignature.value = response.signature
+  ipgCardholderEmail.value = response.user_information.email
+  ipgCardholderName.value = response.user_information.first_name
+  ipgCardholderSurname.value = response.user_information.last_name
+  ipgCardholderAddress.value = response.user_information.address
+  ipgCardholderCity.value = response.user_information.city
+  ipgCardholderZipCode.value = response.user_information.zip_code
+  ipgCardholderCountry.value = response.user_information.country
+}
+
+const moveToPaymentForm = () => {
+  continueToPaymentButton.disabled = false
+  checkoutAddressTitle.classList.add('inactive')
+  checkoutAddressWrapper.classList.add('inactive')
+  checkoutPaymentTitle.classList.remove('inactive')
+  checkoutPaymentWrapper.classList.remove('inactive')
+}
+
 export const processPaymentAddressData = (checkoutAddressForm) => {
   phoneNumberInput.required = true
 
@@ -120,19 +144,13 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
     data[key] = value
   }
 
-  processOrder(data).then((data) => data.json().then((response) => {
-    ipgOrderNumber.value = response.order_number
-    ipgAmount.value = response.grand_total_hrk // must be in hrk
-    ipgCart.value = response.cart
-    ipgLanguage.value = response.language
-    ipgSignature.value = response.signature
-    ipgCardholderEmail.value = response.user_information.email
-    ipgCardholderName.value = response.user_information.first_name
-    ipgCardholderSurname.value = response.user_information.last_name
-    ipgCardholderAddress.value = response.user_information.address
-    ipgCardholderCity.value = response.user_information.city
-    ipgCardholderZipCode.value = response.user_information.zip_code
-    ipgCardholderCountry.value = response.user_information.country
+  processOrder(data).then(
+    (data) => data.json()
+  ).then((response) => {
+    if (response.non_field_errors) {
+      throw response.non_field_errors
+    }
+    updateIPGInputs(response)
 
     if (response.region === 'hr') {
       cashOnDeliveryRadio.checked = true
@@ -142,14 +160,11 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
       updatePaymentMethod(creditCardRadio.value)
     }
   }).then(
-    continueToPaymentButton.disabled = false
-  ))
-
-  checkoutAddressTitle.classList.add('inactive')
-  checkoutAddressWrapper.classList.add('inactive')
-  checkoutPaymentTitle.classList.remove('inactive')
-  checkoutPaymentWrapper.classList.remove('inactive')
-
+    () => moveToPaymentForm()
+  ).catch((error) => {
+    checkoutHelpText.innerHTML = error
+    checkoutHelpText.classList.add('error')
+  })
   checkoutAddressTitle.scrollIntoView(false)
 }
 

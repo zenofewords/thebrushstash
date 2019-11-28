@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from thebrushstash.utils import check_bag_content
+
 
 class PaymentMethodSerializer(serializers.Serializer):
     payment_method = serializers.CharField(required=False, allow_blank=True, max_length=20)
@@ -40,3 +42,11 @@ class UserInformationSerializer(serializers.Serializer):
     register = serializers.BooleanField(required=False)
     subscribe_to_newsletter = serializers.BooleanField(required=False)
     agree_to_terms = serializers.BooleanField(required=True)
+
+    def validate(self, data):
+        products = self.context['request'].session['bag']['products']
+        message = check_bag_content(products)
+
+        if message:
+            raise serializers.ValidationError(message)
+        return data
