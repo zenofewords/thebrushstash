@@ -169,7 +169,6 @@ ready(() => {
     bagProductHeader.appendChild(productName)
 
     const productRemove = document.createElement('span')
-    productRemove.innerHTML = '&times;'
     productRemove.classList.add('bag-product-remove')
     productRemove.addEventListener('click', () => removeFromBag(key))
     bagProductHeader.appendChild(productRemove)

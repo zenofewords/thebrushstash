@@ -12,7 +12,7 @@ from thebrushstash.utils import format_price
 register = template.Library()
 
 
-@register.inclusion_tag('shop/tags/showcase.html')
+@register.inclusion_tag('shop/tags/showcase_tag.html')
 def showcase_tag():
     return {
         'showcase': Showcase.published_objects.last(),
@@ -20,7 +20,7 @@ def showcase_tag():
     }
 
 
-@register.inclusion_tag('shop/tags/purchase_summary.html')
+@register.inclusion_tag('shop/tags/purchase_summary_tag.html')
 def purchase_summary_tag(bag, region, currency, show_links=False):
     return {
         'bag': bag,
