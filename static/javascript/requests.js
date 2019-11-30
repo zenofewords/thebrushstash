@@ -106,3 +106,20 @@ export const addProduct = (dataset) => fetch(
     }),
   }
 )
+
+export const subscribeToNewsletter = (emailData) => fetch(
+  '/api/subscribe-to-newsletter/',
+  {
+    method: 'POST',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify({
+      email0: emailData['email0'],
+      email1: emailData['email1'],
+    }),
+  }
+)

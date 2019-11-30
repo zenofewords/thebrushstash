@@ -1,6 +1,7 @@
 import {
   processOrder,
   setPaymentMethod,
+  subscribeToNewsletter,
 } from './requests'
 import {
   bag,
@@ -26,6 +27,7 @@ import {
   ipgLanguage,
   ipgOrderNumber,
   ipgSignature,
+  joinNewsletterMessage,
   mainWrapper,
   navigationWrapper,
   phoneNumberInput,
@@ -185,4 +187,22 @@ export const switchActiveImage = (event) => {
 
     history.pushState({mediaObject: id}, '', `?gallery-item=${id}`)
   }
+}
+
+export const subToNewsletter = (emailData) => {
+  return subscribeToNewsletter(emailData).then(
+    (data) => data.json()
+  ).then((response) => {
+    if (response.email0) {
+      throw response.email0
+    } else {
+      joinNewsletterMessage.hidden = false
+      joinNewsletterMessage.classList.remove('error')
+      joinNewsletterMessage.innerHTML = response.message
+    }
+  }).catch((error) => {
+    joinNewsletterMessage.classList.add('error')
+    joinNewsletterMessage.hidden = false
+    joinNewsletterMessage.innerHTML = error
+  })
 }

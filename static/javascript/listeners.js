@@ -25,8 +25,10 @@ import {
   creditCardSecureLogos,
   creditCardSecureModals,
   creditCardWrapper,
+  emailInputs,
   fieldInfo,
   fieldInfoIcon,
+  subscribeToNewsletterButton,
   languageOptions,
   navigationWrapper,
   navMobileCloseButton,
@@ -38,10 +40,11 @@ import {
   thumbnailWrappers,
 } from './selectors'
 import {
+  processPaymentAddressData,
+  subToNewsletter,
   switchActiveImage,
   toggleBag,
   toggleStickyNav,
-  processPaymentAddressData,
   updatePaymentMethod,
 } from './utils'
 
@@ -188,5 +191,20 @@ ready(() => {
       cashOnDeliverySubmitButton.disabled = false
       previousStepLink.style.pointerEvents = 'auto'
     }
+  })
+
+  subscribeToNewsletterButton && subscribeToNewsletterButton.addEventListener('click', (event) => {
+    subscribeToNewsletterButton.disabled = true
+
+    const emailData = {
+      email0: '',
+      email1: '',
+    }
+    for (let i = 0; i < emailInputs.length; i++) {
+      emailData[`email${i}`] = emailInputs[i].value
+    }
+    subToNewsletter(emailData).then(() => {
+      subscribeToNewsletterButton.disabled = false
+    })
   })
 })
