@@ -31,14 +31,17 @@ def purchase_summary_tag(bag, region, currency, show_links=False):
 
 
 @register.simple_tag
-def get_gallery(obj, standalone=False):
+def get_gallery(obj, standalone=False, gallery_only=False):
     if not obj:
         return GalleryItem.objects.none()
 
-    return GalleryItem.objects.filter(
+    qs = GalleryItem.objects.filter(
         standalone=standalone,
         content_type=ContentType.objects.get_for_model(obj), object_id=obj.pk
     )
+    if gallery_only:
+        qs = qs.filter(show_in_gallery=True)
+    return qs
 
 
 @register.simple_tag
