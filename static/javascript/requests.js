@@ -107,6 +107,23 @@ export const addProduct = (dataset) => fetch(
   }
 )
 
+export const updateProduct = (slug, action) => fetch(
+  '/api/update-bag/',
+  {
+    method: 'POST',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify({
+      slug: slug,
+      action: action,
+    }),
+  }
+)
+
 export const subscribeToNewsletter = (emailData) => fetch(
   '/api/subscribe-to-newsletter/',
   {

@@ -1,6 +1,7 @@
 {% extends 'thebrushstash/base.html' %}
 {% load i18n %}
 {% load shop_tags %}
+{% load static %}
 
 {% block title %}
   {{ block.super }} - {% trans "Shop" %}
@@ -8,12 +9,12 @@
 
 {% block meta_description %}
   <meta name="title" content="The Brush Stash {% trans 'Shop' %}">
-  <meta name="description" content="TODO SEO shop description">
-  <meta name="keywords" content="TODO SEO shop keywords">
+  <meta name="description" content="{% trans 'The Brush Stash | Luxury makeup brushes handmade in Japan' %}">
+  <meta name="keywords" content="{% trans 'japanese brushes, kumano brushes, handmade makeup brushes, luxury makeup, makeup brushes, kumano fude, high end brushes, luxury cosmetics' %}">
 
   <meta property="og:title" content="The Brush Stash {% trans 'Shop' %}">
-  <meta property="og:description" content="TODO SEO shop description">
-  <meta property="og:image" content="TODO SEO add shop image">
+  <meta property="og:description" content="{% trans 'The Brush Stash | Luxury makeup brushes handmade in Japan' %}">
+  <meta property="og:image" content="{% static 'images/the_brush_stash_brush_collection.jpg' %}">
   <meta property="og:url" content="{% url 'shop:shop' %}">
   <meta property="og:site_name" content="The Brush Stash {% trans 'Shop' %}">
   <meta name="twitter:card" content="shop_image">
