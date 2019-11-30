@@ -24,11 +24,15 @@ class AutoSlugAdmin(admin.ModelAdmin):
 class GalleryItemAdmin(admin.ModelAdmin):
     list_display_links = ('__str__', )
     list_display = (
-        '__str__', 'name', 'image', 'youtube_video_id', 'standalone', 'image_preview_thumb',
+        '__str__', 'name', 'image', 'youtube_video_id', 'show_in_gallery', 'standalone',
+        'image_preview_thumb',
     )
     readonly_fields = ('created_at', 'image_preview', )
     search_fields = ('name', )
-    fields = ('name', 'image', 'youtube_video_id', 'standalone', 'content_type', 'object_id',)
+    fields = (
+        'name', 'image', 'youtube_video_id', 'show_in_gallery', 'standalone', 'content_type',
+        'object_id',
+    )
 
     def image_preview(self, obj):
         return get_preview_image(obj.image, 800)
@@ -39,7 +43,9 @@ class GalleryItemAdmin(admin.ModelAdmin):
 
 class GalleryItemInline(GenericTabularInline):
     model = GalleryItem
-    fields = ('name', 'image', 'youtube_video_id', 'ordering', 'image_preview_thumb', )
+    fields = (
+        'name', 'image', 'youtube_video_id', 'show_in_gallery', 'ordering', 'image_preview_thumb',
+    )
     readonly_fields = ('image_preview_thumb', )
     extra = 3
     max_num = 10

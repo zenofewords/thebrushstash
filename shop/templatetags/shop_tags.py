@@ -12,7 +12,7 @@ from thebrushstash.utils import format_price
 register = template.Library()
 
 
-@register.inclusion_tag('shop/tags/showcase.html')
+@register.inclusion_tag('shop/tags/showcase_tag.html')
 def showcase_tag():
     return {
         'showcase': Showcase.published_objects.last(),
@@ -20,7 +20,7 @@ def showcase_tag():
     }
 
 
-@register.inclusion_tag('shop/tags/purchase_summary.html')
+@register.inclusion_tag('shop/tags/purchase_summary_tag.html')
 def purchase_summary_tag(bag, region, currency, show_links=False):
     return {
         'bag': bag,
@@ -31,14 +31,17 @@ def purchase_summary_tag(bag, region, currency, show_links=False):
 
 
 @register.simple_tag
-def get_gallery(obj, standalone=False):
+def get_gallery(obj, standalone=False, gallery_only=False):
     if not obj:
         return GalleryItem.objects.none()
 
-    return GalleryItem.objects.filter(
+    qs = GalleryItem.objects.filter(
         standalone=standalone,
         content_type=ContentType.objects.get_for_model(obj), object_id=obj.pk
     )
+    if gallery_only:
+        qs = qs.filter(show_in_gallery=True)
+    return qs
 
 
 @register.simple_tag
@@ -53,7 +56,7 @@ def get_image_by_natural_key(app_name, model, object_id):
     ).first()
 
 
-@register.inclusion_tag('thebrushstash/tags/media_object.html')
+@register.inclusion_tag('thebrushstash/tags/media_object_tag.html')
 def media_object(obj, shape, selected=False, hidden=False):
     if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
         return
@@ -80,7 +83,7 @@ def media_object(obj, shape, selected=False, hidden=False):
     return data
 
 
-@register.inclusion_tag('thebrushstash/tags/gallery_item.html')
+@register.inclusion_tag('thebrushstash/tags/gallery_item_tag.html')
 def gallery_item(obj, item, selected_item_id, first_item):
     selected = False
     if selected_item_id == '0' and first_item:

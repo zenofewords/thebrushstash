@@ -218,7 +218,7 @@ def register_user(data, current_site):
     email = data.get('email')
     user = CustomUser.objects.filter(email=email).first()
 
-    if user:
+    if user.is_authenticated:
         update_user_information(user, email, data)
     elif data.get('register') and email:
         user = CustomUser()
@@ -229,7 +229,7 @@ def register_user(data, current_site):
     return user
 
 
-def subscribe_to_newsletter(user, data, current_site):
+def subscribe_to_newsletter(user, data):
     if data.get('subscribe_to_newsletter'):
         email = data.get('email')
         obj, created = NewsletterRecipient.objects.get_or_create(
@@ -243,8 +243,23 @@ def subscribe_to_newsletter(user, data, current_site):
         if user and not created and not obj.user:
             obj.user = user
             obj.save()
-        # if created:
-            # send_subscription_email(email, current_site)
+
+
+def safe_subscribe_to_newsletter(user, email, current_site):
+    obj, created = NewsletterRecipient.objects.get_or_create(
+        email=email,
+        defaults={
+            'subscribed': True if user.is_authenticated else False,
+            'user': user if user.is_authenticated else None,
+        }
+    )
+    if user.is_authenticated and not created:
+        return _('Already subscribed.')
+    if user.is_authenticated and created:
+        return _('Subscribed, thanks!')
+
+    send_subscription_email(email, current_site)
+    return _('Check your e-mail for confirmation!')
 
 
 def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
@@ -291,14 +306,15 @@ def send_registration_email(user, current_site):
     email.send()
 
 
-def send_subscription_email(email_address, current_site):
-    mail_subject = 'Subscribed to newsletter'
-    message = render_to_string('shop/subscribed_to_newsletter_email.html', {
+def send_subscription_email(email, current_site):
+    mail_subject = 'Subscribe to newsletter'
+    message = render_to_string('account/subscription_verification_email.html', {
         'domain': current_site.domain,
         'site_name': current_site.name,
         'protocol': 'http' if settings.DEBUG else 'https',
+        'uid': urlsafe_base64_encode(force_bytes(email)),
     })
-    EmailMessage(mail_subject, message, to=[email_address]).send()
+    EmailMessage(mail_subject, message, to=[email]).send()
 
 
 def send_purchase_mail(email_address, current_site):

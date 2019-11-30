@@ -8,6 +8,8 @@ import {
 import {
   addToBagButtons,
   bag,
+  bagBuyLink,
+  bagBuyMobileLink,
   bagContent,
   bagContentMobile,
   bagItemCount,
@@ -167,7 +169,6 @@ ready(() => {
     bagProductHeader.appendChild(productName)
 
     const productRemove = document.createElement('span')
-    productRemove.innerHTML = '&times;'
     productRemove.classList.add('bag-product-remove')
     productRemove.addEventListener('click', () => removeFromBag(key))
     bagProductHeader.appendChild(productRemove)
@@ -233,10 +234,14 @@ ready(() => {
     if (Object.keys(response.bag.products).length < 1) {
       reviewBagLink.classList.add('hidden')
       reviewBagLinkMobile.classList.add('hidden')
+      bagBuyLink.classList.remove('hidden')
+      bagBuyMobileLink.classList.remove('hidden')
       setTimeout(hideBagMobile, 1000)
     } else {
       reviewBagLink.classList.remove('hidden')
       reviewBagLinkMobile.classList.remove('hidden')
+      bagBuyLink.classList.add('hidden')
+      bagBuyMobileLink.classList.add('hidden')
     }
   }
 

@@ -52,6 +52,7 @@
     text-transform: initial
 
   .bag-product-header
+    position: relative
     display: flex
     justify-content: space-between
 
@@ -63,21 +64,11 @@
       line-height: 22px
 
     .bag-product-remove
-      font-size: 16px
-      cursor: pointer
-      color: #fff
-      position: relative
-      margin-top: 2px
-      padding: 3px
-
-      &:before
-        content: ''
-        position: absolute
-        top: 3px
+      &:after
+        @extend %background-circle-icon
+        content: '\00D7'
+        top: 21%
         right: 0
-        border: 8px solid #000
-        border-radius: 50%
-        z-index: -1
 
   .bag-product-stats
     display: flex
@@ -172,7 +163,7 @@
         flex-direction: column
 
       .bag-product-and-price
-        width: 50%
+        width: 45%
         padding: 0 0 0 25px
 
         .bag-product-name
@@ -193,36 +184,36 @@
         font-weight: $heavy
         line-height: 18px
         text-align: right
-        margin: 26px 15px 0 0
-        width: 20%
+        margin: 26px 0 0 0
+        padding: 0 7px 0 0
+        width: 150px
 
-        &:after
-          @extend %input-arrow
-          border-color: #000 transparent transparent
-          top: 7px
-          left: 110%
+        .bag-product-decrement
+          &:after
+            @extend %background-circle-icon
+            content: '\2212'
+            top: 10%
+            left: 60%
+
+        .bag-product-increment
+          &:after
+            @extend %background-circle-icon
+            content: '\002B'
+            top: 10%
+            left: 100%
 
       .bag-subtotal
-        width: 30%
-        padding: 0 25px
+        position: relative
+        width: 25%
+        padding: 31px 0 0
+        margin: 0 25px
 
         .bag-product-remove
-          font-size: 16px
-          color: #fff
-          cursor: pointer
-          position: relative
-          width: 10px
-          margin: 0 0 12px auto
-          padding-right: 2px
-
-          &:before
-            content: ''
-            position: absolute
-            top: 3px
-            right: -1px
-            border: 8px solid #000
-            border-radius: 50%
-            z-index: -1
+          &:after
+            @extend %background-circle-icon
+            content: '\00D7'
+            top: 10%
+            right: 0
 
         .bag-product-subtotal
           font-size: 15px
@@ -327,9 +318,6 @@
       line-height: 19px
       max-width: $checkoutFormInputWidth
       margin-top: 0
-
-      &.error
-        color: #f00
 
     .checkout-formfields
       margin-top: 30px

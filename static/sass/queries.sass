@@ -33,7 +33,7 @@
   .header-wrapper
     position: fixed
     width: 100%
-    background-size: 90% 130%
+    background-size: 85% 130%
     z-index: 1
 
     .header
@@ -183,7 +183,7 @@
             color: #000
 
     .bag-content-wrapper
-      margin: 0 15px
+      margin: 0 15px 0 5px
 
       .bag-content-headers
         display: none
@@ -204,11 +204,18 @@
             letter-spacing: -0.35px
             line-height: 17px
 
+        .bag-product-quantity
+          text-align: left
+          padding: 0
+          margin-right: 10px
+          width: 100px
+
         .bag-subtotal
           .bag-product-subtotal
             font-size: 14px
             letter-spacing: -0.35px
             line-height: 17px
+            white-space: nowrap
 
         .image-wrapper
           width: 78px
@@ -304,8 +311,9 @@
           margin: 0 0 30px
 
       .join-wrapper
-        margin: 0 auto
         width: calc(100% - #{$gutter} * 2)
+        max-width: 500px
+        margin: 0 auto
 
   .product-detail-wrapper
     flex-direction: column

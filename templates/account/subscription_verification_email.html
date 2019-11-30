@@ -1,0 +1,10 @@
+{% load i18n %}
+
+{% autoescape off %}
+{% blocktrans %}Ignore this e-mail if did not start a newsletter subscription for {{ site_name }}.{% endblocktrans %}
+
+{% trans "You can activate your subscription at the following page:" %}
+{{ protocol }}://{{ domain }}{% url 'account:subscribe-to-newsletter' uidb64=uid %}
+
+{% blocktrans %}Thanks, {{ site_name }}!{% endblocktrans %}
+{% endautoescape %}

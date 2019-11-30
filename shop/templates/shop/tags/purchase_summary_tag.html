@@ -47,10 +47,10 @@
   {% endif %}
 
   {% if show_links %}
-    <a href="{% url 'shop:checkout' %}" class="summary-check-out-button">
+    <a href="{% url 'shop:checkout' %}" class="summary-check-out-button{% if not bag.products %} disabled{% endif %}">
       <span>{% trans "Check out" %}</span>
     </a>
-    <a href="{% url 'shop:shop' %}#products-anchor" class="summary-continue-shopping-link">
+    <a href="{% url 'shop:shop' %}#products-anchor" class="summary-continue-shopping-link{% if not bag.products %} disabled{% endif %}">
       {% trans "Continue shopping" %}
     </a>
   {% endif %}

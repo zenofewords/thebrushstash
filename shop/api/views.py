@@ -129,7 +129,7 @@ class ProcessOrderView(GenericAPIView):
 
         current_site = get_current_site(request)
         user = register_user(serializer.data, current_site)
-        subscribe_to_newsletter(user, serializer.data, current_site)
+        subscribe_to_newsletter(user, serializer.data)
 
         session = request.session
         bag = session.get('bag')

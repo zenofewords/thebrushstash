@@ -165,7 +165,12 @@ class GalleryItem(TimeStampMixin):
         default=0, blank=True,
         help_text='If set to 0, items are ordered by creation date'
     )
-    standalone = models.BooleanField(default=False)
+    show_in_gallery = models.BooleanField(
+        default=True, help_text='Unchecking will hide the image for galleries (detail page)'
+    )
+    standalone = models.BooleanField(
+        default=False, help_text='Automatically set for the "one item per gallery" use case'
+    )
     srcsets = JSONField(blank=True, null=True)
     content_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE, limit_choices_to=LIMIT,

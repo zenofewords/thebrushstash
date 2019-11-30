@@ -15,7 +15,10 @@ from account.forms import (
     PasswordForm,
     RegistrationForm,
 )
-from account.models import CustomUser
+from account.models import (
+    CustomUser,
+    NewsletterRecipient,
+)
 from account.tokens import account_activation_token
 
 
@@ -83,5 +86,29 @@ class ActivateAccountView(FormView):
         context = super().get_context_data(**kwargs)
         context.update({
             'authenticated': self.request.user.is_authenticated,
+        })
+        return context
+
+
+class SubscribeToNewsletterView(TemplateView):
+    template_name = 'account/subscribe_to_newsletter.html'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.newsletter_recipient = NewsletterRecipient.objects.get(
+                email=force_text(urlsafe_base64_decode(kwargs.get('uidb64')))
+            )
+        except(TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
+            self.newsletter_recipient = None
+
+        if self.newsletter_recipient:
+            self.newsletter_recipient.subscribed = True
+            self.newsletter_recipient.save()
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'newsletter_recipient': self.newsletter_recipient,
         })
         return context

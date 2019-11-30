@@ -25,7 +25,7 @@
 {% block content %}
   <div class="product-detail-wrapper">
     <div class="gallery-wrapper">
-      {% get_gallery object as gallery %}
+      {% get_gallery object gallery_only='gallery-only' as gallery %}
       {% for item in gallery %}
         {% if selected_item_id == '0' and forloop.first or selected_item_id == item.pk|slugify %}
           {% media_object obj=item shape='portrait' selected='true' %}
