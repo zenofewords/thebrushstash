@@ -179,20 +179,22 @@ def create_image_variations(instance, created):
     path = instance.image.path
     # need the original image's URL
     url = instance.image.url
-    original = Image.open(path)
 
-    # remove background transparency
-    if Image.MIME[original.format] == 'image/png':
-        canvas = Image.new('RGB', (original.width, original.height), color=(255, 255, 255))
-        canvas.paste(original, original)
-        original = canvas.convert('RGB')
+    with Image.open(path) as original:
+        original = Image.open(path)
 
-    # save default (fallback) image
-    instance.image = get_resized_path(instance.image.name, SQUARE, 'small', 'jpg')
-    instance.srcsets = generate_srcsets(path, url, original, SLOTS)
-    instance.save()
-    # remove original image
-    os.remove(path)
+        # remove background transparency
+        if Image.MIME[original.format] == 'image/png':
+            canvas = Image.new('RGB', (original.width, original.height), color=(255, 255, 255))
+            canvas.paste(original, original)
+            original = canvas.convert('RGB')
+
+        # save default (fallback) image
+        instance.image = get_resized_path(instance.image.name, SQUARE, 'small', 'jpg')
+        instance.srcsets = generate_srcsets(path, url, original, SLOTS)
+        instance.save()
+        # remove original image
+        os.remove(path)
 
 
 def update_user_information(user, email, data):

@@ -91,13 +91,15 @@
   </div>
   <div class="product-description-wrapper">
     <div class="text-wrapper">
-      <h2>
-        {% if LANGUAGE_CODE == 'hr' %}
-          {{ product.title_cro }}
-        {% else %}
-          {{ product.title }}
-        {% endif %}
-      </h2>
+      {% if product.title and product.title_cro %}
+        <h2>
+          {% if LANGUAGE_CODE == 'hr' %}
+            {{ product.title_cro }}
+          {% else %}
+            {{ product.title }}
+          {% endif %}
+        </h2>
+      {% endif %}
       {% if LANGUAGE_CODE == 'hr' %}
         {{ product.description_cro|linebreaks }}
       {% else %}
