@@ -128,6 +128,7 @@ class ReviewBagView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         session = self.request.session
+
         context.update({
             'bag': session.get('bag'),
             'region': session.get('region'),

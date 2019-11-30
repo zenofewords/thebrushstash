@@ -2,9 +2,12 @@ import {
   setCookieInfo,
 } from './requests'
 import {
+  addToBagButtons,
   bagLink,
   bagMobile,
   bagMobileOpenButton,
+  bagProductDecrement,
+  bagProductIncrement,
   cashOnDeliveryRadio,
   cashOnDeliverySubmitButton,
   cashOnDeliveryWrapper,
@@ -28,7 +31,6 @@ import {
   emailInputs,
   fieldInfo,
   fieldInfoIcon,
-  subscribeToNewsletterButton,
   languageOptions,
   navigationWrapper,
   navMobileCloseButton,
@@ -36,11 +38,17 @@ import {
   phoneNumberInput,
   previousStepLink,
   r1ReceiptCheckbox,
+  removeProductButtons,
   shipToMenu,
+  subscribeToNewsletterButton,
   thumbnailWrappers,
 } from './selectors'
 import {
+  addOneToBag,
+  addToBag,
   processPaymentAddressData,
+  removeFromBag,
+  removeOneFromBag,
   subToNewsletter,
   switchActiveImage,
   toggleBag,
@@ -207,4 +215,26 @@ ready(() => {
       subscribeToNewsletterButton.disabled = false
     })
   })
+
+  for (let i = 0; i < bagProductDecrement.length; i++) {
+    bagProductDecrement[i].addEventListener('click', (event) => {
+      // removeOneFromBag(bagProductDecrement[i].dataset.slug)
+    })
+  }
+
+  for (let i = 0; i < bagProductIncrement.length; i++) {
+    bagProductIncrement[i].addEventListener('click', (event) => {
+      // addOneToBag(bagProductDecrement[i].dataset.slug)
+    })
+  }
+
+  for (let i = 0; i < removeProductButtons.length; i++) {
+    const button = removeProductButtons[i]
+    button.addEventListener('click', () => removeFromBag(button.dataset.slug))
+  }
+
+  for (let i = 0; i < addToBagButtons.length; i++) {
+    const button = addToBagButtons[i]
+    button.addEventListener('click', () => addToBag(button.dataset))
+  }
 })

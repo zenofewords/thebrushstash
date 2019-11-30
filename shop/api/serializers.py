@@ -21,6 +21,7 @@ class ProductSeriazlier(serializers.Serializer):
 
 class SimpleProductSerializer(serializers.Serializer):
     slug = serializers.SlugField(required=True, max_length=500)
+    action = serializers.CharField(required=False, max_length=20)
 
 
 class UserInformationSerializer(serializers.Serializer):

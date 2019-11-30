@@ -119,6 +119,43 @@ class RemoveFromBagView(GenericAPIView):
         }, status=status.HTTP_200_OK)
 
 
+class UpdateBagView(GenericAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = SimpleProductSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        bag = request.session.get('bag')
+        products = bag.get('products')
+        product_slug = serializer.data.get('slug')
+
+        if serializer.data.get('action') == 'increment':
+            pass
+        elif serializer.data.get('action') == 'decrement' and product_slug in products:
+            product = products[product_slug]
+            product['quantity'] -= 1
+            bag.update({
+                'total_quantity': bag['total_quantity'] - 1,
+                **get_totals(product, 'total', operator.sub, bag),
+            })
+            set_shipping_cost(bag, request.session['region'])
+            bag.update({
+                **get_grandtotals(bag),
+            })
+            if bag['total_quantity'] <= 0:
+                del products[product_slug]
+
+        request.session['bag'] = bag
+        request.session.modified = True
+        return response.Response({
+            'bag': bag,
+            'cart': get_cart(bag),
+            'currency': request.session['currency'],
+        }, status=status.HTTP_200_OK)
+
+
 class ProcessOrderView(GenericAPIView):
     permission_classes = (AllowAny, )
     serializer_class = UserInformationSerializer
