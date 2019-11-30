@@ -8,6 +8,8 @@ import {
 import {
   addToBagButtons,
   bag,
+  bagBuyLink,
+  bagBuyMobileLink,
   bagContent,
   bagContentMobile,
   bagItemCount,
@@ -233,10 +235,14 @@ ready(() => {
     if (Object.keys(response.bag.products).length < 1) {
       reviewBagLink.classList.add('hidden')
       reviewBagLinkMobile.classList.add('hidden')
+      bagBuyLink.classList.remove('hidden')
+      bagBuyMobileLink.classList.remove('hidden')
       setTimeout(hideBagMobile, 1000)
     } else {
       reviewBagLink.classList.remove('hidden')
       reviewBagLinkMobile.classList.remove('hidden')
+      bagBuyLink.classList.add('hidden')
+      bagBuyMobileLink.classList.add('hidden')
     }
   }
 

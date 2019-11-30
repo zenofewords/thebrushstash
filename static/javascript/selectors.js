@@ -1,6 +1,8 @@
 export const addToBagButtons = document.getElementsByClassName('add-to-bag-button')
 export const addToBagSelect = document.getElementById('add-to-bag-select')
 export const bag = document.getElementById('bag')
+export const bagBuyLink = document.getElementById('bag-buy-link')
+export const bagBuyMobileLink = document.getElementById('bag-mobile-buy-link')
 export const bagContent = document.getElementById('bag-content')
 export const bagContentMobile = document.getElementById('bag-mobile-content')
 export const bagItemCount = document.getElementById('bag-item-count')
