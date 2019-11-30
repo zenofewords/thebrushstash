@@ -53,7 +53,7 @@ def get_image_by_natural_key(app_name, model, object_id):
     ).first()
 
 
-@register.inclusion_tag('thebrushstash/tags/media_object.html')
+@register.inclusion_tag('thebrushstash/tags/media_object_tag.html')
 def media_object(obj, shape, selected=False, hidden=False):
     if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
         return
@@ -80,7 +80,7 @@ def media_object(obj, shape, selected=False, hidden=False):
     return data
 
 
-@register.inclusion_tag('thebrushstash/tags/gallery_item.html')
+@register.inclusion_tag('thebrushstash/tags/gallery_item_tag.html')
 def gallery_item(obj, item, selected_item_id, first_item):
     selected = False
     if selected_item_id == '0' and first_item:

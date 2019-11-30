@@ -15,7 +15,7 @@ from thebrushstash.models import (
 register = template.Library()
 
 
-@register.inclusion_tag('thebrushstash/tags/navigation.html', takes_context=True)
+@register.inclusion_tag('thebrushstash/tags/navigation_tag.html', takes_context=True)
 def navigation_tag(context):
     request = context['request']
     return {
@@ -27,7 +27,7 @@ def navigation_tag(context):
     }
 
 
-@register.inclusion_tag('thebrushstash/tags/ship_to.html', takes_context=True)
+@register.inclusion_tag('thebrushstash/tags/ship_to_tag.html', takes_context=True)
 def ship_to_tag(context):
     session = context['request'].session
     regions = Region.published_objects.all()
@@ -71,7 +71,7 @@ def bag_tag(context):
     }
 
 
-@register.inclusion_tag('thebrushstash/tags/footer.html')
+@register.inclusion_tag('thebrushstash/tags/footer_tag.html')
 def footer_tag(hide_social=False):
     return {
         'hide_social': hide_social,
@@ -80,7 +80,7 @@ def footer_tag(hide_social=False):
     }
 
 
-@register.inclusion_tag('thebrushstash/tags/cookie.html', takes_context=True)
+@register.inclusion_tag('thebrushstash/tags/cookie_tag.html', takes_context=True)
 def cookie_tag(context):
     request = context['request']
     return {
@@ -88,13 +88,13 @@ def cookie_tag(context):
     }
 
 
-@register.inclusion_tag('thebrushstash/tags/credit_card_logos.html')
+@register.inclusion_tag('thebrushstash/tags/credit_card_logos_tag.html')
 def credit_card_logos_tag():
     return {
         'credit_card_logos': CreditCardLogo.published_objects.all(),
     }
 
 
-@register.inclusion_tag('thebrushstash/tags/newsletter.html')
+@register.inclusion_tag('thebrushstash/tags/newsletter_tag.html')
 def newsletter_tag():
     pass
