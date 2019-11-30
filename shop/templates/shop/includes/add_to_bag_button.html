@@ -11,7 +11,9 @@
   data-price-eur="{{ object.price_eur }}"
   data-price-gbp="{{ object.price_gbp }}"
   data-price-usd="{{ object.price_usd }}"
-  data-image-url="{{ lead_image.image.url }}"
+  {% if lead_image.image %}
+    data-image-url="{{ lead_image.image.url }}"
+  {% endif %}
   data-multiple="{{ multiple }}"
   {% if object.in_stock == 0 %}
     disabled
