@@ -11,10 +11,6 @@
 
     {% for gallery_item in test_image_gallery %}
       <br>
-        {{ gallery_item.name }} - portrait
-      <hr>
-      {% media_object obj=gallery_item shape='portrait' %}
-      <br>
         {{ gallery_item.name }} - landscape
       <hr>
       {% media_object obj=gallery_item shape='landscape' %}

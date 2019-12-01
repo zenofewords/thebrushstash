@@ -21,8 +21,6 @@ EMPTY_BAG = {
 DEFAULT_IMAGE_QUALITY = 70
 DEFAULT_DENSITY = 1
 
-PORTRAIT = 'portrait'
-PORTRAIT_WIDTH = 470
 LANDSCAPE = 'landscape'
 LANDSCAPE_WIDTH = 650
 SQUARE = 'square'
@@ -32,15 +30,6 @@ THUMBNAIL_WIDTH = 70
 
 VARIATIONS = ['webp_desktop', 'webp_mobile', 'jpg_desktop', 'jpg_mobile']
 SLOTS = [
-    {
-        'shape': PORTRAIT,
-        'ratio': 0.83,
-        'dimensions': {
-            'large': PORTRAIT_WIDTH * 3,
-            'medium': PORTRAIT_WIDTH * 2,
-            'small': PORTRAIT_WIDTH,
-        },
-    },
     {
         'shape': LANDSCAPE,
         'ratio': 1.48,
