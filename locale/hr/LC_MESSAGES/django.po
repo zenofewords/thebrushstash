@@ -64,10 +64,6 @@ msgstr "Ime"
 msgid "Last name"
 msgstr "Prezime"
 
-#: account/forms.py:85
-msgid "Company address"
-msgstr "Adresa tvrtke"
-
 #: account/forms.py:88
 msgid "Phone number"
 msgstr "Telefon"
@@ -665,12 +661,12 @@ msgid "Bag"
 msgstr "Košarica"
 
 #: thebrushstash/templates/thebrushstash/tags/newsletter_tag.html:7
-msgid "Join our newsletter!"
-msgstr "Saznajte najnovije The Brush Stash vijesti!"
+msgid "Join our newsletter..."
+msgstr "Saznajte najnovije The Brush Stash vijesti..."
 
 #: thebrushstash/templates/thebrushstash/tags/newsletter_tag.html:10
-msgid "Learn about new products and special offers"
-msgstr "Budite u toku s novim proizvodima i posebnim ponudama"
+msgid "Learn about new products and special offers!"
+msgstr "Budite u toku s novim proizvodima i posebnim ponudama!"
 
 #: thebrushstash/templates/thebrushstash/tags/newsletter_tag.html:16
 msgid "Join"

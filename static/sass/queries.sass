@@ -35,6 +35,7 @@
     width: 100%
     background-size: 85% 130%
     z-index: 1
+    border-bottom: 1px solid rgba(50, 50, 50)
 
     .header
       height: 56px
@@ -271,9 +272,13 @@
         line-height: 15px
 
   .showcase-wrapper
-    margin: -24px 0 70px
+    margin: 0 0 50px
 
     .text-wrapper
+      border-top: 1px solid rgba(255, 255, 255)
+      border-right: 0
+      margin: 0 auto 5px
+
       h1
         font-size: 23px
         line-height: 26px
@@ -286,6 +291,7 @@
         padding: 0 30px
 
   .social-wrapper
+    margin-top: 15px
     border: none
     border-top: $discreetGreyBorder
 
@@ -308,7 +314,7 @@
 
         .info-text
           padding: 0 $gutter
-          margin: 0 0 30px
+          margin: 0 0 20px
 
       .join-wrapper
         width: calc(100% - #{$gutter} * 2)
@@ -332,9 +338,11 @@
             left: 30%
 
   .product-description-wrapper
+    margin-top: 30px
     flex-direction: column-reverse
 
     .text-wrapper
+      margin-top: 20px
       padding: 0
       min-width: 0
 
@@ -342,6 +350,9 @@
       .image-wrapper
         height: 100%
         width: auto
+
+  .more-from-shop-wrapper
+    margin-top: 30px
 
   .footer-nav-wrapper
     .inner-wrapper
@@ -381,7 +392,8 @@
 
   .products-wrapper
     .product
-      height: 510px
+      height: fit-content
+      padding-bottom: 15px
 
       p
         height: auto

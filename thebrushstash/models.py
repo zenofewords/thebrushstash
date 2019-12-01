@@ -56,11 +56,11 @@ class NavigationItem(LinkedMixin, PublishedMixin):
 
 
 class FooterItem(LinkedMixin, PublishedMixin):
-    pass
+    name_cro = models.CharField(max_length=500, blank=True)
 
 
 class FooterShareLink(LinkedMixin, PublishedMixin):
-    pass
+    name_cro = models.CharField(max_length=500, blank=True)
 
 
 class Region(PublishedMixin):
