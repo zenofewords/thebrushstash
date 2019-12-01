@@ -136,23 +136,26 @@ def generate_srcsets(path, url, original, slots):
         height = 0
         slot_ratio = slot.get('ratio')
 
-        if original_ratio >= 1 and slot_ratio < 1:
-            width = original_height * slot_ratio
-            height = original_height
-        elif original_ratio >= 1 and slot_ratio > 1:
-            width = original_height
-            height = original_height / slot_ratio
-        elif original_ratio < 1 and slot_ratio < 1:
-            width = original_width * slot_ratio
-            height = original_width
-        elif original_ratio < 1 and slot_ratio > 1:
-            width = original_width
-            height = original_width / slot_ratio
-        else:  # slot_ratio == 1
-            width = height = original_width if original_width < original_height else original_height
+        if slot_ratio - 0.3 < original_ratio < slot_ratio + 0.3:
+            create_variations(path, original, slot)
+        else:
+            if original_ratio >= 1 and slot_ratio < 1:
+                width = original_height * slot_ratio
+                height = original_height
+            elif original_ratio >= 1 and slot_ratio > 1:
+                width = original_height
+                height = original_height / slot_ratio
+            elif original_ratio < 1 and slot_ratio < 1:
+                width = original_width * slot_ratio
+                height = original_width
+            elif original_ratio < 1 and slot_ratio > 1:
+                width = original_width
+                height = original_width / slot_ratio
+            else:  # slot_ratio == 1
+                width = height = original_width if original_width < original_height else original_height
 
-        cropped_image = crop_image(original, original_width, original_height, width, height)
-        create_variations(path, cropped_image, slot)
+            cropped_image = crop_image(original, original_width, original_height, width, height)
+            create_variations(path, cropped_image, slot)
 
     for key in srcset_mapping.keys():
         extension, device, shape = key.split('_')
