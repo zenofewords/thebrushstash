@@ -31,9 +31,9 @@
       {% get_gallery object gallery_only='gallery-only' as gallery %}
       {% for item in gallery %}
         {% if selected_item_id == '0' and forloop.first or selected_item_id == item.pk|slugify %}
-          {% media_object obj=item shape='portrait' selected='true' %}
+          {% media_object obj=item shape='square' selected='true' %}
         {% else %}
-          {% media_object obj=item shape='portrait' hidden='true' %}
+          {% media_object obj=item shape='square' hidden='true' %}
         {% endif %}
       {% endfor %}
 
