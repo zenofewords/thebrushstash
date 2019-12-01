@@ -57,7 +57,7 @@
         {{ object.name }}
       </h1>
       <div class="price-tag">
-        {{ object.price_hrk }}
+        {% get_localized_price 'price' object %}
       </div>
       <p class="foreword">
         {% if LANGUAGE_CODE == 'hr' %}

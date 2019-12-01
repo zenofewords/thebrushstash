@@ -15,6 +15,7 @@
   .text-wrapper
     flex: 1 1 0px
     color: #fff
+    border-right: 1px solid rgba(50, 50, 50)
 
     h1
       font-size: 41px
@@ -27,7 +28,7 @@
       padding: 0 26px
 
   .image-wrapper
-    flex: 2 1 0px
+    flex: 3 1 0px
 
     .picture
       width: 100%
@@ -42,7 +43,7 @@
 
   .product
     position: relative
-    height: 615px
+    height: 600px
     text-align: center
     transition: $transitionDuration
 
@@ -83,7 +84,7 @@
 
       &:hover
         color: #000
-        background: $hoverBlack
+        background: $hoverLightGrey
 
     .label-new
       @extend %label
