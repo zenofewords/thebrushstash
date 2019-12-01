@@ -34,7 +34,7 @@ VARIATIONS = ['webp_desktop', 'webp_mobile', 'jpg_desktop', 'jpg_mobile']
 SLOTS = [
     {
         'shape': PORTRAIT,
-        'ratio': 0.75,
+        'ratio': 0.83,
         'dimensions': {
             'large': PORTRAIT_WIDTH * 3,
             'medium': PORTRAIT_WIDTH * 2,
