@@ -1,4 +1,4 @@
-from decimal import Decimal
+from thebrushstash.models import Setting
 
 EMPTY_BAG = {
     'products': {},
@@ -75,6 +75,6 @@ for variation in VARIATIONS:
     for shape in [slot.get('shape') for slot in SLOTS]:
         SRCSET_MAPPING['{}_{}'.format(variation, shape)] = []
 
-DEFAULT_SHIPPING_COST = 10
-GLS_FEE = Decimal('10.00')
-FREE_SHIPPING_PRODUCTS = 3
+DEFAULT_SHIPPING_COST = Setting.objects.get(name='DEFAULT_SHIPPING_COST').value
+FREE_SHIPPING_PRODUCTS = Setting.objects.get(name='FREE_SHIPPING_PRODUCTS').value
+GLS_FEE = Setting.objects.get(name='GLS_FEE').value

@@ -79,3 +79,15 @@ class Region(PublishedMixin):
 
     def __str__(self):
         return self.name
+
+
+class Setting(models.Model):
+    name = models.CharField(max_length=50)
+    value = models.DecimalField(max_digits=14, decimal_places=2)
+
+    class Meta:
+        verbose_name = 'Setting'
+        verbose_name_plural = 'Settings'
+
+    def __str__(self):
+        return '{} - {}'.format(self.name, self.value)
