@@ -89,7 +89,7 @@ export const getCookie = (name) => {
 }
 
 export const toggleStickyNav = (scrollPosition) => {
-  if (scrollPosition > 190) {
+  if (scrollPosition > 159) {
     navigationWrapper.classList.add('sticky-nav')
     mainWrapper.classList.add('sticky-nav-margin')
   } else {

@@ -1,25 +1,5 @@
 @import './variables.sass'
 
-@media only screen and (max-width: $mediaTablet)
-  .showcase-wrapper
-    flex-flow: column-reverse
-    max-height: 100%
-
-    .text-wrapper
-      text-align: center
-      margin: 0 auto 30px
-      max-width: 650px
-
-      h1
-        padding: 40px 20px 20px
-
-      p
-        padding: 0 20px
-
-    .image-wrapper
-      .picture
-        max-height: 435px
-
 @media only screen and (max-width: $mediaMobile)
   .main-wrapper
     margin-top: 80px
@@ -35,7 +15,7 @@
     width: 100%
     background-size: 85% 130%
     z-index: 1
-    border-bottom: 1px solid rgba(50, 50, 50)
+    border-bottom: $discreetGreyBorder
 
     .header
       height: 56px
@@ -129,20 +109,17 @@
         width: 100%
 
         &:first-child
-          margin: 50px auto 0
+          margin: 0 auto
 
         a
           display: flex
           justify-content: center
-          padding: 23px 0
-
-      .nav-divider
-        display: none
+          padding: 15px 0
 
       .nav-item-log-in-register
         border-top: $discreetGreyBorder
         position: absolute
-        bottom: 30px
+        bottom: 60px
         left: 0
         width: 90%
         margin: 0 5%
@@ -272,23 +249,30 @@
         line-height: 15px
 
   .showcase-wrapper
-    margin: 0 0 50px
+    flex-flow: column-reverse
+    max-height: 100%
+    margin: 80px 0 50px
+    box-shadow: none
+
+    .image-wrapper
+      img
+        border-bottom: $discreetGreyBorder
 
     .text-wrapper
-      border-top: 1px solid rgba(255, 255, 255)
+      text-align: center
+      margin: 0 auto 15px
+      max-width: 650px
       border-right: 0
-      margin: 0 auto 5px
 
       h1
         font-size: 23px
         line-height: 26px
-        padding: 25px 60px 5px
+        padding: 20px 60px 0
 
       p
         font-size: 14px
-        line-height: 22px
-        text-align: left
-        padding: 0 30px
+        line-height: 20px
+        padding: 0 30px 0
 
   .social-wrapper
     margin-top: 15px
@@ -311,6 +295,7 @@
 
         .join-text
           margin: 0 0 20px
+          padding: 0 24px
 
         .info-text
           padding: 0 $gutter

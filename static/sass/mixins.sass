@@ -45,15 +45,23 @@
   line-height: 13px
 
 %background-circle-icon
+  content: ''
   position: absolute
-  font-size: 16px
-  color: #fff
+  right: 0
   background-color: #000
   height: 9px
   width: 9px
-  line-height: 7px
   border: 3px solid #000
   border-radius: 50%
+
+%circle-icon-content
+  position: absolute
+  font-family: "Arial"
+  font-size: 17px
+  line-height: 21px
+  color: #fff
+  top: 3px
+  right: 3px
   cursor: pointer
 
 %content-wrapper
@@ -63,6 +71,7 @@
   margin: 0 auto
 
 %price-tag
+  font-family: $headerFont
   font-weight: $regular
   font-size: 23px
   line-height: 29px
@@ -281,26 +290,26 @@
   font-family: $bodyFont
   font-size: 12px
   font-weight: $regular
-  line-height: 15px
+  line-height: 10px
   text-transform: uppercase
   white-space: nowrap
-  padding: 19px 0
+  padding: 17px 0
 
   a
     padding: 12px 5px 12px 0
 
   .bag-icon
-    padding: 12px 18px
+    padding: 7px 15px
     margin-right: 4px
-    background: url('data:image/svg+xml;base64,#{$bagIcon}') no-repeat center
+    background: url('data:image/svg+xml;base64,#{$bagIcon}') no-repeat top
 
 @mixin bag-item-count
   position: absolute
-  top: 17px
+  top: 14px
   color: #fff
   font-family: $bodyFont
   font-weight: $heavy
-  padding: 2px 6px
-  margin: 0 0 20px 5px
+  padding: 3px 6px
+  margin-left: 5px
   background-color: $colorBlue
   border-radius: $borderRadius
