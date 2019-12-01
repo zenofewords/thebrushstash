@@ -2,15 +2,16 @@
 {% load shop_tags %}
 
 <div class="product">
-  {% if product.new %}
-    <div class="label-new">
-      {{ product.new|yesno:'New,' }}
-    </div>
-  {% endif %}
   {% if product.in_stock == 0 %}
     <div class="label-out-of-stock">
       {% trans 'Out of stock' %}
     </div>
+  {% else %}
+    {% if product.new %}
+      <div class="label-new">
+        {{ product.new|yesno:'New,' }}
+      </div>
+    {% endif %}
   {% endif %}
 
   <a href="{% url 'shop:product-detail' product.slug %}">
