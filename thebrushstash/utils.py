@@ -220,7 +220,7 @@ def register_user(data, current_site):
     email = data.get('email')
     user = CustomUser.objects.filter(email=email).first()
 
-    if user.is_authenticated:
+    if user:
         update_user_information(user, email, data)
     elif data.get('register') and email:
         user = CustomUser()

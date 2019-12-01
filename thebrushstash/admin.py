@@ -9,6 +9,7 @@ from thebrushstash.models import (
     NavigationItem,
     Region,
     TestImage,
+    Setting,
 )
 from shop.admin import (
     GalleryItemInline,
@@ -47,3 +48,4 @@ admin.site.register(FooterShareLink)
 admin.site.register(NavigationItem, NavigationItemAdmin)
 admin.site.register(Region, RegionAdmin)
 admin.site.register(TestImage, TestImageAdmin)
+admin.site.register(Setting)
