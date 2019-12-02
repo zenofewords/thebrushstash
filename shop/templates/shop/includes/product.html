@@ -4,12 +4,12 @@
 <div class="product">
   {% if product.in_stock == 0 %}
     <div class="label-out-of-stock">
-      {% trans 'Coming soon' %}
+      {% trans "Coming soon" %}
     </div>
   {% else %}
     {% if product.new %}
       <div class="label-new">
-        {{ product.new|yesno:'New,' }}
+        {% trans "New" %}
       </div>
     {% endif %}
   {% endif %}

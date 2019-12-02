@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 23:44+0100\n"
+"POT-Creation-Date: 2019-12-02 23:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,15 +224,16 @@ msgstr "Prethodni korak"
 msgid "Coming soon"
 msgstr "Dolazi uskoro"
 
+#: shop/templates/shop/includes/product.html:12
+msgid "New"
+msgstr "Novo"
+
 #: shop/templates/shop/product_detail.html:22
+#: shop/templates/shop/product_detail.html:49
 #: shop/templates/shop/shop_base.html:7 shop/templates/shop/shop_base.html:11
 #: shop/templates/shop/shop_base.html:15 shop/templates/shop/shop_base.html:19
 msgid "Webshop"
 msgstr "Webshop"
-
-#: shop/templates/shop/product_detail.html:49
-msgid "Shop"
-msgstr ""
 
 #: shop/templates/shop/product_detail.html:85
 #, python-format
@@ -320,6 +321,7 @@ msgid "VAT"
 msgstr "PDV"
 
 #: shop/templates/shop/purchase_complete_email.html:117
+#: shop/templates/shop/tags/purchase_summary_tag.html:40
 msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
@@ -396,7 +398,7 @@ msgstr "Cijena proizvoda:"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:16
 msgid "VAT (included in price):"
-msgstr ""
+msgstr "PDV (uključen u cijenu)"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:24
 #: thebrushstash/templates/thebrushstash/tags/ship_to_tag.html:7
@@ -406,10 +408,6 @@ msgstr "Dostava u:"
 #: shop/templates/shop/tags/purchase_summary_tag.html:32
 msgid "GLS:"
 msgstr "GLS:"
-
-#: shop/templates/shop/tags/purchase_summary_tag.html:40
-msgid "Grand total:"
-msgstr "Ukupna cijena:"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:49
 msgid "Grand total (HRK):"
