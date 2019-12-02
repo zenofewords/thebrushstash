@@ -75,12 +75,14 @@ def bag_tag(context):
     }
 
 
-@register.inclusion_tag('thebrushstash/tags/footer_tag.html')
-def footer_tag(hide_social=False):
+@register.inclusion_tag('thebrushstash/tags/footer_tag.html', takes_context=True)
+def footer_tag(context, hide_social=False):
+    request = context['request']
     return {
         'hide_social': hide_social,
         'footer_items': FooterItem.published_objects.all(),
         'footer_share_links': FooterShareLink.published_objects.all(),
+        'LANGUAGE_CODE': request.session.get('_language'),
     }
 
 

@@ -1,43 +1,39 @@
 {% if object.image %}
-  <div id="{{ object.pk }}" {{ class_list|safe }} {% if hidden %} hidden{% endif %}>
-    <picture>
-      <source
-        srcset="{{ webp_desktop_srcset }}"
-        type="image/webp"
-        media="(min-width: 813px)"
-      >
-      <source
-        srcset="{{ webp_mobile_srcset }}"
-        type="image/webp"
-        media="(max-width: 812px)"
-      >
-      <source
-        srcset="{{ jpg_desktop_srcset }}"
-        media="(min-width: 813px)"
-      >
-      <source
-        srcset="{{ jpg_mobile_srcset }}"
-        media="(max-width: 812px)"
-      >
-      {% if preview and not object.youtube_video_id %}
-        <a class="images-with-preview" href="#">
-          <img
-            src="{{ object.image.url }}"
-            alt="{{ object.name }}"
-            class="picture"
-          >
-        </a>
-      {% else %}
+  {% if preview and not object.youtube_video_id %}
+    <a class="images-with-preview" href="#">
+  {% endif %}
+    <div id="{{ object.pk }}" {{ class_list|safe }} {% if hidden %} hidden{% endif %}>
+      <picture>
+        <source
+          srcset="{{ webp_desktop_srcset }}"
+          type="image/webp"
+          media="(min-width: 813px)"
+        >
+        <source
+          srcset="{{ webp_mobile_srcset }}"
+          type="image/webp"
+          media="(max-width: 812px)"
+        >
+        <source
+          srcset="{{ jpg_desktop_srcset }}"
+          media="(min-width: 813px)"
+        >
+        <source
+          srcset="{{ jpg_mobile_srcset }}"
+          media="(max-width: 812px)"
+        >
         <img
           src="{{ object.image.url }}"
           alt="{{ object.name }}"
           class="picture"
         >
-      {% endif %}
-    </picture>
+      </picture>
 
-    {% if object.youtube_video_id %}
-      <div id="{{ object.pk }}" class="video-wrapper" {% if object.youtube_video_id %}data-youtube-video-id="{{ object.youtube_video_id }}"{% endif %}></div>
-    {% endif %}
-  </div>
+      {% if object.youtube_video_id %}
+        <div id="{{ object.pk }}" class="video-wrapper" {% if object.youtube_video_id %}data-youtube-video-id="{{ object.youtube_video_id }}"{% endif %}></div>
+      {% endif %}
+    </div>
+  {% if preview and not object.youtube_video_id %}
+    </a>
+  {% endif %}
 {% endif %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-30 20:12+0100\n"
+"POT-Creation-Date: 2019-12-02 23:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,6 +63,12 @@ msgstr "Ime"
 #: account/forms.py:82
 msgid "Last name"
 msgstr "Prezime"
+
+#: account/forms.py:85
+#, fuzzy
+#| msgid "Company address"
+msgid "E-mail address"
+msgstr "Adresa tvrtke"
 
 #: account/forms.py:88
 msgid "Phone number"
@@ -126,7 +132,7 @@ msgstr "Potrebno je pristati na uvjete korištenja prije nastavka kupnje."
 msgid "Checkout"
 msgstr "Blagajna"
 
-#: shop/templates/shop/includes/add_to_bag_button.html:20
+#: shop/templates/shop/includes/add_to_bag_button.html:23
 msgid "Add to bag"
 msgstr "Dodaj u košaricu"
 
@@ -167,7 +173,7 @@ msgid "Continue to payment"
 msgstr "Nastavite na plaćanje"
 
 #: shop/templates/shop/includes/checkout_ipg_form.html:22
-#: shop/templates/shop/includes/checkout_payment_form.html:48
+#: shop/templates/shop/includes/checkout_payment_form.html:34
 msgid "Place order"
 msgstr "Potvrdite narudžbu"
 
@@ -194,35 +200,36 @@ msgstr ""
 "Iz sigurnosnih razloga, sve narudžbe koje uključuju plaćanje pouzećem, prije "
 "slanja potvrdit ćemo telefonski."
 
-#: shop/templates/shop/includes/checkout_payment_form.html:34
+#: shop/templates/shop/includes/checkout_payment_form.html:31
+msgid "Cash on delivery orders will be confirmed by phone"
+msgstr ""
+"Sve narudžbe koje uključuju plaćanje pouzećem, prije slanja potvrdit ćemo "
+"telefonski."
+
+#: shop/templates/shop/includes/checkout_payment_form.html:42
 msgid "Use a credit card"
 msgstr "Kartična plaćanja"
 
-#: shop/templates/shop/includes/checkout_payment_form.html:39
+#: shop/templates/shop/includes/checkout_payment_form.html:47
 msgid "Note: all payments are processed in Croatian Kuna (HRK)"
 msgstr ""
-
-#: shop/templates/shop/includes/checkout_payment_form.html:45
-msgid "Cash on delivery orders will be confirmed by phone"
-msgstr ""
-"Sve narudžbe koje uključuju plaćanje pouzećem, prije slanja potvrdit ćemo telefonski."
 
 #: shop/templates/shop/includes/checkout_payment_form.html:55
 msgid "Previous step"
 msgstr "Prethodni korak"
 
-#: shop/templates/shop/includes/product.html:12
-msgid "Out of stock"
+#: shop/templates/shop/includes/product.html:7
+msgid "Coming soon"
 msgstr ""
 
-#: shop/templates/shop/product_detail.html:19
-#: shop/templates/shop/product_detail.html:46
-#: shop/templates/shop/shop_base.html:6 shop/templates/shop/shop_base.html:10
-#: shop/templates/shop/shop_base.html:14 shop/templates/shop/shop_base.html:18
-msgid "Shop"
-msgstr "Dućan"
+#: shop/templates/shop/product_detail.html:22
+#: shop/templates/shop/product_detail.html:49
+#: shop/templates/shop/shop_base.html:7 shop/templates/shop/shop_base.html:11
+#: shop/templates/shop/shop_base.html:15 shop/templates/shop/shop_base.html:19
+msgid "Webshop"
+msgstr "Webshop"
 
-#: shop/templates/shop/product_detail.html:82
+#: shop/templates/shop/product_detail.html:85
 #, python-format
 msgid ""
 "*Prices include VAT.\n"
@@ -235,7 +242,7 @@ msgstr ""
 "            Opcije dostave\n"
 "          </a>"
 
-#: shop/templates/shop/product_detail.html:111
+#: shop/templates/shop/product_detail.html:116
 msgid "More from our shop"
 msgstr "Više iz naše ponude"
 
@@ -251,6 +258,75 @@ msgstr "Vaša narudžba je otkazana"
 msgid ""
 "You can always continue from where you left off if you change your mind."
 msgstr "U slučaju da se predomislite, uvijek možete nastaviti gdje ste stali."
+
+#: shop/templates/shop/purchase_complete_email.html:3
+msgid "Dear"
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:4
+msgid ""
+"Your order is now being processed. We’ll send you a follow-up email as soon "
+"as your parcel has shipped."
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:6
+#, fuzzy
+#| msgid "Order summary"
+msgid "Order Number:"
+msgstr "Pregled narudžbe"
+
+#: shop/templates/shop/purchase_complete_email.html:10
+msgid "BILLING TO:"
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:13
+msgid "SHIPPING TO:"
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:51
+msgid "DESCRIPTION"
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:54
+msgid "PRICE"
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:57
+msgid "QTY"
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:60
+msgid "TOTAL"
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:83
+#: shop/templates/shop/review_bag.html:23
+msgid "Subtotal"
+msgstr "Cijena"
+
+#: shop/templates/shop/purchase_complete_email.html:91
+msgid "Shipping"
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:100
+msgid "Fees"
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:109
+msgid "VAT"
+msgstr ""
+
+#: shop/templates/shop/purchase_complete_email.html:117
+#, fuzzy
+#| msgid "Grand total:"
+msgid "Grand total"
+msgstr "Ukupna cijena:"
+
+#: shop/templates/shop/purchase_complete_email.html:124
+#, fuzzy
+#| msgid "Thank you for using %(site_name)s!"
+msgid "Thank you for shopping with"
+msgstr "Hvala Vam što koristite %(site_name)s!"
 
 #: shop/templates/shop/purchase_completed.html:6
 msgid "Purchase Complete"
@@ -296,17 +372,13 @@ msgstr "Proizvod i cijena"
 msgid "Quantity"
 msgstr "Količina"
 
-#: shop/templates/shop/review_bag.html:23
-msgid "Subtotal"
-msgstr "Cijena"
-
-#: shop/templates/shop/shop_base.html:11 shop/templates/shop/shop_base.html:15
+#: shop/templates/shop/shop_base.html:12 shop/templates/shop/shop_base.html:16
 msgid "The Brush Stash | Luxury makeup brushes handmade in Japan"
 msgstr ""
 "The Brush Stash | Luksuzni hrvatski kistovi za šminkanje ručno proizvedeni u "
 "Japanu"
 
-#: shop/templates/shop/shop_base.html:12
+#: shop/templates/shop/shop_base.html:13
 msgid ""
 "japanese brushes, kumano brushes, handmade makeup brushes, luxury makeup, "
 "makeup brushes, kumano fude, high end brushes, luxury cosmetics"
@@ -324,27 +396,31 @@ msgid "Total:"
 msgstr "Cijena proizvoda:"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:16
+msgid "VAT (included in price):"
+msgstr ""
+
+#: shop/templates/shop/tags/purchase_summary_tag.html:24
 #: thebrushstash/templates/thebrushstash/tags/ship_to_tag.html:7
 msgid "Ship to:"
 msgstr "Dostava u:"
 
-#: shop/templates/shop/tags/purchase_summary_tag.html:24
+#: shop/templates/shop/tags/purchase_summary_tag.html:32
 msgid "GLS:"
 msgstr "GLS:"
 
-#: shop/templates/shop/tags/purchase_summary_tag.html:32
+#: shop/templates/shop/tags/purchase_summary_tag.html:40
 msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
-#: shop/templates/shop/tags/purchase_summary_tag.html:41
+#: shop/templates/shop/tags/purchase_summary_tag.html:49
 msgid "Grand total (HRK):"
 msgstr "Ukupna cijena:"
 
-#: shop/templates/shop/tags/purchase_summary_tag.html:51
+#: shop/templates/shop/tags/purchase_summary_tag.html:59
 msgid "Check out"
 msgstr "Plaćanje"
 
-#: shop/templates/shop/tags/purchase_summary_tag.html:54
+#: shop/templates/shop/tags/purchase_summary_tag.html:62
 msgid "Continue shopping"
 msgstr "Nastavak kupnje"
 
@@ -455,6 +531,7 @@ msgid "You can activate your subscription at the following page:"
 msgstr "Svoj korisnički račun možete aktivirati ovdje:"
 
 #: templates/account/subscription_verification_email.html:9
+#, python-format
 msgid "Thanks, %(site_name)s!"
 msgstr "Hvala Vam, %(site_name)s!"
 
@@ -541,6 +618,7 @@ msgstr ""
 "provjerite da li ste unijeli ispravne podatke te provjerite spam folder."
 
 #: templates/registration/password_reset_email.html:3
+#, python-format
 msgid ""
 "You're receiving this e-mail because you requested a password reset for your "
 "user account at %(site_name)s."
@@ -615,7 +693,7 @@ msgstr "Cijena:"
 
 #: thebrushstash/templates/thebrushstash/includes/bag.html:45
 msgid "Buy some brushes"
-msgstr ""
+msgstr "Vaša košarica je prazna"
 
 #: thebrushstash/templates/thebrushstash/includes/bag.html:48
 msgid "Review bag"
@@ -652,11 +730,11 @@ msgstr "Pratite nas na"
 msgid "The Brush Stash. All rights reserved."
 msgstr "The Brush Stash. Sva prava pridržana."
 
-#: thebrushstash/templates/thebrushstash/tags/navigation_tag.html:20
+#: thebrushstash/templates/thebrushstash/tags/navigation_tag.html:19
 msgid "Login/Register"
 msgstr "Login/Registracija"
 
-#: thebrushstash/templates/thebrushstash/tags/navigation_tag.html:26
+#: thebrushstash/templates/thebrushstash/tags/navigation_tag.html:25
 msgid "Bag"
 msgstr "Košarica"
 
@@ -672,30 +750,30 @@ msgstr "Budite u toku s novim proizvodima i posebnim ponudama!"
 msgid "Join"
 msgstr "Pošalji"
 
-#: thebrushstash/utils.py:257
+#: thebrushstash/utils.py:262
 msgid "Already subscribed."
 msgstr ""
 
-#: thebrushstash/utils.py:259
+#: thebrushstash/utils.py:264
 msgid "Subscribed, thanks!"
 msgstr ""
 
-#: thebrushstash/utils.py:262
+#: thebrushstash/utils.py:267
 msgid "Check your e-mail for confirmation!"
 msgstr "Provjerite svoj e-mail kako biste potvrdili registraciju"
 
-#: thebrushstash/utils.py:394
+#: thebrushstash/utils.py:423
 msgid "There's nothing in your bag."
 msgstr ""
 
-#: thebrushstash/utils.py:401
+#: thebrushstash/utils.py:430
 msgid ""
 "\n"
 "                Looks like {} is all sold out :(\n"
 "                You'll have to remove it from your bag to continue."
 msgstr ""
 
-#: thebrushstash/utils.py:405
+#: thebrushstash/utils.py:434
 msgid ""
 "\n"
 "                We've got only {} {} left,\n"
