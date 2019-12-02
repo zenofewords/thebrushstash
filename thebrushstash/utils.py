@@ -11,7 +11,7 @@ from webptools import webplib
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail, EmailMessage
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -322,14 +322,34 @@ def send_subscription_email(email, current_site):
     EmailMessage(mail_subject, message, to=[email]).send()
 
 
-def send_purchase_mail(email_address, current_site):
-    mail_subject = 'Purchase complete'
-    message = render_to_string('shop/purchase_complete_email.html', {
+def send_purchase_mail(email_address, current_site, invoice, bag):
+    # msg_plain = render_to_string('shop/purchase_complete_email.html', {
+    #     'domain': current_site.domain,
+    #     'site_name': current_site.name,
+    #     'protocol': 'http' if settings.DEBUG else 'https',
+    #     'invoice': invoice,
+    #     'invoice_items': InvoiceItem.objects.filter(
+    #         invoice=invoice).select_related('invoice', 'product'),
+    #     'bag': bag,
+    # })
+    msg_html = render_to_string('shop/purchase_complete_email.html', {
         'domain': current_site.domain,
         'site_name': current_site.name,
         'protocol': 'http' if settings.DEBUG else 'https',
+        'invoice': invoice,
+        'invoice_items': InvoiceItem.objects.filter(
+            invoice=invoice).select_related('invoice', 'product'),
+        'bag': bag,
     })
-    EmailMessage(mail_subject, message, to=[email_address]).send()
+
+    send_mail(
+        'Purchase complete',
+        '',
+        'The Brush Stash',
+        [email_address],
+        html_message=msg_html,
+    )
+    # EmailMessage(mail_subject, message, to=[email_address]).send()
 
 
 def get_cart(bag):
@@ -380,12 +400,16 @@ def complete_purchase(session, invoice_status, request):
 
         update_inventory(invoice, session['bag']['products'])
 
+        send_purchase_mail(
+            session['user_information']['email'],
+            get_current_site(request),
+            invoice,
+            session['bag'],
+        )
         session['bag'] = EMPTY_BAG
         session['order_number'] = None
         session['user_information']['phone_number'] = phone_number
         session['user_information']['note'] = None
-
-        send_purchase_mail(session['user_information']['email'], get_current_site(request))
 
 
 def format_price(currency, price):

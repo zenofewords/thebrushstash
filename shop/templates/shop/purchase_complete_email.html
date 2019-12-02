@@ -1,1 +1,124 @@
-Kupili ste neki kist.
+{% load i18n %}
+
+<p>{% trans "Dear" %} {{ invoice.first_name }},</p>
+<p>{% trans "Your order is now being processed. We’ll send you a follow-up email as soon as your parcel has shipped." %}</p>
+<p>
+  {% trans "Order Number:" %} {{ invoice.order_number }}
+</p>
+<table>
+  <th>
+    {% trans "BILLING TO:" %}
+  </th>
+  <th>
+    {% trans "SHIPPING TO:" %}
+  </th>
+  <tr>
+    <td>
+      {{ invoice.first_name }} {{ invoice.last_name }}
+    </td>
+    <td>
+      {{ invoice.first_name }} {{ invoice.last_name }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ invoice.address }}
+    </td>
+    <td>
+      {{ invoice.address }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ invoice.zip_code }} {{ invoice.city }}
+    </td>
+    <td>
+      {{ invoice.zip_code }} {{ invoice.city }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{ invoice.country }}
+    </td>
+    <td>
+      {{ invoice.country }}
+    </td>
+  </tr>
+</table>
+<br>
+<table>
+  <th>
+    {% trans "DESCRIPTION" %}
+  </th>
+  <th>
+    {% trans "PRICE" %}
+  </th>
+  <th>
+    {% trans "QTY" %}
+  </th>
+  <th>
+    {% trans "TOTAL" %}
+  </th>
+  {% for item in invoice_items %}
+    <tr>
+      <td>
+        {{ item.product.name }}
+      </td>
+      <td>
+        {{ item.product.price_hrk }}
+      </td>
+      <td>
+        {{ item.sold_count }}
+      </td>
+      <td>
+        {% widthratio item.product.price_hrk 1 item.sold_count %}
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+<br>
+<table>
+  <tr>
+    <td>
+      {% trans "Subtotal" %}
+    </td>
+    <td>
+      {{ bag.total_hrk }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {% trans "Shipping" %}
+    </td>
+    <td>
+      {{ bag.shipping_cost_hrk }}
+    </td>
+  </tr>
+  {% if bag.fees %}
+    <tr>
+      <td>
+        {% trans "Fees" %}
+      </td>
+      <td>
+        {{ bag.fees }}
+      </td>
+    </tr>
+  {% endif %}
+  <tr>
+    <td>
+      {% trans "VAT" %}
+    </td>
+    <td>
+      {{ bag.tax }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {% trans "Grand total" %}
+    </td>
+    <td>
+      {{ bag.grand_total_hrk }}
+    </td>
+  </tr>
+</table>
+<p>{% trans 'Thank you for shopping with' %} {{ site_name }}</p>
