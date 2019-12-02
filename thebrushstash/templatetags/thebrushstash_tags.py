@@ -2,7 +2,10 @@ from django import template
 from django.utils.translation import get_language
 
 from shop.constants import EMPTY_BAG
-from shop.utils import set_shipping_cost
+from shop.utils import (
+    set_tax,
+    set_shipping_cost,
+)
 from thebrushstash.constants import DEFAULT_REGION
 from thebrushstash.models import (
     CreditCardLogo,
@@ -52,6 +55,7 @@ def ship_to_tag(context):
 
     session['currency'] = selected_region.currency
     set_shipping_cost(session['bag'], selected_region.name)
+    set_tax(session['bag'], selected_region.currency)
     session.modified = True
 
     return {

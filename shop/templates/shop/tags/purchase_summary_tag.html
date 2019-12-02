@@ -13,6 +13,14 @@
   </div>
   <div class="summary-row">
     <span class="summary-label">
+      {% trans "VAT (included in price):" %}
+    </span>
+    <span id="summary-tax" class="summary-value">
+      {% format_price_with_currency bag.tax currency %}
+    </span>
+  </div>
+  <div class="summary-row">
+    <span class="summary-label">
       {% trans "Ship to:" %} {{ region }}
     </span>
     <span id="summary-value-shipping-cost" class="summary-value">

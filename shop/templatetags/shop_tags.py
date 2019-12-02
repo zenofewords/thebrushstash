@@ -12,6 +12,11 @@ from thebrushstash.utils import format_price
 register = template.Library()
 
 
+@register.simple_tag
+def format_price_with_currency(price, currency):
+    return format_price(currency, price)
+
+
 @register.inclusion_tag('shop/tags/showcase_tag.html')
 def showcase_tag():
     return {

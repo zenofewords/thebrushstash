@@ -77,6 +77,7 @@ export const summaryGrandTotalHrk = document.getElementById('summary-grand-total
 export const summaryRowFees = document.getElementById('summary-row-fees')
 export const summaryRowFeesValue = document.getElementById('summary-value-fees')
 export const summaryShippingCost = document.getElementById('summary-value-shipping-cost')
+export const summaryTax = document.getElementById('summary-tax')
 export const summaryTotal = document.getElementById('summary-total')
 export const thumbnailWrappers = document.getElementsByClassName('image-wrapper thumbnail')
 export const videoWrappers = document.getElementsByClassName('video-wrapper')

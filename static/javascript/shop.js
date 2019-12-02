@@ -84,7 +84,6 @@ ready(() => {
       } else {
         document.body.classList.add('lock-scroll')
         navigationWrapper.hidden = true
-        // history.pushState({mediaObject: event.target.id}, '', `?gallery-item=${event.target.id}`)
         loadVideo(videoWrappers[i])
       }
     })

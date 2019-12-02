@@ -102,6 +102,7 @@ export const addProduct = (dataset) => fetch(
       price_eur: parseFloat(dataset.priceEur.replace(',', '.')),
       price_gbp: parseFloat(dataset.priceGbp.replace(',', '.')),
       price_usd: parseFloat(dataset.priceUsd.replace(',', '.')),
+      tax: parseFloat(dataset.tax.replace(',', '.')),
       image_url: dataset.imageUrl,
     }),
   }
