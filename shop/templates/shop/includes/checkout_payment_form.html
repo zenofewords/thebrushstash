@@ -27,6 +27,14 @@
     </div>
   {% endif %}
 
+  <div id="cash-on-delivery-submit-wrapper">
+    {% trans 'Cash on delivery orders will be confirmed by phone' as phone_info %}
+    {% include 'account/includes/form_field.html' with field=form.phone_number info=phone_info %}
+    <button id="cash-on-delivery-submit-button">
+      {% trans "Place order" %}
+    </button>
+  </div>
+
   <div class="credit-card-wrapper">
     <span class="checkout-radio-wrapper">
       <input type="radio" id="credit-card" name="payment-method" value="credit-card"{% if region != 'hr' %} checked{% endif %}>
@@ -39,14 +47,6 @@
       {% trans "Note: all payments are processed in Croatian Kuna (HRK)" %}
     </p>
     {% credit_card_logos_tag 'preview' %}
-  </div>
-
-  <div id="cash-on-delivery-submit-wrapper">
-    {% trans 'Cash on delivery orders will be confirmed by phone' as phone_info %}
-    {% include 'account/includes/form_field.html' with field=form.phone_number info=phone_info %}
-    <button id="cash-on-delivery-submit-button">
-      {% trans "Place order" %}
-    </button>
   </div>
 </form>
 
