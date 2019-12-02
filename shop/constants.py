@@ -22,7 +22,7 @@ DEFAULT_IMAGE_QUALITY = 70
 DEFAULT_DENSITY = 1
 
 LANDSCAPE = 'landscape'
-LANDSCAPE_WIDTH = 650
+LANDSCAPE_WIDTH = 730
 SQUARE = 'square'
 SQUARE_WIDTH = 480
 THUMBNAIL = 'thumbnail'
@@ -32,7 +32,7 @@ VARIATIONS = ['webp_desktop', 'webp_mobile', 'jpg_desktop', 'jpg_mobile']
 SLOTS = [
     {
         'shape': LANDSCAPE,
-        'ratio': 1.48,
+        'ratio': 1.678,
         'dimensions': {
             'large': LANDSCAPE_WIDTH * 3,
             'medium': LANDSCAPE_WIDTH * 2,

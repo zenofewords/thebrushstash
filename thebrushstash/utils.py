@@ -136,7 +136,7 @@ def generate_srcsets(path, url, original, slots):
         height = 0
         slot_ratio = slot.get('ratio')
 
-        if slot_ratio - 0.3 < original_ratio < slot_ratio + 0.3:
+        if slot_ratio - 0.15 < original_ratio < slot_ratio + 0.15:
             create_variations(path, original, slot)
         else:
             if original_ratio >= 1 and slot_ratio < 1:
