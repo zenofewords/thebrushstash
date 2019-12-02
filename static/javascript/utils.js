@@ -202,7 +202,7 @@ export const switchActiveImage = (event) => {
     event.currentTarget.classList.add('selected')
     unselect.classList.remove('selected')
 
-    history.pushState({mediaObject: id}, '', `?gallery-item=${id}`)
+    // history.pushState({mediaObject: id}, '', `?gallery-item=${id}`)
   }
 }
 

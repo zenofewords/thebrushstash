@@ -4,6 +4,7 @@ import {
   setRegion,
 } from './requests'
 import {
+  imagesWithPreview,
   languageForm,
   languageInput,
   navigationWrapper,
@@ -53,26 +54,6 @@ ready(() => {
     document.addEventListener('click', menuItemClick)
   }
 
-  let currentModal
-  for (let i = 0; i < videoWrappers.length; i++) {
-    videoWrappers[i].addEventListener('click', (event) => {
-      event.preventDefault()
-
-      if (currentModal) {
-        document.body.classList.remove('lock-scroll')
-        navigationWrapper.hidden = false
-        videoWrappers[i].removeChild(currentModal)
-        videoWrappers[i].classList.remove('fade')
-        currentModal = undefined
-      } else {
-        document.body.classList.add('lock-scroll')
-        navigationWrapper.hidden = true
-        history.pushState({mediaObject: event.target.id}, '', `?gallery-item=${event.target.id}`)
-        loadVideo(videoWrappers[i])
-      }
-    })
-  }
-
   for (let i = 0; i < shipToSelects.length; i++) {
     shipToSelects[i].addEventListener('blur', (event) => {
       if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
@@ -88,6 +69,59 @@ ready(() => {
       }
     })
   }
+
+  let currentModal
+  for (let i = 0; i < videoWrappers.length; i++) {
+    videoWrappers[i].addEventListener('click', (event) => {
+      event.preventDefault()
+
+      if (currentModal) {
+        document.body.classList.remove('lock-scroll')
+        navigationWrapper.hidden = false
+        videoWrappers[i].removeChild(currentModal)
+        videoWrappers[i].classList.remove('fade')
+        currentModal = undefined
+      } else {
+        document.body.classList.add('lock-scroll')
+        navigationWrapper.hidden = true
+        // history.pushState({mediaObject: event.target.id}, '', `?gallery-item=${event.target.id}`)
+        loadVideo(videoWrappers[i])
+      }
+    })
+  }
+  const previewImageWrapper = document.createElement('div')
+  previewImageWrapper.classList.add('image-preview')
+
+  for (var i = 0; i < imagesWithPreview.length; i++) {
+    imagesWithPreview[i].addEventListener('click', (event) => {
+      event.preventDefault()
+
+      while (previewImageWrapper.firstChild) {
+        previewImageWrapper.removeChild(previewImageWrapper.firstChild)
+      }
+      document.body.classList.add('lock-scroll')
+      navigationWrapper.hidden = true
+
+      const picture = document.querySelector('.selected')
+      const size = window.innerWidth > window.innerHeight ? window.innerHeight * 0.9 : window.innerWidth * 0.9
+      const imagePreview = new Image(size, size)
+      const image = picture.getElementsByTagName('img')[0].currentSrc
+      imagePreview.src = image
+
+      previewImageWrapper.appendChild(imagePreview)
+      document.body.appendChild(previewImageWrapper)
+
+      currentModal = previewImageWrapper
+    })
+  }
+  previewImageWrapper.addEventListener('click', (event) => {
+    if (currentModal) {
+      document.body.classList.remove('lock-scroll')
+      document.body.removeChild(previewImageWrapper)
+      navigationWrapper.hidden = false
+      currentModal = undefined
+    }
+  })
 
   const loadVideo = (videoWrapper) => {
     const id = videoWrapper.dataset.youtubeVideoId

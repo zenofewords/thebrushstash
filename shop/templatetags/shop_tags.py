@@ -57,7 +57,7 @@ def get_image_by_natural_key(app_name, model, object_id):
 
 
 @register.inclusion_tag('thebrushstash/tags/media_object_tag.html')
-def media_object(obj, shape, selected=False, hidden=False):
+def media_object(obj, shape, selected=False, hidden=False, preview=False):
     if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
         return
 
@@ -78,6 +78,7 @@ def media_object(obj, shape, selected=False, hidden=False):
         'object': obj,
         'class_list': class_list,
         'hidden': hidden,
+        'preview': preview,
     }
     data.update(srcsets)
     return data

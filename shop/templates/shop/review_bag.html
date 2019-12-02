@@ -25,10 +25,8 @@
       <div class="bag-content">
         {% for key, value in bag.products.items %}
           <div id="{{ key }}" class="bag-item-row">
-            <div class="image-wrapper">
-              {% get_image_by_natural_key 'shop' 'product' value.pk as image %}
-              {% media_object obj=image shape='thumbnail' %}
-            </div>
+            {% get_image_by_natural_key 'shop' 'product' value.pk as image %}
+            {% media_object obj=image shape='thumbnail' %}
             <div class="bag-product-and-price">
               <span class="bag-product-name">
                 {{ value.name }}

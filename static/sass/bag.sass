@@ -4,12 +4,13 @@
   display: flex
   flex-direction: column
   position: absolute
-  top: 40px
-  right: -35px
+  top: 42px
+  right: -25px
   width: 300px
   background-color: #fff
   z-index: 2
   transition: $transitionDuration
+  box-shadow: $boxShadow
 
   &.bag-hide
     opacity: 0
@@ -99,7 +100,7 @@
     text-transform: uppercase
 
     &:hover
-      background-color: #333
+      background-color: $colorDarkBlue
 
     &.hidden
       display: none
@@ -159,7 +160,7 @@
       .image-wrapper
         width: 130px
         height: 130px
-        margin: 5px 0 15px
+        margin: 15px 10px
 
       .bag-product-and-price,
       .bag-subtotal
@@ -263,8 +264,12 @@
       padding: 23px 17px 5px
       margin: 20px 0
       cursor: pointer
+      position: relative
 
       .ipg-logo-icon
+        position: absolute
+        top: 15px
+        right: 15px
         width: 140px
         height: 34px
         background: url('data:image/svg+xml;base64,#{$ipgLogoIcon}') no-repeat center
@@ -327,7 +332,7 @@
         pointer-events: none
 
         &:hover
-          background-color: $colorGreen
+          background-color: $colorDarkGreen
 
     .checkout-help-text
       font-size: 16px
@@ -393,6 +398,9 @@
       text-align: center
       max-width: $checkoutFormInputWidth
       margin-bottom: 30px
+
+      &:hover
+        opacity: $hoverOpacity
 
   .summary-wrapper
     @extend %summary-wrapper
