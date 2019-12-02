@@ -65,10 +65,8 @@ msgid "Last name"
 msgstr "Prezime"
 
 #: account/forms.py:85
-#, fuzzy
-#| msgid "Company address"
 msgid "E-mail address"
-msgstr "Adresa tvrtke"
+msgstr "E-mail adresa"
 
 #: account/forms.py:88
 msgid "Phone number"
@@ -319,12 +317,10 @@ msgstr ""
 
 #: shop/templates/shop/purchase_complete_email.html:109
 msgid "VAT"
-msgstr ""
+msgstr "PDV"
 
 #: shop/templates/shop/purchase_complete_email.html:117
-#, fuzzy
-#| msgid "Grand total:"
-msgid "Grand total"
+msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
 #: shop/templates/shop/purchase_complete_email.html:124
@@ -416,10 +412,8 @@ msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:49
-#, fuzzy
-#| msgid "Grand total:"
 msgid "Grand total (HRK):"
-msgstr "Ukupna cijena:"
+msgstr "Ukupna cijena (HRK):"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:59
 msgid "Check out"

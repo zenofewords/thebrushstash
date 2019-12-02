@@ -80,7 +80,7 @@
 <table>
   <tr>
     <td>
-      {% trans "Subtotal" %}
+      {% trans "Subtotal" %}:
     </td>
     <td>
       {{ bag.total_hrk }}
@@ -88,7 +88,7 @@
   </tr>
   <tr>
     <td>
-      {% trans "Shipping" %}
+      {% trans "Shipping" %}:
     </td>
     <td>
       {{ bag.shipping_cost_hrk }}
@@ -97,7 +97,7 @@
   {% if bag.fees %}
     <tr>
       <td>
-        {% trans "Fees" %}
+        {% trans "Fees" %}:
       </td>
       <td>
         {{ bag.fees }}
@@ -106,7 +106,7 @@
   {% endif %}
   <tr>
     <td>
-      {% trans "VAT" %}
+      {% trans "VAT" %}:
     </td>
     <td>
       {{ bag.tax }}
@@ -114,7 +114,7 @@
   </tr>
   <tr>
     <td>
-      {% trans "Grand total" %}
+      {% trans "Grand total:" %}
     </td>
     <td>
       {{ bag.grand_total_hrk }}
