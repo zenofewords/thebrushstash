@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-02 23:22+0100\n"
+"POT-Creation-Date: 2019-12-02 23:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -219,15 +219,22 @@ msgid "Previous step"
 msgstr "Prethodni korak"
 
 #: shop/templates/shop/includes/product.html:7
+#: thebrushstash/templates/thebrushstash/about_the_story.html:12
+#: thebrushstash/templates/thebrushstash/brush_care.html:12
+#: thebrushstash/templates/thebrushstash/contact.html:12
+#: thebrushstash/templates/thebrushstash/faq.html:12
 msgid "Coming soon"
-msgstr ""
+msgstr "Dolazi uskoro"
 
 #: shop/templates/shop/product_detail.html:22
-#: shop/templates/shop/product_detail.html:49
 #: shop/templates/shop/shop_base.html:7 shop/templates/shop/shop_base.html:11
 #: shop/templates/shop/shop_base.html:15 shop/templates/shop/shop_base.html:19
 msgid "Webshop"
 msgstr "Webshop"
+
+#: shop/templates/shop/product_detail.html:49
+msgid "Shop"
+msgstr ""
 
 #: shop/templates/shop/product_detail.html:85
 #, python-format
@@ -270,10 +277,8 @@ msgid ""
 msgstr ""
 
 #: shop/templates/shop/purchase_complete_email.html:6
-#, fuzzy
-#| msgid "Order summary"
 msgid "Order Number:"
-msgstr "Pregled narudžbe"
+msgstr "Broj narudžbe:"
 
 #: shop/templates/shop/purchase_complete_email.html:10
 msgid "BILLING TO:"
@@ -323,10 +328,8 @@ msgid "Grand total"
 msgstr "Ukupna cijena:"
 
 #: shop/templates/shop/purchase_complete_email.html:124
-#, fuzzy
-#| msgid "Thank you for using %(site_name)s!"
 msgid "Thank you for shopping with"
-msgstr "Hvala Vam što koristite %(site_name)s!"
+msgstr "Hvala Vam što koristite"
 
 #: shop/templates/shop/purchase_completed.html:6
 msgid "Purchase Complete"
@@ -413,6 +416,8 @@ msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:49
+#, fuzzy
+#| msgid "Grand total:"
 msgid "Grand total (HRK):"
 msgstr "Ukupna cijena:"
 
@@ -653,13 +658,6 @@ msgstr ""
 msgid "About / The Story"
 msgstr "O nama / O kistovima"
 
-#: thebrushstash/templates/thebrushstash/about_the_story.html:12
-#: thebrushstash/templates/thebrushstash/brush_care.html:12
-#: thebrushstash/templates/thebrushstash/contact.html:12
-#: thebrushstash/templates/thebrushstash/faq.html:12
-msgid "Coming soon!"
-msgstr ""
-
 #: thebrushstash/templates/thebrushstash/brush_care.html:6
 #: thebrushstash/templates/thebrushstash/brush_care.html:11
 msgid "Brush Care"
@@ -726,7 +724,7 @@ msgstr ""
 msgid "Follow us on"
 msgstr "Pratite nas na"
 
-#: thebrushstash/templates/thebrushstash/tags/footer_tag.html:33
+#: thebrushstash/templates/thebrushstash/tags/footer_tag.html:42
 msgid "The Brush Stash. All rights reserved."
 msgstr "The Brush Stash. Sva prava pridržana."
 
