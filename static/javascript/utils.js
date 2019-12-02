@@ -52,6 +52,7 @@ import {
   summaryRowFees,
   summaryRowFeesValue,
   summaryShippingCost,
+  summaryTax,
   summaryTotal,
   thumbnailWrappers,
 } from './selectors'
@@ -201,8 +202,6 @@ export const switchActiveImage = (event) => {
     const unselect = [...thumbnailWrappers].find(x => x.classList.contains('selected'))
     event.currentTarget.classList.add('selected')
     unselect.classList.remove('selected')
-
-    history.pushState({mediaObject: id}, '', `?gallery-item=${id}`)
   }
 }
 
@@ -292,6 +291,9 @@ const refreshReviewBag = (response, slug) => {
     )
     summaryGrandTotal.innerHTML = formatPrice(
       `${response.bag[`grand_total_${response.currency}`]}`, response.currency
+    )
+    summaryTax.innerHTML = formatPrice(
+      response.bag['tax'], response.currency
     )
   }
 

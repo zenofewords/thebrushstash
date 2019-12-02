@@ -1,12 +1,12 @@
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import (
     DetailView,
     FormView,
     TemplateView,
 )
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.text import slugify
 
@@ -30,6 +30,11 @@ class CheckoutView(FormView):
     template_name = 'shop/checkout.html'
     form_class = AddressForm
     success_url = reverse_lazy('shop:purchase-completed')
+
+    def get(self, request, *args, **kwargs):
+        if not request.session.get('bag'):
+            return redirect(reverse('shop:shop'))
+        return super().get(request, *args, **kwargs)
 
     def get_initial(self):
         user = self.request.user
@@ -124,6 +129,11 @@ class IPGPurchaseCancelledView(TemplateView):
 
 class ReviewBagView(TemplateView):
     template_name = 'shop/review_bag.html'
+
+    def get(self, request, *args, **kwargs):
+        if not request.session.get('bag'):
+            return redirect(reverse('shop:shop'))
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

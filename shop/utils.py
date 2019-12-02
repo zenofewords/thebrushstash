@@ -2,7 +2,10 @@ from decimal import Decimal
 
 from django.apps import apps
 
-from shop.constants import FREE_SHIPPING_PRODUCTS
+from shop.constants import (
+    FREE_SHIPPING_PRODUCTS,
+    TAX,
+)
 from thebrushstash.constants import DEFAULT_REGION
 from thebrushstash.models import (
     ExchangeRate,
@@ -45,6 +48,10 @@ def set_shipping_cost(bag, current_region):
     bag['grand_total_hrk'] = str(
         Decimal(bag['total_hrk']) + Decimal(bag['shipping_cost_hrk'])
     )
+
+
+def set_tax(bag, current_currency):
+    bag['tax'] = str(round(Decimal(bag['total_{}'.format(current_currency)]) * Decimal(TAX), 2))
 
 
 def get_totals(data, key, operator, product={}):

@@ -26,6 +26,7 @@ from shop.utils import (
     get_grandtotals,
     get_totals,
     set_shipping_cost,
+    set_tax,
 )
 from thebrushstash.constants import (
     ipg_fields,
@@ -77,6 +78,7 @@ class AddToBagView(GenericAPIView):
             **get_totals(serializer.data, 'total', operator.add, bag),
         })
         set_shipping_cost(bag, request.session['region'])
+        set_tax(bag, request.session['currency'])
         bag.update(
             **get_grandtotals(bag),
         )
@@ -106,6 +108,7 @@ class RemoveFromBagView(GenericAPIView):
                 **get_totals(product, 'total', operator.sub, bag),
             })
             set_shipping_cost(bag, request.session['region'])
+            set_tax(bag, request.session['currency'])
             bag.update({
                 **get_grandtotals(bag),
             })
@@ -135,13 +138,14 @@ class UpdateBagView(GenericAPIView):
             pass
         elif serializer.data.get('action') == 'decrement' and product_slug in products:
             product = products[product_slug]
-            product['quantity'] -= 1
+            product['quantity'] = int(product['quantity']) - 1
             bag.update({
-                'total_quantity': bag['total_quantity'] - 1,
-                **get_totals(product, 'total', operator.sub, bag),
+                'total_quantity': int(bag['total_quantity']) - 1,
             })
             set_shipping_cost(bag, request.session['region'])
+            set_tax(bag, request.session['currency'])
             bag.update({
+                **get_totals(product, 'total', operator.sub, bag),
                 **get_grandtotals(bag),
             })
             if bag['total_quantity'] <= 0:

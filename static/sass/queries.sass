@@ -161,7 +161,7 @@
             color: #000
 
     .bag-content-wrapper
-      margin: 0 15px 0 5px
+      margin: 0 15px 0 0
 
       .bag-content-headers
         display: none
@@ -222,7 +222,7 @@
 
   .checkout-wrapper
     flex-direction: column
-    margin: 0 0 120px
+    margin: 0 0 40px
 
     #checkout-address-form
       margin: 0 $gutter
@@ -312,6 +312,9 @@
     .gallery-wrapper
       padding: 0
 
+      .images-with-preview
+        pointer-events: none
+
       .image-wrapper
         .picture
           width: 100%
@@ -321,6 +324,9 @@
           &:before
             top: 37%
             left: 30%
+
+    .detail-wrapper
+      margin-top: 30px
 
   .product-description-wrapper
     margin-top: 30px
@@ -352,6 +358,9 @@
   .credit-card-logos-wrapper
     a
       margin: 1%
+
+    &.preview
+      padding: 10px 0
 
   .purchase-completed-wrapper,
   .purchase-cancelled-wrapper,

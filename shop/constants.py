@@ -16,6 +16,7 @@ EMPTY_BAG = {
     'grand_total_eur': 0,
     'grand_total_gbp': 0,
     'grand_total_usd': 0,
+    'tax': 0,
 }
 
 DEFAULT_IMAGE_QUALITY = 70
@@ -64,6 +65,12 @@ for variation in VARIATIONS:
     for shape in [slot.get('shape') for slot in SLOTS]:
         SRCSET_MAPPING['{}_{}'.format(variation, shape)] = []
 
-DEFAULT_SHIPPING_COST = Setting.objects.get(name='DEFAULT_SHIPPING_COST').value
-FREE_SHIPPING_PRODUCTS = Setting.objects.get(name='FREE_SHIPPING_PRODUCTS').value
-GLS_FEE = Setting.objects.get(name='GLS_FEE').value
+default_shipping_cost = Setting.objects.filter(name='DEFAULT_SHIPPING_COST').first()
+free_shipping_products = Setting.objects.filter(name='FREE_SHIPPING_PRODUCTS').first()
+gle_fee = Setting.objects.filter(name='GLS_FEE').first()
+tax = Setting.objects.filter(name='TAX').first()
+
+DEFAULT_SHIPPING_COST = default_shipping_cost.value if default_shipping_cost else '10'
+FREE_SHIPPING_PRODUCTS = free_shipping_products.value if free_shipping_products else '3'
+GLS_FEE = gle_fee.value if gle_fee else '30'
+TAX = tax.value if tax else '0.25'

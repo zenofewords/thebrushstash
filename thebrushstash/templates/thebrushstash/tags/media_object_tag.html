@@ -19,11 +19,21 @@
         srcset="{{ jpg_mobile_srcset }}"
         media="(max-width: 812px)"
       >
-      <img
-        src="{{ object.image.url }}"
-        alt="{{ object.name }}"
-        class="picture"
-      >
+      {% if preview and not object.youtube_video_id %}
+        <a class="images-with-preview" href="#">
+          <img
+            src="{{ object.image.url }}"
+            alt="{{ object.name }}"
+            class="picture"
+          >
+        </a>
+      {% else %}
+        <img
+          src="{{ object.image.url }}"
+          alt="{{ object.name }}"
+          class="picture"
+        >
+      {% endif %}
     </picture>
 
     {% if object.youtube_video_id %}
