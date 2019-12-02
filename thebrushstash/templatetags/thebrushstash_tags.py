@@ -89,9 +89,10 @@ def cookie_tag(context):
 
 
 @register.inclusion_tag('thebrushstash/tags/credit_card_logos_tag.html')
-def credit_card_logos_tag():
+def credit_card_logos_tag(css=''):
     return {
         'credit_card_logos': CreditCardLogo.published_objects.all(),
+        'css': css,
     }
 
 

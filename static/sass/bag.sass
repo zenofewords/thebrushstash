@@ -261,10 +261,11 @@
     .credit-card-wrapper
       border: 1px solid rgba(0, 0, 0, .1)
       max-width: calc(#{$checkoutFormInputWidth} - 36px)
-      padding: 23px 17px 5px
+      padding: 23px 17px 0
       margin: 20px 0
       cursor: pointer
       position: relative
+      height: 150px
 
       .ipg-logo-icon
         position: absolute
@@ -333,6 +334,11 @@
 
         &:hover
           background-color: $colorDarkGreen
+
+      .checkout-radio-wrapper,
+      .checkout-radio-wrapper
+        input
+          pointer-events: none
 
     .checkout-help-text
       font-size: 16px
