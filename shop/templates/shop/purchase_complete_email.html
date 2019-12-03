@@ -1,124 +1,161 @@
 {% load i18n %}
+{% load inlinecss %}
+{% inlinecss "css/email.css" %}
 
-<p>{% trans "Dear" %} {{ invoice.first_name }},</p>
-<p>{% trans "Your order is now being processed. Treba tekstove za ovo." %}</p>
-<p>
-  {% trans "Order Number:" %} {{ invoice.order_number }}
-</p>
-<table>
-  <th>
-    {% trans "BILLING TO:" %}
-  </th>
-  <th>
-    {% trans "SHIPPING TO:" %}
-  </th>
-  <tr>
-    <td>
-      {{ invoice.first_name }} {{ invoice.last_name }}
-    </td>
-    <td>
-      {{ invoice.first_name }} {{ invoice.last_name }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ invoice.address }}
-    </td>
-    <td>
-      {{ invoice.address }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ invoice.zip_code }} {{ invoice.city }}
-    </td>
-    <td>
-      {{ invoice.zip_code }} {{ invoice.city }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {{ invoice.country }}
-    </td>
-    <td>
-      {{ invoice.country }}
-    </td>
-  </tr>
-</table>
-<br>
-<table>
-  <th>
-    {% trans "DESCRIPTION" %}
-  </th>
-  <th>
-    {% trans "PRICE" %}
-  </th>
-  <th>
-    {% trans "QTY" %}
-  </th>
-  <th>
-    {% trans "TOTAL" %}
-  </th>
-  {% for item in invoice_items %}
-    <tr>
-      <td>
-        {{ item.product.name }}
-      </td>
-      <td>
-        {{ item.product.price_hrk }}
-      </td>
-      <td>
-        {{ item.sold_count }}
-      </td>
-      <td>
-        {% widthratio item.product.price_hrk 1 item.sold_count %}
-      </td>
-    </tr>
-  {% endfor %}
-</table>
-<br>
-<table>
-  <tr>
-    <td>
-      {% trans "Subtotal" %}:
-    </td>
-    <td>
-      {{ bag.total_hrk }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {% trans "Shipping" %}:
-    </td>
-    <td>
-      {{ bag.shipping_cost_hrk }}
-    </td>
-  </tr>
-  {% if bag.fees %}
-    <tr>
-      <td>
-        {% trans "Fees" %}:
-      </td>
-      <td>
-        {{ bag.fees }}
-      </td>
-    </tr>
-  {% endif %}
-  <tr>
-    <td>
-      {% trans "VAT" %}:
-    </td>
-    <td>
-      {{ bag.tax }}
-    </td>
-  </tr>
-  <tr>
-    <td>
-      {% trans "Grand total:" %}
-    </td>
-    <td>
-      {{ bag.grand_total_hrk }}
-    </td>
-  </tr>
-</table>
-<p>{% trans 'Thank you for shopping with' %} {{ site_name }}!</p>
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>Title</title>
+  </head>
+
+  <body>
+    <table class="body">
+      <table class="container">
+        <tr>
+          <td>
+            {% trans "Dear" %} {{ invoice.first_name }},
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% trans "Your order is now being processed. Treba tekstove za ovo." %}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% trans "Order Number:" %} {{ invoice.order_number }}
+          </td>
+        </tr>
+      </table>
+      <br>
+
+      <table class="container">
+        <th>
+          {% trans "BILLING TO:" %}
+        </th>
+        <th>
+          {% trans "SHIPPING TO:" %}
+        </th>
+        <tr>
+          <td>
+            {{ invoice.first_name }} {{ invoice.last_name }}
+          </td>
+          <td>
+            {{ invoice.first_name }} {{ invoice.last_name }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ invoice.address }}
+          </td>
+          <td>
+            {{ invoice.address }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ invoice.zip_code }} {{ invoice.city }}
+          </td>
+          <td>
+            {{ invoice.zip_code }} {{ invoice.city }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ invoice.country }}
+          </td>
+          <td>
+            {{ invoice.country }}
+          </td>
+        </tr>
+      </table>
+      <br>
+
+      <table class="container">
+        <th>
+          {% trans "PRODUCT" %}
+        </th>
+        <th>
+          {% trans "PRICE" %}
+        </th>
+        <th>
+          {% trans "QTY" %}
+        </th>
+        <th>
+          {% trans "TOTAL" %}
+        </th>
+        {% for item in invoice_items %}
+          <tr>
+            <td class="four">
+              {{ item.product.name }}
+            </td>
+            <td class="four">
+              {{ item.product.price_hrk }}
+            </td>
+            <td class="four">
+              {{ item.sold_count }}
+            </td>
+            <td class="four">
+              {% widthratio item.product.price_hrk 1 item.sold_count %}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+      <br>
+
+      <table class="container">
+        <tr>
+          <td>
+            {% trans "Subtotal" %}:
+          </td>
+          <td>
+            {{ bag.total_hrk }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% trans "Shipping" %}:
+          </td>
+          <td>
+            {{ bag.shipping_cost_hrk }}
+          </td>
+        </tr>
+        {% if bag.fees %}
+          <tr>
+            <td>
+              {% trans "Fees" %}:
+            </td>
+            <td>
+              {{ bag.fees }}
+            </td>
+          </tr>
+        {% endif %}
+        <tr>
+          <td>
+            {% trans "VAT" %}:
+          </td>
+          <td>
+            {{ bag.tax }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% trans "Grand total:" %}
+          </td>
+          <td>
+            {{ bag.grand_total_hrk }}
+          </td>
+        </tr>
+      </table>
+      <br>
+
+      <table class="container">
+        <tr>
+          <td>{% trans 'Thank you for shopping with' %} {{ site_name }}!</td>
+        </tr>
+      </table>
+    </table>
+  </body>
+<html>
+{% endinlinecss %}
