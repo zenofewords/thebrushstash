@@ -316,16 +316,16 @@ msgid "Subtotal:"
 msgstr "Cijena:"
 
 #: shop/templates/shop/purchase_complete_email.html:194
-msgid "VAT:"
-msgstr "PDV:"
+msgid "VAT included:"
+msgstr "Uključen PDV:"
 
 #: shop/templates/shop/purchase_complete_email.html:202
 msgid "Shipping:"
 msgstr "Dostava:"
 
 #: shop/templates/shop/purchase_complete_email.html:211
-msgid "Fees (GLS):"
-msgstr "Naknade (GLS):"
+msgid "GLS (cash on delivery):"
+msgstr "GLS (plaćanje pouzećem):"
 
 #: shop/templates/shop/purchase_complete_email.html:225
 #: shop/templates/shop/tags/purchase_summary_tag.html:40
