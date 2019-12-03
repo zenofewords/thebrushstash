@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 {% load shop_tags %}
 {% load inlinecss %}
 {% inlinecss "css/email.css" %}
@@ -7,12 +8,17 @@
 <html>
   <head lang="en">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% trans "Purchase complete" %}</title>
   </head>
 
   <body>
     <table class="body">
       <table class="container">
+        <tr>
+          <td>
+            <img src="{{ site_name }}{% static 'images/tbs-email-logo.jpg' %}" alt="tbs logo">
+          </td>
+        </tr>
         <tr>
           <td>
             {% trans "Dear" %} {{ invoice.first_name }},
@@ -70,6 +76,16 @@
             {{ invoice.country }}
           </td>
         </tr>
+        {% if invoice.phone %}
+          <tr>
+            <td>
+              {{ invoice.phone }}
+            </td>
+            <td>
+              {{ invoice.phone }}
+            </td>
+          </tr>
+        {% endif %}
       </table>
       <br>
 
@@ -118,6 +134,14 @@
         </tr>
         <tr>
           <td>
+            {% trans "VAT" %}:
+          </td>
+          <td>
+            {{ bag.tax }}
+          </td>
+        </tr>
+        <tr>
+          <td>
             {% trans "Shipping" %}:
           </td>
           <td>
@@ -136,14 +160,6 @@
         {% endif %}
         <tr>
           <td>
-            {% trans "VAT" %}:
-          </td>
-          <td>
-            {{ bag.tax }}
-          </td>
-        </tr>
-        <tr>
-          <td>
             {% trans "Grand total:" %}
           </td>
           <td>
@@ -155,7 +171,7 @@
 
       <table class="container">
         <tr>
-          <td>{% trans 'Thank you for shopping with' %} {{ site_name }}!</td>
+          <td>{% trans 'Thank you for shopping with' %} The Brush Stash!</td>
         </tr>
       </table>
     </table>
