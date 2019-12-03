@@ -42,9 +42,16 @@
       a
         padding: 10px
 
+        &:hover
+          opacity: $hoverOpacity
+
     .nav-item-log-in-register,
     .nav-item-bag
       @include nav-item-bag
+
+      a
+        &:hover
+          opacity: $hoverOpacity
 
       .user-icon
         position: relative

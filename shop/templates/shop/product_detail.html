@@ -100,11 +100,13 @@
           {% endif %}
         </h2>
       {% endif %}
-      {% if LANGUAGE_CODE == 'hr' %}
-        {{ product.description_cro|linebreaksbr }}
-      {% else %}
-        {{ product.description|linebreaksbr }}
-      {% endif %}
+      <p>
+        {% if LANGUAGE_CODE == 'hr' %}
+          {{ product.description_cro|linebreaksbr }}
+        {% else %}
+          {{ product.description|linebreaksbr }}
+        {% endif %}
+      </p>
     </div>
     <div class="media-wrapper">
       {% get_image_for_model obj=product standalone=True as body_image %}

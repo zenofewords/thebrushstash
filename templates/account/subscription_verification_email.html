@@ -1,15 +1,13 @@
 {% load i18n %}
 
 {% autoescape off %}
-  {% blocktrans %}
-    Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o eventualnim posebnim ponudama.
+{% blocktrans %}
+Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o eventualnim posebnim ponudama.
 
-    Svoj korisnički račun možete aktivirati ovdje:
-  {% endblocktrans %}
-  {{ protocol }}://{{ domain }}{% url 'account:subscribe-to-newsletter' uidb64=uid %}
-  {% blocktrans %}
-    Hvala vam, srdačan pozdrav,
-
-    vaš The Brush Stash team
-  {% endblocktrans %}
+Svoj korisnički račun možete aktivirati ovdje:
+{% endblocktrans %}{{ protocol }}://{{ domain }}{% url 'account:subscribe-to-newsletter' uidb64=uid %}
+{% blocktrans %}
+Hvala vam, srdačan pozdrav,
+vaš The Brush Stash team
+{% endblocktrans %}
 {% endautoescape %}
