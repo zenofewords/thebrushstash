@@ -10,6 +10,7 @@ from thebrushstash.models import (
     Region,
     TestImage,
     Setting,
+    StaticPageContent,
 )
 from shop.admin import (
     GalleryItemInline,
@@ -49,3 +50,4 @@ admin.site.register(NavigationItem, NavigationItemAdmin)
 admin.site.register(Region, RegionAdmin)
 admin.site.register(TestImage, TestImageAdmin)
 admin.site.register(Setting)
+admin.site.register(StaticPageContent)

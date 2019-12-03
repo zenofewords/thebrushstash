@@ -8,7 +8,9 @@
 
 {% block content %}
   <div class="contact-wrapper">
-    <h1>{% trans "Contact" %}</h1>
-    {% trans "Coming soon" %}
+    <h1>{{ title }}</h1>
+    {% autoescape off %}
+      {{ content }}
+    {% endautoescape %}
   </div>
 {% endblock content %}

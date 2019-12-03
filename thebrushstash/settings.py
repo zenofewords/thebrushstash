@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 
     'webpack_loader',
     'rest_framework',
+    'tinymce',
 
     'account.apps.AccountConfig',
     'django.contrib.admin',

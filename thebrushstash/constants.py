@@ -340,7 +340,7 @@ ABOUT = 'about-the-story'
 BRUSH_CARE = 'brush-care'
 initial_navigation_items = (
     {
-        'name': 'Shop',
+        'name': 'Webshop',
         'location': '/',
         'ordering': 6,
         'published': True,

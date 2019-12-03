@@ -1,5 +1,7 @@
 from django.db import models
 
+from tinymce.models import HTMLField
+
 from thebrushstash.mixins import (
     LinkedMixin,
     PublishedMixin,
@@ -79,6 +81,19 @@ class Region(PublishedMixin):
 
     def __str__(self):
         return self.name
+
+
+class StaticPageContent(models.Model):
+    title = models.CharField(max_length=1000)
+    slug = models.CharField(max_length=100)
+    content = HTMLField()
+
+    class Meta:
+        verbose_name = 'Static page content'
+        verbose_name = 'Static pages content'
+
+    def __str__(self):
+        return self.title
 
 
 class Setting(models.Model):

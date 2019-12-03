@@ -5,7 +5,10 @@ from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 
 from shop.models import Invoice
-from thebrushstash.models import TestImage
+from thebrushstash.models import (
+    StaticPageContent,
+    TestImage,
+)
 
 
 class AboutTheStoryView(TemplateView):
@@ -14,6 +17,15 @@ class AboutTheStoryView(TemplateView):
 
 class ContactView(TemplateView):
     template_name = 'thebrushstash/contact.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        sp_content = StaticPageContent.objects.get(slug='contact')
+        context.update({
+            'title': sp_content.title,
+            'content': sp_content.content,
+        })
+        return context
 
 
 class FaqView(TemplateView):

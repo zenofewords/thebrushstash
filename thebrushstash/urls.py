@@ -34,6 +34,7 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
 
     path('faq/', FaqView.as_view(), name='faq'),
+
     path('{}/'.format(ABOUT), AboutTheStoryView.as_view(), name=ABOUT),
     path('{}/'.format(BRUSH_CARE), TakingCareOfYourBrushView.as_view(), name=BRUSH_CARE),
     path('{}/'.format(CONTACT), ContactView.as_view(), name=CONTACT),
@@ -45,6 +46,7 @@ urlpatterns = [
     path('', include(('shop.urls', 'shop'), namespace='shop')),
     path('print-ship-info/<int:pk>/', PrintShipInfoView.as_view(), name='print-ship-info'),
     path('test-images/', TestImageView.as_view(), name='other-images'),
+    path('tinymce/', include('tinymce.urls')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

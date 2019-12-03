@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-03 00:03+0100\n"
+"POT-Creation-Date: 2019-12-03 00:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -217,10 +217,6 @@ msgid "Previous step"
 msgstr "Prethodni korak"
 
 #: shop/templates/shop/includes/product.html:7
-#: thebrushstash/templates/thebrushstash/about_the_story.html:12
-#: thebrushstash/templates/thebrushstash/brush_care.html:12
-#: thebrushstash/templates/thebrushstash/contact.html:12
-#: thebrushstash/templates/thebrushstash/faq.html:12
 msgid "Coming soon"
 msgstr "Dolazi uskoro"
 
@@ -267,7 +263,7 @@ msgstr "U slučaju da se predomislite, uvijek možete nastaviti gdje ste stali."
 
 #: shop/templates/shop/purchase_complete_email.html:3
 msgid "Dear"
-msgstr ""
+msgstr "Draga/i"
 
 #: shop/templates/shop/purchase_complete_email.html:4
 msgid ""
@@ -494,7 +490,7 @@ msgstr ""
 
 #: templates/account/register.html:5 templates/account/register.html:15
 msgid "Register"
-msgstr ""
+msgstr "Registriraj se"
 
 #: templates/account/register.html:17
 msgid ""
@@ -557,6 +553,8 @@ msgid ""
 "Don't have an account? <a href=\"%(register_url)s\" class=\"register"
 "\">Register here</a>"
 msgstr ""
+"Nemate korisnički račun? <a href=\"%(register_url)s\" class=\"register"
+"\">Registrirajte se ovdje</a>"
 
 #: templates/registration/login.html:38
 msgid "Forgot your password?"
@@ -646,24 +644,32 @@ msgstr ""
 "izmjenu lozinke."
 
 #: thebrushstash/templates/thebrushstash/about_the_story.html:6
-#: thebrushstash/templates/thebrushstash/about_the_story.html:11
 msgid "About / The Story"
 msgstr "O nama / O kistovima"
 
+#: thebrushstash/templates/thebrushstash/about_the_story.html:11
+msgid "O NAMA"
+msgstr ""
+
 #: thebrushstash/templates/thebrushstash/brush_care.html:6
-#: thebrushstash/templates/thebrushstash/brush_care.html:11
 msgid "Brush Care"
 msgstr "Održavanje kistova"
 
+#: thebrushstash/templates/thebrushstash/brush_care.html:11
+msgid "KAKO ODRŽAVATI KISTOVE - detaljne upute"
+msgstr ""
+
 #: thebrushstash/templates/thebrushstash/contact.html:6
-#: thebrushstash/templates/thebrushstash/contact.html:11
 msgid "Contact"
 msgstr "Kontakt"
 
 #: thebrushstash/templates/thebrushstash/faq.html:6
-#: thebrushstash/templates/thebrushstash/faq.html:11
 msgid "FAQ"
 msgstr "Česta pitanja"
+
+#: thebrushstash/templates/thebrushstash/faq.html:11
+msgid "ČESTO POSTAVLJANA PITANJA"
+msgstr ""
 
 #: thebrushstash/templates/thebrushstash/general_terms_and_conditions.html:5
 msgid "General Terms and Conditions"
@@ -736,17 +742,22 @@ msgstr "Saznajte najnovije The Brush Stash vijesti..."
 msgid "Learn about new products and special offers!"
 msgstr "Budite u toku s novim proizvodima i posebnim ponudama!"
 
+#: thebrushstash/templates/thebrushstash/tags/newsletter_tag.html:14
+#: thebrushstash/templates/thebrushstash/tags/newsletter_tag.html:15
+msgid "Enter your e-mail"
+msgstr "Unesite Vašu e-mail adresu"
+
 #: thebrushstash/templates/thebrushstash/tags/newsletter_tag.html:16
 msgid "Join"
 msgstr "Pošalji"
 
 #: thebrushstash/utils.py:262
 msgid "Already subscribed."
-msgstr ""
+msgstr "Već ste prijavljeni na newsletter."
 
 #: thebrushstash/utils.py:264
 msgid "Subscribed, thanks!"
-msgstr ""
+msgstr "Prijavljeni ste, hvala!"
 
 #: thebrushstash/utils.py:267
 msgid "Check your e-mail for confirmation!"
@@ -754,14 +765,17 @@ msgstr "Provjerite svoj e-mail kako biste potvrdili registraciju"
 
 #: thebrushstash/utils.py:423
 msgid "There's nothing in your bag."
-msgstr ""
+msgstr "Vaša košarica je pra"
 
 #: thebrushstash/utils.py:430
 msgid ""
 "\n"
-"                Looks like {} is all sold out :(\n"
+"                Looks like {} is all sold out\n"
 "                You'll have to remove it from your bag to continue."
 msgstr ""
+"\n"
+"                Čini se da je {} rasprodan\n"
+"                Morat ćete ga ukloniti iz košarice da bi mogli nastaviti."
 
 #: thebrushstash/utils.py:434
 msgid ""
@@ -769,6 +783,6 @@ msgid ""
 "                We've got only {} {} left,\n"
 "                please remove at least {} from your bag to continue."
 msgstr ""
-
-#~ msgid "E-mail"
-#~ msgstr "E-mail"
+"\n"
+"                Ostalo nam je samo {} {},\n"
+"                molimo uklonite barem {} iz košarice da bi mogli nastaviti."
