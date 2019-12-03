@@ -85,8 +85,8 @@ class StaticPageContent(models.Model):
     title = models.CharField(max_length=1000)
     title_cro = models.CharField(max_length=1000)
     slug = models.CharField(max_length=100)
-    content = models.TextField(max_length=20000)
-    content_cro = models.TextField(max_length=20000)
+    content = models.TextField(max_length=30000)
+    content_cro = models.TextField(max_length=30000)
 
     class Meta:
         verbose_name = 'Static page content'
