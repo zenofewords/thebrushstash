@@ -17,8 +17,15 @@
         <tr>
           <td>
             <img src="{{ site_name }}{% static 'images/tbs-email-logo.jpg' %}" alt="tbs logo">
-            <br>
-            <br>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
             {% trans "Dear" %} {{ invoice.first_name }},
             <br>
             <br>
@@ -111,6 +118,7 @@
           </tr>
         {% endif %}
       </table>
+      <br>
 
       <table class="container">
         <tr>
@@ -166,6 +174,7 @@
           </tr>
         {% endfor %}
       </table>
+      <br>
 
       <table class="container">
         <tr>
@@ -216,6 +225,7 @@
           </th>
         </tr>
       </table>
+      <br>
 
       <table class="container">
         <tr>
