@@ -31,7 +31,17 @@
         </tr>
         <tr>
           <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
             {% trans "Thank you for your order and for choosing The Brush Stash! Your parcel will be packaged and shipped to your address as soon as possible." %}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
           </td>
         </tr>
         <tr>
@@ -161,7 +171,7 @@
           <tr>
             <td>
               {% get_image_url_for_email site_name item.product.pk as image_url %}
-              <img width="150px" height="150px" src="{{ image_url }}" alt="{{ product.name }}">
+              <img width="120px" height="120px" src="{{ image_url }}" alt="{{ product.name }}">
             </td>
             <td>
               <a href="{{ site_name}}/products/{{ item.product.slug }}">{{ item.product.name }}</a>
@@ -183,7 +193,7 @@
       <table class="container">
         <tr>
           <th>
-            {% trans "Subtotal:" %}:
+            {% trans "Subtotal:" %}
           </th>
           <th>
             {{ bag.total_hrk }}
@@ -191,7 +201,7 @@
         </tr>
         <tr>
           <td>
-            {% trans "VAT:" %}:
+            {% trans "VAT:" %}
           </td>
           <td>
             {{ bag.tax }}
@@ -199,7 +209,7 @@
         </tr>
         <tr>
           <td>
-            {% trans "Shipping:" %}:
+            {% trans "Shipping:" %}
           </td>
           <td>
             {{ bag.shipping_cost_hrk }}
@@ -208,7 +218,7 @@
         {% if bag.fees %}
           <tr>
             <td>
-              {% trans "Fees (GLS):" %}:
+              {% trans "Fees (GLS):" %}
             </td>
             <td>
               {{ bag.fees }}
