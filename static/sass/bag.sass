@@ -198,6 +198,10 @@
         width: 60px
 
         .bag-product-decrement
+          &.disabled
+            opacity: 0.3
+            pointer-events: none
+
           &:before
             @extend %background-circle-icon
             top: 10%

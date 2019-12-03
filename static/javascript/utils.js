@@ -285,9 +285,17 @@ const refreshReviewBag = (response, slug) => {
   } else {
     const itemCount = document.getElementById(`${slug}-item-count`)
     const itemSubtotal = document.getElementById(`${slug}-item-subtotal`)
+    const itemDecrement = document.getElementById(`${slug}-item-decrement`)
+    const quantity = response.bag['products'][slug]['quantity']
 
-    itemCount.innerHTML = response.bag['products'][slug]['quantity']
+    itemCount.innerHTML = quantity
     itemSubtotal.innerHTML = response.bag['products'][slug][`subtotal_${response.currency}`]
+
+    if (quantity < 2) {
+      itemDecrement.classList.add('disabled')
+    } else {
+      itemDecrement.classList.remove('disabled')
+    }
   }
   summaryShippingCost.innerHTML = formatPrice(
     `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency

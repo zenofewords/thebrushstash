@@ -37,7 +37,7 @@
             </div>
             <div class="bag-product-quantity">
               <span id="{{ key }}-item-count">{{ value.quantity }}</span>
-              <span class="bag-product-decrement" data-slug="{{ key }}"></span>
+              <span id="{{ key }}-item-decrement" class="bag-product-decrement {% if value.quantity < 2 %}disabled{% endif %}" data-slug="{{ key }}"></span>
               <span class="bag-product-increment" data-slug="{{ key }}"></span>
             </div>
             <div class="bag-subtotal">
