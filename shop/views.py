@@ -14,6 +14,7 @@ from account.forms import AddressForm
 from account.models import (
     NewsletterRecipient,
 )
+from shop.constants import GLS_FEE
 from shop.models import (
     Invoice,
     InvoicePaymentMethod,
@@ -78,6 +79,7 @@ class CheckoutView(FormView):
             'store_id': settings.IPG_STORE_ID,
             'require_complete': 'false',
             'subscribed_to_newsletter': subscribed_to_newsletter,
+            'gls_fee': GLS_FEE,
         })
         return context
 
