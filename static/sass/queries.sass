@@ -395,6 +395,28 @@
       p
         height: auto
 
+@media only screen and (orientation: portrait) and (min-width: 768px)
+  .review-bag-wrapper
+    .bag-content
+      .bag-item-row
+        .bag-product-quantity
+          width: 40px
+
+  .header-wrapper
+    background-size: 100% 220%
+    background-position: 50% 50%
+
+@media only screen and (orientation: landscape) and (max-height: 440px)
+  .review-bag-wrapper
+    .bag-content
+      .bag-item-row
+        .bag-product-quantity
+          width: 40px
+
+  .header-wrapper
+    background-size: 100% 220%
+    background-position: 50% 50%
+
 @media only screen and (orientation: landscape)
   iframe
     border: 0

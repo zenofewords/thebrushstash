@@ -114,6 +114,9 @@ class RemoveFromBagView(GenericAPIView):
             })
             del products[product_slug]
 
+        if len(products.items()) == 0:
+            bag = EMPTY_BAG
+
         request.session['bag'] = bag
         return response.Response({
             'bag': bag,

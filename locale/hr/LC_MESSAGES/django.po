@@ -687,10 +687,6 @@ msgstr "Količina:"
 msgid "Subtotal:"
 msgstr "Cijena:"
 
-#: thebrushstash/templates/thebrushstash/includes/bag.html:45
-msgid "Buy some brushes"
-msgstr "Vaša košarica je prazna"
-
 #: thebrushstash/templates/thebrushstash/includes/bag.html:48
 msgid "Review bag"
 msgstr "Pregled košarice"
@@ -765,7 +761,7 @@ msgstr "Provjerite svoj e-mail kako biste potvrdili registraciju"
 
 #: thebrushstash/utils.py:423
 msgid "There's nothing in your bag."
-msgstr "Vaša košarica je pra"
+msgstr "Vaša košarica je prazna."
 
 #: thebrushstash/utils.py:430
 msgid ""
