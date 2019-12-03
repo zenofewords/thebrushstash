@@ -532,9 +532,11 @@ msgstr "Vaš aktivacijski token nije ispravan."
 #: templates/account/subscription_verification_email.html:4
 #, python-format
 msgid ""
-"Ignore this e-mail if did not start a newsletter subscription for "
+"Ignore this e-mail if you did not start a newsletter subscription for "
 "%(site_name)s."
 msgstr ""
+"Zanemarite ovaj e-mail u slučaju da niste zatražili pretplatu na newsletter za "
+"%(site_name)s."
 
 #: templates/account/subscription_verification_email.html:6
 msgid "You can activate your subscription at the following page:"
@@ -770,7 +772,7 @@ msgstr "Prijavljeni ste, hvala!"
 
 #: thebrushstash/utils.py:267
 msgid "Check your e-mail for confirmation!"
-msgstr "Provjerite svoj e-mail kako biste potvrdili registraciju"
+msgstr "Provjerite svoj e-mail kako biste potvrdili pretplatu na newsletter!"
 
 #: thebrushstash/utils.py:423
 msgid "There's nothing in your bag."
