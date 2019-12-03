@@ -1,11 +1,8 @@
-from django.conf import settings
 from django.contrib.auth import login
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
 from django.urls import reverse_lazy
-from django.utils.encoding import force_bytes, force_text
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
 from django.views.generic import (
     FormView,
     TemplateView,
@@ -20,6 +17,7 @@ from account.models import (
     NewsletterRecipient,
 )
 from account.tokens import account_activation_token
+from thebrushstash.utils import send_registration_email
 
 
 class RegisterView(FormView):
@@ -33,23 +31,8 @@ class RegisterView(FormView):
         user.is_active = False
         user.save()
 
-        self.send_mail(user)
+        send_registration_email(user, get_current_site(self.request))
         return super().form_valid(form)
-
-    def send_mail(self, user):
-        current_site = get_current_site(self.request)
-        mail_subject = 'Activate your account'
-        message = render_to_string('account/account_verification_email.html', {
-            'user': user,
-            'domain': current_site.domain,
-            'site_name': current_site.name,
-            'protocol': 'http' if settings.DEBUG else 'https',
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': account_activation_token.make_token(user),
-        })
-        to_email = user.email
-        email = EmailMessage(mail_subject, message, to=[to_email])
-        email.send()
 
 
 class VerificationSentView(TemplateView):

@@ -1,11 +1,59 @@
 {% load i18n %}
+{% load static %}
+{% load inlinecss %}
+{% inlinecss "css/email.css" %}
 
 {% autoescape off %}
-{% blocktrans %}You're receiving this e-mail because you created an account at {{ site_name }}.{% endblocktrans %}
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>{% trans "Your order has been confirmed!" %}</title>
+  </head>
 
-{% trans "You can activate your account at the following page:" %}
-{% block reset_link %}{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}{% endblock %}
-{% trans "Your username, in case you've forgotten:" %} {{ user.get_username }}
-
-{% blocktrans %}Thank you for using {{ site_name }}!{% endblocktrans %}
+  <body>
+    <table class="body">
+      <table class="container">
+        <tr>
+          <td>
+            <img src="{{ site_name }}{% static 'images/tbs-email-logo.jpg' %}" alt="tbs logo">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% blocktrans %}You're receiving this e-mail because you created an account at {{ site_name }}.{% endblocktrans %}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% trans "You can activate your account at the following page:" %}
+            {% block reset_link %}{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}{% endblock %}
+            {% trans "Your username, in case you've forgotten:" %} {{ user.get_username }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% blocktrans %}Thank you for using The Brush Stash!{% endblocktrans %}
+          </td>
+        </tr>
+      </table>
+    </table>
+  </body>
+<html>
 {% endautoescape %}
+{% endinlinecss %}

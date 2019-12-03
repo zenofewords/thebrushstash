@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-03 15:31+0100\n"
+"POT-Creation-Date: 2019-12-03 16:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -244,7 +244,7 @@ msgstr ""
 "            Opcije dostave\n"
 "          </a>"
 
-#: shop/templates/shop/product_detail.html:116
+#: shop/templates/shop/product_detail.html:118
 msgid "More from our shop"
 msgstr "Više iz naše ponude"
 
@@ -262,6 +262,8 @@ msgid ""
 msgstr "U slučaju da se predomislite, uvijek možete nastaviti gdje ste stali."
 
 #: shop/templates/shop/purchase_complete_email.html:11
+#: templates/account/account_verification_email.html:11
+#: templates/account/subscription_verification_email.html:11
 msgid "Your order has been confirmed!"
 msgstr "Vaša narudžba je potvrđena!"
 
@@ -336,8 +338,8 @@ msgstr "Ukupna cijena:"
 msgid "Thank you for shopping with"
 msgstr "Hvala Vam što koristite"
 
-#: shop/templates/shop/purchase_completed.html:6
-msgid "Purchase Complete"
+#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:334
+msgid "Purchase complete"
 msgstr "Narudžba izvršena"
 
 #: shop/templates/shop/purchase_completed.html:11
@@ -365,8 +367,9 @@ msgstr ""
 "poslali na Vašu e-mail adresu."
 
 #: shop/templates/shop/purchase_completed.html:23
-msgid "You have been subscribed to our newsletter."
-msgstr "Uspješno ste se pretplatili na naš newsletter."
+#: templates/account/subscribe_to_newsletter.html:12
+msgid "You've been subscribed to our newsletter!"
+msgstr "Uspješno ste se pretplatili na naš newsletter!"
 
 #: shop/templates/shop/review_bag.html:7 shop/templates/shop/review_bag.html:12
 msgid "Review Your Bag"
@@ -432,26 +435,25 @@ msgstr "Plaćanje"
 msgid "Continue shopping"
 msgstr "Nastavak kupnje"
 
-#: templates/account/account_verification_email.html:4
+#: templates/account/account_verification_email.html:29
 #, python-format
 msgid ""
 "You're receiving this e-mail because you created an account at %(site_name)s."
 msgstr "Uspješno ste kreirali korisnički račun na %(site_name)s."
 
-#: templates/account/account_verification_email.html:6
+#: templates/account/account_verification_email.html:39
 msgid "You can activate your account at the following page:"
 msgstr "Svoj korisnički račun možete aktivirati ovdje:"
 
-#: templates/account/account_verification_email.html:8
+#: templates/account/account_verification_email.html:41
 #: templates/registration/password_reset_email.html:7
 msgid "Your username, in case you've forgotten:"
 msgstr "Vaše korisničko ime, u slučaju da ste ga zaboravili:"
 
-#: templates/account/account_verification_email.html:10
+#: templates/account/account_verification_email.html:51
 #: templates/registration/password_reset_email.html:9
-#, python-format
-msgid "Thank you for using %(site_name)s!"
-msgstr "Hvala Vam što koristite %(site_name)s!"
+msgid "Thank you for using The Brush Stash!"
+msgstr "Hvala Vam što koristite The Brush Stash!"
 
 #: templates/account/activate.html:5 templates/account/activate.html:10
 #: templates/account/subscribe_to_newsletter.html:5
@@ -519,33 +521,31 @@ msgstr ""
 msgid "Send me my activation link"
 msgstr "Pošaljite mi aktivacijski link"
 
-#: templates/account/subscribe_to_newsletter.html:12
-msgid "You've been subscribed to our newsletter!"
-msgstr "Uspješno ste se pretplatili na naš newsletter."
-
 #: templates/account/subscribe_to_newsletter.html:17
 msgid "Your subscription token is not valid."
 msgstr "Vaš aktivacijski token nije ispravan."
 
-#: templates/account/subscription_verification_email.html:4
+#: templates/account/subscription_verification_email.html:29
 msgid ""
-"\n"
-"    Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop "
-"newsletter! Budući da nam je svima dosta pretjerane količine mailova, "
-"javljat ćemo vam se samo u slučaju dolaska novih proizvoda ili kako bismo "
-"vas obavijestiti o eventualnim posebnim ponudama.\n"
-"\n"
-"    Svoj korisnički račun možete aktivirati ovdje:\n"
-"  "
+"Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! "
+"Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam "
+"se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o "
+"eventualnim posebnim ponudama."
 msgstr ""
 
-#: templates/account/subscription_verification_email.html:10
+#: templates/account/subscription_verification_email.html:39
+msgid ""
+"Svoj korisnički račun možete aktivirati ovdje:\n"
+"            "
+msgstr ""
+
+#: templates/account/subscription_verification_email.html:50
 msgid ""
 "\n"
-"    Hvala vam, srdačan pozdrav,\n"
-"\n"
-"    vaš The Brush Stash team\n"
-"  "
+"            Hvala vam, srdačan pozdrav,\n"
+"            <br>\n"
+"            vaš The Brush Stash team\n"
+"            "
 msgstr ""
 
 #: templates/registration/login.html:5 templates/registration/login.html:20
@@ -775,11 +775,19 @@ msgstr "Prijavljeni ste, hvala!"
 msgid "Check your e-mail for confirmation!"
 msgstr "Provjerite svoj e-mail kako biste potvrdili pretplatu na newsletter!"
 
-#: thebrushstash/utils.py:423
+#: thebrushstash/utils.py:309
+msgid "Activate your account"
+msgstr "Aktivirajte svoj korisnički račun"
+
+#: thebrushstash/utils.py:320
+msgid "Subscribe to newsletter"
+msgstr "Pretplatite se na newsletter"
+
+#: thebrushstash/utils.py:406
 msgid "There's nothing in your bag."
 msgstr "Vaša košarica je prazna."
 
-#: thebrushstash/utils.py:430
+#: thebrushstash/utils.py:413
 msgid ""
 "\n"
 "                Looks like {} is all sold out\n"
@@ -789,7 +797,7 @@ msgstr ""
 "                Čini se da je {} rasprodan\n"
 "                Morat ćete ga ukloniti iz košarice da bi mogli nastaviti."
 
-#: thebrushstash/utils.py:434
+#: thebrushstash/utils.py:417
 msgid ""
 "\n"
 "                We've got only {} {} left,\n"
@@ -799,17 +807,5 @@ msgstr ""
 "                Ostalo nam je samo {} {},\n"
 "                molimo uklonite barem {} iz košarice da bi mogli nastaviti."
 
-#, python-format
-#~ msgid ""
-#~ "Ignore this e-mail if you did not start a newsletter subscription for "
-#~ "%(site_name)s."
-#~ msgstr ""
-#~ "Zanemarite ovaj e-mail u slučaju da niste zatražili pretplatu na "
-#~ "newsletter za %(site_name)s."
-
-#~ msgid "You can activate your subscription at the following page:"
-#~ msgstr "Svoj korisnički račun možete aktivirati ovdje:"
-
-#, python-format
-#~ msgid "Thanks, %(site_name)s!"
-#~ msgstr "Hvala Vam, %(site_name)s!"
+#~ msgid "Purchase Complete"
+#~ msgstr "Narudžba izvršena"

@@ -11,7 +11,7 @@ from webptools import webplib
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -298,8 +298,7 @@ def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
 
 
 def send_registration_email(user, current_site):
-    mail_subject = 'Activate your account'
-    message = render_to_string('account/account_verification_email.html', {
+    message_html = render_to_string('account/account_verification_email.html', {
         'user': user,
         'domain': current_site.domain,
         'site_name': current_site.name,
@@ -307,32 +306,23 @@ def send_registration_email(user, current_site):
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': account_activation_token.make_token(user),
     })
-    email = EmailMessage(mail_subject, message, to=[user.email])
-    email.send()
+    subject = _('Activate your account')
+    send_mail(subject, '', 'The Brush Stash', [user.email], html_message=message_html)
 
 
 def send_subscription_email(email, current_site):
-    mail_subject = 'Subscribe to newsletter'
-    message = render_to_string('account/subscription_verification_email.html', {
+    message_html = render_to_string('account/subscription_verification_email.html', {
         'domain': current_site.domain,
         'site_name': current_site.name,
         'protocol': 'http' if settings.DEBUG else 'https',
         'uid': urlsafe_base64_encode(force_bytes(email)),
     })
-    EmailMessage(mail_subject, message, to=[email]).send()
+    subject = _('Subscribe to newsletter')
+    send_mail(subject, '', 'The Brush Stash', [email], html_message=message_html)
 
 
 def send_purchase_mail(email_address, current_site, invoice, bag):
-    # msg_plain = render_to_string('shop/purchase_complete_email.html', {
-    #     'domain': current_site.domain,
-    #     'site_name': current_site.name,
-    #     'protocol': 'http' if settings.DEBUG else 'https',
-    #     'invoice': invoice,
-    #     'invoice_items': InvoiceItem.objects.filter(
-    #         invoice=invoice).select_related('invoice', 'product'),
-    #     'bag': bag,
-    # })
-    msg_html = render_to_string('shop/purchase_complete_email.html', {
+    message_html = render_to_string('shop/purchase_complete_email.html', {
         'domain': current_site.domain,
         'site_name': current_site.name,
         'protocol': 'http' if settings.DEBUG else 'https',
@@ -341,15 +331,8 @@ def send_purchase_mail(email_address, current_site, invoice, bag):
             invoice=invoice).select_related('invoice', 'product'),
         'bag': bag,
     })
-
-    send_mail(
-        'Purchase complete',
-        '',
-        'The Brush Stash',
-        [email_address],
-        html_message=msg_html,
-    )
-    # EmailMessage(mail_subject, message, to=[email_address]).send()
+    subject = _('Purchase complete')
+    send_mail(subject, '', 'The Brush Stash', [email_address], html_message=message_html)
 
 
 def get_cart(bag):

@@ -1,13 +1,62 @@
 {% load i18n %}
+{% load static %}
+{% load inlinecss %}
+{% inlinecss "css/email.css" %}
 
 {% autoescape off %}
-{% blocktrans %}
-Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o eventualnim posebnim ponudama.
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>{% trans "Your order has been confirmed!" %}</title>
+  </head>
 
-Svoj korisnički račun možete aktivirati ovdje:
-{% endblocktrans %}{{ protocol }}://{{ domain }}{% url 'account:subscribe-to-newsletter' uidb64=uid %}
-{% blocktrans %}
-Hvala vam, srdačan pozdrav,
-vaš The Brush Stash team
-{% endblocktrans %}
+  <body>
+    <table class="body">
+      <table class="container">
+        <tr>
+          <td>
+            <img src="{{ site_name }}{% static 'images/tbs-email-logo.jpg' %}" alt="tbs logo">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% blocktrans %}Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o eventualnim posebnim ponudama.{% endblocktrans %}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% blocktrans %}Svoj korisnički račun možete aktivirati ovdje:
+            {% endblocktrans %}{{ protocol }}://{{ domain }}{% url 'account:subscribe-to-newsletter' uidb64=uid %}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {% blocktrans %}
+            Hvala vam, srdačan pozdrav,
+            <br>
+            vaš The Brush Stash team
+            {% endblocktrans %}
+          </td>
+        </tr>
+      </table>
+    </table>
+  </body>
+<html>
 {% endautoescape %}
+{% endinlinecss %}
