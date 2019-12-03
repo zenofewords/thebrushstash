@@ -9,91 +9,19 @@
 {% block content %}
   <div class="returns-and-complaints-wrapper">
     <h1>
-      {% trans "Returns and Complaints" %}
+      {% if LANGUAGE_CODE == 'hr' %}
+        {{ title_cro|safe }}
+      {% else %}
+        {{ title|safe }}
+      {% endif %}
     </h1>
-
     <p>
-      Ukoliko je kupac iz bilo kojeg razloga nezadovoljan kupljenim proizvodom ili pruženom uslugom, prigovor može uputiti na e-mail adresu: thebrushstash.shop@gmail.com ili se može obratiti pisanim putem na adresu: The Brush Stash d.o.o., Ulica Vjenceslava Novaka 9, 10000 Zagreb. Primitak prigovora putem e-mail adrese potvrdit ćemo bez odgađanja, a na pisani prigovor bit će odgovoreno u roku od 15 dana. U pisanom prigovoru potrebno je navesti barem ime, prezime i adresu, a ukoliko kupac želi da mu se što prije javimo i telefonski, može ostaviti i svoj kontakt broj.
+      {% if LANGUAGE_CODE == 'hr' %}
+        {{ content_cro|safe }}
+      {% else %}
+        {{ content|safe }}
+      {% endif %}
     </p>
-
-    <p>
-      Kupac ima pravo na povrat robe u sljedećim slučajevima:
-      <ul>
-        <li>
-          slučajna isporuka pogrešne robe koja nije naručena
-        </li>
-        <li>
-          isporuka naručene robe koja ima grešku ili oštećenja
-        </li>
-      </ul>
-    </p>
-
-    <p>
-      U slučaju opravdanog prigovora, kupac ima pravo na raskid ugovora uz povrat uplaćenog iznosa ili zamjenu za ispravni, neoštećeni i valjani proizvod.
-    </p>
-
-    <p>
-      The Brush Stash d.o.o. prihvaća povrat oštećene, neispravne ili pogrešno isporučene robe o svom trošku, ukoliko se utvrdi da je prigovor opravdan te da kupac nije utjecao na ispravnost, oštećenje ili bilo kakav nedostatak robe. U slučaju opravdanog prigovora, trošak zamjene proizvoda s novim proizvodom u cijelosti snosi The Brush Stash d.o.o.
-    </p>
-
-    <p>
-      Zbog prirode proizvoda i higijenskog standarda koji održavamo, The Brush Stash d.o.o. ne prihvaća povrat ispravne robe koja je izvađena iz zaštitne folije i/ili korištena.
-    </p>
-
-    <p>
-      Pravo na jednostrani raskid Ugovora
-    </p>
-
-    <p>
-      Kupac ima pravo, ne navodeći razloge za to, jednostrano raskinuti ugovor sklopljen izvan poslovnih prostorija ili sklopljen na daljinu u roku od 14 dana. Rok započinje teći od dana kada je kupcu ili trećoj osobi određenoj od strane kupca, a koja nije prijevoznik, roba koja čini predmet ugovora predana u posjed. Ako je jednom narudžbom kupac naručio više komada robe koji trebaju biti isporučeni odvojeno, odnosno ako je riječ o robi koja se dostavlja u više komada ili više pošiljki, rok započinje teći od dana kada je kupcu ili trećoj osobi određenoj od strane kupca, a koja nije prijevoznik, predan u posjed zadnji komad ili zadnja pošiljka robe.
-    </p>
-
-    <p>
-      Kupac je dužan prije isteka roka za jednostrani raskid ugovora obavijestiti trgovca o svojoj odluci da raskine ugovor i to putem obrasca za jednostrani raskid ugovora ili putem bilo koje druge nedvosmislene izjave kojom izražava svoju volju da raskine ugovor. Izjave o raskidu ugovora kupac je dužan poslati prije isteka roka za raskid ugovora.
-    </p>
-
-    <p>
-      Iskoristi li kupac svoje pravo na jednostrani raskid ugovora,  strane nisu dužne ispuniti svoje obveze iz ugovora sklopljenog izvan poslovnih prostorija i ugovora sklopljenog na daljinu.
-      U slučaju raskida ugovora, svaka je strana dužna vratiti drugoj ono što je primila na temelju ugovora.
-    </p>
-
-    <p>
-      Kupac nije dužan naknaditi nikakve troškove koji bi bili posljedica korištenja njegova prava na jednostrani raskid ugovora osim onih predviđenih člankom 76. i člankom 77. Zakona o zaštiti potrošača.
-    </p>
-
-    <p>
-      Iskoristi li kupac svoje pravo na jednostrani raskid ugovora, trgovac mora bez odgađanja, a najkasnije u roku od 14 dana od dana kad je zaprimio obavijest o odluci kupca da raskida ugovor vratiti kupcu sve što je ovaj platio na temelju ugovora.
-    </p>
-
-    <p>
-      Iznimno trgovac nije u obvezi izvršiti povrat dodatnih troškova koji su rezultat kupčeva izričitog izbora vrste prijevoza koji je različit od najjeftinije vrste standardnog prijevoza koji je ponudio trgovac.
-    </p>
-
-    <p>
-      Osim ako nije ponudio da robu koju kupac vraća sam preuzme, trgovac mora izvršiti povrat plaćenog tek nakon što mu roba bude vraćena, odnosno, nakon što mu kupac dostavi dokaz da je robu poslao natrag trgovcu, ako bi o tome trgovac bio obaviješten prije primitka robe.
-    </p>
-
-    <p>
-      Trgovac mora izvršiti povrat plaćenoga služeći se istim sredstvima plaćanja kojim se koristio kupac prilikom plaćanja osim ako kupac izričito ne pristane na neko drugo sredstvo plaćanja, te uz pretpostavku da kupac ne bude obvezan platiti nikakve dodatne troškove za takav povrat. U slučaju plaćanja pouzećem trgovac će kupcu cijenu plaćenu za vraćeni proizvod vratiti virmanom na IBAN broj bankovnog računa koji mu dostavi kupac.
-    </p>
-
-    <p>
-      Osim ako je trgovac ponudio da robu koju kupac vraća sam preuzme, kupac mora izvršiti povrat robe bez odgađanja a najkasnije u roku od 14 dana od kada je, obavijestio trgovca o svojoj odluci da raskine ugovor. Smatra se da je kupac izvršio svoju obvezu na vrijeme ako prije isteka roka pošalje robu ili je preda trgovcu, odnosno osobi koju je trgovac ovlastio da primi robu.
-    </p>
-
-    <p>
-      Kupac mora snositi izravne troškove povrata robe te je odgovoran za robu do trenutka kada je ona dostavljena natrag u posjed trgovcu. Trgovac nije odgovoran za robu koja je izgubljena u procesu slanja/povrata, stoga preporučuje kupcu da za povrat koristi sigurne metode dostave pošiljke s dokazom o slanju, mogućnošću praćenja pošiljke/povrata te potrebnim potpisom trgovca kod preuzimanja pošiljke/povrata.
-    </p>
-
-    <p>
-      Ako je, kod ugovora sklopljenog izvan poslovnih prostorija, roba u trenutku sklapanja ugovora bila dostavljena kupcu u njegov dom, trgovac mora preuzeti robu na svoj trošak ako robu, zbog njezine prirode, nije moguće vratiti na uobičajeni način poštom.
-    </p>
-
-    <p>
-      Kupac je odgovoran za svako umanjenje vrijednosti robe koje je rezultat rukovanja robom, osim onog koje je bilo potrebno za utvrđivanje prirode, obilježja i funkcionalnosti robe.
-      Kupac nema pravo na jednostrani raskid ugovora ako je predmet ugovora lako pokvarljiva roba ili roba kojoj brzo istječe rok uporabe ili ako je predmet ugovora zapečaćena roba koja zbog zdravstvenih ili higijenskih razloga nije pogodna za vraćanje, ako je bila otpečaćena nakon dostave. Također, kupac nema pravo na jednostrani raskid ugovora o uslugama koji je trgovac u potpunosti ispunio, a ispunjenje je započelo uz izričit prethodni pristanak kupca te uz njegovu potvrdu da je upoznat s činjenicom da će izgubiti pravo na jednostrani raskid ugovora iz ovoga odsjeka ako usluga bude u potpunosti ispunjena.
-    </p>
-
     Obrazac o jednostranom raskidu ugovora možete skinuti <a class="link-in-text" href="{% static 'files/standardni_informacijski_obrazac_za_jednostrani_raskid_ugovora.pdf' %}" download>OVDJE</a>.
   </div>
 {% endblock content %}
