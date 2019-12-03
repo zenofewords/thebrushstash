@@ -101,9 +101,9 @@
         </h2>
       {% endif %}
       {% if LANGUAGE_CODE == 'hr' %}
-        {{ product.description_cro|linebreaks }}
+        {{ product.description_cro|linebreaksbr }}
       {% else %}
-        {{ product.description|linebreaks }}
+        {{ product.description|linebreaksbr }}
       {% endif %}
     </div>
     <div class="media-wrapper">

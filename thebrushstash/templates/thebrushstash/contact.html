@@ -1,6 +1,7 @@
 {% extends 'thebrushstash/base.html' %}
 {% load i18n %}
 {% load thebrushstash_tags %}
+{% get_current_language as LANGUAGE_CODE %}
 
 {% block title %}
   {{ block.super }} - {% trans "Contact" %}
@@ -8,9 +9,19 @@
 
 {% block content %}
   <div class="contact-wrapper">
-    <h1>{{ title }}</h1>
-    {% autoescape off %}
-      {{ content }}
-    {% endautoescape %}
+    <h1>
+      {% if LANGUAGE_CODE == 'hr' %}
+        {{ title_cro|safe }}
+      {% else %}
+        {{ title|safe }}
+      {% endif %}
+    </h1>
+    <p>
+      {% if LANGUAGE_CODE == 'hr' %}
+        {{ content_cro|safe }}
+      {% else %}
+        {{ content|safe }}
+      {% endif %}
+    </p>
   </div>
 {% endblock content %}

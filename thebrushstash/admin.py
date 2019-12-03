@@ -7,10 +7,11 @@ from thebrushstash.models import (
     FooterItem,
     FooterShareLink,
     NavigationItem,
+    QandAPair,
     Region,
-    TestImage,
     Setting,
     StaticPageContent,
+    TestImage,
 )
 from shop.admin import (
     GalleryItemInline,
@@ -47,7 +48,8 @@ admin.site.register(ExchangeRate, ExchangeRateAdmin)
 admin.site.register(FooterItem)
 admin.site.register(FooterShareLink)
 admin.site.register(NavigationItem, NavigationItemAdmin)
+admin.site.register(QandAPair)
 admin.site.register(Region, RegionAdmin)
-admin.site.register(TestImage, TestImageAdmin)
 admin.site.register(Setting)
 admin.site.register(StaticPageContent)
+admin.site.register(TestImage, TestImageAdmin)

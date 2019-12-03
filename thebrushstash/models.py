@@ -85,8 +85,10 @@ class Region(PublishedMixin):
 
 class StaticPageContent(models.Model):
     title = models.CharField(max_length=1000)
+    title_cro = models.CharField(max_length=1000)
     slug = models.CharField(max_length=100)
-    content = HTMLField()
+    content = models.TextField(max_length=10000)
+    content_cro = models.TextField(max_length=10000)
 
     class Meta:
         verbose_name = 'Static page content'
@@ -106,3 +108,17 @@ class Setting(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.name, self.value)
+
+
+class QandAPair(models.Model):
+    question = models.TextField(max_length=2000)
+    question_cro = models.TextField(max_length=2000)
+    answer = models.TextField(max_length=5000)
+    answer_cro = models.TextField(max_length=5000)
+
+    class Meta:
+        verbose_name = 'Question and answer pair'
+        verbose_name = 'Question and answer pair'
+
+    def __str__(self):
+        return self.question[:50]

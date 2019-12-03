@@ -12,9 +12,9 @@
       </h1>
       <p>
         {% if LANGUAGE_CODE == 'hr' %}
-          {{ showcase.description_cro|linebreaks }}
+          {{ showcase.description_cro|linebreaksbr }}
         {% else %}
-          {{ showcase.description|linebreaks }}
+          {{ showcase.description|linebreaksbr }}
         {% endif %}
       </p>
     </div>

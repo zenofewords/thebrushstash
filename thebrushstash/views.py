@@ -8,6 +8,7 @@ from shop.models import Invoice
 from thebrushstash.models import (
     StaticPageContent,
     TestImage,
+    QandAPair,
 )
 
 
@@ -23,13 +24,22 @@ class ContactView(TemplateView):
         sp_content = StaticPageContent.objects.get(slug='contact')
         context.update({
             'title': sp_content.title,
+            'title_cro': sp_content.title_cro,
             'content': sp_content.content,
+            'content_cro': sp_content.content_cro,
         })
         return context
 
 
 class FaqView(TemplateView):
     template_name = 'thebrushstash/faq.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'faq_pairs': QandAPair.objects.all(),
+        })
+        return context
 
 
 class GeneralTermsAndConditions(TemplateView):
@@ -46,6 +56,17 @@ class PaymentAndDeliveryView(TemplateView):
 
 class TakingCareOfYourBrushView(TemplateView):
     template_name = 'thebrushstash/brush_care.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        sp_content = StaticPageContent.objects.get(slug='brush-care')
+        context.update({
+            'title': sp_content.title,
+            'title_cro': sp_content.title_cro,
+            'content': sp_content.content,
+            'content_cro': sp_content.content_cro,
+        })
+        return context
 
 
 @method_decorator(staff_member_required, name='dispatch')
