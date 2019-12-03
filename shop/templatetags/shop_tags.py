@@ -1,6 +1,5 @@
 from django import template
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import get_language
 
 from shop.constants import VARIATIONS
@@ -11,11 +10,6 @@ from shop.models import (
 from thebrushstash.utils import format_price
 
 register = template.Library()
-
-
-@register.simple_tag
-def format_price_with_currency(price, currency):
-    return format_price(currency, price)
 
 
 @register.inclusion_tag('shop/tags/showcase_tag.html')
@@ -122,7 +116,18 @@ def get_localized_price(context, key, obj):
 
 
 @register.simple_tag()
+def get_localized_price_for_currency(obj, key, currency, multiply=1):
+    price = getattr(obj, '{}_{}'.format(key, currency)) * multiply
+    return format_price(currency, price)
+
+
+@register.simple_tag()
 def get_price_for_currency(obj, key, currency):
     price = obj.get('{}_{}'.format(key, currency))
 
+    return format_price(currency, price)
+
+
+@register.simple_tag
+def format_price_with_currency(price, currency):
     return format_price(currency, price)

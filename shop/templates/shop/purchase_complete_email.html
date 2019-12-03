@@ -163,13 +163,13 @@
               <a href="{{ site_name}}/products/{{ item.product.slug }}">{{ item.product.name }}</a>
             </td>
             <td>
-              {{ item.product.price_hrk }}
+              {% get_localized_price_for_currency item.product 'price' currency %}
             </td>
             <td>
               {{ item.sold_count }}
             </td>
             <td>
-              {% widthratio item.product.price_hrk 1 item.sold_count %}
+              {% get_localized_price_for_currency item.product 'price' currency item.sold_count %}
             </td>
           </tr>
         {% endfor %}
@@ -182,7 +182,7 @@
             {% trans "Subtotal:" %}
           </th>
           <th>
-            {{ bag.total_hrk }}
+            {% get_price_for_currency bag 'total' currency %}
           </th>
         </tr>
         <tr>
@@ -190,7 +190,7 @@
             {% trans "VAT included:" %}
           </td>
           <td>
-            {{ bag.tax }}
+            {% format_price_with_currency bag.tax currency %}
           </td>
         </tr>
         <tr>
@@ -198,7 +198,7 @@
             {% trans "Shipping:" %}
           </td>
           <td>
-            {{ bag.shipping_cost_hrk }}
+            {% get_price_for_currency bag 'shipping_cost' currency %}
           </td>
         </tr>
         {% if bag.fees %}
@@ -207,7 +207,7 @@
               {% trans "GLS (cash on delivery):" %}
             </td>
             <td>
-              {{ bag.fees }}
+              {% format_price_with_currency bag.fees currency %}
             </td>
           </tr>
         {% endif %}
@@ -221,7 +221,7 @@
             {% trans "Grand total:" %}
           </th>
           <th>
-            {{ bag.grand_total_hrk }}
+            {% get_price_for_currency bag 'grand_total' currency %}
           </th>
         </tr>
       </table>

@@ -321,7 +321,7 @@ def send_subscription_email(email, current_site):
     send_mail(subject, '', 'The Brush Stash', [email], html_message=message_html)
 
 
-def send_purchase_mail(email_address, current_site, invoice, bag):
+def send_purchase_mail(session, current_site, invoice):
     message_html = render_to_string('shop/purchase_complete_email.html', {
         'domain': current_site.domain,
         'site_name': current_site.name,
@@ -329,9 +329,11 @@ def send_purchase_mail(email_address, current_site, invoice, bag):
         'invoice': invoice,
         'invoice_items': InvoiceItem.objects.filter(
             invoice=invoice).select_related('invoice', 'product'),
-        'bag': bag,
+        'bag': session['bag'],
+        'currency': session['currency'],
     })
     subject = _('Purchase complete')
+    email_address = session['user_information']['email']
     send_mail(subject, '', 'The Brush Stash', [email_address], html_message=message_html)
 
 
@@ -384,10 +386,9 @@ def complete_purchase(session, invoice_status, request):
         update_inventory(invoice, session['bag']['products'])
 
         send_purchase_mail(
-            session['user_information']['email'],
+            session,
             get_current_site(request),
             invoice,
-            session['bag'],
         )
         session['bag'] = EMPTY_BAG
         session['order_number'] = None
