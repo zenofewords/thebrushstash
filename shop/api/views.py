@@ -137,28 +137,46 @@ class UpdateBagView(GenericAPIView):
         products = bag.get('products')
         product_slug = serializer.data.get('slug')
 
-        if serializer.data.get('action') == 'increment':
-            pass
-        elif serializer.data.get('action') == 'decrement' and product_slug in products:
+        if product_slug in products:
             product = products[product_slug]
-            product['quantity'] = int(product['quantity']) - 1
-            bag.update({
-                'total_quantity': int(bag['total_quantity']) - 1,
-            })
+
+            if serializer.data.get('action') == 'increment':
+                product['quantity'] = product['quantity'] + 1
+                bag['total_quantity'] = bag['total_quantity'] + 1
+
+                product.update({
+                    **get_totals(product, 'subtotal', operator.add, product, 1),
+                })
+                bag.update({
+                    **get_totals(product, 'total', operator.add, bag, 1)
+                })
+
+            elif serializer.data.get('action') == 'decrement':
+                product['quantity'] = product['quantity'] - 1
+                bag['total_quantity'] = bag['total_quantity'] - 1
+
+                if product['quantity'] <= 0:
+                    del products[product_slug]
+
+                product.update({
+                    **get_totals(product, 'subtotal', operator.sub, product, 1),
+                })
+                bag.update({
+                    **get_totals(product, 'total', operator.sub, bag, 1)
+                })
+
             set_shipping_cost(bag, request.session['region'])
             set_tax(bag, request.session['currency'])
-            bag.update({
-                **get_totals(product, 'total', operator.sub, bag),
-                **get_grandtotals(bag),
-            })
-            if bag['total_quantity'] <= 0:
-                del products[product_slug]
 
-        request.session['bag'] = bag
-        request.session.modified = True
+            bag.update({
+                **get_grandtotals(bag)
+            })
+            bag['products'] = products
+            request.session['bag'] = bag if bag['total_quantity'] > 0 else EMPTY_BAG
+            request.session.modified = True
         return response.Response({
-            'bag': bag,
-            'cart': get_cart(bag),
+            'bag': request.session['bag'],
+            'cart': get_cart(request.session['bag']),
             'currency': request.session['currency'],
         }, status=status.HTTP_200_OK)
 

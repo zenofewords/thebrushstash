@@ -57,8 +57,8 @@ def set_tax(bag, current_currency):
     bag['tax'] = str(round(Decimal(bag['total_{}'.format(current_currency)]) * Decimal(TAX), 2))
 
 
-def get_totals(data, key, operator, product={}):
-    quantity = data.get('quantity')
+def get_totals(data, key, operator, product={}, quantity=None):
+    quantity = quantity if quantity else data.get('quantity')
 
     price_hrk = Decimal(data.get('price_hrk'))
     price_eur = Decimal(data.get('price_eur'))

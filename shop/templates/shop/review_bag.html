@@ -36,14 +36,14 @@
               </span>
             </div>
             <div class="bag-product-quantity">
-              {{ value.quantity }}
+              <span id="{{ key }}-item-count">{{ value.quantity }}</span>
               <span class="bag-product-decrement" data-slug="{{ key }}"></span>
               <span class="bag-product-increment" data-slug="{{ key }}"></span>
             </div>
             <div class="bag-subtotal">
               <span class="bag-product-remove" data-slug="{{ key }}">
               </span>
-              <span class="bag-product-subtotal">
+              <span class="bag-product-subtotal" id="{{ key }}-item-subtotal">
                 {% get_price_for_currency value 'subtotal' currency %}
               </span>
             </div>

@@ -280,22 +280,27 @@ export const refreshBag = (response) => {
 const refreshReviewBag = (response, slug) => {
   const product = document.getElementById(slug)
 
-  if (product) {
+  if (product && !response.bag['products'][slug]) {
     product.remove()
+  } else {
+    const itemCount = document.getElementById(`${slug}-item-count`)
+    const itemSubtotal = document.getElementById(`${slug}-item-subtotal`)
 
-    summaryShippingCost.innerHTML = formatPrice(
-      `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
-    )
-    summaryTotal.innerHTML = formatPrice(
-      `${response.bag[`total_${response.currency}`]}`, response.currency
-    )
-    summaryGrandTotal.innerHTML = formatPrice(
-      `${response.bag[`grand_total_${response.currency}`]}`, response.currency
-    )
-    summaryTax.innerHTML = formatPrice(
-      response.bag['tax'], response.currency
-    )
+    itemCount.innerHTML = response.bag['products'][slug]['quantity']
+    itemSubtotal.innerHTML = response.bag['products'][slug][`subtotal_${response.currency}`]
   }
+  summaryShippingCost.innerHTML = formatPrice(
+    `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
+  )
+  summaryTotal.innerHTML = formatPrice(
+    `${response.bag[`total_${response.currency}`]}`, response.currency
+  )
+  summaryGrandTotal.innerHTML = formatPrice(
+    `${response.bag[`grand_total_${response.currency}`]}`, response.currency
+  )
+  summaryTax.innerHTML = formatPrice(
+    response.bag['tax'], response.currency
+  )
 
   if (summaryGrandTotalHrk) {
     summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total_hrk} kn`
@@ -376,9 +381,15 @@ export const addToBag = (dataset) => {
 }
 
 export const addOneToBag = (slug) => {
-  updateProduct(slug, 'increment')
+  updateProduct(slug, 'increment').then((data) => data.json().then((response) => {
+    refreshBag(response)
+    refreshReviewBag(response, slug)
+  }))
 }
 
 export const removeOneFromBag = (slug) => {
-  updateProduct(slug, 'decrement')
+  updateProduct(slug, 'decrement').then((data) => data.json().then((response) => {
+    refreshBag(response)
+    refreshReviewBag(response, slug)
+  }))
 }

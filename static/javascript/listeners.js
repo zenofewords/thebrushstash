@@ -220,13 +220,13 @@ ready(() => {
 
   for (let i = 0; i < bagProductDecrement.length; i++) {
     bagProductDecrement[i].addEventListener('click', (event) => {
-      // removeOneFromBag(bagProductDecrement[i].dataset.slug)
+      removeOneFromBag(bagProductDecrement[i].dataset.slug)
     })
   }
 
   for (let i = 0; i < bagProductIncrement.length; i++) {
     bagProductIncrement[i].addEventListener('click', (event) => {
-      // addOneToBag(bagProductDecrement[i].dataset.slug)
+      addOneToBag(bagProductDecrement[i].dataset.slug)
     })
   }
 
