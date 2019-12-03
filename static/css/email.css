@@ -450,8 +450,12 @@ table.column .text-pad-right {
 }
 
 /* Alignment & Visibility Classes */
-table.center, td.center {
+
+table.center, th.center, td.center {
     text-align: center;
+}
+th.right, td.right {
+    text-align: right;
 }
 
 h1.center,
