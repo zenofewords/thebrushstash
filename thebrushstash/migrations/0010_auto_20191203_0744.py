@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
             field=models.CharField(default='', max_length=1000),
             preserve_default=False,
         ),
-        migrations.AlterField(
+        migrations.AddField(
             model_name='staticpagecontent',
             name='content',
             field=models.TextField(max_length=2000),
