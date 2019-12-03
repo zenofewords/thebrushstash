@@ -1,10 +1,15 @@
 {% load i18n %}
 
 {% autoescape off %}
-{% blocktrans %}Ignore this e-mail if you did not start a newsletter subscription for {{ site_name }}.{% endblocktrans %}
+  {% blocktrans %}
+    Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o eventualnim posebnim ponudama.
 
-{% trans "You can activate your subscription at the following page:" %}
-{{ protocol }}://{{ domain }}{% url 'account:subscribe-to-newsletter' uidb64=uid %}
+    Svoj korisnički račun možete aktivirati ovdje:
+  {% endblocktrans %}
+  {{ protocol }}://{{ domain }}{% url 'account:subscribe-to-newsletter' uidb64=uid %}
+  {% blocktrans %}
+    Hvala vam, srdačan pozdrav,
 
-{% blocktrans %}Thanks, {{ site_name }}!{% endblocktrans %}
+    vaš The Brush Stash team
+  {% endblocktrans %}
 {% endautoescape %}
