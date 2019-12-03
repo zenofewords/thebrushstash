@@ -26,7 +26,7 @@
         </tr>
         <tr>
           <td>
-            {% trans "Dear" %} {{ invoice.first_name }},
+            {% trans "Thank you" %} {{ invoice.first_name }},
             <br>
             <br>
             {% trans "Thank you for your order and for choosing The Brush Stash! Your parcel will be packaged and shipped to your address as soon as possible." %}
@@ -132,10 +132,10 @@
           </th>
         </tr>
         <tr>
-          <th width="30%">
+          <th width="25%">
             &nbsp;
           </th>
-          <th width="20%">
+          <th width="25%">
             {% trans "PRODUCT" %}
           </th>
           <th width="20%">
@@ -166,7 +166,7 @@
               {% get_localized_price_for_currency item.product 'price' currency %}
             </td>
             <td>
-              {{ item.sold_count }}
+              &nbsp;{{ item.sold_count }}
             </td>
             <td>
               {% get_localized_price_for_currency item.product 'price' currency item.sold_count %}
@@ -240,7 +240,7 @@
 
       <table class="container">
         <tr>
-          <td>{% trans 'Thank you for shopping with' %} The Brush Stash!</td>
+          <td>{% trans 'Thank you for using The Brush Stash products!' %}</td>
         </tr>
       </table>
     </table>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-03 18:53+0100\n"
+"POT-Creation-Date: 2019-12-03 19:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -272,8 +272,8 @@ msgid "Your order has been confirmed!"
 msgstr "Vaša narudžba je potvrđena!"
 
 #: shop/templates/shop/purchase_complete_email.html:29
-msgid "Dear"
-msgstr "Draga/i"
+msgid "Thank you"
+msgstr "Hvala Vam"
 
 #: shop/templates/shop/purchase_complete_email.html:32
 msgid ""
@@ -343,12 +343,12 @@ msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
 #: shop/templates/shop/purchase_complete_email.html:243
-msgid "Thank you for shopping with"
-msgstr "Hvala Vam što koristite"
+msgid "Thank you for using The Brush Stash products!"
+msgstr "Hvala Vam što koristite The Brush Stash proizvode!"
 
 #: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:335
 msgid "Purchase complete"
-msgstr "Narudžba izvršena"
+msgstr "Vaša narudžba je izvršena!"
 
 #: shop/templates/shop/purchase_completed.html:11
 msgid "Thank you for your purchase!"
@@ -688,8 +688,8 @@ msgid "About / The Story"
 msgstr "O nama / O kistovima"
 
 #: thebrushstash/templates/thebrushstash/about_the_story.html:11
-msgid "O NAMA"
-msgstr "ABOUT US"
+msgid "ABOUT US"
+msgstr ""
 
 #: thebrushstash/templates/thebrushstash/brush_care.html:7
 msgid "Brush Care"
@@ -826,3 +826,6 @@ msgstr ""
 "\n"
 "                Ostalo nam je samo {} {},\n"
 "                molimo uklonite barem {} iz košarice da bi mogli nastaviti."
+
+#~ msgid "O NAMA"
+#~ msgstr "ABOUT US"
