@@ -271,10 +271,6 @@ msgstr "U slučaju da se predomislite, uvijek možete nastaviti gdje ste stali."
 msgid "Your order has been confirmed!"
 msgstr "Vaša narudžba je potvrđena!"
 
-#: shop/templates/shop/purchase_complete_email.html:29
-msgid "Thank you"
-msgstr "Hvala Vam"
-
 #: shop/templates/shop/purchase_complete_email.html:32
 msgid ""
 "Thank you for your order and for choosing The Brush Stash! Your parcel will "
