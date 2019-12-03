@@ -317,8 +317,8 @@ msgid "TOTAL"
 msgstr "UKUPNO"
 
 #: shop/templates/shop/purchase_complete_email.html:183
-msgid "PAYMENT"
-msgstr "NAPLATA"
+msgid "PAYMENT:"
+msgstr "NAPLATA:"
 
 #: shop/templates/shop/purchase_complete_email.html:193
 #: thebrushstash/templates/thebrushstash/includes/bag.html:38
