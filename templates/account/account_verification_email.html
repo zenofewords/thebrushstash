@@ -17,38 +17,22 @@
         <tr>
           <td>
             <img src="{{ site_name }}{% static 'images/tbs-email-logo.jpg' %}" alt="tbs logo">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
+            <br>
+            <br>
             {% blocktrans %}You're receiving this e-mail because you created an account at {{ site_name }}.{% endblocktrans %}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
+            <br>
+            <br>
             {% trans "You can activate your account at the following page:" %}
+            <br>
+            <br>
             {% block reset_link %}{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}{% endblock %}
+            <br>
+            <br>
             {% trans "Your username, in case you've forgotten:" %} {{ user.get_username }}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
+            <br>
+            <br>
             {% blocktrans %}Thank you for using The Brush Stash!{% endblocktrans %}
+            <br>
           </td>
         </tr>
       </table>

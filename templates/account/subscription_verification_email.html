@@ -17,41 +17,23 @@
         <tr>
           <td>
             <img src="{{ site_name }}{% static 'images/tbs-email-logo.jpg' %}" alt="tbs logo">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
+            <br>
+            <br>
             {% blocktrans %}Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o eventualnim posebnim ponudama.{% endblocktrans %}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {% blocktrans %}Svoj korisnički račun možete aktivirati ovdje:
-            {% endblocktrans %}{{ protocol }}://{{ domain }}{% url 'account:subscribe-to-newsletter' uidb64=uid %}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
+            <br>
+            <br>
+            {% blocktrans %}Svoj korisnički račun možete aktivirati ovdje:{% endblocktrans %}
+            <br>
+            <br>
+            {{ protocol }}://{{ domain }}{% url 'account:subscribe-to-newsletter' uidb64=uid %}
+            <br>
+            <br>
             {% blocktrans %}
             Hvala vam, srdačan pozdrav,
             <br>
             vaš The Brush Stash team
             {% endblocktrans %}
+            <br>
           </td>
         </tr>
       </table>

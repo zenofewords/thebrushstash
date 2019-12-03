@@ -17,40 +17,19 @@
         <tr>
           <td>
             <img src="{{ site_name }}{% static 'images/tbs-email-logo.jpg' %}" alt="tbs logo">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
+            <br>
+            <br>
             {% trans "Dear" %} {{ invoice.first_name }},
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
+            <br>
+            <br>
             {% trans "Thank you for your order and for choosing The Brush Stash! Your parcel will be packaged and shipped to your address as soon as possible." %}
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
+            <br>
+            <br>
             <p>{% trans "Your order number is:" %} {{ invoice.order_number }}</p>
+            <br>
           </td>
         </tr>
       </table>
-      <br>
 
       <table class="container">
         <th width="50%">
@@ -132,7 +111,6 @@
           </tr>
         {% endif %}
       </table>
-      <br>
 
       <table class="container">
         <tr>
@@ -188,7 +166,6 @@
           </tr>
         {% endfor %}
       </table>
-      <br>
 
       <table class="container">
         <tr>
@@ -239,7 +216,6 @@
           </th>
         </tr>
       </table>
-      <br>
 
       <table class="container">
         <tr>
