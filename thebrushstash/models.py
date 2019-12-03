@@ -1,7 +1,5 @@
 from django.db import models
 
-from tinymce.models import HTMLField
-
 from thebrushstash.mixins import (
     LinkedMixin,
     PublishedMixin,

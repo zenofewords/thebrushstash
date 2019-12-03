@@ -46,7 +46,6 @@ urlpatterns = [
     path('', include(('shop.urls', 'shop'), namespace='shop')),
     path('print-ship-info/<int:pk>/', PrintShipInfoView.as_view(), name='print-ship-info'),
     path('test-images/', TestImageView.as_view(), name='other-images'),
-    path('tinymce/', include('tinymce.urls')),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
