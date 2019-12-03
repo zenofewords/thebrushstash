@@ -21,6 +21,11 @@
         </tr>
         <tr>
           <td>
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
             {% trans "Dear" %} {{ invoice.first_name }},
           </td>
         </tr>
@@ -38,10 +43,10 @@
       <br>
 
       <table class="container">
-        <th>
+        <th width="50%">
           {% trans "BILLING TO:" %}
         </th>
-        <th>
+        <th width="50%">
           {% trans "SHIPPING TO:" %}
         </th>
         <tr>
@@ -76,13 +81,43 @@
             {{ invoice.country }}
           </td>
         </tr>
-        {% if invoice.phone %}
+        {% if invoice.phone_number %}
           <tr>
             <td>
-              {{ invoice.phone }}
+              {{ invoice.phone_number }}
             </td>
             <td>
-              {{ invoice.phone }}
+              {{ invoice.phone_number }}
+            </td>
+          </tr>
+        {% endif %}
+        {% if invoice.company_name %}
+          <tr>
+            <td>
+              {{ invoice.company_name }}
+            </td>
+            <td>
+              {{ invoice.company_name }}
+            </td>
+          </tr>
+        {% endif %}
+        {% if invoice.company_address %}
+          <tr>
+            <td>
+              {{ invoice.company_address }}
+            </td>
+            <td>
+              {{ invoice.company_address }}
+            </td>
+          </tr>
+        {% endif %}
+        {% if invoice.company_uin %}
+          <tr>
+            <td>
+              {{ invoice.company_uin }}
+            </td>
+            <td>
+              {{ invoice.company_uin }}
             </td>
           </tr>
         {% endif %}
@@ -90,24 +125,46 @@
       <br>
 
       <table class="container">
-        <th width="25%">
-          {% trans "PRODUCT" %}
-        </th>
-        <th width="25%">
-          {% trans "PRICE" %}
-        </th>
-        <th width="25%">
-          {% trans "QTY" %}
-        </th>
-        <th width="25%">
-          {% trans "TOTAL" %}
-        </th>
+        <tr>
+          <th colspan="5">
+            {% trans "ITEMS ORDERED" %}
+          </th>
+        </tr>
+        <tr>
+          <th colspan="5">
+            <hr>
+          </th>
+        </tr>
+        <tr>
+          <th width="30%">
+            &nbsp;
+          </th>
+          <th width="20%">
+            {% trans "PRODUCT" %}
+          </th>
+          <th width="20%">
+            {% trans "PRICE" %}
+          </th>
+          <th width="10%">
+            {% trans "QTY" %}
+          </th>
+          <th width="20%">
+            {% trans "TOTAL" %}
+          </th>
+        </tr>
         {% for item in invoice_items %}
           <tr>
+            <td colspan="5">
+              <hr>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {% get_image_url_for_email site_name item.product.pk as image_url %}
+              <img width="150px" height="150px" src="{{ image_url }}" alt="{{ product.name }}">
+            </td>
             <td>
               <a href="{{ site_name}}/products/{{ item.product.slug }}">{{ item.product.name }}</a>
-              {% get_image_url_for_email site_name item.product.pk as image_url %}
-              <img src="{{ image_url }}" alt="{{ product.name }}">
             </td>
             <td>
               {{ item.product.price_hrk }}
@@ -125,12 +182,12 @@
 
       <table class="container">
         <tr>
-          <td>
+          <th>
             {% trans "Subtotal" %}:
-          </td>
-          <td>
+          </th>
+          <th>
             {{ bag.total_hrk }}
-          </td>
+          </th>
         </tr>
         <tr>
           <td>
@@ -159,12 +216,17 @@
           </tr>
         {% endif %}
         <tr>
-          <td>
+          <td colspan="2">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <th>
             {% trans "Grand total:" %}
-          </td>
-          <td>
+          </th>
+          <th>
             {{ bag.grand_total_hrk }}
-          </td>
+          </th>
         </tr>
       </table>
       <br>
