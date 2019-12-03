@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-03 00:57+0100\n"
+"POT-Creation-Date: 2019-12-03 12:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -261,67 +261,78 @@ msgid ""
 "You can always continue from where you left off if you change your mind."
 msgstr "U slučaju da se predomislite, uvijek možete nastaviti gdje ste stali."
 
-#: shop/templates/shop/purchase_complete_email.html:3
+#: shop/templates/shop/purchase_complete_email.html:11
+msgid "Your order has been confirmed!"
+msgstr "Vaša narudžba je potvrđena!"
+
+#: shop/templates/shop/purchase_complete_email.html:29
 msgid "Dear"
 msgstr "Draga/i"
 
-#: shop/templates/shop/purchase_complete_email.html:4
+#: shop/templates/shop/purchase_complete_email.html:34
 msgid ""
-"Your order is now being processed. We’ll send you a follow-up email as soon "
-"as your parcel has shipped."
+"Thank you for your order and for choosing The Brush Stash! Your parcel will "
+"be packaged and shipped to your address as soon as possible."
 msgstr ""
+"Hvala Vam na kupnji i povjerenju koje ste nam ukazali odabirom The Brush "
+"Stash kistova! Paketić ćemo pripremiti i poslati na Vašu adresu u najkraćem "
+"mogućem roku."
 
-#: shop/templates/shop/purchase_complete_email.html:6
-msgid "Order Number:"
-msgstr "Broj narudžbe:"
+#: shop/templates/shop/purchase_complete_email.html:39
+msgid "Your order number is:"
+msgstr "Broj Vaše narudžbe je:"
 
-#: shop/templates/shop/purchase_complete_email.html:10
+#: shop/templates/shop/purchase_complete_email.html:47
 msgid "BILLING TO:"
-msgstr ""
+msgstr "ADRESA ZA NAPLATU:"
 
-#: shop/templates/shop/purchase_complete_email.html:13
+#: shop/templates/shop/purchase_complete_email.html:50
 msgid "SHIPPING TO:"
-msgstr ""
+msgstr "ADRESA DOSTAVE:"
 
-#: shop/templates/shop/purchase_complete_email.html:51
-msgid "DESCRIPTION"
-msgstr ""
+#: shop/templates/shop/purchase_complete_email.html:130
+msgid "ITEMS ORDERED"
+msgstr "NARUČENI PROIZVODI:"
 
-#: shop/templates/shop/purchase_complete_email.html:54
+#: shop/templates/shop/purchase_complete_email.html:143
+msgid "PRODUCT"
+msgstr "PROIZVOD"
+
+#: shop/templates/shop/purchase_complete_email.html:146
 msgid "PRICE"
-msgstr ""
+msgstr "CIJENA"
 
-#: shop/templates/shop/purchase_complete_email.html:57
+#: shop/templates/shop/purchase_complete_email.html:149
 msgid "QTY"
-msgstr ""
+msgstr "KOL"
 
-#: shop/templates/shop/purchase_complete_email.html:60
+#: shop/templates/shop/purchase_complete_email.html:152
 msgid "TOTAL"
-msgstr ""
+msgstr "UKUPNO"
 
-#: shop/templates/shop/purchase_complete_email.html:83
-#: shop/templates/shop/review_bag.html:23
-msgid "Subtotal"
-msgstr "Cijena"
+#: shop/templates/shop/purchase_complete_email.html:186
+#: thebrushstash/templates/thebrushstash/includes/bag.html:38
+msgid "Subtotal:"
+msgstr "Cijena:"
 
-#: shop/templates/shop/purchase_complete_email.html:91
-msgid "Shipping"
-msgstr ""
+#: shop/templates/shop/purchase_complete_email.html:194
+msgid "VAT:"
+msgstr "PDV:"
 
-#: shop/templates/shop/purchase_complete_email.html:100
-msgid "Fees"
-msgstr ""
+#: shop/templates/shop/purchase_complete_email.html:202
+msgid "Shipping:"
+msgstr "Dostava:"
 
-#: shop/templates/shop/purchase_complete_email.html:109
-msgid "VAT"
-msgstr "PDV"
+#: shop/templates/shop/purchase_complete_email.html:211
+msgid "Fees (GLS):"
+msgstr "Naknade (GLS):"
 
-#: shop/templates/shop/purchase_complete_email.html:117
+#: shop/templates/shop/purchase_complete_email.html:225
 #: shop/templates/shop/tags/purchase_summary_tag.html:40
 msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
-#: shop/templates/shop/purchase_complete_email.html:124
+#: shop/templates/shop/purchase_complete_email.html:236
 msgid "Thank you for shopping with"
 msgstr "Hvala Vam što koristite"
 
@@ -368,6 +379,12 @@ msgstr "Proizvod i cijena"
 #: shop/templates/shop/review_bag.html:22
 msgid "Quantity"
 msgstr "Količina"
+
+#: shop/templates/shop/review_bag.html:23
+#, fuzzy
+#| msgid "Subtotal:"
+msgid "Subtotal"
+msgstr "Cijena:"
 
 #: shop/templates/shop/shop_base.html:12 shop/templates/shop/shop_base.html:16
 msgid "The Brush Stash | Luxury makeup brushes handmade in Japan"
@@ -651,23 +668,19 @@ msgstr "O nama / O kistovima"
 msgid "O NAMA"
 msgstr ""
 
-#: thebrushstash/templates/thebrushstash/brush_care.html:6
+#: thebrushstash/templates/thebrushstash/brush_care.html:7
 msgid "Brush Care"
 msgstr "Održavanje kistova"
 
-#: thebrushstash/templates/thebrushstash/brush_care.html:11
-msgid "KAKO ODRŽAVATI KISTOVE - detaljne upute"
-msgstr ""
-
-#: thebrushstash/templates/thebrushstash/contact.html:6
+#: thebrushstash/templates/thebrushstash/contact.html:7
 msgid "Contact"
 msgstr "Kontakt"
 
-#: thebrushstash/templates/thebrushstash/faq.html:6
+#: thebrushstash/templates/thebrushstash/faq.html:7
 msgid "FAQ"
 msgstr "Česta pitanja"
 
-#: thebrushstash/templates/thebrushstash/faq.html:11
+#: thebrushstash/templates/thebrushstash/faq.html:12
 msgid "ČESTO POSTAVLJANA PITANJA"
 msgstr ""
 
@@ -683,11 +696,11 @@ msgstr "U košarici"
 msgid "Quantity:"
 msgstr "Količina:"
 
-#: thebrushstash/templates/thebrushstash/includes/bag.html:37
-msgid "Subtotal:"
-msgstr "Cijena:"
+#: thebrushstash/templates/thebrushstash/includes/bag.html:46
+msgid "Buy some brushes"
+msgstr "Vaša košarica je prazna"
 
-#: thebrushstash/templates/thebrushstash/includes/bag.html:48
+#: thebrushstash/templates/thebrushstash/includes/bag.html:49
 msgid "Review bag"
 msgstr "Pregled košarice"
 

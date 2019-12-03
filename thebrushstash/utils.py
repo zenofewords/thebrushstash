@@ -428,7 +428,7 @@ def check_bag_content(products):
 
         if product.in_stock <= 0:
             return _('''
-                Looks like {} is all sold out :(
+                Looks like {} is all sold out
                 You\'ll have to remove it from your bag to continue.'''.format(product.name))
         if product.in_stock < value['quantity']:
             return _('''

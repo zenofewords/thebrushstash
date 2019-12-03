@@ -8,7 +8,7 @@
 <html>
   <head lang="en">
     <meta charset="UTF-8">
-    <title>{% trans "Purchase complete" %}</title>
+    <title>{% trans "Your order has been confirmed!" %}</title>
   </head>
 
   <body>
@@ -31,12 +31,12 @@
         </tr>
         <tr>
           <td>
-            {% trans "Your order is now being processed. Treba tekstove za ovo." %}
+            {% trans "Thank you for your order and for choosing The Brush Stash! Your parcel will be packaged and shipped to your address as soon as possible." %}
           </td>
         </tr>
         <tr>
           <td>
-            <p>{% trans "Order Number:" %} {{ invoice.order_number }}</p>
+            <p>{% trans "Your order number is:" %} {{ invoice.order_number }}</p>
           </td>
         </tr>
       </table>
@@ -183,7 +183,7 @@
       <table class="container">
         <tr>
           <th>
-            {% trans "Subtotal" %}:
+            {% trans "Subtotal:" %}:
           </th>
           <th>
             {{ bag.total_hrk }}
@@ -191,7 +191,7 @@
         </tr>
         <tr>
           <td>
-            {% trans "VAT" %}:
+            {% trans "VAT:" %}:
           </td>
           <td>
             {{ bag.tax }}
@@ -199,7 +199,7 @@
         </tr>
         <tr>
           <td>
-            {% trans "Shipping" %}:
+            {% trans "Shipping:" %}:
           </td>
           <td>
             {{ bag.shipping_cost_hrk }}
@@ -208,7 +208,7 @@
         {% if bag.fees %}
           <tr>
             <td>
-              {% trans "Fees" %}:
+              {% trans "Fees (GLS):" %}:
             </td>
             <td>
               {{ bag.fees }}
