@@ -394,7 +394,7 @@ msgstr "Cijena proizvoda:"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:16
 msgid "VAT (included in price):"
-msgstr "PDV (uključen u cijenu)"
+msgstr "PDV (uključen u cijenu):"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:24
 #: thebrushstash/templates/thebrushstash/tags/ship_to_tag.html:7

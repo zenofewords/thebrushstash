@@ -104,12 +104,12 @@ class IPGPurchaseCompletedView(TemplateView):
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
+        user_information = {}
         if signature_is_valid(request.POST):
             session = request.session
             complete_purchase(session, InvoiceStatus.PAID, request)
-        return render(
-            request, self.template_name, {'user_information': session['user_information']}
-        )
+            user_information = {'user_information': session['user_information']}
+        return render(request, self.template_name, user_information)
 
 
 # IPG forces a POST redirect which will not contain but requires the csrf token
