@@ -1,5 +1,6 @@
 from django import template
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.shortcuts import get_current_site
 from django.utils.translation import get_language
 
 from shop.constants import VARIATIONS
@@ -59,6 +60,14 @@ def get_image_by_natural_key(app_name, model, object_id):
     return GalleryItem.objects.filter(
         content_type=ContentType.objects.get_by_natural_key(app_name, model), object_id=object_id
     ).first()
+
+
+@register.simple_tag()
+def get_image_url_for_email(site_name, object_id):
+    item = GalleryItem.objects.filter(
+        content_type=ContentType.objects.get_by_natural_key('shop', 'product'), object_id=object_id
+    ).first()
+    return '{}{}'.format(site_name, item.image.url)
 
 
 @register.inclusion_tag('thebrushstash/tags/media_object_tag.html')

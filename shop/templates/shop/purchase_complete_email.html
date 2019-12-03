@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load shop_tags %}
 {% load inlinecss %}
 {% inlinecss "css/email.css" %}
 
@@ -24,7 +25,7 @@
         </tr>
         <tr>
           <td>
-            {% trans "Order Number:" %} {{ invoice.order_number }}
+            <p>{% trans "Order Number:" %} {{ invoice.order_number }}</p>
           </td>
         </tr>
       </table>
@@ -73,30 +74,32 @@
       <br>
 
       <table class="container">
-        <th>
+        <th width="25%">
           {% trans "PRODUCT" %}
         </th>
-        <th>
+        <th width="25%">
           {% trans "PRICE" %}
         </th>
-        <th>
+        <th width="25%">
           {% trans "QTY" %}
         </th>
-        <th>
+        <th width="25%">
           {% trans "TOTAL" %}
         </th>
         {% for item in invoice_items %}
           <tr>
-            <td class="four">
-              {{ item.product.name }}
+            <td>
+              <a href="{{ site_name}}/products/{{ item.product.slug }}">{{ item.product.name }}</a>
+              {% get_image_url_for_email site_name item.product.pk as image_url %}
+              <img src="{{ image_url }}" alt="{{ product.name }}">
             </td>
-            <td class="four">
+            <td>
               {{ item.product.price_hrk }}
             </td>
-            <td class="four">
+            <td>
               {{ item.sold_count }}
             </td>
-            <td class="four">
+            <td>
               {% widthratio item.product.price_hrk 1 item.sold_count %}
             </td>
           </tr>
