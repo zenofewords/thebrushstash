@@ -42,13 +42,19 @@ class RegionAdmin(admin.ModelAdmin):
     list_editable = ('shipping_cost', 'published', )
 
 
+class QandAPairAdmin(admin.ModelAdmin):
+    list_display_links = ('question', )
+    list_display = ('question', 'ordering', )
+    list_editable = ('ordering', )
+
+
 admin.site.register(Country)
 admin.site.register(CreditCardLogo)
 admin.site.register(ExchangeRate, ExchangeRateAdmin)
 admin.site.register(FooterItem)
 admin.site.register(FooterShareLink)
 admin.site.register(NavigationItem, NavigationItemAdmin)
-admin.site.register(QandAPair)
+admin.site.register(QandAPair, QandAPairAdmin)
 admin.site.register(Region, RegionAdmin)
 admin.site.register(Setting)
 admin.site.register(StaticPageContent)

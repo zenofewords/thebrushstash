@@ -113,10 +113,15 @@ class QandAPair(models.Model):
     question_cro = models.TextField(max_length=2000)
     answer = models.TextField(max_length=5000)
     answer_cro = models.TextField(max_length=5000)
+    ordering = models.IntegerField(
+        default=0, blank=True,
+        help_text='If set to 0, items are ordered by creation date'
+    )
 
     class Meta:
         verbose_name = 'Question and answer pair'
         verbose_name = 'Question and answer pair'
+        ordering = ('-ordering', )
 
     def __str__(self):
         return self.question[:50]
