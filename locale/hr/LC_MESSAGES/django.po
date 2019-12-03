@@ -683,10 +683,6 @@ msgstr ""
 msgid "About / The Story"
 msgstr "O nama / O kistovima"
 
-#: thebrushstash/templates/thebrushstash/about_the_story.html:11
-msgid "ABOUT US"
-msgstr ""
-
 #: thebrushstash/templates/thebrushstash/brush_care.html:7
 msgid "Brush Care"
 msgstr "Održavanje kistova"

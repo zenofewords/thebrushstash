@@ -8,25 +8,19 @@
 
 {% block content %}
   <div class="about-the-story-wrapper">
-    <h1>{% trans "ABOUT US" %}</h1>
-
+    <h1>
+      {% if LANGUAGE_CODE == 'hr' %}
+        {{ title_cro|safe }}
+      {% else %}
+        {{ title|safe }}
+      {% endif %}
+    </h1>
     <p>
-        The Brush Stash je hrvatski brend vrhunskih, ručno rađenih kozmetičkih kistova koji ujedinjuju maksimalnu učinkovitost i funkcionalnost tijekom procesa šminkanja s najluksuznijim i najugodnijim iskustvom korištenja. U naše je kistove utkano ogromno znanje i još veća ljubav prema ovim magičnim alatima, ujedinjena s neprikosnovenom vještinom, talentom te gotovo dva stoljeća dugom tradicijom japanskih majstora ovog predivnog zanata.
-    </p>
-    <p>
-        Naši su kistovi namijenjeni ama baš svima koji vole šminkanje - od početnika koji žele sagraditi super kvalitetnu kolekciju kistova koja će im pomoći da dostignu svoj puni potencijal (jer prvoklasni alat zaista radi većinu posla), pa sve do profesionalaca koji žele unaprijediti svoj pro kit. Naša je misija putem super pouzdanih i vrsno dizajniranih kistova inspirirati žene (a sve češće i muškarce) na stvaranje malih umjetničkih djela na vlastitom licu. Želimo ih potaknuti da šminkanje zavole kao svoj mali ritual koji će im pričinjati radost, podizati samopouzdanje, buditi kreativnost te godinama svakodnevno donositi osmijeh na lice.
-    </p>
-    <p>
-        Uz sve navedeno, želimo proširiti svijest o vrijednosti i ljepoti kistova iznimne kvalitete te približiti inspirativnu priču i bogatu povijest koja stoji iza njihovog stvaranja. Želimo podijeliti divljenje prema ovoj fascinantnoj tradiciji japanske kulture te istovremeno intenzivno promovirati našu Hrvatsku koja je ovim stala uz bok izuzetno probranoj šačici luksuznih kozmetičkih brendova i zemalja koje imaju svoj brend kistova napravljenih u neospornoj svjetskoj prijestolnici dotičnog zanata - Kumanu.
-    </p>
-    <p>
-       Njene su nam prirodne ljepote vječna ljubav i inspiracija, i upravo iz tog razloga, prva je kolekcija The Brush Stash kistova vizualno inspirirana najljepšim morem na svijetu - našim Jadranskim morem. Crna boja predstavlja njegovu dubinu koja polako prelazi u prepoznatljivo i smirujuće plavetnilo, a zatim se (u odnosu na kut pod kojim pada svjetlo) u plavetnilu pojavljuju guste svjetlucave čestice koje simboliziraju nemirne valiće i lijeno mreškanje mora obasjanog ljetnim suncem. I na kraju, tu su srebrna slova koja predstavljaju razigranu pjenu valova. &lte;3
-    </p>
-    <p>
-        I za kraj, nevjerojatno smo ponosni na našu malu kolekciju i zahvalni na apsolutno svakoj riječi podrške koju ste nam dosad uputili. Nadamo se da će vam se kistovi svidjeti i da ćete uživati u njima! Hvala vam!
-    </p>
-    <p>
-        Vaš The Brush Stash team! :)
+      {% if LANGUAGE_CODE == 'hr' %}
+        {{ content_cro|safe }}
+      {% else %}
+        {{ content|safe }}
+      {% endif %}
     </p>
   </div>
 {% endblock content %}
