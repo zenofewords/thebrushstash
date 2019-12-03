@@ -25,3 +25,7 @@ class NewsletterRecipient(models.Model):
     user = models.ForeignKey(
         'account.CustomUser', on_delete=models.deletion.CASCADE, blank=True, null=True,
     )
+    token = models.CharField(max_length=500, blank=True)
+
+    def __str__(self):
+        return self.email

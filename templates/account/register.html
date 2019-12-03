@@ -16,13 +16,13 @@
     <p>
       {% blocktrans %}Provide us with an e-mail address so we can send you an activation link for your account.{% endblocktrans %}
     </p>
-    <form method="post">
+    <form method="post" id="register-form">
       {% csrf_token %}
       {{ form.non_field_errors }}
 
       {% include 'account/includes/form_field.html' with field=form.email %}
 
-      <button type="submit">
+      <button type="submit" id="register-button">
         {% trans "Send me my activation link" %}
       </button>
     </form>

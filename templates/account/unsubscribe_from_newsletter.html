@@ -1,0 +1,20 @@
+{% extends 'thebrushstash/auth_base.html' %}
+{% load i18n %}
+
+{% block title %}
+  {{ block.super }} - {% trans "Unsubscribed" %}
+{% endblock %}
+
+{% block auth_content %}
+  {% if newsletter_recipient %}
+    <h1>{% trans "Unsubscribed" %}</h1>
+    <p>
+        {% trans "You've been unsubscribed from our newsletter." %}
+    </p>
+  {% else %}
+    <h1>{% trans "Great failure" %}</h1>
+    <p>
+        {% trans "Your token is not valid." %}
+    </p>
+  {% endif %}
+{% endblock auth_content %}

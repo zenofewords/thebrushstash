@@ -38,6 +38,8 @@ import {
   phoneNumberInput,
   previousStepLink,
   r1ReceiptCheckbox,
+  registerForm,
+  registerButton,
   removeProductButtons,
   shipToMenu,
   subscribeToNewsletterButton,
@@ -237,4 +239,13 @@ ready(() => {
     const button = addToBagButtons[i]
     button.addEventListener('click', () => addToBag(button.dataset))
   }
+
+  registerButton && registerButton.addEventListener('click', (event) => {
+    registerButton.classList.add('disabled')
+
+    const valid = registerForm.reportValidity()
+    if (!valid) {
+      registerButton.classList.remove('disabled')
+    }
+  })
 })

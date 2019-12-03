@@ -242,6 +242,7 @@ def subscribe_to_newsletter(user, data):
             defaults={
                 'subscribed': True,
                 'user': user,
+                'token': get_random_string(),
             }
         )
         # link user to newsletter subscription
@@ -256,6 +257,7 @@ def safe_subscribe_to_newsletter(user, email, current_site):
         defaults={
             'subscribed': True if user.is_authenticated else False,
             'user': user if user.is_authenticated else None,
+            'token': get_random_string(),
         }
     )
     if user.is_authenticated and not created:
@@ -263,7 +265,7 @@ def safe_subscribe_to_newsletter(user, email, current_site):
     if user.is_authenticated and created:
         return _('Subscribed, thanks!')
 
-    send_subscription_email(email, current_site)
+    send_subscription_email(email, current_site, obj.token)
     return _('Check your e-mail for confirmation!')
 
 
@@ -272,9 +274,7 @@ def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
 
     if not invoice:
         invoice = Invoice()
-        invoice.order_number = 'tbs_{}_{}'.format(
-            secrets.token_urlsafe(12), now().time().microsecond
-        )
+        invoice.order_number = 'tbs_{}'.format(get_random_string())
 
     invoice.email = data.get('email')
     invoice.first_name = data.get('first_name')
@@ -430,3 +430,7 @@ def update_inventory(invoice, products):
         product.in_stock -= sold_count
         product.save()
         InvoiceItem.objects.create(invoice=invoice, product=product, sold_count=sold_count)
+
+
+def get_random_string():
+    return '{}-{}'.format(secrets.token_urlsafe(12), now().time().microsecond)

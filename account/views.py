@@ -95,3 +95,15 @@ class SubscribeToNewsletterView(TemplateView):
             'newsletter_recipient': self.newsletter_recipient,
         })
         return context
+
+
+class UnsubscribeFromNewsletter(TemplateView):
+    template_name = 'account/unsubscribe_from_newsletter'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            newsletter_recipient = NewsletterRecipient.objects.get(token=request.GET.get('token'))
+            newsletter_recipient.subscribed = False
+            newsletter_recipient.save()
+        except Exception:
+            pass

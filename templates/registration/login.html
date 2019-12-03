@@ -26,8 +26,16 @@
       {% csrf_token %}
       {{ form.non_field_errors }}
 
-      {% include 'account/includes/form_field.html' with field=form.username %}
-      {% include 'account/includes/form_field.html' with field=form.password type='password' %}
+      <div class="field-wrapper">
+        <label for="{{ field.id_for_label }}" class="screen-reader-only">{% trans "E-mail" %}</label>
+        <input type="text" name="username" autofocus required id="id_username" placeholder="{% trans "E-mail" %}">
+        {{ form.username.errors }}
+      </div>
+      <div class="field-wrapper">
+        <label for="{{ field.id_for_label }}" class="screen-reader-only">{% trans "Password" %}</label>
+        <input type="password" name="password" autofocus required id="id_password" placeholder="{% trans "Password" %}">
+        {{ form.password.errors }}
+      </div>
 
       <button type="submit">
         {% trans "Login" %}

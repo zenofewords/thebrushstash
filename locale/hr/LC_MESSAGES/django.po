@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-03 16:22+0100\n"
+"POT-Creation-Date: 2019-12-03 17:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -271,7 +271,7 @@ msgstr "Vaša narudžba je potvrđena!"
 msgid "Dear"
 msgstr "Draga/i"
 
-#: shop/templates/shop/purchase_complete_email.html:39
+#: shop/templates/shop/purchase_complete_email.html:32
 msgid ""
 "Thank you for your order and for choosing The Brush Stash! Your parcel will "
 "be packaged and shipped to your address as soon as possible."
@@ -280,61 +280,61 @@ msgstr ""
 "Stash kistova! Paketić ćemo pripremiti i poslati na Vašu adresu u najkraćem "
 "mogućem roku."
 
-#: shop/templates/shop/purchase_complete_email.html:49
+#: shop/templates/shop/purchase_complete_email.html:35
 msgid "Your order number is:"
 msgstr "Broj Vaše narudžbe je:"
 
-#: shop/templates/shop/purchase_complete_email.html:57
+#: shop/templates/shop/purchase_complete_email.html:43
 msgid "BILLING TO:"
 msgstr "ADRESA ZA NAPLATU:"
 
-#: shop/templates/shop/purchase_complete_email.html:60
+#: shop/templates/shop/purchase_complete_email.html:46
 msgid "SHIPPING TO:"
 msgstr "ADRESA DOSTAVE:"
 
-#: shop/templates/shop/purchase_complete_email.html:140
+#: shop/templates/shop/purchase_complete_email.html:126
 msgid "ITEMS ORDERED"
 msgstr "NARUČENI PROIZVODI:"
 
-#: shop/templates/shop/purchase_complete_email.html:153
+#: shop/templates/shop/purchase_complete_email.html:139
 msgid "PRODUCT"
 msgstr "PROIZVOD"
 
-#: shop/templates/shop/purchase_complete_email.html:156
+#: shop/templates/shop/purchase_complete_email.html:142
 msgid "PRICE"
 msgstr "CIJENA"
 
-#: shop/templates/shop/purchase_complete_email.html:159
+#: shop/templates/shop/purchase_complete_email.html:145
 msgid "QTY"
 msgstr "KOL"
 
-#: shop/templates/shop/purchase_complete_email.html:162
+#: shop/templates/shop/purchase_complete_email.html:148
 msgid "TOTAL"
 msgstr "UKUPNO"
 
-#: shop/templates/shop/purchase_complete_email.html:196
+#: shop/templates/shop/purchase_complete_email.html:182
 #: thebrushstash/templates/thebrushstash/includes/bag.html:38
 msgid "Subtotal:"
 msgstr "Cijena:"
 
-#: shop/templates/shop/purchase_complete_email.html:204
+#: shop/templates/shop/purchase_complete_email.html:190
 msgid "VAT included:"
 msgstr "Uključen PDV:"
 
-#: shop/templates/shop/purchase_complete_email.html:212
+#: shop/templates/shop/purchase_complete_email.html:198
 msgid "Shipping:"
 msgstr "Dostava:"
 
-#: shop/templates/shop/purchase_complete_email.html:221
+#: shop/templates/shop/purchase_complete_email.html:207
 msgid "GLS (cash on delivery):"
 msgstr "GLS (plaćanje pouzećem):"
 
-#: shop/templates/shop/purchase_complete_email.html:235
+#: shop/templates/shop/purchase_complete_email.html:221
 #: shop/templates/shop/tags/purchase_summary_tag.html:40
 msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
-#: shop/templates/shop/purchase_complete_email.html:246
+#: shop/templates/shop/purchase_complete_email.html:232
 msgid "Thank you for shopping with"
 msgstr "Hvala Vam što koristite"
 
@@ -441,16 +441,16 @@ msgid ""
 "You're receiving this e-mail because you created an account at %(site_name)s."
 msgstr "Uspješno ste kreirali korisnički račun na %(site_name)s."
 
-#: templates/account/account_verification_email.html:39
+#: templates/account/account_verification_email.html:32
 msgid "You can activate your account at the following page:"
 msgstr "Svoj korisnički račun možete aktivirati ovdje:"
 
-#: templates/account/account_verification_email.html:41
+#: templates/account/account_verification_email.html:38
 #: templates/registration/password_reset_email.html:7
 msgid "Your username, in case you've forgotten:"
 msgstr "Vaše korisničko ime, u slučaju da ste ga zaboravili:"
 
-#: templates/account/account_verification_email.html:51
+#: templates/account/account_verification_email.html:41
 #: templates/registration/password_reset_email.html:9
 msgid "Thank you for using The Brush Stash!"
 msgstr "Hvala Vam što koristite The Brush Stash!"
@@ -475,6 +475,7 @@ msgstr "Potvrdi unos"
 
 #: templates/account/activate.html:27
 #: templates/account/subscribe_to_newsletter.html:15
+#: templates/account/unsubscribe_from_newsletter.html:15
 msgid "Great failure"
 msgstr "Veliki neuspjeh"
 
@@ -533,13 +534,11 @@ msgid ""
 "eventualnim posebnim ponudama."
 msgstr ""
 
-#: templates/account/subscription_verification_email.html:39
-msgid ""
-"Svoj korisnički račun možete aktivirati ovdje:\n"
-"            "
+#: templates/account/subscription_verification_email.html:32
+msgid "Svoj korisnički račun možete aktivirati ovdje:"
 msgstr ""
 
-#: templates/account/subscription_verification_email.html:50
+#: templates/account/subscription_verification_email.html:38
 msgid ""
 "\n"
 "            Hvala vam, srdačan pozdrav,\n"
@@ -547,6 +546,19 @@ msgid ""
 "            vaš The Brush Stash team\n"
 "            "
 msgstr ""
+
+#: templates/account/unsubscribe_from_newsletter.html:5
+#: templates/account/unsubscribe_from_newsletter.html:10
+msgid "Unsubscribed"
+msgstr "Odjava"
+
+#: templates/account/unsubscribe_from_newsletter.html:12
+msgid "You've been unsubscribed from our newsletter."
+msgstr "Uspješno ste se odjavili s The Brush Stash Webshop obavijesti."
+
+#: templates/account/unsubscribe_from_newsletter.html:17
+msgid "Your token is not valid."
+msgstr "Vaš token nije ispravan."
 
 #: templates/registration/login.html:5 templates/registration/login.html:20
 #: templates/registration/login.html:33
@@ -763,15 +775,15 @@ msgstr "Unesite Vašu e-mail adresu"
 msgid "Join"
 msgstr "Pošalji"
 
-#: thebrushstash/utils.py:262
+#: thebrushstash/utils.py:264
 msgid "Already subscribed."
 msgstr "Već ste prijavljeni na newsletter."
 
-#: thebrushstash/utils.py:264
+#: thebrushstash/utils.py:266
 msgid "Subscribed, thanks!"
 msgstr "Prijavljeni ste, hvala!"
 
-#: thebrushstash/utils.py:267
+#: thebrushstash/utils.py:269
 msgid "Check your e-mail for confirmation!"
 msgstr "Provjerite svoj e-mail kako biste potvrdili pretplatu na newsletter!"
 

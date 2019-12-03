@@ -1,7 +1,7 @@
 <div class="field-wrapper">
-  {{ field.errors }}
   <label for="{{ field.id_for_label }}" class="screen-reader-only">{{ field.label }}</label>
   {{ field }}
+  {{ field.errors }}
 
   {% if info %}
     <span class="field-info-icon">
