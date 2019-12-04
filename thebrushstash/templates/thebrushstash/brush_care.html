@@ -16,12 +16,10 @@
         {{ title|safe }}
       {% endif %}
     </h1>
-    <p>
-      {% if LANGUAGE_CODE == 'hr' %}
-        {{ content_cro|safe }}
-      {% else %}
-        {{ content|safe }}
-      {% endif %}
-    </p>
+    {% if LANGUAGE_CODE == 'hr' %}
+      {{ content_cro|safe }}
+    {% else %}
+      {{ content|safe }}
+    {% endif %}
   </div>
 {% endblock content %}

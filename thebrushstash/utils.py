@@ -303,6 +303,8 @@ def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
 
 
 def send_registration_email(user, current_site):
+    logo_path = finders.find('images/tbs-email-logo.png')
+
     message_html = render_to_string('account/account_verification_email.html', {
         'user': user,
         'domain': current_site.domain,
@@ -310,24 +312,55 @@ def send_registration_email(user, current_site):
         'protocol': 'http' if settings.DEBUG else 'https',
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': account_activation_token.make_token(user),
+        'logo_path': logo_path,
     })
     subject = _('Activate your account')
-    send_mail(subject, '', 'The Brush Stash', [user.email], html_message=message_html)
+    message = EmailMultiAlternatives(subject, message_html, 'The Brush Stash', [user.email])
+    message.content_subtype = 'html'
+    message.mixed_subtype = 'related'
+
+    with Image.open(logo_path, mode='r') as tbs_logo_image:
+        image_byte_array = io.BytesIO()
+        tbs_logo_image.save(image_byte_array, format='png')
+
+        image = MIMEImage(image_byte_array.getvalue(), 'png')
+        image.add_header('Content-ID', '<{}>'.format(logo_path))
+        image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
+        message.attach(image)
+
+    message.send()
 
 
-def send_subscription_email(email, current_site):
+def send_subscription_email(email_address, current_site):
+    logo_path = finders.find('images/tbs-email-logo.png')
+
     message_html = render_to_string('account/subscription_verification_email.html', {
         'domain': current_site.domain,
         'site_name': current_site.name,
         'protocol': 'http' if settings.DEBUG else 'https',
-        'uid': urlsafe_base64_encode(force_bytes(email)),
+        'uid': urlsafe_base64_encode(force_bytes(email_address)),
+        'logo_path': logo_path,
     })
     subject = _('Subscribe to newsletter')
-    send_mail(subject, '', 'The Brush Stash', [email], html_message=message_html)
+
+    message = EmailMultiAlternatives(subject, message_html, 'The Brush Stash', [email_address])
+    message.content_subtype = 'html'
+    message.mixed_subtype = 'related'
+
+    with Image.open(logo_path, mode='r') as tbs_logo_image:
+        image_byte_array = io.BytesIO()
+        tbs_logo_image.save(image_byte_array, format='png')
+
+        image = MIMEImage(image_byte_array.getvalue(), 'png')
+        image.add_header('Content-ID', '<{}>'.format(logo_path))
+        image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
+        message.attach(image)
+
+    message.send()
 
 
 def send_purchase_mail(session, current_site, invoice):
-    logo_path = finders.find('images/tbs-email-logo.jpg')
+    logo_path = finders.find('images/tbs-email-logo.png')
 
     message_html = render_to_string('shop/purchase_complete_email2.html', {
         'domain': current_site.domain,
@@ -347,6 +380,15 @@ def send_purchase_mail(session, current_site, invoice):
     message.content_subtype = 'html'
     message.mixed_subtype = 'related'
 
+    with Image.open(logo_path, mode='r') as tbs_logo_image:
+        image_byte_array = io.BytesIO()
+        tbs_logo_image.save(image_byte_array, format='png')
+
+        image = MIMEImage(image_byte_array.getvalue(), 'png')
+        image.add_header('Content-ID', '<{}>'.format(logo_path))
+        image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
+        message.attach(image)
+
     invoice_items = InvoiceItem.objects.filter(invoice=invoice).select_related('invoice', 'product')
     for invoice_item in invoice_items:
         gallery_item = GalleryItem.objects.filter(
@@ -356,16 +398,6 @@ def send_purchase_mail(session, current_site, invoice):
         image = MIMEImage(gallery_item.image.read(), 'jpeg')
         image.add_header('Content-ID', '<{}>'.format(gallery_item.image.path))
         image.add_header('Content-Disposition', 'inline', filename=invoice_item.product.name)
-
-        message.attach(image)
-
-    with Image.open(logo_path, mode='r') as tbs_logo_image:
-        image_byte_array = io.BytesIO()
-        tbs_logo_image.save(image_byte_array, format='jpeg')
-
-        image = MIMEImage(image_byte_array.getvalue(), 'jpeg')
-        image.add_header('Content-ID', '<{}>'.format(logo_path))
-        image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
         message.attach(image)
 
     message.send()

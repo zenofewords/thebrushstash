@@ -1,50 +1,68 @@
 {% load i18n %}
 {% load static %}
+{% load shop_tags %}
 {% load inlinecss %}
-{% inlinecss "css/email.css" %}
+{% inlinecss "css/email2.css" %}
 
-{% autoescape off %}
-<!DOCTYPE html>
-<html>
-  <head lang="en">
-    <meta charset="UTF-8">
-    <title>{% trans "Your order has been confirmed!" %}</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{% trans "You've registered an account with The Brush Stash!" %}</title>
   </head>
 
-  <body>
-    <table class="body">
-      <table class="container">
-        <tr>
-          <td>
-            <img src="{{ site_name }}{% static 'images/tbs-email-logo.jpg' %}" alt="tbs logo">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
-            {% blocktrans %}You're receiving this e-mail because you created an account at {{ site_name }}.{% endblocktrans %}
-            <br>
-            <br>
-            {% trans "You can activate your account at the following page:" %}
-            <br>
-            <br>
-            {% block reset_link %}{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}{% endblock %}
-            <br>
-            <br>
-            {% trans "Your username, in case you've forgotten:" %} {{ user.get_username }}
-            <br>
-            <br>
-            {% blocktrans %}Thank you for using The Brush Stash!{% endblocktrans %}
-            <br>
-          </td>
-        </tr>
-      </table>
+  <body bgcolor="#FFFFFF">
+    <table class="head-wrap">
+      <tr>
+        <td class="header container" bgcolor="#FFFFFF">
+          <div class="content">
+            <table>
+              <tr>
+                <td><img src="cid:{{ logo_path }}" alt="the brush stash logo" /></td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <table class="body-wrap">
+      <tr>
+        <td class="container" bgcolor="#FFFFFF">
+          <div class="content">
+            <table>
+              <tr>
+                <td>
+                  <p>{% blocktrans %}You're receiving this e-mail because you created an account at {{ site_name }}.{% endblocktrans %}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>{% trans "You can activate your account at the following page:" %}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>{% block reset_link %}{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}{% endblock %}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>{% trans "Your username, in case you've forgotten:" %} {{ user.get_username }}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p>{% blocktrans %}Thank you for using The Brush Stash!{% endblocktrans %}</p>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+        <td></td>
+      </tr>
     </table>
   </body>
-<html>
-{% endautoescape %}
+</html>
 {% endinlinecss %}

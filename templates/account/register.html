@@ -20,7 +20,11 @@
       {% csrf_token %}
       {{ form.non_field_errors }}
 
-      {% include 'account/includes/form_field.html' with field=form.email %}
+      <div class="field-wrapper">
+        <label for="{{ field.id_for_label }}" class="screen-reader-only">{% trans "E-mail address" %}</label>
+        <input type="text" name="email" autofocus required id="id_email" placeholder="{% trans "E-mail address" %}">
+        {{ form.email.errors }}
+      </div>
 
       <button type="submit" id="register-button">
         {% trans "Send me my activation link" %}

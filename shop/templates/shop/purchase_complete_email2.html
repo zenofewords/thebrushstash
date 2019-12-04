@@ -193,7 +193,7 @@
                 <tr>
                   <td class="data vtop" align="left">
                     {% get_image_url_for_email site_name item.product.pk as image_url %}
-                    <img width="120px" height="120px" src="cid:{{ image_url }}" alt="{{ product.name }}">
+                    <img width="120px" height="120px" src="cid:{{ image_url }}" alt="{{ item.product.name }}">
                   </td>
                   <td class="data vtop" align="center">
                     <a href="{{ site_name}}/products/{{ item.product.slug }}">{{ item.product.name }}</a>
