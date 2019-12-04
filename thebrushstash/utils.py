@@ -265,7 +265,7 @@ def safe_subscribe_to_newsletter(user, email, current_site):
     if user.is_authenticated and created:
         return _('Subscribed, thanks!')
 
-    send_subscription_email(email, current_site, obj.token)
+    send_subscription_email(email, current_site)
     return _('Check your e-mail for confirmation!')
 
 
