@@ -156,8 +156,6 @@ const moveToPaymentForm = () => {
 }
 
 export const processPaymentAddressData = (checkoutAddressForm) => {
-  phoneNumberInput.required = true
-
   const formData = new FormData(checkoutAddressForm)
   const data = {}
   for (const [key, value] of formData.entries()) {
@@ -181,11 +179,13 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
     }
   }).then(
     () => moveToPaymentForm()
-  ).catch((error) => {
+  ).then(() => {
+    phoneNumberInput.required = true
+    checkoutAddressTitle.scrollIntoView(false)
+  }).catch((error) => {
     checkoutHelpText.innerHTML = error
     checkoutHelpText.classList.add('error')
   })
-  checkoutAddressTitle.scrollIntoView(false)
 }
 
 export const switchActiveImage = (event) => {
@@ -400,4 +400,17 @@ export const removeOneFromBag = (slug) => {
     refreshBag(response)
     refreshReviewBag(response, slug)
   }))
+}
+
+export const showErrorMessage = (id, message = 'Ovo polje je obavezno.') => {
+  const errorLabel = document.getElementById(`${id}-error`)
+  errorLabel.hidden = false
+  errorLabel.innerHTML = message
+}
+
+export const hideErrorMessages = () => {
+  const errorLabels = document.getElementsByClassName('error')
+  for (let i = 0; i < errorLabels.length; i++) {
+    errorLabels[i].hidden = true
+  }
 }

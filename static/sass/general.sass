@@ -36,6 +36,9 @@ h3
   font-family: $headerFont
   font-weight: $heavy
 
+  &:invalid
+    border: $errorBorder
+
 ul,
 li
   margin: 0
@@ -232,4 +235,9 @@ button
   white-space: nowrap
 
 .error
+  position: absolute
+  top: 60px
+  left: 0
   color: #f00
+  font-size: 12px
+  line-height: 15px

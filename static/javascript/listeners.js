@@ -31,6 +31,14 @@ import {
   emailInputs,
   fieldInfo,
   fieldInfoIcon,
+  invoiceFormAddressInput,
+  invoiceFormAgreeToTermsInput,
+  invoiceFormCityInput,
+  invoiceFormCountryInput,
+  invoiceFormEmailInput,
+  invoiceFormFirstNameInput,
+  invoiceFormLastNameInput,
+  invoiceFormZipCodeInput,
   languageOptions,
   navigationWrapper,
   navMobileCloseButton,
@@ -38,8 +46,8 @@ import {
   phoneNumberInput,
   previousStepLink,
   r1ReceiptCheckbox,
-  registerForm,
   registerButton,
+  registerForm,
   removeProductButtons,
   shipToMenu,
   subscribeToNewsletterButton,
@@ -48,9 +56,11 @@ import {
 import {
   addOneToBag,
   addToBag,
+  hideErrorMessages,
   processPaymentAddressData,
   removeFromBag,
   removeOneFromBag,
+  showErrorMessage,
   subToNewsletter,
   switchActiveImage,
   toggleBag,
@@ -179,7 +189,9 @@ ready(() => {
 
   continueToPaymentButton && continueToPaymentButton.addEventListener('click', (event) => {
     event.preventDefault()
+
     continueToPaymentButton.disabled = true
+    hideErrorMessages()
     const valid = checkoutAddressForm.reportValidity()
 
     if (valid) {
@@ -191,7 +203,9 @@ ready(() => {
 
   cashOnDeliverySubmitButton && cashOnDeliverySubmitButton.addEventListener('click', (event) => {
     event.preventDefault()
+
     cashOnDeliverySubmitButton.disabled = true
+    hideErrorMessages()
     previousStepLink.style.pointerEvents = 'none'
     const valid = checkoutAddressForm.reportValidity()
 
@@ -247,5 +261,60 @@ ready(() => {
     if (!valid) {
       registerButton.classList.remove('disabled')
     }
+  })
+
+  invoiceFormAgreeToTermsInput && invoiceFormAgreeToTermsInput.addEventListener('invalid', (event) => {
+    if (!event.target.checked) {
+      event.target.setCustomValidity('Potrebno je pristati na uvjete korištenja prije nastavka kupnje.')
+    } else {
+      event.target.setCustomValidity('')
+      const valid = checkoutAddressForm.reportValidity()
+
+      if (valid) {
+        hideErrorMessages()
+        processPaymentAddressData(checkoutAddressForm)
+      }
+    }
+  })
+
+  invoiceFormFirstNameInput && invoiceFormFirstNameInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target.id)
+  })
+
+  invoiceFormLastNameInput && invoiceFormLastNameInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target.id)
+  })
+
+  invoiceFormCountryInput && invoiceFormCountryInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target.id, 'Odaberite državu.')
+  })
+
+  invoiceFormAddressInput && invoiceFormAddressInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target.id)
+  })
+
+  invoiceFormCityInput && invoiceFormCityInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target.id)
+  })
+
+  invoiceFormZipCodeInput && invoiceFormZipCodeInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target.id)
+  })
+
+  invoiceFormEmailInput && invoiceFormEmailInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target.id, 'Unesite ispravnu e-mail adresu.')
+  })
+
+  phoneNumberInput && phoneNumberInput.addEventListener('invalid', (event) => {
+    console.log('phone invalid')
+    event.preventDefault()
+    showErrorMessage(event.target.id, 'Ovo polje je obavezno.')
   })
 })

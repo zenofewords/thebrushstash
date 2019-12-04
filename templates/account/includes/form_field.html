@@ -2,6 +2,7 @@
   <label for="{{ field.id_for_label }}" class="screen-reader-only">{{ field.label }}</label>
   {{ field }}
   {{ field.errors }}
+  <span id="{{ field.id_for_label }}-error" class="error" hidden></span>
 
   {% if info %}
     <span class="field-info-icon">

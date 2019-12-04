@@ -15,7 +15,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.staticfiles import finders
-from django.core.mail import EmailMultiAlternatives, send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -43,7 +43,9 @@ from shop.models import (
     InvoiceStatus,
     Product,
 )
-from thebrushstash.constants import currency_symbol_mapping
+from thebrushstash.constants import (
+    currency_symbol_mapping,
+)
 from thebrushstash.models import Country
 
 
@@ -315,7 +317,9 @@ def send_registration_email(user, current_site):
         'logo_path': logo_path,
     })
     subject = _('Activate your account')
-    message = EmailMultiAlternatives(subject, message_html, 'The Brush Stash', [user.email])
+    message = EmailMultiAlternatives(
+        subject, message_html, settings.DEFAULT_FROM_EMAIL, [user.email
+    ])
     message.content_subtype = 'html'
     message.mixed_subtype = 'related'
 
@@ -343,7 +347,9 @@ def send_subscription_email(email_address, current_site):
     })
     subject = _('Subscribe to newsletter')
 
-    message = EmailMultiAlternatives(subject, message_html, 'The Brush Stash', [email_address])
+    message = EmailMultiAlternatives(
+        subject, message_html, settings.DEFAULT_FROM_EMAIL, [email_address]
+    )
     message.content_subtype = 'html'
     message.mixed_subtype = 'related'
 
@@ -376,7 +382,9 @@ def send_purchase_mail(session, current_site, invoice):
     subject = _('Purchase complete')
     email_address = session['user_information']['email']
 
-    message = EmailMultiAlternatives(subject, message_html, 'The Brush Stash', [email_address])
+    message = EmailMultiAlternatives(
+        subject, message_html, settings.DEFAULT_FROM_EMAIL, [email_address]
+    )
     message.content_subtype = 'html'
     message.mixed_subtype = 'related'
 
