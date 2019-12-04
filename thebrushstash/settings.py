@@ -50,6 +50,8 @@ if DEBUG:
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # TDOO temporarily force lang
+    'thebrushstash.middleware.force_default_language_middleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -135,7 +137,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en'
+# TODO temporarily force to hr
+LANGUAGE_CODE = 'hr'
+# LANGUAGE_CODE = 'en'
 LANGUAGES = [
     ('en', 'English'),
     ('hr', 'Croatian'),

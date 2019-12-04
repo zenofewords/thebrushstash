@@ -10,7 +10,9 @@ from thebrushstash.mixins import (
 class Country(PublishedMixin):
     name = models.CharField(max_length=500)
     slug = models.CharField(max_length=500)
-    region = models.CharField(max_length=20, blank=True)
+    region = models.ForeignKey(
+        'thebrushstash.Region', on_delete=models.deletion.CASCADE, blank=True, null=True,
+    )
 
     class Meta:
         verbose_name = 'Country'

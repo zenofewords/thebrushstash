@@ -72,13 +72,14 @@ class AddressForm(forms.ModelForm):
     r1_receipt = forms.BooleanField()
 
     def __init__(self, *args, **kwargs):
-        self.region = kwargs.pop('region', DEFAULT_REGION)
+        self.region_name = kwargs.pop('region', DEFAULT_REGION)
         super().__init__(*args, **kwargs)
 
         self.fields['country'].empty_label = _('Select country')
         self.fields['country'].required = True
         self.fields['country'].to_field_name = 'name'
-        self.fields['country'].queryset = Country.published_objects.filter(region=self.region)
+        self.fields['country'].queryset = Country.published_objects.filter(
+            region__name=self.region_name).select_related('region')
 
         self.fields['first_name'].required = True
         self.fields['first_name'].widget.attrs['placeholder'] = _('First name')

@@ -55,19 +55,20 @@ ready(() => {
   }
 
   for (let i = 0; i < shipToSelects.length; i++) {
-    shipToSelects[i].addEventListener('blur', (event) => {
-      if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
-        shipToMenu[i].hidden = true
-      }
-    })
-    shipToSelects[i].addEventListener('focus', onSelectFocus)
-    shipToSelects[i].addEventListener('click', (event) => {
-      event.preventDefault()
+    // TODO temporarily disabled region/language choice
+    // shipToSelects[i].addEventListener('blur', (event) => {
+    //   if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
+    //     shipToMenu[i].hidden = true
+    //   }
+    // })
+    // shipToSelects[i].addEventListener('focus', onSelectFocus)
+    // shipToSelects[i].addEventListener('click', (event) => {
+    //   event.preventDefault()
 
-      if (shipToMenu[i].hidden) {
-        onSelectFocus(event)
-      }
-    })
+    //   if (shipToMenu[i].hidden) {
+    //     onSelectFocus(event)
+    //   }
+    // })
   }
 
   let currentModal
