@@ -1,6 +1,7 @@
 import copy
 import hashlib
 import hmac
+import io
 import os
 import secrets
 
@@ -8,10 +9,13 @@ from decimal import Decimal
 from pathlib import Path
 from PIL import Image
 from webptools import webplib
+from email.mime.image import MIMEImage
 
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
+from django.contrib.staticfiles import finders
+from django.core.mail import EmailMultiAlternatives, send_mail
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -33,6 +37,7 @@ from shop.constants import (
     SRCSET_MAPPING,
 )
 from shop.models import (
+    GalleryItem,
     Invoice,
     InvoiceItem,
     InvoiceStatus,
@@ -322,19 +327,48 @@ def send_subscription_email(email, current_site):
 
 
 def send_purchase_mail(session, current_site, invoice):
-    message_html = render_to_string('shop/purchase_complete_email.html', {
+    logo_path = finders.find('images/tbs-email-logo.jpg')
+
+    message_html = render_to_string('shop/purchase_complete_email2.html', {
         'domain': current_site.domain,
         'site_name': current_site.name,
         'protocol': 'http' if settings.DEBUG else 'https',
         'invoice': invoice,
         'invoice_items': InvoiceItem.objects.filter(
             invoice=invoice).select_related('invoice', 'product'),
+        'logo_path': logo_path,
         'bag': session['bag'],
         'currency': session['currency'],
     })
     subject = _('Purchase complete')
     email_address = session['user_information']['email']
-    send_mail(subject, '', 'The Brush Stash', [email_address], html_message=message_html)
+
+    message = EmailMultiAlternatives(subject, message_html, 'The Brush Stash', [email_address])
+    message.content_subtype = 'html'
+    message.mixed_subtype = 'related'
+
+    invoice_items = InvoiceItem.objects.filter(invoice=invoice).select_related('invoice', 'product')
+    for invoice_item in invoice_items:
+        gallery_item = GalleryItem.objects.filter(
+            content_type=ContentType.objects.get_by_natural_key('shop', 'product'),
+            object_id=invoice_item.product.pk
+        ).first()
+        image = MIMEImage(gallery_item.image.read(), 'jpeg')
+        image.add_header('Content-ID', '<{}>'.format(gallery_item.image.path))
+        image.add_header('Content-Disposition', 'inline', filename=invoice_item.product.name)
+
+        message.attach(image)
+
+    with Image.open(logo_path, mode='r') as tbs_logo_image:
+        image_byte_array = io.BytesIO()
+        tbs_logo_image.save(image_byte_array, format='jpeg')
+
+        image = MIMEImage(image_byte_array.getvalue(), 'jpeg')
+        image.add_header('Content-ID', '<{}>'.format(logo_path))
+        image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
+        message.attach(image)
+
+    message.send()
 
 
 def get_cart(bag):

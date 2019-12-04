@@ -61,7 +61,7 @@ def get_image_url_for_email(site_name, object_id):
     item = GalleryItem.objects.filter(
         content_type=ContentType.objects.get_by_natural_key('shop', 'product'), object_id=object_id
     ).first()
-    return '{}{}'.format(site_name, item.image.url)
+    return '{}'.format(item.image.path)
 
 
 @register.inclusion_tag('thebrushstash/tags/media_object_tag.html')

@@ -54,8 +54,8 @@ def set_shipping_cost(bag, current_region):
 
 
 def set_tax(bag, current_currency):
-    total = round(Decimal(bag['total_{}'.format(current_currency)]))
-    bag['tax'] = str(total - total / (Decimal(TAX) + 1))
+    total = Decimal(bag['total_{}'.format(current_currency)])
+    bag['tax'] = str(round(total - total / (Decimal(TAX) + 1), 2))
 
 
 def get_totals(data, key, operator, product={}, quantity=None):
