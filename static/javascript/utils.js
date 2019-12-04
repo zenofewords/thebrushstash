@@ -281,7 +281,7 @@ const refreshReviewBag = (response, slug) => {
   const product = document.getElementById(slug)
 
   if (product && !response.bag['products'][slug]) {
-    product.remove()
+    product.classList.add('hidden')
   } else {
     const itemCount = document.getElementById(`${slug}-item-count`)
     const itemSubtotal = document.getElementById(`${slug}-item-subtotal`)
