@@ -196,7 +196,7 @@
                     <img width="120px" height="120px" src="cid:{{ image_url }}" alt="{{ item.product.name }}">
                   </td>
                   <td class="data vtop" align="center">
-                    <a href="{{ site_name}}/products/{{ item.product.slug }}">{{ item.product.name }}</a>
+                    {{ item.product.name }}
                   </td>
                   <td class="data vtop" align="center">
                     {% get_localized_price_for_currency item.product 'price' currency %}
