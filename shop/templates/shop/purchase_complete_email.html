@@ -160,7 +160,7 @@
               <img width="120px" height="120px" src="{{ image_url }}" alt="{{ product.name }}">
             </td>
             <td>
-              <a href="{{ site_name}}/products/{{ item.product.slug }}">{{ item.product.name }}</a>
+              {{ item.product.name }}
             </td>
             <td>
               {% get_localized_price_for_currency item.product 'price' currency %}
