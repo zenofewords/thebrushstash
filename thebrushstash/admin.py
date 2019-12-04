@@ -19,6 +19,11 @@ from shop.admin import (
 )
 
 
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'region', 'published',)
+    list_editable = ('region', 'published',)
+
+
 class ExchangeRateAdmin(admin.ModelAdmin):
     list_display = (
         'currency', 'modified_at', 'added_value', 'buying_rate', 'middle_rate', 'selling_rate',
@@ -48,7 +53,7 @@ class QandAPairAdmin(admin.ModelAdmin):
     list_editable = ('ordering', )
 
 
-admin.site.register(Country)
+admin.site.register(Country, CountryAdmin)
 admin.site.register(CreditCardLogo)
 admin.site.register(ExchangeRate, ExchangeRateAdmin)
 admin.site.register(FooterItem)

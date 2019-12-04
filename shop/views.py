@@ -37,6 +37,11 @@ class CheckoutView(FormView):
             return redirect(reverse('shop:shop'))
         return super().get(request, *args, **kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['region'] = self.request.session['region']
+        return kwargs
+
     def get_initial(self):
         user = self.request.user
         session_user_information = self.request.session.get('user_information')

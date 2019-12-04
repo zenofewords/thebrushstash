@@ -6,9 +6,11 @@ from django.utils.translation import gettext as _
 
 from account.models import CustomUser
 from thebrushstash.constants import (
+    DEFAULT_REGION,
     form_mandatory_fields,
     form_extra_fields,
 )
+from thebrushstash.models import Country
 
 
 class RegistrationForm(forms.ModelForm):
@@ -70,10 +72,13 @@ class AddressForm(forms.ModelForm):
     r1_receipt = forms.BooleanField()
 
     def __init__(self, *args, **kwargs):
+        self.region = kwargs.pop('region', DEFAULT_REGION)
         super().__init__(*args, **kwargs)
+
         self.fields['country'].empty_label = _('Select country')
         self.fields['country'].required = True
         self.fields['country'].to_field_name = 'name'
+        self.fields['country'].queryset = Country.published_objects.filter(region=self.region)
 
         self.fields['first_name'].required = True
         self.fields['first_name'].widget.attrs['placeholder'] = _('First name')
