@@ -26,16 +26,13 @@
       {% csrf_token %}
       {{ form.non_field_errors }}
 
-      <div class="field-wrapper">
-        <label for="{{ field.id_for_label }}" class="screen-reader-only">{% trans "E-mail address" %}</label>
-        <input type="text" name="username" autofocus required id="id_username" placeholder="{% trans "E-mail address" %}">
-        {{ form.username.errors }}
-      </div>
-      <div class="field-wrapper">
-        <label for="{{ field.id_for_label }}" class="screen-reader-only">{% trans "Password" %}</label>
-        <input type="password" name="password" autofocus required id="id_password" placeholder="{% trans "Password" %}">
-        {{ form.password.errors }}
-      </div>
+      {% trans "E-mail address" as field_label %}
+      {% trans "Type in a valid e-mail address." as field_error %}
+      {% include 'account/includes/custom_form_field.html' with field=form.username label=field_label error=field_error %}
+
+      {% trans "Password" as field_label %}
+      {% trans "This field is required." as field_error %}
+      {% include 'account/includes/custom_form_field.html' with field=form.password label=field_label error=field_error field_type=form.password.name %}
 
       <button type="submit">
         {% trans "Login" %}

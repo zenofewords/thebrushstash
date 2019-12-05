@@ -29,6 +29,8 @@ import {
   creditCardSecureModals,
   creditCardWrapper,
   emailInputs,
+  logingFormUsernameInput,
+  logingFormPasswordInput,
   fieldInfo,
   fieldInfoIcon,
   invoiceFormAddressInput,
@@ -313,7 +315,16 @@ ready(() => {
   })
 
   phoneNumberInput && phoneNumberInput.addEventListener('invalid', (event) => {
-    console.log('phone invalid')
+    event.preventDefault()
+    showErrorMessage(event.target.id, 'Ovo polje je obavezno.')
+  })
+
+  logingFormUsernameInput && logingFormUsernameInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target.id, 'Unesite ispravnu e-mail adresu.')
+  })
+
+  logingFormPasswordInput && logingFormPasswordInput.addEventListener('invalid', (event) => {
     event.preventDefault()
     showErrorMessage(event.target.id, 'Ovo polje je obavezno.')
   })
