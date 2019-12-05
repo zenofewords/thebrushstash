@@ -17,7 +17,6 @@ from shop.api.serializers import (
     UserInformationSerializer,
 )
 from shop.constants import (
-    DEFAULT_SHIPPING_COST,
     GLS_FEE,
     EMPTY_BAG,
 )

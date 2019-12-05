@@ -421,7 +421,14 @@ def send_purchase_mail(session, current_site, invoice):
             content_type=ContentType.objects.get_by_natural_key('shop', 'product'),
             object_id=invoice_item.product.pk
         ).first()
-        image = MIMEImage(gallery_item.image.read(), 'jpeg')
+
+        with Image.open(gallery_item.image.path, mode='r') as image:
+            image_byte_array = io.BytesIO()
+            image.save(image_byte_array, format='jpeg')
+
+            image = MIMEImage(image_byte_array.getvalue(), 'jpeg')
+
+        # image = MIMEImage(gallery_item.image.read(), 'jpeg')
         image.add_header('Content-ID', '<{}>'.format(gallery_item.image.path))
         image.add_header('Content-Disposition', 'inline', filename=invoice_item.product.name)
         message.attach(image)

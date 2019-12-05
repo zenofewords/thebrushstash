@@ -71,8 +71,8 @@ free_shipping_price = Setting.objects.filter(name='FREE_SHIPPING_PRICE').first()
 gle_fee = Setting.objects.filter(name='GLS_FEE').first()
 tax = Setting.objects.filter(name='TAX').first()
 
-DEFAULT_SHIPPING_COST = default_shipping_cost.value if default_shipping_cost else '10'
+DEFAULT_SHIPPING_COST = default_shipping_cost.value if default_shipping_cost else '30'
 FREE_SHIPPING_PRODUCTS = free_shipping_products.value if free_shipping_products else '3'
 FREE_SHIPPING_PRICE = free_shipping_price.value if free_shipping_price else '2000'
-GLS_FEE = gle_fee.value if gle_fee else '30'
+GLS_FEE = gle_fee.value if gle_fee else '4'
 TAX = tax.value if tax else '0.25'

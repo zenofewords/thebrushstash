@@ -61,7 +61,6 @@ def get_image_url_for_email(site_name, object_id):
     item = GalleryItem.objects.filter(
         content_type=ContentType.objects.get_by_natural_key('shop', 'product'), object_id=object_id
     ).first()
-    print('tag', item.image.path)
     return '{}'.format(item.image.path)
 
 
