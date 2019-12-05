@@ -463,8 +463,8 @@ msgstr "Registrirali ste se na The Brush Stash!"
 #: templates/account/account_verification_email.html:29
 #, python-format
 msgid ""
-"You're receiving this e-mail because you created an account at %(site_name)s."
-msgstr "Uspješno ste kreirali korisnički račun na %(site_name)s."
+"You're receiving this e-mail because you created an account at The Brush Stash Webshop."
+msgstr "Uspješno ste kreirali korisnički račun na The Brush Stash Webshop."
 
 #: templates/account/account_verification_email.html:32
 msgid "You can activate your account at the following page:"
