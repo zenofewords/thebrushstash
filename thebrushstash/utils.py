@@ -373,12 +373,10 @@ def send_purchase_mail(session, current_site, invoice):
 
     registration_params = {}
     if include_registration:
-        t = account_activation_token.make_token(invoice.user)
-        print(t)
         registration_params = {
             'user': invoice.user,
             'uid': urlsafe_base64_encode(force_bytes(invoice.user.pk)),
-            'token': t,
+            'token': account_activation_token.make_token(invoice.user),
         }
 
     if include_newsletter:
