@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Title</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+  <table class="body">
+    <tr>
+      <td class="float-center" align="center" valign="top">
+        <center>
+          <table class="spacer float-center">
+            <tbody>
+              <tr>
+                <td height="16px" style="font-size:16px;line-height:16px;">&nbsp;</td>
+              </tr>
+            </tbody>
+          </table>
+          <table align="center" class="container float-center">
+            <tbody>
+              <tr>
+                <td>
+                  <table class="row">
+                    <tbody>
+                      <tr>
+                        <th class="small-12 large-12 columns first last">
+                          <table>
+                            <tr>
+                              <th>
+                                <center>
+                                  <img src="cid:{{ logo_path }}" alt="the brush stash logo" align="center" class="float-center"/>
+                                </center>
+                              </th>
+                              <th class="expander"></th>
+                            </tr>
+                          </table>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="row">
+                    <tbody>
+                      <tr>
+                        <th class="small-12 large-12 columns first last">
+                          {% if include_registration %}
+                            <table>
+                              <tr>
+                                <td>
+                                  <p>{% blocktrans %}You're receiving this e-mail because you created an account at {{ site_name }}.{% endblocktrans %}</p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <a href="{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}">
+                                    {% trans "You can activate your account at the following page:" %}
+                                  </a>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>{% trans "Your username, in case you've forgotten:" %} {{ user.get_username }}</p>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p>{% blocktrans %}Thank you for using The Brush Stash!{% endblocktrans %}</p>
+                                </td>
+                              </tr>
+                            </table>
+                          {% endif %}
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="row">
+                    <tbody>
+                      <tr>
+                        <th class="small-12 large-12 columns first last">
+                          {% if include_newsletter %}
+                            <table>
+                              <tr>
+                                <td>
+                                  <p>
+                                    {% blocktrans %}Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o eventualnim posebnim ponudama.{% endblocktrans %}
+                                  </p>
+                                </td>
+                              </tr>
+                            </table>
+                          {% endif %}
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="row">
+                    <tbody>
+                      <tr>
+                        <th class="small-12 large-12 columns first last">
+                          <table>
+                            <tr>
+                              <td>
+                                <p>{% trans "Thank you for your order and for choosing The Brush Stash! Your parcel will be packaged and shipped to your address as soon as possible." %}</p>
+                                <p>{% trans "Your order number is:" %} {{ invoice.order_number }}</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="row">
+                    <tbody>
+                      <tr>
+                        <th class="small-12 large-6 columns first">
+                          <table>
+                            <tr>
+                              <th class="data" align="left" width="40%">
+                                {% trans "BILLING TO:" %}
+                              </th>
+                              <th class="data" align="left" width="40%">
+                                {% trans "SHIPPING TO:" %}
+                              </th>
+                              <th class="data" align="left" width="20%">
+                                &nbsp;
+                              </th>
+                            </tr>
+                            <tr>
+                              <td align="left">
+                                {{ invoice.first_name }} {{ invoice.last_name }}
+                              </td>
+                              <td align="left">
+                                {{ invoice.first_name }} {{ invoice.last_name }}
+                              </td>
+                              <td>
+                                &nbsp;
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left">
+                                {{ invoice.address }}
+                              </td>
+                              <td align="left">
+                                {{ invoice.address }}
+                              </td>
+                              <td>
+                                &nbsp;
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left">
+                                {{ invoice.zip_code }} {{ invoice.city }}
+                              </td>
+                              <td align="left">
+                                {{ invoice.zip_code }} {{ invoice.city }}
+                              </td>
+                              <td>
+                                &nbsp;
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left">
+                                {{ invoice.country }}
+                              </td>
+                              <td align="left">
+                                {{ invoice.country }}
+                              </td>
+                              <td>
+                                &nbsp;
+                              </td>
+                            </tr>
+                            {% if invoice.phone_number %}
+                              <tr>
+                                <td align="left">
+                                  {{ invoice.phone_number }}
+                                </td>
+                                <td align="left">
+                                  {{ invoice.phone_number }}
+                                </td>
+                                <td>
+                                  &nbsp;
+                                </td>
+                              </tr>
+                            {% endif %}
+                            {% if invoice.company_name %}
+                              <tr>
+                                <td align="left">
+                                  {{ invoice.company_name }}
+                                </td>
+                                <td align="left">
+                                  {{ invoice.company_name }}
+                                </td>
+                                <td>
+                                  &nbsp;
+                                </td>
+                              </tr>
+                            {% endif %}
+                            {% if invoice.company_address %}
+                              <tr>
+                                <td align="left">
+                                  {{ invoice.company_address }}
+                                </td>
+                                <td align="left">
+                                  {{ invoice.company_address }}
+                                </td>
+                                <td>
+                                  &nbsp;
+                                </td>
+                              </tr>
+                            {% endif %}
+                            {% if invoice.company_uin %}
+                              <tr>
+                                <td align="left">
+                                  {{ invoice.company_uin }}
+                                </td>
+                                <td align="left">
+                                  {{ invoice.company_uin }}
+                                </td>
+                                <td>
+                                  &nbsp;
+                                </td>
+                              </tr>
+                            {% endif %}
+                          </table>
+                        </th>
+                        <th class="small-12 large-6 columns last">
+                          <table>
+                            <tr>
+                              <th>
+                                <h4>Sub Section Title</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eum eius numquam sint dolore voluptatibus beatae ab ad, dignissimos fugiat? Nisi odio commodi debitis eveniet tenetur provident aliquid tempora placeat.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eum eius numquam sint dolore voluptatibus beatae ab ad, dignissimos fugiat? Nisi odio commodi debitis eveniet tenetur provident aliquid tempora placeat.</p>
+                              </th>
+                            </tr>
+                          </table>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="row">
+                    <tbody>
+                      <tr>
+                        <th class="small-12 large-12 columns first last">
+                          <table>
+                            <tr>
+                              <th>
+                                <p>You received this email because you're signed up to receive updates from us. <a href="#">Click here to unsubscribe.</a></p>
+                              </th>
+                              <th class="expander"></th>
+                            </tr>
+                          </table>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
