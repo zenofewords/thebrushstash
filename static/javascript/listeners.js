@@ -266,10 +266,11 @@ ready(() => {
   })
 
   invoiceFormAgreeToTermsInput && invoiceFormAgreeToTermsInput.addEventListener('invalid', (event) => {
+    event.target.setCustomValidity('')
+
     if (!event.target.checked) {
       event.target.setCustomValidity('Potrebno je pristati na uvjete korištenja prije nastavka kupnje.')
     } else {
-      event.target.setCustomValidity('')
       const valid = checkoutAddressForm.reportValidity()
 
       if (valid) {
@@ -281,51 +282,66 @@ ready(() => {
 
   invoiceFormFirstNameInput && invoiceFormFirstNameInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target.id)
+    showErrorMessage(event.target)
   })
 
   invoiceFormLastNameInput && invoiceFormLastNameInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target.id)
+    showErrorMessage(event.target)
   })
 
   invoiceFormCountryInput && invoiceFormCountryInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target.id, 'Odaberite državu.')
+    showErrorMessage(event.target, 'Odaberite državu.')
   })
 
   invoiceFormAddressInput && invoiceFormAddressInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target.id)
+    showErrorMessage(event.target)
   })
 
   invoiceFormCityInput && invoiceFormCityInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target.id)
+    showErrorMessage(event.target)
   })
 
   invoiceFormZipCodeInput && invoiceFormZipCodeInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target.id)
+    showErrorMessage(event.target)
   })
 
   invoiceFormEmailInput && invoiceFormEmailInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target.id, 'Unesite ispravnu e-mail adresu.')
+    showErrorMessage(event.target, 'Unesite ispravnu e-mail adresu.')
   })
 
   phoneNumberInput && phoneNumberInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target.id, 'Ovo polje je obavezno.')
+    showErrorMessage(event.target, 'Ovo polje je obavezno.')
   })
 
   logingFormUsernameInput && logingFormUsernameInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target.id, 'Unesite ispravnu e-mail adresu.')
+    showErrorMessage(event.target, 'Unesite ispravnu e-mail adresu.')
   })
 
   logingFormPasswordInput && logingFormPasswordInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target.id, 'Ovo polje je obavezno.')
+    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+  })
+
+  checkoutR1CompanyAddress && checkoutR1CompanyAddress.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+  })
+
+  checkoutR1CompanyName && checkoutR1CompanyName.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+  })
+
+  checkoutR1CompanyUIN && checkoutR1CompanyUIN.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target, 'Ovo polje je obavezno.')
   })
 })

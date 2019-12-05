@@ -402,8 +402,9 @@ export const removeOneFromBag = (slug) => {
   }))
 }
 
-export const showErrorMessage = (id, message = 'Ovo polje je obavezno.') => {
-  const errorLabel = document.getElementById(`${id}-error`)
+export const showErrorMessage = (target, message = 'Ovo polje je obavezno.') => {
+  target.focus()
+  const errorLabel = document.getElementById(`${target.id}-error`)
   errorLabel.hidden = false
   errorLabel.innerHTML = message
 }
