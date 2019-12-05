@@ -1,5 +1,4 @@
 {% load i18n %}
-{% load static %}
 {% load shop_tags %}
 {% load inlinecss %}
 {% inlinecss "css/email.css" %}
@@ -19,7 +18,9 @@
           <div class="content">
             <table>
               <tr>
-                <td><img src="cid:{{ logo_path }}" alt="the brush stash logo" style="height: 97px; width: 600px; margin-left: auto; margin-right: auto; display:block; margin-top: 1px; margin-bottom: 1px;" /></td>
+                <td>
+                  <img src="cid:{{ logo_path }}" alt="the brush stash logo"/>
+                </td>
               </tr>
             </table>
           </div>

@@ -383,7 +383,7 @@ def send_purchase_mail(session, current_site, invoice):
         newsletter_recipient.subscribed = True
         newsletter_recipient.save()
 
-    message_html = render_to_string('shop/purchase_complete_email.html', {
+    message_html = render_to_string('shop/purchase_complete_email2.html', {
         'domain': current_site.domain,
         'site_name': current_site.name,
         'protocol': 'http' if settings.DEBUG else 'https',

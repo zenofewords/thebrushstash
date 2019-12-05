@@ -116,70 +116,34 @@
                         <th class="small-12 large-6 columns first">
                           <table>
                             <tr>
-                              <th class="data" align="left" width="40%">
+                              <th align="left" width="40%">
                                 {% trans "BILLING TO:" %}
                               </th>
-                              <th class="data" align="left" width="40%">
-                                {% trans "SHIPPING TO:" %}
-                              </th>
-                              <th class="data" align="left" width="20%">
-                                &nbsp;
-                              </th>
                             </tr>
                             <tr>
                               <td align="left">
                                 {{ invoice.first_name }} {{ invoice.last_name }}
-                              </td>
-                              <td align="left">
-                                {{ invoice.first_name }} {{ invoice.last_name }}
-                              </td>
-                              <td>
-                                &nbsp;
                               </td>
                             </tr>
                             <tr>
                               <td align="left">
                                 {{ invoice.address }}
                               </td>
-                              <td align="left">
-                                {{ invoice.address }}
-                              </td>
-                              <td>
-                                &nbsp;
-                              </td>
                             </tr>
                             <tr>
                               <td align="left">
                                 {{ invoice.zip_code }} {{ invoice.city }}
                               </td>
-                              <td align="left">
-                                {{ invoice.zip_code }} {{ invoice.city }}
-                              </td>
-                              <td>
-                                &nbsp;
-                              </td>
                             </tr>
                             <tr>
                               <td align="left">
                                 {{ invoice.country }}
-                              </td>
-                              <td align="left">
-                                {{ invoice.country }}
-                              </td>
-                              <td>
-                                &nbsp;
                               </td>
                             </tr>
                             {% if invoice.phone_number %}
                               <tr>
                                 <td align="left">
                                   {{ invoice.phone_number }}
-                                </td>
-                                <td align="left">
-                                  {{ invoice.phone_number }}
-                                </td>
-                                <td>
-                                  &nbsp;
                                 </td>
                               </tr>
                             {% endif %}
@@ -188,24 +152,12 @@
                                 <td align="left">
                                   {{ invoice.company_name }}
                                 </td>
-                                <td align="left">
-                                  {{ invoice.company_name }}
-                                </td>
-                                <td>
-                                  &nbsp;
-                                </td>
                               </tr>
                             {% endif %}
                             {% if invoice.company_address %}
                               <tr>
                                 <td align="left">
                                   {{ invoice.company_address }}
-                                </td>
-                                <td align="left">
-                                  {{ invoice.company_address }}
-                                </td>
-                                <td>
-                                  &nbsp;
                                 </td>
                               </tr>
                             {% endif %}
@@ -214,12 +166,6 @@
                                 <td align="left">
                                   {{ invoice.company_uin }}
                                 </td>
-                                <td align="left">
-                                  {{ invoice.company_uin }}
-                                </td>
-                                <td>
-                                  &nbsp;
-                                </td>
                               </tr>
                             {% endif %}
                           </table>
@@ -227,12 +173,58 @@
                         <th class="small-12 large-6 columns last">
                           <table>
                             <tr>
-                              <th>
-                                <h4>Sub Section Title</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eum eius numquam sint dolore voluptatibus beatae ab ad, dignissimos fugiat? Nisi odio commodi debitis eveniet tenetur provident aliquid tempora placeat.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eum eius numquam sint dolore voluptatibus beatae ab ad, dignissimos fugiat? Nisi odio commodi debitis eveniet tenetur provident aliquid tempora placeat.</p>
+                              <th align="left" width="40%">
+                                {% trans "SHIPPING TO:" %}
                               </th>
                             </tr>
+                            <tr>
+                              <td align="left">
+                                {{ invoice.first_name }} {{ invoice.last_name }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left">
+                                {{ invoice.address }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left">
+                                {{ invoice.zip_code }} {{ invoice.city }}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td align="left">
+                                {{ invoice.country }}
+                              </td>
+                            </tr>
+                            {% if invoice.phone_number %}
+                              <tr>
+                                <td align="left">
+                                  {{ invoice.phone_number }}
+                                </td>
+                              </tr>
+                            {% endif %}
+                            {% if invoice.company_name %}
+                              <tr>
+                                <td align="left">
+                                  {{ invoice.company_name }}
+                                </td>
+                              </tr>
+                            {% endif %}
+                            {% if invoice.company_address %}
+                              <tr>
+                                <td align="left">
+                                  {{ invoice.company_address }}
+                                </td>
+                              </tr>
+                            {% endif %}
+                            {% if invoice.company_uin %}
+                              <tr>
+                                <td align="left">
+                                  {{ invoice.company_uin }}
+                                </td>
+                              </tr>
+                            {% endif %}
                           </table>
                         </th>
                       </tr>
