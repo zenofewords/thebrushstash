@@ -10,7 +10,7 @@
     <h1>{% trans "You are already logged in" %}</h1>
     <p>
       {% url 'shop:shop' as shop_url %}
-      {% blocktrans %}You can find our brushes <a href="{{ shop_url }}">here</a>.{% endblocktrans %}
+      {% blocktrans %}You can find our brushes <a href="{{ shop_url }}#products-anchor">here</a>.{% endblocktrans %}
     </p>
     <p>
       {% url 'logout' as logut_url %}

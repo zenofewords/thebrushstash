@@ -9,7 +9,7 @@
   {% if user.is_authenticated %}
     <p>
       {% url 'shop:shop' as shop_url %}
-      {% blocktrans %}You already have an account and are currently logged in. Why don't you check out some <a href="{{ shop_url }}">brushes</a>?{% endblocktrans %}
+      {% blocktrans %}You already have an account and are currently logged in. Why don't you check out some <a href="{{ shop_url }}#products-anchor">brushes</a>?{% endblocktrans %}
     </p>
   {% else %}
     <h1>{% trans "Verification e-mail Sent" %}</h1>

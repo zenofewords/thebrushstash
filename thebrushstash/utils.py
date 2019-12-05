@@ -237,7 +237,6 @@ def register_user(data, current_site):
         user.is_active = False
 
         update_user_information(user, email, data)
-        send_registration_email(user, current_site)
     return user
 
 
@@ -247,7 +246,7 @@ def subscribe_to_newsletter(user, data):
         obj, created = NewsletterRecipient.objects.get_or_create(
             email=email,
             defaults={
-                'subscribed': True,
+                'subscribed': False,
                 'user': user,
                 'token': get_random_string(),
             }
@@ -318,8 +317,8 @@ def send_registration_email(user, current_site):
     })
     subject = _('Activate your account')
     message = EmailMultiAlternatives(
-        subject, message_html, settings.DEFAULT_FROM_EMAIL, [user.email
-    ])
+        subject, message_html, settings.DEFAULT_FROM_EMAIL, [user.email]
+    )
     message.content_subtype = 'html'
     message.mixed_subtype = 'related'
 
@@ -367,6 +366,24 @@ def send_subscription_email(email_address, current_site):
 
 def send_purchase_mail(session, current_site, invoice):
     logo_path = finders.find('images/tbs-email-logo.png')
+    newsletter_recipient = NewsletterRecipient.objects.filter(user=invoice.user).first()
+
+    include_registration = invoice.user and not invoice.user.is_active
+    include_newsletter = newsletter_recipient and not newsletter_recipient.subscribed
+
+    registration_params = {}
+    if include_registration:
+        t = account_activation_token.make_token(invoice.user)
+        print(t)
+        registration_params = {
+            'user': invoice.user,
+            'uid': urlsafe_base64_encode(force_bytes(invoice.user.pk)),
+            'token': t,
+        }
+
+    if include_newsletter:
+        newsletter_recipient.subscribed = True
+        newsletter_recipient.save()
 
     message_html = render_to_string('shop/purchase_complete_email.html', {
         'domain': current_site.domain,
@@ -378,6 +395,9 @@ def send_purchase_mail(session, current_site, invoice):
         'logo_path': logo_path,
         'bag': session['bag'],
         'currency': session['currency'],
+        'include_registration': include_registration,
+        'include_newsletter': include_newsletter,
+        **registration_params,  # noqa
     })
     subject = _('Purchase complete')
     email_address = session['user_information']['email']
@@ -458,12 +478,9 @@ def complete_purchase(session, invoice_status, request):
         invoice.save()
 
         update_inventory(invoice, session['bag']['products'])
+        current_site = get_current_site(request)
 
-        send_purchase_mail(
-            session,
-            get_current_site(request),
-            invoice,
-        )
+        send_purchase_mail(session, current_site, invoice)
         session['bag'] = EMPTY_BAG
         session['order_number'] = None
         session['user_information']['phone_number'] = phone_number

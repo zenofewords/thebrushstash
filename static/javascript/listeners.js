@@ -31,6 +31,8 @@ import {
   emailInputs,
   logingFormUsernameInput,
   logingFormPasswordInput,
+  logingFormPasswordInput1,
+  logingFormPasswordInput2,
   fieldInfo,
   fieldInfoIcon,
   invoiceFormAddressInput,
@@ -326,6 +328,16 @@ ready(() => {
   })
 
   logingFormPasswordInput && logingFormPasswordInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+  })
+
+  logingFormPasswordInput1 && logingFormPasswordInput1.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+  })
+
+  logingFormPasswordInput2 && logingFormPasswordInput2.addEventListener('invalid', (event) => {
     event.preventDefault()
     showErrorMessage(event.target, 'Ovo polje je obavezno.')
   })

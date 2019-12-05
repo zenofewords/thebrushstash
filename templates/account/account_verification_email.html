@@ -44,7 +44,7 @@
               </tr>
               <tr>
                 <td>
-                  <p>{% block reset_link %}{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}{% endblock %}</p>
+                  <p>{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}</p>
                 </td>
               </tr>
               <tr>

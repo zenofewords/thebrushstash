@@ -16,8 +16,13 @@
       {% csrf_token %}
       {{ form.non_field_errors }}
 
-      {% include 'account/includes/form_field.html' with field=form.password1 %}
-      {% include 'account/includes/form_field.html' with field=form.password2 %}
+      {% trans "Password" as field_label %}
+      {% trans "This field is required." as field_error %}
+      {% include 'account/includes/custom_form_field.html' with field=form.password1 label=field_label error=field_error field_type='password' %}
+
+      {% trans "Repeat password" as field_label %}
+      {% trans "This field is required." as field_error %}
+      {% include 'account/includes/custom_form_field.html' with field=form.password2 label=field_label error=field_error field_type='password' %}
 
       <button>
         {% trans "Submit" %}

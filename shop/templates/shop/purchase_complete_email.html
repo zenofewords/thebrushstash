@@ -28,6 +28,60 @@
     </table>
 
     <table class="body-wrap">
+      {% if include_registration %}
+        <tr>
+          <td class="container" bgcolor="#FFFFFF">
+            <div class="content">
+              <table>
+                <tr>
+                  <td>
+                    <p>{% blocktrans %}You're receiving this e-mail because you created an account at {{ site_name }}.{% endblocktrans %}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>{% trans "You can activate your account at the following page:" %}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>{% trans "Your username, in case you've forgotten:" %} {{ user.get_username }}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <p>{% blocktrans %}Thank you for using The Brush Stash!{% endblocktrans %}</p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+          <td></td>
+        </tr>
+      {% endif %}
+      {% if include_newsletter %}
+        <tr>
+          <td class="container" bgcolor="#FFFFFF">
+            <div class="content">
+              <table>
+                <tr>
+                  <td>
+                    <p>
+                      {% blocktrans %}Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o eventualnim posebnim ponudama.{% endblocktrans %}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+          <td></td>
+        </tr>
+      {% endif %}
       <tr>
         <td class="container" bgcolor="#FFFFFF">
           <div class="content">
