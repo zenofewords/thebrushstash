@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-06 00:04+0100\n"
+"POT-Creation-Date: 2019-12-06 00:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -266,53 +266,45 @@ msgid ""
 "You can always continue from where you left off if you change your mind."
 msgstr "U slučaju da se predomislite, uvijek možete nastaviti gdje ste stali."
 
-#: shop/templates/shop/purchase_complete_email.html:11
-#: shop/templates/shop/purchase_complete_email2.html:9
-#: shop/templates/shop/purchase_complete_email2.html:1940
+#: shop/templates/shop/purchase_complete_email.html:9
+#: shop/templates/shop/purchase_complete_email.html:1940
 msgid "Your order has been confirmed!"
 msgstr "Vaša narudžba je potvrđena!"
 
-#: shop/templates/shop/purchase_complete_email.html:39
-#: templates/account/account_verification_email.html:37
-#, fuzzy, python-format
-#| msgid ""
-#| "You're receiving this e-mail because you created an account at The Brush "
-#| "Stash Webshop."
+#: shop/templates/shop/purchase_complete_email.html:1988
+#: templates/account/account_verification_email.html:1987
 msgid ""
-"You're receiving this e-mail because you created an account at %(site_name)s."
+"You're receiving this e-mail because you created an account at The Brush "
+"Stash Webshop."
 msgstr "Uspješno ste kreirali korisnički račun na The Brush Stash Webshop."
 
-#: shop/templates/shop/purchase_complete_email.html:44
-#: shop/templates/shop/purchase_complete_email2.html:1993
-#: templates/account/account_verification_email.html:42
+#: shop/templates/shop/purchase_complete_email.html:1993
+#: templates/account/account_verification_email.html:1992
 msgid "You can activate your account at the following page:"
 msgstr "Svoj korisnički račun možete aktivirati ovdje:"
 
-#: shop/templates/shop/purchase_complete_email.html:54
-#: shop/templates/shop/purchase_complete_email2.html:1999
-#: templates/account/account_verification_email.html:52
+#: shop/templates/shop/purchase_complete_email.html:1999
+#: templates/account/account_verification_email.html:1998
 #: templates/registration/password_reset_email.html:7
 msgid "Your username, in case you've forgotten:"
 msgstr "Vaše korisničko ime, u slučaju da ste ga zaboravili:"
 
-#: shop/templates/shop/purchase_complete_email.html:59
-#: shop/templates/shop/purchase_complete_email2.html:2004
-#: templates/account/account_verification_email.html:57
+#: shop/templates/shop/purchase_complete_email.html:2004
+#: templates/account/account_verification_email.html:2003
 #: templates/registration/password_reset_email.html:9
 msgid "Thank you for using The Brush Stash!"
 msgstr "Hvala Vam što koristite The Brush Stash!"
 
-#: shop/templates/shop/purchase_complete_email.html:77
-#: templates/account/subscription_verification_email.html:38
+#: shop/templates/shop/purchase_complete_email.html:2025
 msgid ""
 "Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! "
 "Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam "
 "se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o "
-"eventualnim posebnim ponudama."
+"eventualnim\n"
+"                                      posebnim ponudama."
 msgstr ""
 
-#: shop/templates/shop/purchase_complete_email.html:93
-#: shop/templates/shop/purchase_complete_email2.html:2046
+#: shop/templates/shop/purchase_complete_email.html:2046
 msgid ""
 "Thank you for your order and for choosing The Brush Stash! Your parcel will "
 "be packaged and shipped to your address as soon as possible."
@@ -321,97 +313,67 @@ msgstr ""
 "Stash kistova! Paketić ćemo pripremiti i poslati na Vašu adresu u najkraćem "
 "mogućem roku."
 
-#: shop/templates/shop/purchase_complete_email.html:94
-#: shop/templates/shop/purchase_complete_email2.html:2047
+#: shop/templates/shop/purchase_complete_email.html:2047
 msgid "Your order number is:"
 msgstr "Broj Vaše narudžbe je:"
 
-#: shop/templates/shop/purchase_complete_email.html:105
-#: shop/templates/shop/purchase_complete_email2.html:2065
+#: shop/templates/shop/purchase_complete_email.html:2065
 msgid "BILLING TO:"
 msgstr "ADRESA ZA NAPLATU:"
 
-#: shop/templates/shop/purchase_complete_email.html:108
-#: shop/templates/shop/purchase_complete_email2.html:2068
+#: shop/templates/shop/purchase_complete_email.html:2068
 msgid "SHIPPING TO:"
 msgstr "ADRESA DOSTAVE:"
 
-#: shop/templates/shop/purchase_complete_email.html:219
-#: shop/templates/shop/purchase_complete_email2.html:2214
+#: shop/templates/shop/purchase_complete_email.html:2214
 msgid "ITEMS ORDERED"
 msgstr "NARUČENI PROIZVODI:"
 
-#: shop/templates/shop/purchase_complete_email.html:232
-#: shop/templates/shop/purchase_complete_email2.html:2226
+#: shop/templates/shop/purchase_complete_email.html:2226
 msgid "PRODUCT"
 msgstr "PROIZVOD"
 
-#: shop/templates/shop/purchase_complete_email.html:235
-#: shop/templates/shop/purchase_complete_email2.html:2229
+#: shop/templates/shop/purchase_complete_email.html:2229
 msgid "PRICE"
 msgstr "CIJENA"
 
-#: shop/templates/shop/purchase_complete_email.html:238
-#: shop/templates/shop/purchase_complete_email2.html:2232
+#: shop/templates/shop/purchase_complete_email.html:2232
 msgid "QTY"
 msgstr "KOL"
 
-#: shop/templates/shop/purchase_complete_email.html:241
-#: shop/templates/shop/purchase_complete_email2.html:2235
+#: shop/templates/shop/purchase_complete_email.html:2235
 msgid "TOTAL"
 msgstr "UKUPNO"
 
-#: shop/templates/shop/purchase_complete_email.html:278
-#: shop/templates/shop/purchase_complete_email2.html:2279
+#: shop/templates/shop/purchase_complete_email.html:2279
 msgid "PAYMENT:"
 msgstr "NAPLATA:"
 
-#: shop/templates/shop/purchase_complete_email.html:288
-#: shop/templates/shop/purchase_complete_email2.html:2303
+#: shop/templates/shop/purchase_complete_email.html:2303
 #: thebrushstash/templates/thebrushstash/includes/bag.html:38
 msgid "Subtotal:"
 msgstr "Cijena:"
 
-#: shop/templates/shop/purchase_complete_email.html:299
-#: shop/templates/shop/purchase_complete_email2.html:2312
+#: shop/templates/shop/purchase_complete_email.html:2312
 msgid "VAT included:"
 msgstr "Uključen PDV:"
 
-#: shop/templates/shop/purchase_complete_email.html:310
-#: shop/templates/shop/purchase_complete_email2.html:2321
+#: shop/templates/shop/purchase_complete_email.html:2321
 msgid "Shipping:"
 msgstr "Dostava:"
 
-#: shop/templates/shop/purchase_complete_email.html:322
-#: shop/templates/shop/purchase_complete_email2.html:2332
+#: shop/templates/shop/purchase_complete_email.html:2332
 msgid "GLS (cash on delivery):"
 msgstr "GLS (plaćanje pouzećem):"
 
-#: shop/templates/shop/purchase_complete_email.html:339
-#: shop/templates/shop/purchase_complete_email2.html:2348
+#: shop/templates/shop/purchase_complete_email.html:2348
 #: shop/templates/shop/tags/purchase_summary_tag.html:40
 msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
-#: shop/templates/shop/purchase_complete_email.html:356
-#: shop/templates/shop/purchase_complete_email2.html:2368
+#: shop/templates/shop/purchase_complete_email.html:2368
 msgid "Thank you for using The Brush Stash products!"
 msgstr "Hvala Vam što koristite The Brush Stash proizvode!"
-
-#: shop/templates/shop/purchase_complete_email2.html:1988
-msgid ""
-"You're receiving this e-mail because you created an account at The Brush "
-"Stash Webshop."
-msgstr "Uspješno ste kreirali korisnički račun na The Brush Stash Webshop."
-
-#: shop/templates/shop/purchase_complete_email2.html:2025
-msgid ""
-"Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! "
-"Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam "
-"se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o "
-"eventualnim\n"
-"                                      posebnim ponudama."
-msgstr ""
 
 #: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:400
 msgid "Purchase complete"
@@ -443,7 +405,8 @@ msgstr ""
 
 #: shop/templates/shop/purchase_completed.html:23
 #: templates/account/subscribe_to_newsletter.html:12
-#: templates/account/subscription_verification_email.html:12
+#: templates/account/subscription_verification_email.html:9
+#: templates/account/subscription_verification_email.html:1940
 msgid "You've been subscribed to our newsletter!"
 msgstr "Uspješno ste se pretplatili na naš newsletter!"
 
@@ -511,7 +474,8 @@ msgstr "Plaćanje"
 msgid "Continue shopping"
 msgstr "Nastavak kupnje"
 
-#: templates/account/account_verification_email.html:12
+#: templates/account/account_verification_email.html:9
+#: templates/account/account_verification_email.html:1940
 msgid "You've registered an account with The Brush Stash!"
 msgstr "Registrirali ste se na The Brush Stash!"
 
@@ -555,10 +519,7 @@ msgstr "E-mail za verifikaciju poslan"
 
 #: templates/account/confirmation_sent.html:12
 #: templates/account/register.html:12
-#, fuzzy, python-format
-#| msgid ""
-#| "You already have an account and are currently logged in. Why don't you "
-#| "check out some <a href=\"%(shop_url)s\">brushes</a>?"
+#, python-format
 msgid ""
 "You already have an account and are currently logged in. Why don't you check "
 "out some <a href=\"%(shop_url)s#products-anchor\">brushes</a>?"
@@ -599,17 +560,25 @@ msgstr "Pošaljite mi aktivacijski link"
 msgid "Your subscription token is not valid."
 msgstr "Vaš aktivacijski token nije ispravan."
 
-#: templates/account/subscription_verification_email.html:41
+#: templates/account/subscription_verification_email.html:1987
+msgid ""
+"Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! "
+"Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam "
+"se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o "
+"eventualnim posebnim ponudama."
+msgstr ""
+
+#: templates/account/subscription_verification_email.html:1992
 msgid "Svoj korisnički račun možete aktivirati ovdje:"
 msgstr ""
 
-#: templates/account/subscription_verification_email.html:47
+#: templates/account/subscription_verification_email.html:1998
 msgid ""
 "\n"
-"                    Hvala vam, srdačan pozdrav,\n"
-"                    <br>\n"
-"                    vaš The Brush Stash team\n"
-"                    "
+"                                    Hvala vam, srdačan pozdrav,\n"
+"                                    <br>\n"
+"                                    vaš The Brush Stash team\n"
+"                                    "
 msgstr ""
 
 #: templates/account/unsubscribe_from_newsletter.html:5
@@ -635,8 +604,7 @@ msgid "You are already logged in"
 msgstr "Već ste ulogirani"
 
 #: templates/registration/login.html:13
-#, fuzzy, python-format
-#| msgid "You can find our brushes <a href=\"%(shop_url)s\">here</a>."
+#, python-format
 msgid ""
 "You can find our brushes <a href=\"%(shop_url)s#products-anchor\">here</a>."
 msgstr "Naše kistove možete pronaći <a href=\"%(shop_url)s\">ovdje</a>."
