@@ -29,6 +29,7 @@ import {
   creditCardSecureModals,
   creditCardWrapper,
   emailInputs,
+  joinNewsletterMessage,
   logingFormUsernameInput,
   logingFormPasswordInput,
   logingFormPasswordInput1,
@@ -60,7 +61,7 @@ import {
 import {
   addOneToBag,
   addToBag,
-  hideErrorMessages,
+  clearErrorMessages,
   processPaymentAddressData,
   removeFromBag,
   removeOneFromBag,
@@ -195,7 +196,7 @@ ready(() => {
     event.preventDefault()
 
     continueToPaymentButton.disabled = true
-    hideErrorMessages()
+    clearErrorMessages()
     const valid = checkoutAddressForm.reportValidity()
 
     if (valid) {
@@ -209,7 +210,7 @@ ready(() => {
     event.preventDefault()
 
     cashOnDeliverySubmitButton.disabled = true
-    hideErrorMessages()
+    clearErrorMessages()
     previousStepLink.style.pointerEvents = 'none'
     const valid = checkoutAddressForm.reportValidity()
 
@@ -223,6 +224,7 @@ ready(() => {
 
   subscribeToNewsletterButton && subscribeToNewsletterButton.addEventListener('click', (event) => {
     subscribeToNewsletterButton.disabled = true
+    joinNewsletterMessage.classList.add('error')
 
     const emailData = {
       email0: '',
@@ -231,8 +233,8 @@ ready(() => {
     for (let i = 0; i < emailInputs.length; i++) {
       emailData[`email${i}`] = emailInputs[i].value
     }
-    subToNewsletter(emailData).then(() => {
-      subscribeToNewsletterButton.disabled = false
+    subToNewsletter(emailData).then((success) => {
+      subscribeToNewsletterButton.disabled = success
     })
   })
 
@@ -259,6 +261,7 @@ ready(() => {
   }
 
   registerButton && registerButton.addEventListener('click', (event) => {
+    clearErrorMessages()
     registerButton.classList.add('disabled')
 
     const valid = registerForm.reportValidity()
@@ -276,7 +279,7 @@ ready(() => {
       const valid = checkoutAddressForm.reportValidity()
 
       if (valid) {
-        hideErrorMessages()
+        clearErrorMessages()
         processPaymentAddressData(checkoutAddressForm)
       }
     }

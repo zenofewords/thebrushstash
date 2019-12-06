@@ -215,11 +215,13 @@ export const subToNewsletter = (emailData) => {
       joinNewsletterMessage.hidden = false
       joinNewsletterMessage.classList.remove('error')
       joinNewsletterMessage.innerHTML = response.message
+      return true
     }
   }).catch((error) => {
     joinNewsletterMessage.classList.add('error')
     joinNewsletterMessage.hidden = false
     joinNewsletterMessage.innerHTML = error
+    return false
   })
 }
 
@@ -409,7 +411,7 @@ export const showErrorMessage = (target, message = 'Ovo polje je obavezno.') => 
   errorLabel.innerHTML = message
 }
 
-export const hideErrorMessages = () => {
+export const clearErrorMessages = () => {
   const errorLabels = document.getElementsByClassName('error')
   for (let i = 0; i < errorLabels.length; i++) {
     errorLabels[i].hidden = true
