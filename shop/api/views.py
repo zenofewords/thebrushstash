@@ -226,7 +226,7 @@ class ProcessOrderView(GenericAPIView):
                 'currency': 'HRK',
                 'language': session['_language'],
                 'order_number': session['order_number'],
-                'require_complete': 'false',
+                'require_complete': settings.IPG_REQUIRE_COMPLETE,
                 'store_id': settings.IPG_STORE_ID,
                 'version': settings.IPG_API_VERSION,
             }),

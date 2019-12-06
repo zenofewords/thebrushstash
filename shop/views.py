@@ -83,7 +83,7 @@ class CheckoutView(FormView):
             'language': session.get('_language'),
             'currency': session.get('currency'),
             'store_id': settings.IPG_STORE_ID,
-            'require_complete': 'false',
+            'require_complete': settings.IPG_REQUIRE_COMPLETE,
             'subscribed_to_newsletter': subscribed_to_newsletter,
             'gls_fee': GLS_FEE,
         })
