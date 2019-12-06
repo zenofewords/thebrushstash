@@ -12,16 +12,31 @@
     <p>
       {% trans "Your order was successfully processed and will be shipped soon. Check your e-mail for details." %}
     </p>
-    {% if not user.is_authenticated and user_information.register %}
-      <h2>{% trans "Check your e-mail to complete the registration" %}</h2>
-      <p>
-        {% trans "To finish your registration you need to visit the activation link which was sent to your e-mail address." %}
-      </p>
+    {% if user_information.register %}
+      {% if user_information.registration_email_in_use %}
+        <p>
+          {% trans "The provided e-mail address is already registered at The Brush Stash Webshop." %}
+          {% trans "If you forgot your password" %}<a href="{% url 'password_reset' %}">
+            {% trans "click this link" %}.
+          </a>
+        </p>
+      {% else %}
+        <h2>{% trans "Check your e-mail to complete the registration" %}</h2>
+        <p>
+          {% trans "To finish your registration you need to visit the activation link which was sent to your e-mail address." %}
+        </p>
+      {% endif %}
     {% endif %}
     {% if user_information.subscribe_to_newsletter %}
-      <h2>
-        {% trans "You've been subscribed to our newsletter!" %}
-      </h2>
+      {% if user_information.newsletter_email_in_use %}
+        <p>
+          {% trans "The provided e-mail address is already subscribed to our newsletter." %}
+        </p>
+      {% else %}
+        <h2>
+          {% trans "You've been subscribed to our newsletter!" %}
+        </h2>
+      {% endif %}
     {% endif %}
   </div>
 {% endblock content %}

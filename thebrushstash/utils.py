@@ -37,6 +37,9 @@ from shop.constants import (
     SRCSET_MAPPING,
 )
 from shop.models import (
+    EmailAudit,
+    EmailSource,
+    EmailAuditStatus,
     GalleryItem,
     Invoice,
     InvoiceItem,
@@ -237,7 +240,7 @@ def register_user(data, current_site):
         user.is_active = False
 
         update_user_information(user, email, data)
-    return user
+    return user, user.is_active
 
 
 def subscribe_to_newsletter(user, data):
@@ -255,6 +258,7 @@ def subscribe_to_newsletter(user, data):
         if user and not created and not obj.user:
             obj.user = user
             obj.save()
+        return created
 
 
 def safe_subscribe_to_newsletter(user, email, current_site):
@@ -303,10 +307,55 @@ def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
     return invoice.order_number
 
 
-def send_registration_email(user, current_site):
+def start_audit(source, email, payment_method=''):
+    email_audit = EmailAudit()
+    email_audit.source = source
+    email_audit.status = EmailAuditStatus.PENDING
+    email_audit.receiver = email
+    email_audit.payment_method = payment_method
+    email_audit.save()
+    return email_audit
+
+
+def get_logo_attachement():
     logo_path = finders.find('images/tbs-email-logo.png')
 
-    message_html = render_to_string('account/account_verification_email.html', {
+    with Image.open(logo_path, mode='r') as tbs_logo_image:
+        image_byte_array = io.BytesIO()
+        tbs_logo_image.save(image_byte_array, format='png')
+
+        image = MIMEImage(image_byte_array.getvalue(), 'png')
+        image.add_header('Content-ID', '<{}>'.format(logo_path))
+        image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
+    return logo_path, image
+
+
+def attach_images(message, invoice):
+    invoice_items = InvoiceItem.objects.filter(invoice=invoice).select_related('invoice', 'product')
+
+    for invoice_item in invoice_items:
+        gallery_item = GalleryItem.objects.filter(
+            content_type=ContentType.objects.get_by_natural_key('shop', 'product'),
+            object_id=invoice_item.product.pk
+        ).first()
+
+        with Image.open(gallery_item.image.path, mode='r') as image:
+            image_byte_array = io.BytesIO()
+            image.save(image_byte_array, format='jpeg')
+
+            image = MIMEImage(image_byte_array.getvalue(), 'jpeg')
+
+            image.add_header('Content-ID', '<{}>'.format(gallery_item.image.path))
+            image.add_header('Content-Disposition', 'inline', filename=invoice_item.product.name)
+            message.attach(image)
+    return message
+
+
+def send_registration_email(user, current_site):
+    email_audit = start_audit(EmailSource.REGISTRATION, user.email)
+    logo_path, logo_image = get_logo_attachement()
+
+    data = {
         'user': user,
         'domain': current_site.domain,
         'site_name': current_site.name,
@@ -314,58 +363,49 @@ def send_registration_email(user, current_site):
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': account_activation_token.make_token(user),
         'logo_path': logo_path,
-    })
+    }
+    message_txt = render_to_string('account/account_verification_email.txt', data)
+    message_html = render_to_string('account/account_verification_email.html', data)
     subject = _('Activate your account')
     message = EmailMultiAlternatives(
         subject, message_html, settings.DEFAULT_FROM_EMAIL, [user.email]
     )
+    email_audit.content = message_txt
+
     message.content_subtype = 'html'
     message.mixed_subtype = 'related'
-
-    with Image.open(logo_path, mode='r') as tbs_logo_image:
-        image_byte_array = io.BytesIO()
-        tbs_logo_image.save(image_byte_array, format='png')
-
-        image = MIMEImage(image_byte_array.getvalue(), 'png')
-        image.add_header('Content-ID', '<{}>'.format(logo_path))
-        image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
-        message.attach(image)
-
-    message.send()
+    message.attach(logo_image)
+    send_message(message, email_audit)
 
 
 def send_subscription_email(email_address, current_site):
-    logo_path = finders.find('images/tbs-email-logo.png')
+    email_audit = start_audit(EmailSource.NEWSLETTER, email_address)
+    logo_path, logo_image = get_logo_attachement()
 
-    message_html = render_to_string('account/subscription_verification_email.html', {
+    data = {
         'domain': current_site.domain,
         'site_name': current_site.name,
         'protocol': 'http' if settings.DEBUG else 'https',
         'uid': urlsafe_base64_encode(force_bytes(email_address)),
         'logo_path': logo_path,
-    })
-    subject = _('Subscribe to newsletter')
-
+    }
+    message_txt = render_to_string('account/subscription_verification_email.txt', data)
+    message_html = render_to_string('account/subscription_verification_email.html', data)
     message = EmailMultiAlternatives(
-        subject, message_html, settings.DEFAULT_FROM_EMAIL, [email_address]
+        _('Subscribe to newsletter'), message_html, settings.DEFAULT_FROM_EMAIL, [email_address]
     )
+    email_audit.content = message_txt
+
     message.content_subtype = 'html'
     message.mixed_subtype = 'related'
-
-    with Image.open(logo_path, mode='r') as tbs_logo_image:
-        image_byte_array = io.BytesIO()
-        tbs_logo_image.save(image_byte_array, format='png')
-
-        image = MIMEImage(image_byte_array.getvalue(), 'png')
-        image.add_header('Content-ID', '<{}>'.format(logo_path))
-        image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
-        message.attach(image)
-
-    message.send()
+    message.attach(logo_image)
+    send_message(message, email_audit)
 
 
-def send_purchase_mail(session, current_site, invoice):
-    logo_path = finders.find('images/tbs-email-logo.png')
+def send_purchase_email(session, current_site, invoice):
+    email_audit = start_audit(EmailSource.PURCHASE, invoice.email, session['payment_method'])
+
+    logo_path, logo_image = get_logo_attachement()
     newsletter_recipient = NewsletterRecipient.objects.filter(user=invoice.user).first()
 
     include_registration = invoice.user and not invoice.user.is_active
@@ -383,7 +423,7 @@ def send_purchase_mail(session, current_site, invoice):
         newsletter_recipient.subscribed = True
         newsletter_recipient.save()
 
-    message_html = render_to_string('shop/purchase_complete_email.html', {
+    data = {
         'domain': current_site.domain,
         'site_name': current_site.name,
         'protocol': 'http' if settings.DEBUG else 'https',
@@ -396,44 +436,32 @@ def send_purchase_mail(session, current_site, invoice):
         'include_registration': include_registration,
         'include_newsletter': include_newsletter,
         **registration_params,  # noqa
-    })
-    subject = _('Purchase complete')
-    email_address = session['user_information']['email']
+    }
+    message_html = render_to_string('shop/purchase_complete_email.html', data)
+    message_txt = render_to_string('shop/purchase_complete_email.txt', data)
+    email_audit.content = message_txt
 
+    email_address = session['user_information']['email']
     message = EmailMultiAlternatives(
-        subject, message_html, settings.DEFAULT_FROM_EMAIL, [email_address]
+        _('Purchase complete'), message_html, settings.DEFAULT_FROM_EMAIL, [email_address]
     )
     message.content_subtype = 'html'
     message.mixed_subtype = 'related'
+    message.attach(logo_image)
+    message = attach_images(message, invoice)
+    send_message(message, email_audit)
 
-    with Image.open(logo_path, mode='r') as tbs_logo_image:
-        image_byte_array = io.BytesIO()
-        tbs_logo_image.save(image_byte_array, format='png')
 
-        image = MIMEImage(image_byte_array.getvalue(), 'png')
-        image.add_header('Content-ID', '<{}>'.format(logo_path))
-        image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
-        message.attach(image)
+def send_message(message, email_audit):
+    try:
+        message.send()
+        email_audit.sent_at = now()
+        email_audit.status = EmailAuditStatus.SENT
+    except Exception as error:
+        email_audit.status = EmailAuditStatus.FAILED
+        email_audit.error_message = error
 
-    invoice_items = InvoiceItem.objects.filter(invoice=invoice).select_related('invoice', 'product')
-    for invoice_item in invoice_items:
-        gallery_item = GalleryItem.objects.filter(
-            content_type=ContentType.objects.get_by_natural_key('shop', 'product'),
-            object_id=invoice_item.product.pk
-        ).first()
-
-        with Image.open(gallery_item.image.path, mode='r') as image:
-            image_byte_array = io.BytesIO()
-            image.save(image_byte_array, format='jpeg')
-
-            image = MIMEImage(image_byte_array.getvalue(), 'jpeg')
-
-        # image = MIMEImage(gallery_item.image.read(), 'jpeg')
-        image.add_header('Content-ID', '<{}>'.format(gallery_item.image.path))
-        image.add_header('Content-Disposition', 'inline', filename=invoice_item.product.name)
-        message.attach(image)
-
-    message.send()
+    email_audit.save()
 
 
 def get_cart(bag):
@@ -485,7 +513,7 @@ def complete_purchase(session, invoice_status, request):
         update_inventory(invoice, session['bag']['products'])
         current_site = get_current_site(request)
 
-        send_purchase_mail(session, current_site, invoice)
+        send_purchase_email(session, current_site, invoice)
         session['bag'] = EMPTY_BAG
         session['order_number'] = None
         session['user_information']['phone_number'] = phone_number

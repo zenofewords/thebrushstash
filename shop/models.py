@@ -196,3 +196,45 @@ class GalleryItem(TimeStampMixin):
             description = 'No media attached'
 
         return '{} ({})'.format(self.name, description)
+
+
+class EmailSource:
+    REGISTRATION = 'registration'
+    NEWSLETTER = 'newsletter'
+    PURCHASE = 'purchase'
+
+    CHOICES = (
+        (REGISTRATION, 'Registration'),
+        (NEWSLETTER, 'Newsletter'),
+        (PURCHASE, 'Purchase'),
+    )
+
+
+class EmailAuditStatus:
+    PENDING = 'pending'
+    SENT = 'sent'
+    FAILED = 'failed'
+
+    CHOICES = (
+        (PENDING, 'Pending'),
+        (SENT, 'Sent'),
+        (FAILED, 'Failed'),
+    )
+
+
+class EmailAudit(TimeStampMixin):
+    sent_at = models.DateTimeField(blank=True, null=True)
+    source = models.CharField(max_length=100, choices=EmailSource.CHOICES)
+    status = models.CharField(max_length=100, choices=EmailAuditStatus.CHOICES)
+    receiver = models.CharField(max_length=500)
+    payment_method = models.CharField(max_length=100, choices=InvoicePaymentMethod.CHOICES)
+    content = models.TextField()
+    error_message = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = 'Email audit'
+        verbose_name_plural = 'Email audits'
+        ordering = ('status', '-created_at', )
+
+    def __str__(self):
+        return '{} by {}'.format(self.receiver, self.payment_method)

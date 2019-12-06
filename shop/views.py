@@ -95,9 +95,11 @@ class PurchaseCompletedView(TemplateView):
     def post(self, request, *args, **kwargs):
         session = request.session
 
+        user_information = {}
         if session['payment_method'] == InvoicePaymentMethod.CASH_ON_DELIVERY:
             complete_purchase(session, InvoiceStatus.PROCESSED, request)
-        return render(request, self.template_name)
+            user_information = {'user_information': session['user_information']}
+        return render(request, self.template_name, user_information)
 
 
 # IPG forces a POST redirect which will not contain but requires the csrf token
@@ -110,6 +112,7 @@ class IPGPurchaseCompletedView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         user_information = {}
+
         if signature_is_valid(request.POST):
             session = request.session
             complete_purchase(session, InvoiceStatus.PAID, request)

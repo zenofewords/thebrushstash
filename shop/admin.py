@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
 from shop.models import (
+    EmailAudit,
     GalleryItem,
     Invoice,
     Product,
@@ -154,6 +155,17 @@ class ShowcaseAdmin(AutoSlugAdmin):
     inlines = [SingleGalleryItemInline]
 
 
+class EmailAuditAdmin(admin.ModelAdmin):
+    list_display_links = ('receiver', )
+    list_display = ('receiver', 'status', 'created_at', 'sent_at', 'source', 'payment_method', )
+    readonly_fields = (
+        'receiver', 'source', 'payment_method', 'created_at', 'sent_at', 'content', 'error_message',
+    )
+    list_filter = ('status', 'source', 'payment_method', )
+    search_fields = ('receiver', )
+
+
+admin.site.register(EmailAudit, EmailAuditAdmin)
 admin.site.register(GalleryItem, GalleryItemAdmin)
 admin.site.register(Invoice, InvoiceAdmin)
 admin.site.register(Product, ProductAdmin)

@@ -189,8 +189,9 @@ class ProcessOrderView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
 
         current_site = get_current_site(request)
-        user = register_user(serializer.data, current_site)
-        subscribe_to_newsletter(user, serializer.data)
+        user, active = register_user(serializer.data, current_site)
+
+        created = subscribe_to_newsletter(user, serializer.data)
 
         session = request.session
         bag = session.get('bag')
@@ -203,6 +204,8 @@ class ProcessOrderView(GenericAPIView):
             session.get('payment_method', '')
         )
         session['user_information'] = serializer.data
+        session['user_information']['registration_email_in_use'] = active
+        session['user_information']['newsletter_email_in_use'] = not created
 
         user_info = {}
         for key, ipg_key in dict(zip(form_mandatory_fields, ipg_fields)).items():

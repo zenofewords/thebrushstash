@@ -1,0 +1,60 @@
+{% load i18n %}{% load shop_tags %}{% trans "Your order has been confirmed!" %}
+{% if include_registration %}
+{% trans "You're receiving this e-mail because you created an account at The Brush Stash Webshop." %}
+{% trans "You can activate your account at the following page:" %}
+{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}
+{% trans "Your username, in case you've forgotten:" %} {{ user.get_username }}
+{% blocktrans %}Thank you for using The Brush Stash!{% endblocktrans %}
+{% endif %}
+{% if include_newsletter %}
+{% trans "Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o eventualnim posebnim ponudama." %}
+{% endif %}
+{% trans "Thank you for your order and for choosing The Brush Stash! Your parcel will be packaged and shipped to your address as soon as possible." %}
+{% trans "Your order number is:" %} {{ invoice.order_number }}
+
+{% trans "BILLING TO:" %}
+{{ invoice.first_name }} {{ invoice.last_name }}
+{{ invoice.address }}
+{{ invoice.zip_code }} {{ invoice.city }}
+{{ invoice.country }}
+{{ invoice.phone_number }}
+{% if invoice.company_name %}
+{{ invoice.company_name }}
+{{ invoice.company_address }}
+{{ invoice.company_uin }}
+{% endif %}
+{% trans "SHIPPING TO:" %}
+{{ invoice.first_name }} {{ invoice.last_name }}
+{{ invoice.address }}
+{{ invoice.zip_code }} {{ invoice.city }}
+{{ invoice.country }}
+{{ invoice.phone_number }}
+{% if invoice.company_name %}
+{{ invoice.company_name }}
+{{ invoice.company_address }}
+{{ invoice.company_uin }}
+{% endif %}
+{% trans "ITEMS ORDERED" %}
+{% trans "PRODUCT" %}
+{% trans "PRICE" %}
+{% trans "QTY" %}
+{% trans "TOTAL" %}
+{% for item in invoice_items %}
+{{ item.product.name }}
+{% get_localized_price_for_currency item.product 'price' currency %}
+{{ item.sold_count }}
+{% get_localized_price_for_currency item.product 'price' currency item.sold_count %}
+{% endfor %}
+{% trans "PAYMENT:" %}
+{% trans "Subtotal:" %}
+{% get_price_for_currency bag 'total' currency %}
+{% trans "VAT included:" %}
+{% format_price_with_currency bag.tax currency %}
+{% trans "Shipping:" %}
+{% get_price_for_currency bag 'shipping_cost' currency %}
+{% trans "GLS (cash on delivery):" %}
+{% format_price_with_currency bag.fees currency %}
+{% trans "Grand total:" %}
+{% get_price_for_currency bag 'grand_total' currency %}
+
+{% trans 'Thank you for using The Brush Stash products!' %}

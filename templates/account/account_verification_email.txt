@@ -1,0 +1,6 @@
+{% load i18n %}{% load shop_tags %}{% trans "You've registered an account with The Brush Stash!" %}
+{% trans "You're receiving this e-mail because you created an account at The Brush Stash Webshop." %}
+{% trans "You can activate your account at the following page:" %}
+{{ protocol }}://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}
+{% trans "Your username, in case you've forgotten:" %} {{ user.get_username }}
+{% blocktrans %}Thank you for using The Brush Stash!{% endblocktrans %}
