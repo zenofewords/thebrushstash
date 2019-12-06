@@ -282,6 +282,10 @@ export const refreshBag = (response) => {
 const refreshReviewBag = (response, slug) => {
   const product = document.getElementById(slug)
 
+  if (!product) {
+    return
+  }
+
   if (product && !response.bag['products'][slug]) {
     product.classList.add('hidden')
   } else {
