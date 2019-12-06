@@ -90,18 +90,11 @@ class SingleGalleryItemInline(GenericTabularInline):
 class InvoiceAdmin(admin.ModelAdmin):
     list_display = (
         'created_at', 'order_number', 'first_name', 'last_name', 'payment_method', 'status',
-        'print_ship_info',
     )
     list_editable = ('status', )
     list_filter = ('status', 'payment_method', )
-    readonly_fields = ('created_at', 'modified_at', 'print_ship_info', )
+    readonly_fields = ('created_at', 'modified_at', )
     search_fields = ('created_at', 'first_name', 'last_name', )
-
-    def print_ship_info(self, obj):
-        url = reverse('print-ship-info', kwargs={'pk': obj.pk})
-        return mark_safe(
-            '<a href={} target="_blank" rel="noopener noreferrer">Print ship info</a>'.format(url)
-        )
 
 
 class ProductAdmin(AutoSlugAdmin):
