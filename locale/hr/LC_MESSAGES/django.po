@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-06 09:23+0100\n"
+"POT-Creation-Date: 2019-12-06 18:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -232,7 +232,7 @@ msgstr "Novo"
 #: shop/templates/shop/product_detail.html:22
 #: shop/templates/shop/product_detail.html:49
 #: shop/templates/shop/shop_base.html:7 shop/templates/shop/shop_base.html:11
-#: shop/templates/shop/shop_base.html:15 shop/templates/shop/shop_base.html:19
+#: shop/templates/shop/shop_base.html:17
 msgid "Webshop"
 msgstr "Webshop"
 
@@ -471,11 +471,12 @@ msgstr "Količina"
 msgid "Subtotal"
 msgstr "Cijena"
 
-#: shop/templates/shop/shop_base.html:12 shop/templates/shop/shop_base.html:16
-msgid "The Brush Stash | Luxury makeup brushes handmade in Japan"
+#: shop/templates/shop/shop_base.html:12 shop/templates/shop/shop_base.html:18
+#: shop/templates/shop/shop_base.html:29
+msgid "The Brush Stash Webshop | Luxury makeup brushes handmade in Japan"
 msgstr ""
-"The Brush Stash | Luksuzni hrvatski kistovi za šminkanje ručno proizvedeni u "
-"Japanu"
+"The Brush Stash Webshop | Luksuzni hrvatski kistovi za šminkanje ručno "
+"proizvedeni u Japanu"
 
 #: shop/templates/shop/shop_base.html:13
 msgid ""
@@ -484,6 +485,10 @@ msgid ""
 msgstr ""
 "japanski kistovi, kumano kistovi, ručno rađeni kistovi, luksuzni kistovi, "
 "kistovi za šminkanje"
+
+#: shop/templates/shop/shop_base.html:21 shop/templates/shop/shop_base.html:28
+msgid "The Brush Stash brush collection"
+msgstr "The Brush Stash kolekcija kistova"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:5
 msgid "Order summary"

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import (
@@ -180,5 +181,6 @@ class ShopHomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context.update({
             'products': Product.published_objects.all(),
+            'full_site_url': '{}://{}'.format(self.request.scheme, get_current_site(self.request)),
         })
         return context
