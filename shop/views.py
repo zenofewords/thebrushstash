@@ -82,6 +82,7 @@ class CheckoutView(FormView):
             'region': session.get('region'),
             'language': session.get('_language'),
             'currency': session.get('currency'),
+            'ipg_url': settings.IPG_URL,
             'store_id': settings.IPG_STORE_ID,
             'require_complete': settings.IPG_REQUIRE_COMPLETE,
             'subscribed_to_newsletter': subscribed_to_newsletter,

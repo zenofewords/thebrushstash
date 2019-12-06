@@ -9,6 +9,7 @@ DEBUG_TOOLBAR = bool(os.getenv('DEBUG_TOOLBAR', False) and DEBUG)
 CACHE = bool(os.getenv('CACHE', False))
 
 SECRET_KEY = os.getenv('SECRET_KEY')
+IPG_URL = os.getenv('IPG_URL')
 IPG_API_KEY = os.getenv('IPG_API_KEY')
 IPG_API_VERSION = os.getenv('IPG_API_VERSION')
 IPG_STORE_ID = os.getenv('IPG_STORE_ID')

@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<form action="https://test-wallet.corvuspay.com/checkout/" method="post">
+<form action="{{ ipg_url }}" method="post">
   <input id="version" name="version" value="{{ api_version }}" hidden>
   <input id="store_id" name="store_id" value="{{ store_id }}" hidden>
   <input id="order_number" name="order_number" value="" hidden>
