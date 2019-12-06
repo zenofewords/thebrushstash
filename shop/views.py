@@ -48,6 +48,9 @@ class CheckoutView(FormView):
         session_user_information = self.request.session.get('user_information')
 
         if session_user_information:
+            session_user_information.pop('company_name')
+            session_user_information.pop('company_address')
+            session_user_information.pop('company_uin')
             return session_user_information
 
         if user.is_authenticated:
@@ -61,9 +64,6 @@ class CheckoutView(FormView):
                 'phone_number': user.phone_number,
                 'state_county': user.state_county,
                 'zip_code': user.zip_code,
-                'company_name': user.company_name,
-                'company_address': user.company_address,
-                'company_uin': user.company_uin,
             }
         return {}
 
