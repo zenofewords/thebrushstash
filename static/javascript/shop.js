@@ -25,6 +25,14 @@ const ready = (runScript) => {
 }
 
 ready(() => {
+  window.history.pushState({page: 1}, '', '')
+  window.onpopstate = (event) => {
+    const location = event.target.location
+    if (!location.hash) {
+      window.location = event.target.location.origin
+    }
+  }
+
   const onSelectFocus = (event) => {
     for (let i = 0; i < shipToMenu.length; i++) {
       shipToMenu[i].hidden = false

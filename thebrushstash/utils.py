@@ -284,7 +284,8 @@ def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
 
     if not invoice:
         invoice = Invoice()
-        invoice.order_number = 'tbs_{}'.format(get_random_string())
+        invoice.save()
+        invoice.order_number = 'TBS_{}'.format(invoice.pk)
 
     invoice.email = data.get('email')
     invoice.first_name = data.get('first_name')
