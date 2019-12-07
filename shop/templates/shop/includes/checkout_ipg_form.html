@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<form action="{{ ipg_url }}" method="post">
+<form id="ipg_checkout_form" action="{{ ipg_url }}" method="post">
   <input id="version" name="version" value="{{ api_version }}" hidden>
   <input id="store_id" name="store_id" value="{{ store_id }}" hidden>
   <input id="order_number" name="order_number" value="" hidden>
@@ -17,6 +17,41 @@
   <input id="cardholder_city" name="cardholder_city" value="" hidden>
   <input id="cardholder_zip_code" name="cardholder_zip_code" value="" hidden>
   <input id="cardholder_country" name="cardholder_country" value="" hidden>
+
+  <div id="shipping-address-choice" hidden>
+    <br>
+    <h2 class="checkout-payment-title">
+      3. Adresa dostave
+    </h2>
+    <p>Odaberite adresu dostave</p>
+    <span class="checkout-radio-wrapper">
+      <input id="same-shipping-address" type="radio" name="shipping-address" checked>
+      <label for="same-shipping-address">
+        Isto kao i adresa naplate
+      </label>
+    </span>
+    <span class="checkout-radio-wrapper">
+      <input id="different-shipping-address" type="radio" name="shipping-address">
+      <label for="different-shipping-address">
+        Koristite drugu adresu za dostavu
+      </label>
+    </span>
+  </div>
+
+  <div id="shipping-address" class="checkout-formfields" hidden>
+    {% include 'account/includes/form_field.html' with field=form.shipping_first_name %}
+    {% include 'account/includes/form_field.html' with field=form.shipping_last_name %}
+    <div class="checkout-select-wrapper">
+      {{ form.account_shipping_country }}
+      <span id="id_account_shipping_country-error" class="error" hidden></span>
+    </div>
+    {% include 'account/includes/form_field.html' with field=form.shipping_address %}
+    {% if region != 'hr' %}
+      {% include 'account/includes/form_field.html' with field=form.shipping_state_county %}
+    {% endif %}
+    {% include 'account/includes/form_field.html' with field=form.shipping_city %}
+    {% include 'account/includes/form_field.html' with field=form.shipping_zip_code %}
+  </div>
 
   <button id="ipg-form-submit-button" class="{% if region == 'hr' %} hidden{% endif %}">
     {% trans "Place order" %}

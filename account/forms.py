@@ -87,12 +87,6 @@ class AddressForm(forms.ModelForm):
         self.fields['last_name'].required = True
         self.fields['last_name'].widget.attrs['placeholder'] = _('Last name')
 
-        self.fields['email'].required = True
-        self.fields['email'].widget.attrs['placeholder'] = _('E-mail address')
-
-        self.fields['phone_number'].required = False
-        self.fields['phone_number'].widget.attrs['placeholder'] = _('Phone number')
-
         self.fields['address'].required = True
         self.fields['address'].widget.attrs['placeholder'] = _('Address')
 
@@ -104,6 +98,36 @@ class AddressForm(forms.ModelForm):
 
         self.fields['state_county'].required = False
         self.fields['state_county'].widget.attrs['placeholder'] = _('State/County (optional)')
+
+        self.fields['account_shipping_country'].empty_label = _('Select country')
+        self.fields['account_shipping_country'].required = False
+        self.fields['account_shipping_country'].to_field_name = 'name'
+        self.fields['account_shipping_country'].queryset = Country.published_objects.filter(
+            region__name=self.region_name).select_related('region')
+
+        self.fields['shipping_first_name'].required = False
+        self.fields['shipping_first_name'].widget.attrs['placeholder'] = _('First name')
+
+        self.fields['shipping_last_name'].required = False
+        self.fields['shipping_last_name'].widget.attrs['placeholder'] = _('Last name')
+
+        self.fields['shipping_address'].required = False
+        self.fields['shipping_address'].widget.attrs['placeholder'] = _('Address')
+
+        self.fields['shipping_city'].required = False
+        self.fields['shipping_city'].widget.attrs['placeholder'] = _('City')
+
+        self.fields['shipping_zip_code'].required = False
+        self.fields['shipping_zip_code'].widget.attrs['placeholder'] = _('Postcode/ZIP')
+
+        self.fields['shipping_state_county'].required = False
+        self.fields['shipping_state_county'].widget.attrs['placeholder'] = _('State/County (optional)')
+
+        self.fields['email'].required = True
+        self.fields['email'].widget.attrs['placeholder'] = _('E-mail address')
+
+        self.fields['phone_number'].required = False
+        self.fields['phone_number'].widget.attrs['placeholder'] = _('Phone number')
 
         self.fields['company_name'].required = False
         self.fields['company_name'].widget.attrs['placeholder'] = _('Company name')

@@ -207,6 +207,13 @@ form_mandatory_fields = (
     'first_name',
     'last_name',
     'zip_code',
+    'shipping_first_name',
+    'shipping_last_name',
+    'account_shipping_country',
+    'shipping_city',
+    'shipping_address',
+    'shipping_zip_code',
+    'shipping_state_county',
 )
 ipg_fields = (
     'cardholder_address',

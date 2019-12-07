@@ -57,6 +57,18 @@ import {
   shipToMenu,
   subscribeToNewsletterButton,
   thumbnailWrappers,
+  shippingAddressWrapper,
+  shippingAddressChoice,
+  differentShippingAddressInput,
+  sameShippingAddressInput,
+  invoiceFormShippingFirstNameInput,
+  invoiceFormShippingLastNameInput,
+  invoiceFormShippingCountryInput,
+  invoiceFormShippingAddressInput,
+  invoiceFormShippingCityInput,
+  invoiceFormShippingZipCodeInput,
+  ipgFormSubmitButton,
+  ipgCheckoutForm,
 } from './selectors'
 import {
   addOneToBag,
@@ -71,6 +83,7 @@ import {
   toggleBag,
   toggleStickyNav,
   updatePaymentMethod,
+  updateShippingAddressData,
 } from './utils'
 
 const ready = (runScript) => {
@@ -173,6 +186,15 @@ ready(() => {
       cashOnDeliveryRadio.checked = true
       phoneNumberInput.required = true
       updatePaymentMethod(cashOnDeliveryRadio.value)
+
+      shippingAddressChoice.hidden = true
+      shippingAddressWrapper.hidden = true
+      invoiceFormShippingFirstNameInput.required = false
+      invoiceFormShippingLastNameInput.required = false
+      invoiceFormShippingCountryInput.required = false
+      invoiceFormShippingAddressInput.required = false
+      invoiceFormShippingCityInput.required = false
+      invoiceFormShippingZipCodeInput.required = false
     }
   })
 
@@ -180,7 +202,43 @@ ready(() => {
     if (!creditCardRadio.checked) {
       creditCardRadio.checked = true
       phoneNumberInput.required = false
+
+      shippingAddressChoice.hidden = false
+      sameShippingAddressInput.checked = true
       updatePaymentMethod(creditCardRadio.value)
+
+      differentShippingAddressInput.scrollIntoView(false)
+    }
+  })
+
+  differentShippingAddressInput && differentShippingAddressInput.addEventListener('click', (event) => {
+    shippingAddressWrapper.hidden = false
+    invoiceFormShippingFirstNameInput.required = true
+    invoiceFormShippingLastNameInput.required = true
+    invoiceFormShippingCountryInput.required = true
+    invoiceFormShippingAddressInput.required = true
+    invoiceFormShippingCityInput.required = true
+    invoiceFormShippingZipCodeInput.required = true
+
+    differentShippingAddressInput.scrollIntoView()
+  })
+
+  sameShippingAddressInput && sameShippingAddressInput.addEventListener('click', (event) => {
+    shippingAddressWrapper.hidden = true
+    invoiceFormShippingFirstNameInput.required = false
+    invoiceFormShippingLastNameInput.required = false
+    invoiceFormShippingCountryInput.required = false
+    invoiceFormShippingAddressInput.required = false
+    invoiceFormShippingCityInput.required = false
+    invoiceFormShippingZipCodeInput.required = false
+  })
+
+  ipgFormSubmitButton && ipgFormSubmitButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    if (differentShippingAddressInput.checked) {
+      updateShippingAddressData(ipgCheckoutForm)
+    } else {
+      ipgCheckoutForm.submit()
     }
   })
 
@@ -311,6 +369,36 @@ ready(() => {
   })
 
   invoiceFormZipCodeInput && invoiceFormZipCodeInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target)
+  })
+
+  invoiceFormShippingFirstNameInput && invoiceFormShippingFirstNameInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target)
+  })
+
+  invoiceFormShippingLastNameInput && invoiceFormShippingLastNameInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target)
+  })
+
+  invoiceFormShippingCountryInput && invoiceFormShippingCountryInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target, 'Odaberite državu.')
+  })
+
+  invoiceFormShippingAddressInput && invoiceFormShippingAddressInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target)
+  })
+
+  invoiceFormShippingCityInput && invoiceFormShippingCityInput.addEventListener('invalid', (event) => {
+    event.preventDefault()
+    showErrorMessage(event.target)
+  })
+
+  invoiceFormShippingZipCodeInput && invoiceFormShippingZipCodeInput.addEventListener('invalid', (event) => {
     event.preventDefault()
     showErrorMessage(event.target)
   })

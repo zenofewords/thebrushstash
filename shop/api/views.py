@@ -15,12 +15,16 @@ from shop.api.serializers import (
     ProductSeriazlier,
     SimpleProductSerializer,
     UserInformationSerializer,
+    ShippingAddressSerializer,
 )
 from shop.constants import (
     GLS_FEE,
     EMPTY_BAG,
 )
-from shop.models import InvoicePaymentMethod
+from shop.models import (
+    InvoicePaymentMethod,
+    Invoice,
+)
 from shop.utils import (
     get_grandtotals,
     get_totals,
@@ -37,6 +41,7 @@ from thebrushstash.utils import (
     get_signature,
     register_user,
     subscribe_to_newsletter,
+    get_country,
 )
 from thebrushstash.models import Region
 
@@ -231,6 +236,30 @@ class ProcessOrderView(GenericAPIView):
                 'version': settings.IPG_API_VERSION,
             }),
         }, status=status.HTTP_200_OK)
+
+
+class UpdateShippingAddressView(GenericAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = ShippingAddressSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        order_number = request.session['order_number']
+
+        invoice = Invoice.objects.get(order_number=order_number)
+
+        invoice.shipping_first_name = serializer.data.get('shipping_first_name', '')
+        invoice.shipping_last_name = serializer.data.get('shipping_last_name', '')
+        invoice.invoice_shipping_country = get_country(serializer.data.get('country', 'Croatia'))
+        invoice.shipping_city = serializer.data.get('shipping_city', '')
+        invoice.shipping_address = serializer.data.get('shipping_address', '')
+        invoice.shipping_zip_code = serializer.data.get('shipping_zip_code', '')
+
+        invoice.save()
+
+        return response.Response({'order_number': order_number}, status=status.HTTP_200_OK)
 
 
 class UpdatePaymentMethodView(GenericAPIView):
