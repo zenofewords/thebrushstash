@@ -15,6 +15,17 @@ class CustomUser(AbstractUser):
     company_address = models.CharField(max_length=500, blank=True)
     company_uin = models.CharField(max_length=500, blank=True)
 
+    shipping_first_name = models.CharField(max_length=500, blank=True)
+    shipping_last_name = models.CharField(max_length=500, blank=True)
+    account_shipping_country = models.ForeignKey(
+        'thebrushstash.Country', on_delete=models.deletion.CASCADE, blank=True, null=True,
+        related_name='account_shipping_country',
+    )
+    shipping_city = models.CharField(max_length=500, blank=True)
+    shipping_address = models.CharField(max_length=1000, blank=True)
+    shipping_zip_code = models.CharField(max_length=500, blank=True)
+    shipping_state_county = models.CharField(max_length=500, blank=True)
+
     def __str__(self):
         return self.username
 

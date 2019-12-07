@@ -24,10 +24,10 @@
 {{ invoice.company_uin }}
 {% endif %}
 {% trans "SHIPPING TO:" %}
-{{ invoice.first_name }} {{ invoice.last_name }}
-{{ invoice.address }}
-{{ invoice.zip_code }} {{ invoice.city }}
-{{ invoice.country }}
+{% if invoice.shipping_first_name and invoice.shipping_last_name %}{{ invoice.shipping_first_name }}{{ invoice.shipping_last_name }}{% else %}{{ invoice.first_name }} {{ invoice.last_name }}{% endif %}
+{% if invoice.shipping_address %}{{ invoice.shipping_address }}{% else %}{{ invoice.address }}{% endif %}
+{% if invoice.shipping_zip_code and invoice.shipping_city %}{{ invoice.shipping_zip_code }} {{ invoice.shipping_city }}{% else %}{{ invoice.zip_code }} {{ invoice.city }}{% endif %}
+{% if invoice.shipping_country %}{{ invoice.shipping_country }}{% else %}{{ invoice.country }}{% endif %}
 {{ invoice.phone_number }}
 {% if invoice.company_name %}
 {{ invoice.company_name }}

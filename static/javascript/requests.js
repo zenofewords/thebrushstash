@@ -125,6 +125,20 @@ export const updateProduct = (slug, action) => fetch(
   }
 )
 
+export const updateShippingAddress = (data) => fetch(
+  '/api/update-shipping-address/',
+  {
+    method: 'POST',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify(data),
+  }
+)
+
 export const subscribeToNewsletter = (emailData) => fetch(
   '/api/subscribe-to-newsletter/',
   {

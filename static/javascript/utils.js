@@ -5,6 +5,7 @@ import {
   setPaymentMethod,
   subscribeToNewsletter,
   updateProduct,
+  updateShippingAddress,
 } from './requests'
 import {
   bag,
@@ -185,6 +186,19 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
   }).catch((error) => {
     checkoutHelpText.innerHTML = error
     checkoutHelpText.classList.add('error')
+  })
+}
+
+export const updateShippingAddressData = (form) => {
+  const formData = new FormData(form)
+
+  const data = {}
+  for (const [key, value] of formData.entries()) {
+    data[key] = value
+  }
+
+  updateShippingAddress(data).then(() => {
+    form.submit()
   })
 }
 
