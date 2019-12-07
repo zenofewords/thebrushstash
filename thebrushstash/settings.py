@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'django.contrib.admin',
 
-    'django_inlinecss',
-
     'thebrushstash.apps.TheBrushStashConfig',
     'shop.apps.ShopConfig',
 ]
