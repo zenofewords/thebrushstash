@@ -107,3 +107,6 @@ export const invoiceFormShippingAddressInput = document.getElementById('id_shipp
 export const invoiceFormShippingCityInput = document.getElementById('id_shipping_city')
 export const invoiceFormShippingZipCodeInput = document.getElementById('id_shipping_zip_code')
 export const ipgCheckoutForm = document.getElementById('ipg_checkout_form')
+
+export const sameShippingAddressInputWrapper = document.getElementById('same-shipping-address-input-wrapper')
+export const differentShippingAddressInputWrapper = document.getElementById('different-shipping-address-input-wrapper')

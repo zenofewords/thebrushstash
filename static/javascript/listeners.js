@@ -61,6 +61,8 @@ import {
   shippingAddressChoice,
   differentShippingAddressInput,
   sameShippingAddressInput,
+  sameShippingAddressInputWrapper,
+  differentShippingAddressInputWrapper,
   invoiceFormShippingFirstNameInput,
   invoiceFormShippingLastNameInput,
   invoiceFormShippingCountryInput,
@@ -211,26 +213,34 @@ ready(() => {
     }
   })
 
-  differentShippingAddressInput && differentShippingAddressInput.addEventListener('click', (event) => {
-    shippingAddressWrapper.hidden = false
-    invoiceFormShippingFirstNameInput.required = true
-    invoiceFormShippingLastNameInput.required = true
-    invoiceFormShippingCountryInput.required = true
-    invoiceFormShippingAddressInput.required = true
-    invoiceFormShippingCityInput.required = true
-    invoiceFormShippingZipCodeInput.required = true
+  differentShippingAddressInputWrapper && differentShippingAddressInputWrapper.addEventListener('click', (event) => {
+    if (!differentShippingAddressInput.checked) {
+      differentShippingAddressInput.checked = true
+      shippingAddressWrapper.hidden = false
 
-    differentShippingAddressInput.scrollIntoView()
+      invoiceFormShippingFirstNameInput.required = true
+      invoiceFormShippingLastNameInput.required = true
+      invoiceFormShippingCountryInput.required = true
+      invoiceFormShippingAddressInput.required = true
+      invoiceFormShippingCityInput.required = true
+      invoiceFormShippingZipCodeInput.required = true
+
+      differentShippingAddressInput.scrollIntoView()
+    }
   })
 
-  sameShippingAddressInput && sameShippingAddressInput.addEventListener('click', (event) => {
-    shippingAddressWrapper.hidden = true
-    invoiceFormShippingFirstNameInput.required = false
-    invoiceFormShippingLastNameInput.required = false
-    invoiceFormShippingCountryInput.required = false
-    invoiceFormShippingAddressInput.required = false
-    invoiceFormShippingCityInput.required = false
-    invoiceFormShippingZipCodeInput.required = false
+  sameShippingAddressInputWrapper && sameShippingAddressInputWrapper.addEventListener('click', (event) => {
+    if (!sameShippingAddressInput.checked) {
+      sameShippingAddressInput.checked = true
+      shippingAddressWrapper.hidden = true
+
+      invoiceFormShippingFirstNameInput.required = false
+      invoiceFormShippingLastNameInput.required = false
+      invoiceFormShippingCountryInput.required = false
+      invoiceFormShippingAddressInput.required = false
+      invoiceFormShippingCityInput.required = false
+      invoiceFormShippingZipCodeInput.required = false
+    }
   })
 
   ipgFormSubmitButton && ipgFormSubmitButton.addEventListener('click', (event) => {
