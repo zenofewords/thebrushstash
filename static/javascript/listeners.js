@@ -131,6 +131,15 @@ ready(() => {
     checkoutAddressWrapper.classList.remove('inactive')
     checkoutPaymentTitle.classList.add('inactive')
     checkoutPaymentWrapper.classList.add('inactive')
+
+    shippingAddressChoice.hidden = true
+    shippingAddressWrapper.hidden = true
+    invoiceFormShippingFirstNameInput.required = false
+    invoiceFormShippingLastNameInput.required = false
+    invoiceFormShippingCountryInput.required = false
+    invoiceFormShippingAddressInput.required = false
+    invoiceFormShippingCityInput.required = false
+    invoiceFormShippingZipCodeInput.required = false
   })
 
   for (let i = 0; i < creditCardSecureLogos.length; i++) {
@@ -245,10 +254,14 @@ ready(() => {
 
   ipgFormSubmitButton && ipgFormSubmitButton.addEventListener('click', (event) => {
     event.preventDefault()
-    if (differentShippingAddressInput.checked) {
-      updateShippingAddressData(ipgCheckoutForm)
-    } else {
-      ipgCheckoutForm.submit()
+    const valid = ipgCheckoutForm.reportValidity()
+
+    if (valid) {
+      if (differentShippingAddressInput.checked) {
+        updateShippingAddressData(ipgCheckoutForm)
+      } else {
+        ipgCheckoutForm.submit()
+      }
     }
   })
 
