@@ -233,14 +233,18 @@ def register_user(data, current_site):
     email = data.get('email')
     user = CustomUser.objects.filter(email=email).first()
 
-    if user:
+    active = False
+    if user and user.is_active:
         update_user_information(user, email, data)
+        active = True
+    elif user:
+        active = False
     elif data.get('register') and email:
         user = CustomUser()
         user.is_active = False
-
         update_user_information(user, email, data)
-    return user, user.is_active
+
+    return user, active
 
 
 def subscribe_to_newsletter(user, data):
