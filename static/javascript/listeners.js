@@ -218,7 +218,7 @@ ready(() => {
       sameShippingAddressInput.checked = true
       updatePaymentMethod(creditCardRadio.value)
 
-      differentShippingAddressInput.scrollIntoView(false)
+      differentShippingAddressInputWrapper.scrollIntoView(false)
     }
   })
 
