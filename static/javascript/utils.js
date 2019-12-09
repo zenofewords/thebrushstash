@@ -94,11 +94,6 @@ export const toggleStickyNav = (scrollPosition) => {
   }
 }
 
-export const toggleBag = (event) => {
-  event.preventDefault()
-  bag.classList.toggle('bag-show')
-}
-
 export const updatePaymentMethod = (paymentMethod) => {
   setPaymentMethod(paymentMethod).then((data) => data.json().then((response) => {
     if (parseInt(response.bag.fees)) {
@@ -242,13 +237,19 @@ export const hideBag = () => {
   bag.classList.remove('bag-desktop-show')
 }
 
+export const toggleBag = (event) => {
+  event.preventDefault()
+  clearTimeout(hideBagTimer)
+  bag.classList.toggle('bag-show')
+}
+
 let hideBagTimer
 bag.addEventListener('mouseover', (event) => {
   clearTimeout(hideBagTimer)
 })
 
 bag.addEventListener('mouseout', (event) => {
-  hideBagTimer = setTimeout(hideBag, 500)
+  hideBagTimer = setTimeout(hideBag, 300)
 })
 
 export const refreshBag = (response) => {
@@ -266,12 +267,12 @@ export const refreshBag = (response) => {
 
   if (window.location.pathname !== '/review-bag/') {
     bag.classList.add('bag-desktop-show')
-    hideBagTimer = setTimeout(hideBag, 2000)
+    hideBagTimer = setTimeout(hideBag, 1500)
   }
   if (Object.keys(response.bag.products).length < 1) {
     reviewBagLink.classList.add('hidden')
     bagBuyLink.classList.remove('hidden')
-    setTimeout(hideBagMobile, 1000)
+    setTimeout(hideBagMobile, 300)
   } else {
     reviewBagLink.classList.remove('hidden')
     bagBuyLink.classList.add('hidden')
