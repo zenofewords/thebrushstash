@@ -66,7 +66,7 @@
       justify-content: space-between
       padding: 20px 15px
 
-      .language-form-mobile
+      .language-forms-mobile
         display: inline
 
         #language-form-select
@@ -148,7 +148,7 @@
 
       &.bag-show
         opacity: 1
-        left: -236px
+        left: -235px
         pointer-events: auto
 
       .bag-product-remove
@@ -174,24 +174,38 @@
     flex-direction: column
     margin: 0
 
+    .ship-to-wrapper
+      position: relative
+
+      &:after
+        @include input-arrow
+        top: 10px
+        left: 83%
+        border-color: #000 transparent transparent
+
     .review-bag-mobile-ship-to-wrapper
       display: flex
+      justify-content: center
       margin-top: -25px
-      padding: 15px 0 5px
+      padding: 10px
       background-color: $colorLightGrey
 
-      .ship-to-wrapper
-        @include ship-to-wrapper
-        color: #000
-        position: relative
-        top: 0
-        right: 0
-        margin: 0 auto
+      .label-text
+        font-size: 12px
+        line-height: 15px
+        text-transform: uppercase
 
-        &:after
-          border-color: #000 transparent transparent
+      .language-forms-mobile
+        display: inline
 
-        .ship-to-select
+        #language-form-select
+          @include hollow-select
+          height: 20px
+          width: 47px
+          padding: 0 0 0 7px
+          margin: 0 0 0 5px
+          font-size: 12px
+          line-height: 14px
           color: #000
 
         .ship-to-menu

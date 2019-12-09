@@ -1,13 +1,13 @@
 {% load i18n %}
 
 <div class="ship-to-wrapper">
-  <label for="language-form-select" class="text">
+  <label for="language-form-select" class="label-text">
     {% trans 'Region:' %}
   </label>
 
-  <form id="language-form-mobile" class="language-form-mobile" action="{% url 'set_language' %}" method="post">
+  <form class="language-forms-mobile" action="{% url 'set_language' %}" method="post">
     {% csrf_token %}
-    <input id="language-input-mobile" name="language" type="hidden" value="hr">
+    <input class="language-inputs-mobile" name="language" type="hidden" value="hr">
 
     <select id="language-form-select">
       <option value="{{ selected_region.name }}" name="language">{{ selected_region.name|upper }}</option>

@@ -71,8 +71,8 @@ import {
   invoiceFormShippingZipCodeInput,
   ipgFormSubmitButton,
   ipgCheckoutForm,
-  languageFormMobile,
-  languageInputMobile,
+  languageFormsMobile,
+  languageInputsMobile,
 } from './selectors'
 import {
   addOneToBag,
@@ -471,13 +471,14 @@ ready(() => {
     showErrorMessage(event.target, 'Ovo polje je obavezno.')
   })
 
-  languageFormMobile && languageFormMobile.addEventListener('change', (event) => {
-    const region = event.target.value
-    languageInputMobile.value = region === 'hr' ? 'hr' : 'en'
+  for (let i = languageFormsMobile.length - 1; i >= 0; i--) {
+    languageFormsMobile[i].addEventListener('change', (event) => {
+      languageInputsMobile[i].value = event.target.value === 'hr' ? 'hr' : 'en'
 
-    setRegion(event.target.value).then((data) => data.json().then((response) => {
-      refreshBag(response)
-      languageFormMobile.submit()
-    }))
-  })
+      setRegion(event.target.value).then((data) => data.json().then((response) => {
+        refreshBag(response)
+        languageFormsMobile[i].submit()
+      }))
+    })
+  }
 })

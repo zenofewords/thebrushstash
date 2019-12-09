@@ -103,5 +103,5 @@ export const ipgCheckoutForm = document.getElementById('ipg_checkout_form')
 
 export const sameShippingAddressInputWrapper = document.getElementById('same-shipping-address-input-wrapper')
 export const differentShippingAddressInputWrapper = document.getElementById('different-shipping-address-input-wrapper')
-export const languageFormMobile = document.getElementById('language-form-mobile')
-export const languageInputMobile = document.getElementById('language-input-mobile')
+export const languageFormsMobile = document.getElementsByClassName('language-forms-mobile')
+export const languageInputsMobile = document.getElementsByClassName('language-inputs-mobile')

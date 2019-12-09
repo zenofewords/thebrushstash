@@ -100,11 +100,11 @@ export const updatePaymentMethod = (paymentMethod) => {
       summaryRowFees.classList.remove('hidden')
       summaryRowFeesValue.innerHTML = `${response.bag.fees} kn` // must be in hrk
       ipgFormSubmitButton.classList.add('hidden')
-      cashOnDeliverySubmitWrapper.classList.remove('hidden')
+      cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.remove('hidden')
     } else {
       summaryRowFees.classList.add('hidden')
       ipgFormSubmitButton.classList.remove('hidden')
-      cashOnDeliverySubmitWrapper.classList.add('hidden')
+      cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.add('hidden')
       summaryRowFeesValue.innerHTML = null
     }
     ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
