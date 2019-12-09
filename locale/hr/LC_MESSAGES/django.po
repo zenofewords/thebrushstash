@@ -505,8 +505,8 @@ msgstr "PDV (uključen u cijenu):"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:24
 #: thebrushstash/templates/thebrushstash/tags/ship_to_tag.html:7
-msgid "Ship to:"
-msgstr "Dostava u:"
+msgid "Region:"
+msgstr "Regija:"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:32
 msgid "GLS:"

@@ -66,9 +66,24 @@
       justify-content: space-between
       padding: 20px 15px
 
+      .language-form-mobile
+        display: inline
+
+        #language-form-select
+          @include hollow-select
+          height: 20px
+          width: 45px
+          padding: 0 0 1px 7px
+          margin: 0 0 0 5px
+          font-size: 12px
+          line-height: 14px
+          color: #fff
+          background-color: #000
+
       .nav-mobile-close-button
         position: absolute
-        left: 20px
+        top: 23px
+        right: 20px
         color: #fff
         font-size: 40px
         line-height: 13px
@@ -82,6 +97,8 @@
 
         &:after
           @include input-arrow
+          top: 8px
+          left: 83%
 
     .inner-wrapper
       .nav-item
@@ -280,9 +297,10 @@
 
     .text-wrapper
       text-align: center
-      margin: 0 auto 15px
+      margin: 0 auto 20px
       max-width: 500px
       border-right: 0
+      min-height: 150px
 
       h1
         font-size: 23px

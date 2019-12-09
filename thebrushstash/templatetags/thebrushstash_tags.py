@@ -65,6 +65,11 @@ def ship_to_tag(context):
     }
 
 
+@register.inclusion_tag('thebrushstash/tags/ship_to_tag_mobile.html', takes_context=True)
+def ship_to_tag_mobile(context):
+    return ship_to_tag(context)
+
+
 @register.inclusion_tag('thebrushstash/tags/footer_tag.html', takes_context=True)
 def footer_tag(context, hide_social=False):
     request = context['request']

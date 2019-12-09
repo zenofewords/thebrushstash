@@ -217,7 +217,7 @@
     &:hover
       opacity: $hoverOpacity
 
-%hollow-select
+@mixin hollow-select
   width: 83px
   height: 54px
   padding: 0 0 1px 20px
@@ -229,8 +229,10 @@
   font-size: 16px
   line-height: 19px
 
+%hollow-select
+  @include hollow-select
+
 @mixin ship-to-wrapper
-  display: none
   position: absolute
   top: 12px
   right: 34px
@@ -261,6 +263,7 @@
     top: 20px
     left: 65px
     margin-top: 5px
+    z-index: 1
 
     .language-option
       display: flex

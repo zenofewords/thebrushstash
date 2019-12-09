@@ -242,6 +242,7 @@ export const toggleBag = (event) => {
   clearTimeout(hideBagTimer)
   bag.classList.toggle('bag-show')
   navigationWrapper.classList.remove('nav-mobile-open')
+  document.body.classList.remove('lock-scroll')
 }
 
 let hideBagTimer
@@ -268,7 +269,7 @@ export const refreshBag = (response) => {
 
   if (window.location.pathname !== '/review-bag/') {
     bag.classList.add('bag-desktop-show')
-    hideBagTimer = setTimeout(hideBag, 1500)
+    hideBagTimer = setTimeout(hideBag, 2000)
   }
   if (Object.keys(response.bag.products).length < 1) {
     reviewBagLink.classList.add('hidden')

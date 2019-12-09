@@ -1,5 +1,6 @@
 import {
   setCookieInfo,
+  setRegion,
 } from './requests'
 import {
   addToBagButtons,
@@ -70,6 +71,8 @@ import {
   invoiceFormShippingZipCodeInput,
   ipgFormSubmitButton,
   ipgCheckoutForm,
+  languageFormMobile,
+  languageInputMobile,
 } from './selectors'
 import {
   addOneToBag,
@@ -85,6 +88,7 @@ import {
   toggleStickyNav,
   updatePaymentMethod,
   updateShippingAddressData,
+  refreshBag,
 } from './utils'
 
 const ready = (runScript) => {
@@ -465,5 +469,15 @@ ready(() => {
   checkoutR1CompanyUIN && checkoutR1CompanyUIN.addEventListener('invalid', (event) => {
     event.preventDefault()
     showErrorMessage(event.target, 'Ovo polje je obavezno.')
+  })
+
+  languageFormMobile && languageFormMobile.addEventListener('change', (event) => {
+    const region = event.target.value
+    languageInputMobile.value = region === 'hr' ? 'hr' : 'en'
+
+    setRegion(event.target.value).then((data) => data.json().then((response) => {
+      refreshBag(response)
+      languageFormMobile.submit()
+    }))
   })
 })
