@@ -20,47 +20,23 @@
 
     .header
       height: 56px
-      justify-content: space-between
 
       .nav-mobile-open-button
         display: initial
+        position: fixed
+        top: 7px
+        left: 5px
         color: #fff
         border-top: 1px solid #fff
         border-bottom: 1px solid #fff
         width: 14px
         height: 9px
-        margin: 0 30px 2px 25px
+        margin: 15px
 
         hr
           border: 0
           margin: 4px 0 0
           border-top: 1px solid #fff
-
-      .bag-mobile-open-button
-        display: initial
-        @include nav-item-bag
-        padding: 0
-        margin-right: 15px
-
-        a
-          padding: 10px 0
-
-        .bag-item-count
-          @include bag-item-count
-          position: initial
-          margin: 5px 0
-
-      #bag-mobile
-        display: initial
-        top: 56px
-        right: 0
-
-        &.bag-hide
-          opacity: 1
-          right: -100%
-
-        .bag-product-remove
-          padding: 0 3px
 
       .logo
         width: 170px
@@ -74,8 +50,9 @@
     position: absolute
     top: 0
     left: 0
+    max-width: 300px
+    min-height: 420px
     width: 80%
-    min-height: 550px
     height: 100vh
     z-index: 1
     margin-top: 0
@@ -128,7 +105,34 @@
         text-align: center
 
       .nav-item-bag
-        display: none
+        position: fixed
+        top: 6px
+        right: 6px
+
+        &:last-child
+          margin-right: 20px
+
+        .bag-link
+          &:hover
+            opacity: 1
+
+        .bag-icon-label
+          display: none
+
+        .bag-item-count
+          margin: 0
+
+    #bag
+      top: 51px
+      left: 100px
+
+      &.bag-show
+        opacity: 1
+        left: -236px
+        pointer-events: auto
+
+      .bag-product-remove
+        padding: 0 3px
 
   .review-bag-title
     display: none
@@ -373,8 +377,8 @@
   .general-terms-and-conditions-wrapper
     margin-top: 120px
 
-    h4
-      padding: 0 30px
+    h1
+      padding: 0 10%
 
   iframe
     border: 0

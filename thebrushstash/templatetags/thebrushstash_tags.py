@@ -25,7 +25,7 @@ def navigation_tag(context):
         'current_url': request.path,
         'navigation_items': NavigationItem.published_objects.all(),
         'bag': request.session.get('bag'),
-        'currency': request.session['currency'],
+        'currency': request.session.get('currency', 'hrk'),
         'LANGUAGE_CODE': request.session.get('_language'),
     }
 
@@ -62,16 +62,6 @@ def ship_to_tag(context):
         'selected_region': selected_region,
         'regions': regions.exclude(name=selected_region.name),
         'bag': session['bag'],
-    }
-
-
-@register.inclusion_tag('thebrushstash/tags/bag_tag.html', takes_context=True)
-def bag_tag(context):
-    request = context['request']
-    return {
-        'current_url': request.path,
-        'currency': request.session.get('currency', 'hrk'),
-        'bag': request.session.get('bag', EMPTY_BAG),
     }
 
 

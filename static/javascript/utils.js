@@ -10,14 +10,9 @@ import {
 import {
   bag,
   bagBuyLink,
-  bagBuyMobileLink,
   bagContent,
-  bagContentMobile,
   bagItemCount,
-  bagItemCountMobile,
-  bagMobile,
   bagTotal,
-  bagTotalMobile,
   cashOnDeliveryRadio,
   cashOnDeliverySubmitWrapper,
   checkoutAddressTitle,
@@ -46,7 +41,6 @@ import {
   navigationWrapper,
   phoneNumberInput,
   reviewBagLink,
-  reviewBagLinkMobile,
   summaryCheckoutButton,
   summaryGrandTotal,
   summaryGrandTotalHrk,
@@ -102,7 +96,7 @@ export const toggleStickyNav = (scrollPosition) => {
 
 export const toggleBag = (event) => {
   event.preventDefault()
-  bag.classList.toggle('bag-hide')
+  bag.classList.toggle('bag-show')
 }
 
 export const updatePaymentMethod = (paymentMethod) => {
@@ -240,11 +234,12 @@ export const subToNewsletter = (emailData) => {
 }
 
 export const hideBagMobile = () => {
-  bagMobile.classList.add('bag-hide')
+  bag.classList.remove('bag-show')
 }
 
 export const hideBag = () => {
-  bag.classList.add('bag-hide')
+  bag.classList.remove('bag-show')
+  bag.classList.remove('bag-desktop-show')
 }
 
 let hideBagTimer
@@ -262,34 +257,24 @@ export const refreshBag = (response) => {
   bagTotal.innerHTML = formatPrice(
     `${response.bag[`total_${response.currency}`]}`, response.currency
   )
-  bagTotalMobile.innerHTML = formatPrice(
-    `${response.bag[`total_${response.currency}`]}`, response.currency
-  )
   bagContent.innerHTML = ''
-  bagContentMobile.innerHTML = ''
 
   for (const [key, values] of Object.entries(response.bag.products)) {
     bagContent.appendChild(createProductNode(key, values, response))
-    bagContentMobile.appendChild(createProductNode(key, values, response))
   }
   bagItemCount.innerHTML = response.bag.total_quantity
-  bagItemCountMobile.innerHTML = response.bag.total_quantity
 
   if (window.location.pathname !== '/review-bag/') {
-    bag.classList.remove('bag-hide')
-    hideBagTimer = setTimeout(hideBag, 3000)
+    bag.classList.add('bag-desktop-show')
+    hideBagTimer = setTimeout(hideBag, 2000)
   }
   if (Object.keys(response.bag.products).length < 1) {
     reviewBagLink.classList.add('hidden')
-    reviewBagLinkMobile.classList.add('hidden')
     bagBuyLink.classList.remove('hidden')
-    bagBuyMobileLink.classList.remove('hidden')
     setTimeout(hideBagMobile, 1000)
   } else {
     reviewBagLink.classList.remove('hidden')
-    reviewBagLinkMobile.classList.remove('hidden')
     bagBuyLink.classList.add('hidden')
-    bagBuyMobileLink.classList.add('hidden')
   }
 }
 

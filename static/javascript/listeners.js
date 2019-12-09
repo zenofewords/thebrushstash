@@ -4,8 +4,7 @@ import {
 import {
   addToBagButtons,
   bagLink,
-  bagMobile,
-  bagMobileOpenButton,
+  bag,
   bagProductDecrement,
   bagProductIncrement,
   cashOnDeliveryRadio,
@@ -97,10 +96,6 @@ const ready = (runScript) => {
 }
 
 ready(() => {
-  bagMobileOpenButton && bagMobileOpenButton.addEventListener('click', (event) => {
-    bagMobile.classList.toggle('bag-hide')
-  })
-
   navMobileOpenButton && navMobileOpenButton.addEventListener('click', (event) => {
     navigationWrapper.classList.remove('nav-mobile-close')
     document.body.classList.add('lock-scroll')

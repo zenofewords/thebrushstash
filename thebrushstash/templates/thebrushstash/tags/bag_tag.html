@@ -1,9 +1,0 @@
-<div class="bag-mobile-open-button">
-  <div class="bag-mobile-link">
-    <span class="bag-icon"></span>
-    <span id="bag-mobile-item-count" class="bag-item-count">
-      {{ bag.total_quantity|default:"0" }}
-    </span>
-  </div>
-</div>
-{% include 'thebrushstash/includes/bag.html' with current_url=current_url id="bag-mobile" %}
