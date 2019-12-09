@@ -241,6 +241,7 @@ export const toggleBag = (event) => {
   event.preventDefault()
   clearTimeout(hideBagTimer)
   bag.classList.toggle('bag-show')
+  navigationWrapper.classList.remove('nav-mobile-open')
 }
 
 let hideBagTimer
@@ -295,7 +296,9 @@ const refreshReviewBag = (response, slug) => {
     const quantity = response.bag['products'][slug]['quantity']
 
     itemCount.innerHTML = quantity
-    itemSubtotal.innerHTML = response.bag['products'][slug][`subtotal_${response.currency}`]
+    itemSubtotal.innerHTML = formatPrice(
+      response.bag['products'][slug][`subtotal_${response.currency}`], response.currency
+    )
 
     if (quantity < 2) {
       itemDecrement.classList.add('disabled')

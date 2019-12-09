@@ -97,12 +97,13 @@ const ready = (runScript) => {
 
 ready(() => {
   navMobileOpenButton && navMobileOpenButton.addEventListener('click', (event) => {
-    navigationWrapper.classList.remove('nav-mobile-close')
+    navigationWrapper.classList.add('nav-mobile-open')
+    bag.classList.remove('bag-show')
     document.body.classList.add('lock-scroll')
   })
 
   navMobileCloseButton && navMobileCloseButton.addEventListener('click', (event) => {
-    navigationWrapper.classList.add('nav-mobile-close')
+    navigationWrapper.classList.remove('nav-mobile-open')
     document.body.classList.remove('lock-scroll')
   })
 
