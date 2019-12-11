@@ -49,7 +49,7 @@ ready(() => {
       } else if (event.target.classList.contains('language-option')) {
         languageInput.value = event.target.dataset.language
 
-        setRegion(event).then((data) => data.json().then((response) => {
+        setRegion(event.target.dataset.region).then((data) => data.json().then((response) => {
           refreshBag(response)
           languageForm.submit()
         }))
@@ -63,20 +63,19 @@ ready(() => {
   }
 
   for (let i = 0; i < shipToSelects.length; i++) {
-    // TODO temporarily disabled region/language choice
-    // shipToSelects[i].addEventListener('blur', (event) => {
-    //   if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
-    //     shipToMenu[i].hidden = true
-    //   }
-    // })
-    // shipToSelects[i].addEventListener('focus', onSelectFocus)
-    // shipToSelects[i].addEventListener('click', (event) => {
-    //   event.preventDefault()
+    shipToSelects[i].addEventListener('blur', (event) => {
+      if (!event.relatedTarget || !event.relatedTarget.classList.contains('language-option')) {
+        shipToMenu[i].hidden = true
+      }
+    })
+    shipToSelects[i].addEventListener('focus', onSelectFocus)
+    shipToSelects[i].addEventListener('click', (event) => {
+      event.preventDefault()
 
-    //   if (shipToMenu[i].hidden) {
-    //     onSelectFocus(event)
-    //   }
-    // })
+      if (shipToMenu[i].hidden) {
+        onSelectFocus(event)
+      }
+    })
   }
 
   let currentModal

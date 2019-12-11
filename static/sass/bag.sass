@@ -4,17 +4,23 @@
   display: flex
   flex-direction: column
   position: absolute
-  top: 42px
-  right: -25px
+  top: 43px
+  right: -37px
   width: 300px
   background-color: #fff
   z-index: 2
   transition: $transitionDuration
   box-shadow: $boxShadow
+  opacity: 0
+  pointer-events: none
 
-  &.bag-hide
-    opacity: 0
-    pointer-events: none
+  &.bag-show
+    opacity: 1
+    pointer-events: auto
+
+  &.bag-desktop-show
+    opacity: 1
+    pointer-events: auto
 
   .bag-header
     display: flex
@@ -93,7 +99,7 @@
     font-family: $bodyFont
     font-size: 12px
     line-height: 15px
-    padding: 10px 0
+    padding: 12px 5px 12px 0
     margin: 10px 15px 15px
     color: #fff
     background-color: $colorBlue
@@ -188,7 +194,7 @@
         .bag-product-price
           font-size: 15px
           line-height: 18px
-          margin-bottom: 6px
+          margin-bottom: 4px
 
       .bag-product-quantity
         position: relative
@@ -196,7 +202,7 @@
         font-weight: $heavy
         line-height: 18px
         text-align: right
-        margin: 26px 0 0 0
+        margin: 24px 0 0 0
         padding: 0 15px 0 0
         width: 60px
 
@@ -299,7 +305,7 @@
         pointer-events: none
 
     .cash-on-delivery-wrapper
-      height: 120px
+      height: 100%
 
     .checkout-checkbox-wrapper,
     .checkout-radio-wrapper

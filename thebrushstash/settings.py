@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'django.contrib.admin',
 
-    'django_inlinecss',
-
     'thebrushstash.apps.TheBrushStashConfig',
     'shop.apps.ShopConfig',
 ]
@@ -52,7 +50,7 @@ if DEBUG:
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # TDOO temporarily force lang
+    # TODO: remove after int
     'thebrushstash.middleware.force_default_language_middleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -139,9 +137,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# TODO temporarily force to hr
-LANGUAGE_CODE = 'hr'
+# TODO: replace after int
 # LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'hr'
 LANGUAGES = [
     ('en', 'English'),
     ('hr', 'Croatian'),

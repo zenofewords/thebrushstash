@@ -9,9 +9,10 @@ from thebrushstash.mixins import (
 
 class Country(PublishedMixin):
     name = models.CharField(max_length=500)
+    name_cro = models.CharField(max_length=500, blank=True)
     slug = models.CharField(max_length=500)
-    region = models.ForeignKey(
-        'thebrushstash.Region', on_delete=models.deletion.CASCADE, blank=True, null=True,
+    shipping_cost = models.DecimalField(
+        verbose_name='Shipping cost', max_digits=14, decimal_places=2, blank=True, null=True,
     )
 
     class Meta:

@@ -10,14 +10,9 @@ import {
 import {
   bag,
   bagBuyLink,
-  bagBuyMobileLink,
   bagContent,
-  bagContentMobile,
   bagItemCount,
-  bagItemCountMobile,
-  bagMobile,
   bagTotal,
-  bagTotalMobile,
   cashOnDeliveryRadio,
   cashOnDeliverySubmitWrapper,
   checkoutAddressTitle,
@@ -46,7 +41,6 @@ import {
   navigationWrapper,
   phoneNumberInput,
   reviewBagLink,
-  reviewBagLinkMobile,
   summaryCheckoutButton,
   summaryGrandTotal,
   summaryGrandTotalHrk,
@@ -100,22 +94,17 @@ export const toggleStickyNav = (scrollPosition) => {
   }
 }
 
-export const toggleBag = (event) => {
-  event.preventDefault()
-  bag.classList.toggle('bag-hide')
-}
-
 export const updatePaymentMethod = (paymentMethod) => {
   setPaymentMethod(paymentMethod).then((data) => data.json().then((response) => {
     if (parseInt(response.bag.fees)) {
       summaryRowFees.classList.remove('hidden')
       summaryRowFeesValue.innerHTML = `${response.bag.fees} kn` // must be in hrk
       ipgFormSubmitButton.classList.add('hidden')
-      cashOnDeliverySubmitWrapper.classList.remove('hidden')
+      cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.remove('hidden')
     } else {
       summaryRowFees.classList.add('hidden')
       ipgFormSubmitButton.classList.remove('hidden')
-      cashOnDeliverySubmitWrapper.classList.add('hidden')
+      cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.add('hidden')
       summaryRowFeesValue.innerHTML = null
     }
     ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
@@ -240,11 +229,20 @@ export const subToNewsletter = (emailData) => {
 }
 
 export const hideBagMobile = () => {
-  bagMobile.classList.add('bag-hide')
+  bag.classList.remove('bag-show')
 }
 
 export const hideBag = () => {
-  bag.classList.add('bag-hide')
+  bag.classList.remove('bag-show')
+  bag.classList.remove('bag-desktop-show')
+}
+
+export const toggleBag = (event) => {
+  event.preventDefault()
+  clearTimeout(hideBagTimer)
+  bag.classList.toggle('bag-show')
+  navigationWrapper.classList.remove('nav-mobile-open')
+  document.body.classList.remove('lock-scroll')
 }
 
 let hideBagTimer
@@ -253,7 +251,7 @@ bag.addEventListener('mouseover', (event) => {
 })
 
 bag.addEventListener('mouseout', (event) => {
-  hideBagTimer = setTimeout(hideBag, 500)
+  hideBagTimer = setTimeout(hideBag, 300)
 })
 
 export const refreshBag = (response) => {
@@ -262,34 +260,24 @@ export const refreshBag = (response) => {
   bagTotal.innerHTML = formatPrice(
     `${response.bag[`total_${response.currency}`]}`, response.currency
   )
-  bagTotalMobile.innerHTML = formatPrice(
-    `${response.bag[`total_${response.currency}`]}`, response.currency
-  )
   bagContent.innerHTML = ''
-  bagContentMobile.innerHTML = ''
 
   for (const [key, values] of Object.entries(response.bag.products)) {
     bagContent.appendChild(createProductNode(key, values, response))
-    bagContentMobile.appendChild(createProductNode(key, values, response))
   }
   bagItemCount.innerHTML = response.bag.total_quantity
-  bagItemCountMobile.innerHTML = response.bag.total_quantity
 
   if (window.location.pathname !== '/review-bag/') {
-    bag.classList.remove('bag-hide')
-    hideBagTimer = setTimeout(hideBag, 3000)
+    bag.classList.add('bag-desktop-show')
+    hideBagTimer = setTimeout(hideBag, 2000)
   }
   if (Object.keys(response.bag.products).length < 1) {
     reviewBagLink.classList.add('hidden')
-    reviewBagLinkMobile.classList.add('hidden')
     bagBuyLink.classList.remove('hidden')
-    bagBuyMobileLink.classList.remove('hidden')
-    setTimeout(hideBagMobile, 1000)
+    setTimeout(hideBagMobile, 300)
   } else {
     reviewBagLink.classList.remove('hidden')
-    reviewBagLinkMobile.classList.remove('hidden')
     bagBuyLink.classList.add('hidden')
-    bagBuyMobileLink.classList.add('hidden')
   }
 }
 
@@ -309,7 +297,9 @@ const refreshReviewBag = (response, slug) => {
     const quantity = response.bag['products'][slug]['quantity']
 
     itemCount.innerHTML = quantity
-    itemSubtotal.innerHTML = response.bag['products'][slug][`subtotal_${response.currency}`]
+    itemSubtotal.innerHTML = formatPrice(
+      response.bag['products'][slug][`subtotal_${response.currency}`], response.currency
+    )
 
     if (quantity < 2) {
       itemDecrement.classList.add('disabled')

@@ -20,47 +20,23 @@
 
     .header
       height: 56px
-      justify-content: space-between
 
       .nav-mobile-open-button
         display: initial
+        position: fixed
+        top: 7px
+        left: 5px
         color: #fff
         border-top: 1px solid #fff
         border-bottom: 1px solid #fff
         width: 14px
         height: 9px
-        margin: 0 30px 2px 25px
+        margin: 15px
 
         hr
           border: 0
           margin: 4px 0 0
           border-top: 1px solid #fff
-
-      .bag-mobile-open-button
-        display: initial
-        @include nav-item-bag
-        padding: 0
-        margin-right: 15px
-
-        a
-          padding: 10px 0
-
-        .bag-item-count
-          @include bag-item-count
-          position: initial
-          margin: 5px 0
-
-      #bag-mobile
-        display: initial
-        top: 56px
-        right: 0
-
-        &.bag-hide
-          opacity: 1
-          right: -100%
-
-        .bag-product-remove
-          padding: 0 3px
 
       .logo
         width: 170px
@@ -73,23 +49,41 @@
   .navigation-wrapper.sticky-nav
     position: absolute
     top: 0
-    left: 0
+    left: -100%
+    max-width: 300px
+    min-height: 420px
     width: 80%
-    min-height: 550px
     height: 100vh
     z-index: 1
     margin-top: 0
     transition: $transitionDuration
 
-    &.nav-mobile-close
-      left: -100%
+    &.nav-mobile-open
+      left: 0
 
     .navigation-mobile-controls
       display: flex
       justify-content: space-between
       padding: 20px 15px
 
+      .language-forms-mobile
+        display: inline
+
+        #language-form-select
+          @include hollow-select
+          height: 20px
+          width: 45px
+          padding: 0 0 1px 7px
+          margin: 0 0 0 5px
+          font-size: 12px
+          line-height: 14px
+          color: #fff
+          background-color: #000
+
       .nav-mobile-close-button
+        position: absolute
+        top: 23px
+        right: 20px
         color: #fff
         font-size: 40px
         line-height: 13px
@@ -103,6 +97,8 @@
 
         &:after
           @include input-arrow
+          top: 8px
+          left: 83%
 
     .inner-wrapper
       .nav-item
@@ -128,7 +124,48 @@
         text-align: center
 
       .nav-item-bag
-        display: none
+        position: fixed
+        top: 6px
+        right: 6px
+
+        &:last-child
+          margin-right: 20px
+
+        .bag-link
+          &:hover
+            opacity: 1
+
+        .bag-icon-label
+          display: none
+
+        .bag-item-count
+          margin: 0
+
+    #bag
+      top: 51px
+      left: 100px
+      transition: $transitionDurationShort
+
+      &.bag-show
+        opacity: 1
+        left: -235px
+        pointer-events: auto
+
+      .bag-product-remove
+        padding: 0 3px
+
+  .navigation-wrapper
+    transition: $transitionDurationShort
+
+    &.nav-mobile-open
+      &:before
+        position: fixed
+        top: 0
+        left: 0
+        content: ''
+        background-color: rgba(0, 0, 0, .5)
+        width: 100%
+        height: 100%
 
   .review-bag-title
     display: none
@@ -137,24 +174,38 @@
     flex-direction: column
     margin: 0
 
+    .ship-to-wrapper
+      position: relative
+
+      &:after
+        @include input-arrow
+        top: 10px
+        left: 83%
+        border-color: #000 transparent transparent
+
     .review-bag-mobile-ship-to-wrapper
       display: flex
+      justify-content: center
       margin-top: -25px
-      padding: 15px 0 5px
+      padding: 10px
       background-color: $colorLightGrey
 
-      .ship-to-wrapper
-        @include ship-to-wrapper
-        color: #000
-        position: relative
-        top: 0
-        right: 0
-        margin: 0 auto
+      .label-text
+        font-size: 12px
+        line-height: 15px
+        text-transform: uppercase
 
-        &:after
-          border-color: #000 transparent transparent
+      .language-forms-mobile
+        display: inline
 
-        .ship-to-select
+        #language-form-select
+          @include hollow-select
+          height: 20px
+          width: 47px
+          padding: 0 0 0 7px
+          margin: 0 0 0 5px
+          font-size: 12px
+          line-height: 14px
           color: #000
 
         .ship-to-menu
@@ -260,9 +311,10 @@
 
     .text-wrapper
       text-align: center
-      margin: 0 auto 15px
-      max-width: 650px
+      margin: 0 auto 20px
+      max-width: 500px
       border-right: 0
+      min-height: 150px
 
       h1
         font-size: 23px
@@ -373,8 +425,8 @@
   .general-terms-and-conditions-wrapper
     margin-top: 120px
 
-    h4
-      padding: 0 30px
+    h1
+      padding: 0 10%
 
   iframe
     border: 0

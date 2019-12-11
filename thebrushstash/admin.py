@@ -20,23 +20,8 @@ from shop.admin import (
 
 
 class CountryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'region', 'published',)
-    list_editable = ('region', 'published',)
-
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        request = kwargs['request']
-        formfield = super().formfield_for_dbfield(db_field, **kwargs)
-
-        if db_field.name in self.list_editable:
-            cache_attr_name = 'choices_cache_{}'.format(db_field.name)
-            choices_cache = getattr(request, cache_attr_name, None)
-
-            if choices_cache is not None:
-                formfield.choices = choices_cache
-            else:
-                if hasattr(formfield, 'choices'):
-                    setattr(request, cache_attr_name, formfield.choices)
-        return formfield
+    list_display = ('name', 'name_cro', 'shipping_cost', 'published', )
+    list_editable = ('name_cro', 'shipping_cost', 'published', )
 
 
 class ExchangeRateAdmin(admin.ModelAdmin):

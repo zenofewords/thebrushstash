@@ -217,7 +217,7 @@
     &:hover
       opacity: $hoverOpacity
 
-%hollow-select
+@mixin hollow-select
   width: 83px
   height: 54px
   padding: 0 0 1px 20px
@@ -229,8 +229,10 @@
   font-size: 16px
   line-height: 19px
 
+%hollow-select
+  @include hollow-select
+
 @mixin ship-to-wrapper
-  display: none
   position: absolute
   top: 12px
   right: 34px
@@ -259,8 +261,9 @@
   .ship-to-menu
     position: absolute
     top: 20px
-    left: 65px
+    left: 43px
     margin-top: 5px
+    z-index: 1
 
     .language-option
       display: flex
@@ -305,11 +308,11 @@
 
 @mixin bag-item-count
   position: absolute
-  top: 14px
+  top: 13px
   color: #fff
   font-family: $bodyFont
   font-weight: $heavy
-  padding: 3px 6px
+  padding: 4px 6px
   margin-left: 5px
   background-color: $colorBlue
   border-radius: $borderRadius

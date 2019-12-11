@@ -1,11 +1,11 @@
 import {
   setCookieInfo,
+  setRegion,
 } from './requests'
 import {
   addToBagButtons,
   bagLink,
-  bagMobile,
-  bagMobileOpenButton,
+  bag,
   bagProductDecrement,
   bagProductIncrement,
   cashOnDeliveryRadio,
@@ -71,6 +71,8 @@ import {
   invoiceFormShippingZipCodeInput,
   ipgFormSubmitButton,
   ipgCheckoutForm,
+  languageFormsMobile,
+  languageInputsMobile,
 } from './selectors'
 import {
   addOneToBag,
@@ -86,6 +88,7 @@ import {
   toggleStickyNav,
   updatePaymentMethod,
   updateShippingAddressData,
+  refreshBag,
 } from './utils'
 
 const ready = (runScript) => {
@@ -97,17 +100,14 @@ const ready = (runScript) => {
 }
 
 ready(() => {
-  bagMobileOpenButton && bagMobileOpenButton.addEventListener('click', (event) => {
-    bagMobile.classList.toggle('bag-hide')
-  })
-
   navMobileOpenButton && navMobileOpenButton.addEventListener('click', (event) => {
-    navigationWrapper.classList.remove('nav-mobile-close')
+    navigationWrapper.classList.add('nav-mobile-open')
+    bag.classList.remove('bag-show')
     document.body.classList.add('lock-scroll')
   })
 
   navMobileCloseButton && navMobileCloseButton.addEventListener('click', (event) => {
-    navigationWrapper.classList.add('nav-mobile-close')
+    navigationWrapper.classList.remove('nav-mobile-open')
     document.body.classList.remove('lock-scroll')
   })
 
@@ -470,4 +470,15 @@ ready(() => {
     event.preventDefault()
     showErrorMessage(event.target, 'Ovo polje je obavezno.')
   })
+
+  for (let i = languageFormsMobile.length - 1; i >= 0; i--) {
+    languageFormsMobile[i].addEventListener('change', (event) => {
+      languageInputsMobile[i].value = event.target.value === 'hr' ? 'hr' : 'en'
+
+      setRegion(event.target.value).then((data) => data.json().then((response) => {
+        refreshBag(response)
+        languageFormsMobile[i].submit()
+      }))
+    })
+  }
 })

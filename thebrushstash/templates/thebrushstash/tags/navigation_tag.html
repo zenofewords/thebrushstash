@@ -22,11 +22,12 @@
   <li class="nav-item-bag">
     <a href="#" class="bag-link">
       <span class="bag-icon"></span>
-      {% trans 'Bag' %}
+      <span class="bag-icon-label">{% trans 'Bag' %}</span>
       <span id="bag-item-count" class="bag-item-count">
         {{ bag.total_quantity|default:"0" }}
       </span>
     </a>
-    {% include 'thebrushstash/includes/bag.html' with current_url=current_url id="bag" %}
+
+    {% include 'thebrushstash/includes/bag.html' with current_url=current_url %}
   </li>
 </ul>

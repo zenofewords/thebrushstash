@@ -5,7 +5,7 @@ import {
   getCookie,
 } from './utils'
 
-export const setRegion = (event) => fetch(
+export const setRegion = (region) => fetch(
   '/api/region/',
   {
     method: 'POST',
@@ -16,7 +16,7 @@ export const setRegion = (event) => fetch(
       'X-CSRFToken': getCookie('csrftoken'),
     },
     body: JSON.stringify({
-      region: event.target.dataset.region,
+      region: region,
     }),
   }
 )
