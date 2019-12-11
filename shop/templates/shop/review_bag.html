@@ -33,7 +33,7 @@
                 {{ value.name }}
               </span>
               <span class="bag-product-price">
-                {% get_price_for_currency value 'price' currency %}
+                {% get_price_in_currency value 'price_hrk' currency %}
               </span>
             </div>
             <div class="bag-product-quantity">
@@ -45,7 +45,7 @@
               <span class="bag-product-remove" data-slug="{{ key }}">
               </span>
               <span class="bag-product-subtotal" id="{{ key }}-item-subtotal">
-                {% get_price_for_currency value 'subtotal' currency %}
+                {% get_price_in_currency value 'subtotal' currency %}
               </span>
             </div>
           </div>

@@ -8,7 +8,7 @@
       {% trans "Total:" %}
     </span>
     <span id="summary-total" class="summary-value">
-      {% get_price_for_currency bag 'total' currency %}
+      {% get_price_in_currency bag 'total' currency %}
     </span>
   </div>
   <div class="summary-row">
@@ -16,15 +16,15 @@
       {% trans "VAT (included in price):" %}
     </span>
     <span id="summary-tax" class="summary-value">
-      {% format_price_with_currency bag.tax currency %}
+      {% get_price_in_currency bag 'tax' currency %}
     </span>
   </div>
   <div class="summary-row">
     <span class="summary-label">
-      {% trans "Ship to:" %} {{ region }}
+      {% trans "Shipping:" %}
     </span>
     <span id="summary-value-shipping-cost" class="summary-value">
-      {% get_price_for_currency bag 'shipping_cost' currency %}
+      {% get_price_in_currency bag 'shipping_cost' currency %}
     </span>
   </div>
   <div id="summary-row-fees" class="summary-row{% if region != 'hr' or not bag.fee %} hidden{% endif %}">
@@ -32,7 +32,7 @@
       {% trans "GLS:" %}
     </span>
     <span id="summary-value-fees" class="summary-value">
-      {{ bag.fees|default:"0.00" }} kn
+      {% get_price_in_currency bag 'fees' currency %}
     </span>
   </div>
   <div class="summary-row">
@@ -40,7 +40,7 @@
       {% trans "Grand total:" %}
     </span>
     <span id="summary-grand-total" class="summary-grand-total-value">
-      {% get_price_for_currency bag 'grand_total' currency %}
+      {% get_price_in_currency bag 'grand_total' currency %}
     </span>
   </div>
   {% if region != 'hr' %}
@@ -49,7 +49,7 @@
         {% trans "Grand total (HRK):" %}
       </span>
       <span id="summary-grand-total-hrk" class="summary-value">
-        {% get_price_for_currency bag 'grand_total' 'hrk' %}
+        {% get_price_in_currency bag 'grand_total' 'hrk' %}
       </span>
     </div>
   {% endif %}

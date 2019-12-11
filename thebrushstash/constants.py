@@ -410,6 +410,7 @@ inital_exchange_rates = (
 )
 
 DEFAULT_REGION = 'hr'
+DEFAULT_CURRENCY = 'hrk'
 currency_symbol_mapping = {
     'hrk': 'kn',
     'eur': '€',

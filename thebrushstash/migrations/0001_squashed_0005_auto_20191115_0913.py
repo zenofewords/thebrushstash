@@ -69,10 +69,10 @@ def add_countries(apps, schema_editor):
 
 
 def add_inital_exchange_rates(apps, schema_editor):
-    Country = apps.get_model('thebrushstash', 'ExchangeRate')
+    ExchangeRate = apps.get_model('thebrushstash', 'ExchangeRate')
 
     for exchange_rate in inital_exchange_rates:
-        Country.objects.get_or_create(
+        ExchangeRate.objects.get_or_create(
             currency_code=exchange_rate.get('currency_code'),
             defaults={
                 'currency': exchange_rate.get('currency'),

@@ -107,7 +107,7 @@ export const updatePaymentMethod = (paymentMethod) => {
       cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.add('hidden')
       summaryRowFeesValue.innerHTML = null
     }
-    ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
+    ipgAmount.value = response.bag.grand_total // must be in hrk
 
     if (summaryShippingCost) {
       summaryShippingCost.innerHTML = formatPrice(
@@ -124,7 +124,7 @@ export const updatePaymentMethod = (paymentMethod) => {
 
 const updateIPGInputs = (response) => {
   ipgOrderNumber.value = response.order_number
-  ipgAmount.value = response.grand_total_hrk // must be in hrk
+  ipgAmount.value = response.grand_total // must be in hrk
   ipgCart.value = response.cart
   ipgLanguage.value = response.language
   ipgSignature.value = response.signature
@@ -321,7 +321,7 @@ const refreshReviewBag = (response, slug) => {
   )
 
   if (summaryGrandTotalHrk) {
-    summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total_hrk} kn`
+    summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
   }
 
   const products = response.bag.products
@@ -386,7 +386,7 @@ export const removeFromBag = (slug) => {
     refreshReviewBag(response, slug)
 
     if (ipgAmount && ipgCart) {
-      ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
+      ipgAmount.value = response.bag.grand_total // must be in hrk
       ipgCart.value = response.cart
     }
   }))

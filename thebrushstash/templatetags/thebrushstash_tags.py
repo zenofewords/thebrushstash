@@ -54,8 +54,8 @@ def ship_to_tag(context):
         session['bag'] = EMPTY_BAG
 
     session['currency'] = selected_region.currency
-    set_shipping_cost(session['bag'], selected_region.name)
-    set_tax(session['bag'], selected_region.currency)
+    set_shipping_cost(session['bag'], session['region'])
+    set_tax(session['bag'])
     session.modified = True
 
     return {

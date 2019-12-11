@@ -165,6 +165,7 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context.update({
             'selected_item_id': self.selected_item_id,
+            'currency': self.request.session.get('currency'),
             'other_products': Product.published_objects.exclude(id=self.object.pk)[:3]
         })
         return context
@@ -177,6 +178,7 @@ class ShopHomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context.update({
             'products': Product.published_objects.all(),
+            'currency': self.request.session.get('currency'),
             'full_site_url': '{}://{}'.format(self.request.scheme, get_current_site(self.request)),
         })
         return context

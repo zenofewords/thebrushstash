@@ -82,7 +82,7 @@ class AddToBagView(GenericAPIView):
             **get_totals(serializer.data, 'total', operator.add, bag),
         })
         set_shipping_cost(bag, request.session['region'])
-        set_tax(bag, request.session['currency'])
+        set_tax(bag)
         bag.update(
             **get_grandtotals(bag),
         )
@@ -112,7 +112,7 @@ class RemoveFromBagView(GenericAPIView):
                 **get_totals(product, 'total', operator.sub, bag),
             })
             set_shipping_cost(bag, request.session['region'])
-            set_tax(bag, request.session['currency'])
+            set_tax(bag)
             bag.update({
                 **get_grandtotals(bag),
             })
@@ -170,7 +170,7 @@ class UpdateBagView(GenericAPIView):
                 })
 
             set_shipping_cost(bag, request.session['region'])
-            set_tax(bag, request.session['currency'])
+            set_tax(bag)
 
             bag.update({
                 **get_grandtotals(bag)
@@ -220,12 +220,12 @@ class ProcessOrderView(GenericAPIView):
         return response.Response({
             'order_number': session['order_number'],
             'cart': cart,
-            'grand_total_hrk': bag['grand_total_hrk'],
+            'grand_total': bag['grand_total'],
             'user_information': session['user_information'],
             'region': session['region'],
             'language': session['_language'],
             'signature': get_signature({
-                'amount': bag['grand_total_hrk'],  # this value must stay in hrk
+                'amount': bag['grand_total'],  # this value must stay in hrk
                 **user_info,  # noqa
                 'cart': cart,
                 'currency': 'HRK',
@@ -245,18 +245,15 @@ class UpdateShippingAddressView(GenericAPIView):
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         order_number = request.session['order_number']
 
         invoice = Invoice.objects.get(order_number=order_number)
-
         invoice.shipping_first_name = serializer.data.get('shipping_first_name', '')
         invoice.shipping_last_name = serializer.data.get('shipping_last_name', '')
         invoice.invoice_shipping_country = get_country(serializer.data.get('country', 'Croatia'))
         invoice.shipping_city = serializer.data.get('shipping_city', '')
         invoice.shipping_address = serializer.data.get('shipping_address', '')
         invoice.shipping_zip_code = serializer.data.get('shipping_zip_code', '')
-
         invoice.save()
 
         return response.Response({'order_number': order_number}, status=status.HTTP_200_OK)
@@ -271,19 +268,19 @@ class UpdatePaymentMethodView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         session = request.session
 
-        total_hrk = Decimal(session['bag']['total_hrk'])
-        shipping_cost_hrk = Decimal(session['bag']['shipping_cost_hrk'])
+        total = Decimal(session['bag'].get('total'))
+        shipping_cost = Decimal(session['bag']['shipping_cost'])
         fee = session['bag'].get('fees')
         session['payment_method'] = serializer.data.get('payment_method')
 
         if session['payment_method'] == InvoicePaymentMethod.CASH_ON_DELIVERY:
             session['bag']['fees'] = str(GLS_FEE)
-            grand_total = total_hrk + shipping_cost_hrk + GLS_FEE
+            grand_total = total + shipping_cost + GLS_FEE
         else:
             session['bag']['fees'] = 0
-            grand_total = total_hrk + shipping_cost_hrk
+            grand_total = total + shipping_cost
 
-        session['bag']['grand_total_hrk'] = str(grand_total)
+        session['bag']['grand_total'] = str(grand_total)
         session.modified = True
 
         return response.Response({

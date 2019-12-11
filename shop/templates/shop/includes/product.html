@@ -17,6 +17,7 @@
   <a href="{% url 'shop:product-detail' product.slug %}">
     {% get_image_for_model product as lead_image %}
     {% media_object obj=lead_image shape='square' %}
+
     <h2>
       {{ product.name }}
     </h2>
@@ -28,7 +29,7 @@
       {% endif %}
     </p>
     <div class="price-tag">
-      {% get_localized_price 'price' product %}
+      {% get_localized_item_price product 'price' currency %}
     </div>
   </a>
   {% include 'shop/includes/add_to_bag_button.html' with object=product %}

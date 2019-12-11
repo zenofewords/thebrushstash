@@ -1,14 +1,18 @@
+from decimal import Decimal
+
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import get_language
 
-from shop.constants import VARIATIONS
+from shop.constants import (
+    EXCHANGE_RATE_MAPPING,
+    VARIATIONS,
+)
 from shop.models import (
     GalleryItem,
     Showcase,
 )
-from thebrushstash.utils import format_price
-
+from shop.utils import format_price_with_currency
 register = template.Library()
 
 
@@ -107,27 +111,13 @@ def gallery_item(obj, item, selected_item_id, first_item):
     }
 
 
-@register.simple_tag(takes_context=True)
-def get_localized_price(context, key, obj):
-    currency = context['request'].session['currency']
-    price = getattr(obj, '{}_{}'.format(key, currency))
-
-    return format_price(currency, price)
-
-
 @register.simple_tag()
-def get_localized_price_for_currency(obj, key, currency, multiply=1):
+def get_localized_item_price(obj, key, currency, multiply=1):
     price = getattr(obj, '{}_{}'.format(key, currency)) * multiply
-    return format_price(currency, price)
+    return format_price_with_currency(price, currency)
 
 
 @register.simple_tag()
-def get_price_for_currency(obj, key, currency):
-    price = obj.get('{}_{}'.format(key, currency))
-
-    return format_price(currency, price)
-
-
-@register.simple_tag
-def format_price_with_currency(price, currency):
-    return format_price(currency, price)
+def get_price_in_currency(obj, key, currency):
+    price = round(Decimal(obj.get(key)) / EXCHANGE_RATE_MAPPING[currency], 2)
+    return format_price_with_currency(price, currency)

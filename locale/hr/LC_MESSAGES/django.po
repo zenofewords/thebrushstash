@@ -385,6 +385,7 @@ msgstr "Uključen PDV:"
 
 #: shop/templates/shop/purchase_complete_email.html:2312
 #: shop/templates/shop/purchase_complete_email.txt:53
+#: shop/templates/shop/tags/purchase_summary_tag.html:24
 msgid "Shipping:"
 msgstr "Dostava:"
 
@@ -404,7 +405,7 @@ msgstr "Ukupna cijena:"
 msgid "Thank you for using The Brush Stash products!"
 msgstr "Hvala Vam što koristite The Brush Stash proizvode!"
 
-#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:451
+#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:448
 msgid "Purchase complete"
 msgstr "Vaša narudžba je izvršena!"
 
@@ -506,10 +507,6 @@ msgstr "Cijena proizvoda:"
 #: shop/templates/shop/tags/purchase_summary_tag.html:16
 msgid "VAT (included in price):"
 msgstr "PDV (uključen u cijenu):"
-
-#: shop/templates/shop/tags/purchase_summary_tag.html:24
-msgid "Ship to:"
-msgstr "Dostava u:"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:32
 msgid "GLS:"
@@ -854,31 +851,31 @@ msgstr "Pošalji"
 msgid "Region:"
 msgstr "Regija:"
 
-#: thebrushstash/utils.py:278
+#: thebrushstash/utils.py:275
 msgid "Already subscribed."
 msgstr "Već ste prijavljeni na newsletter."
 
-#: thebrushstash/utils.py:280
+#: thebrushstash/utils.py:277
 msgid "Subscribed, thanks!"
 msgstr "Prijavljeni ste, hvala!"
 
-#: thebrushstash/utils.py:283
+#: thebrushstash/utils.py:280
 msgid "Check your e-mail for confirmation!"
 msgstr "Provjerite svoj e-mail kako biste potvrdili pretplatu na newsletter!"
 
-#: thebrushstash/utils.py:374
+#: thebrushstash/utils.py:371
 msgid "Activate your account"
 msgstr "Aktivirajte svoj korisnički račun"
 
-#: thebrushstash/utils.py:400
+#: thebrushstash/utils.py:397
 msgid "Subscribe to newsletter"
 msgstr "Pretplatite se na newsletter"
 
-#: thebrushstash/utils.py:536
+#: thebrushstash/utils.py:527
 msgid "There's nothing in your bag."
 msgstr "Vaša košarica je prazna."
 
-#: thebrushstash/utils.py:543
+#: thebrushstash/utils.py:534
 msgid ""
 "\n"
 "                Looks like {} is all sold out\n"
@@ -888,7 +885,7 @@ msgstr ""
 "                Čini se da je {} rasprodan\n"
 "                Morat ćete ga ukloniti iz košarice da bi mogli nastaviti."
 
-#: thebrushstash/utils.py:547
+#: thebrushstash/utils.py:538
 msgid ""
 "\n"
 "                We've got only {} {} left,\n"

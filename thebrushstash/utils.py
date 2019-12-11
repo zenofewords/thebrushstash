@@ -46,9 +46,6 @@ from shop.models import (
     InvoiceStatus,
     Product,
 )
-from thebrushstash.constants import (
-    currency_symbol_mapping,
-)
 from thebrushstash.models import Country
 
 
@@ -510,7 +507,7 @@ def complete_purchase(session, invoice_status, request):
     if invoice:
         phone_number = request.POST.get('phone_number', '')
         invoice.status = invoice_status
-        invoice.order_total = session['bag']['grand_total_hrk']  # must be in hrk
+        invoice.order_total = session['bag']['grand_total']  # must be in hrk
         invoice.payment_method = session['payment_method']
         invoice.phone_number = phone_number
         invoice.save()
@@ -523,12 +520,6 @@ def complete_purchase(session, invoice_status, request):
         session['order_number'] = None
         session['user_information']['phone_number'] = phone_number
         session['user_information']['note'] = None
-
-
-def format_price(currency, price):
-    if currency == 'hrk':
-        return '{} {}'.format(price, currency_symbol_mapping[currency])
-    return '{}{}'.format(currency_symbol_mapping[currency], price)
 
 
 def check_bag_content(products):

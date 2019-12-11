@@ -41,20 +41,20 @@
 {% trans "TOTAL" %}
 {% for item in invoice_items %}
 {{ item.product.name }}
-{% get_localized_price_for_currency item.product 'price' currency %}
+{% get_localized_item_price item.product 'price' currency %}
 {{ item.sold_count }}
-{% get_localized_price_for_currency item.product 'price' currency item.sold_count %}
+{% get_localized_item_price item.product 'price' currency item.sold_count %}
 {% endfor %}
 {% trans "PAYMENT:" %}
 {% trans "Subtotal:" %}
-{% get_price_for_currency bag 'total' currency %}
+{% get_price_in_currency bag 'total' currency %}
 {% trans "VAT included:" %}
-{% format_price_with_currency bag.tax currency %}
+{% get_price_in_currency bag 'tax' currency %}
 {% trans "Shipping:" %}
-{% get_price_for_currency bag 'shipping_cost' currency %}
+{% get_price_in_currency bag 'shipping_cost' currency %}
 {% trans "GLS (cash on delivery):" %}
-{% format_price_with_currency bag.fees currency %}
+{% get_price_in_currency bag 'fees' currency %}
 {% trans "Grand total:" %}
-{% get_price_for_currency bag 'grand_total' currency %}
+{% get_price_in_currency bag 'grand_total' currency %}
 
 {% trans 'Thank you for using The Brush Stash products!' %}
