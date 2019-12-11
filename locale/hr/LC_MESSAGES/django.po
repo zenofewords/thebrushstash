@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-09 21:24+0000\n"
+"POT-Creation-Date: 2019-12-11 21:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -461,15 +461,15 @@ msgstr "Uspješno ste se pretplatili na naš newsletter!"
 msgid "Review Your Bag"
 msgstr "Pregled košarice"
 
-#: shop/templates/shop/review_bag.html:20
+#: shop/templates/shop/review_bag.html:21
 msgid "Product &amp; price"
 msgstr "Proizvod i cijena"
 
-#: shop/templates/shop/review_bag.html:22
+#: shop/templates/shop/review_bag.html:23
 msgid "Quantity"
 msgstr "Količina"
 
-#: shop/templates/shop/review_bag.html:23
+#: shop/templates/shop/review_bag.html:24
 msgid "Subtotal"
 msgstr "Cijena"
 
@@ -482,11 +482,13 @@ msgstr ""
 
 #: shop/templates/shop/shop_base.html:13
 msgid ""
-"japanese brushes, kumano brushes, handmade makeup brushes, luxury makeup, "
-"makeup brushes, kumano fude, high end brushes, luxury cosmetics"
+"the brush stash brushes, the brush stash buy, japanese brushes, kumano "
+"brushes, handmade makeup brushes, luxury makeup, makeup brushes, kumano "
+"fude, high end brushes, luxury cosmetics"
 msgstr ""
-"japanski kistovi, kumano kistovi, ručno rađeni kistovi, luksuzni kistovi, "
-"kistovi za šminkanje"
+"the brush stash kistovi, the brush stash kupi, japanski kistovi, kumano "
+"kistovi, ručno rađeni kistovi, luksuzni kistovi, kistovi za šminkanje, kumano "
+"fude, kistovi visoke kvalitete, luksuzna kozmetika"
 
 #: shop/templates/shop/shop_base.html:21 shop/templates/shop/shop_base.html:28
 msgid "The Brush Stash brush collection"
@@ -506,10 +508,8 @@ msgid "VAT (included in price):"
 msgstr "PDV (uključen u cijenu):"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:24
-#: thebrushstash/templates/thebrushstash/tags/ship_to_tag.html:6
-#: thebrushstash/templates/thebrushstash/tags/ship_to_tag_mobile.html:5
-msgid "Region:"
-msgstr "Regija:"
+msgid "Ship to:"
+msgstr "Dostava u:"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:32
 msgid "GLS:"
@@ -848,6 +848,11 @@ msgstr "Unesite Vašu e-mail adresu"
 #: thebrushstash/templates/thebrushstash/tags/newsletter_tag.html:18
 msgid "Join"
 msgstr "Pošalji"
+
+#: thebrushstash/templates/thebrushstash/tags/ship_to_tag.html:6
+#: thebrushstash/templates/thebrushstash/tags/ship_to_tag_mobile.html:5
+msgid "Region:"
+msgstr "Regija:"
 
 #: thebrushstash/utils.py:278
 msgid "Already subscribed."

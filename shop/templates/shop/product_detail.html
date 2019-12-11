@@ -102,9 +102,9 @@
       {% endif %}
       <p>
         {% if LANGUAGE_CODE == 'hr' %}
-          {{ product.description_cro|linebreaksbr }}
+          {{ product.description_cro|safe|linebreaksbr }}
         {% else %}
-          {{ product.description|linebreaksbr }}
+          {{ product.description|safe|linebreaksbr }}
         {% endif %}
       </p>
     </div>

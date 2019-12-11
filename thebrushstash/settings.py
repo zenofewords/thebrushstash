@@ -50,6 +50,8 @@ if DEBUG:
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # TODO: remove after int
+    'thebrushstash.middleware.force_default_language_middleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -135,7 +137,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en'
+# TODO: replace after int
+# LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'hr'
 LANGUAGES = [
     ('en', 'English'),
     ('hr', 'Croatian'),
