@@ -170,7 +170,7 @@ def generate_srcsets(path, url, original, slots):
     for key in srcset_mapping.keys():
         extension, device, shape = key.split('_')
 
-        properties = (('large', 2), ('medium', 1), )
+        properties = (('large', 3), ('medium', 2), ('small', 1))
         if device == 'mobile':
             properties = (('medium', 2), ('small', 1), )
 
