@@ -53,6 +53,7 @@ MIDDLEWARE = [
     # TODO: remove after int
     'thebrushstash.middleware.force_default_language_middleware',
     'django.middleware.locale.LocaleMiddleware',
+    'thebrushstash.middleware.set_currency_middleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

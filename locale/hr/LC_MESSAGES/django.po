@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-11 21:52+0000\n"
+"POT-Creation-Date: 2019-12-12 19:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -160,7 +160,14 @@ msgstr ""
 msgid "Please make sure the information listed below is correct."
 msgstr "Molimo provjerite točnost unešenih podataka."
 
-#: shop/templates/shop/includes/checkout_address_form.html:66
+#: shop/templates/shop/includes/checkout_address_form.html:34
+msgid ""
+"Kontakt broj služi kako biste mogli primiti sms obavijest od GLS-a o točnom "
+"danu i okvirnom terminu isporuke, a sve narudžbe koje uključuju plaćanje "
+"pouzećem, prethodno ćemo potvrditi telefonski."
+msgstr ""
+
+#: shop/templates/shop/includes/checkout_address_form.html:70
 #, python-format
 msgid ""
 "Your personal data will be used to process your order, support your "
@@ -173,12 +180,12 @@ msgstr ""
 "u našim <a href=\"%(terms_url)s\" target=\"_blank\" rel=\"noopener noreferrer"
 "\">Općim uvjetima i politici privatnosti</a>."
 
-#: shop/templates/shop/includes/checkout_address_form.html:82
+#: shop/templates/shop/includes/checkout_address_form.html:86
 msgid "Continue to payment"
 msgstr "Nastavite na plaćanje"
 
 #: shop/templates/shop/includes/checkout_ipg_form.html:56
-#: shop/templates/shop/includes/checkout_payment_form.html:32
+#: shop/templates/shop/includes/checkout_payment_form.html:30
 msgid "Place order"
 msgstr "Potvrdite narudžbu"
 
@@ -205,21 +212,15 @@ msgstr ""
 "Iz sigurnosnih razloga, sve narudžbe koje uključuju plaćanje pouzećem, prije "
 "slanja potvrdit ćemo telefonski."
 
-#: shop/templates/shop/includes/checkout_payment_form.html:29
-msgid "Cash on delivery orders will be confirmed by phone"
-msgstr ""
-"Sve narudžbe koje uključuju plaćanje pouzećem, prije slanja potvrdit ćemo "
-"telefonski."
-
-#: shop/templates/shop/includes/checkout_payment_form.html:41
+#: shop/templates/shop/includes/checkout_payment_form.html:39
 msgid "Use a credit card"
 msgstr "Kartična plaćanja"
 
-#: shop/templates/shop/includes/checkout_payment_form.html:46
+#: shop/templates/shop/includes/checkout_payment_form.html:44
 msgid "Note: all payments are processed in Croatian Kuna (HRK)"
 msgstr "Napomena: sve uplate se izvršavaju u hrvatskim kunama (HRK)"
 
-#: shop/templates/shop/includes/checkout_payment_form.html:54
+#: shop/templates/shop/includes/checkout_payment_form.html:52
 msgid "Previous step"
 msgstr "Prethodni korak"
 
