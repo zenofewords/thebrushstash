@@ -17,19 +17,19 @@
   <a href="{% url 'shop:product-detail' product.slug %}">
     {% get_image_for_model product as lead_image %}
     {% media_object obj=lead_image shape='square' %}
+    <h2>
+      {{ product.name }}
+    </h2>
+    <p>
+      {% if LANGUAGE_CODE == 'hr' %}
+        {{ product.foreword_cro }}
+      {% else %}
+        {{ product.foreword }}
+      {% endif %}
+    </p>
+    <div class="price-tag">
+      {% get_localized_price 'price' product %}
+    </div>
   </a>
-  <h2>
-    {{ product.name }}
-  </h2>
-  <p>
-    {% if LANGUAGE_CODE == 'hr' %}
-      {{ product.foreword_cro }}
-    {% else %}
-      {{ product.foreword }}
-    {% endif %}
-  </p>
-  <div class="price-tag">
-    {% get_localized_price 'price' product %}
-  </div>
   {% include 'shop/includes/add_to_bag_button.html' with object=product %}
 </div>

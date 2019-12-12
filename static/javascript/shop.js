@@ -28,6 +28,12 @@ ready(() => {
   window.history.pushState({page: 1}, '', '')
   window.onpopstate = (event) => {
     const location = event.target.location
+    const search = new URLSearchParams(location.search)
+
+    if (search.get('next')) {
+      window.location = search.get('next')
+      return
+    }
     if (!location.hash) {
       window.location = event.target.location.origin
     }
