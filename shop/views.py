@@ -22,6 +22,7 @@ from shop.models import (
     InvoiceStatus,
     Product,
 )
+from thebrushstash.constants import DEFAULT_CURRENCY
 from thebrushstash.utils import (
     complete_purchase,
     signature_is_valid,

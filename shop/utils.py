@@ -50,7 +50,6 @@ def set_shipping_cost(bag, region):
 
 def set_tax(bag):
     total = Decimal(bag.get('total', 0))
-    print('set tax', total)
     bag['tax'] = str(round(total - total / (Decimal(TAX) + 1), 2))
 
 
