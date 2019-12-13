@@ -4,10 +4,7 @@ from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import get_language
 
-from shop.constants import (
-    EXCHANGE_RATE_MAPPING,
-    VARIATIONS,
-)
+from shop.constants import VARIATIONS
 from shop.models import (
     GalleryItem,
     Showcase,
@@ -25,12 +22,13 @@ def showcase_tag():
 
 
 @register.inclusion_tag('shop/tags/purchase_summary_tag.html')
-def purchase_summary_tag(bag, region, currency, show_links=False):
+def purchase_summary_tag(bag, region, exchange_rates, currency, show_links=False):
     return {
         'bag': bag,
         'region': region,
         'currency': currency,
         'show_links': show_links,
+        'exchange_rates': exchange_rates,
     }
 
 
@@ -118,6 +116,6 @@ def get_localized_item_price(obj, key, currency, multiply=1):
 
 
 @register.simple_tag()
-def get_price_in_currency(obj, key, currency):
-    price = round(Decimal(obj.get(key, 0)) / EXCHANGE_RATE_MAPPING[currency], 2)
+def get_price_in_currency(obj, key, exchange_rates, currency):
+    price = round(Decimal(obj.get(key, 0)) / exchange_rates[currency], 2)
     return format_price_with_currency(price, currency)

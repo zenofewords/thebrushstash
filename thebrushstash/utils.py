@@ -425,6 +425,10 @@ def send_purchase_email(session, current_site, invoice):
         newsletter_recipient.subscribed = True
         newsletter_recipient.save()
 
+    exchange_rates = {}
+    for exchange_rate in ExchangeRate.objects.all():
+        exchange_rates[exchange_rate.currency.lower()] = exchange_rate.middle_rate
+
     data = {
         'domain': current_site.domain,
         'site_name': current_site.name,
@@ -437,6 +441,7 @@ def send_purchase_email(session, current_site, invoice):
         'currency': session['currency'],
         'include_registration': include_registration,
         'include_newsletter': include_newsletter,
+        'exchange_rates': exchange_rates,
         **registration_params,  # noqa
     }
     message_html = render_to_string('shop/purchase_complete_email.html', data)

@@ -111,12 +111,12 @@ export const updatePaymentMethod = (paymentMethod) => {
 
     if (summaryShippingCost) {
       summaryShippingCost.innerHTML = formatPrice(
-        `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
+        `${response.bag['shipping_cost']}`, response.currency
       )
     }
     if (summaryGrandTotal) {
       summaryGrandTotal.innerHTML = formatPrice(
-        `${response.bag[`grand_total_${response.currency}`]}`, response.currency
+        `${response.bag['grand_total']}`, response.currency
       )
     }
   }))
@@ -258,7 +258,7 @@ export const refreshBag = (response) => {
   clearTimeout(hideBagTimer)
 
   bagTotal.innerHTML = formatPrice(
-    `${response.bag[`total_${response.currency}`]}`, response.currency
+    `${response.bag['total']}`, response.currency
   )
   bagContent.innerHTML = ''
 
@@ -298,7 +298,7 @@ const refreshReviewBag = (response, slug) => {
 
     itemCount.innerHTML = quantity
     itemSubtotal.innerHTML = formatPrice(
-      response.bag['products'][slug][`subtotal_${response.currency}`], response.currency
+      response.bag['products'][slug]['subtotal'], response.currency
     )
 
     if (quantity < 2) {
@@ -308,13 +308,13 @@ const refreshReviewBag = (response, slug) => {
     }
   }
   summaryShippingCost.innerHTML = formatPrice(
-    `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
+    `${response.bag['shipping_cost']}`, response.currency
   )
   summaryTotal.innerHTML = formatPrice(
-    `${response.bag[`total_${response.currency}`]}`, response.currency
+    `${response.bag['total']}`, response.currency
   )
   summaryGrandTotal.innerHTML = formatPrice(
-    `${response.bag[`grand_total_${response.currency}`]}`, response.currency
+    `${response.bag['grand_total']}`, response.currency
   )
   summaryTax.innerHTML = formatPrice(
     response.bag['tax'], response.currency
@@ -367,7 +367,7 @@ const createProductNode = (key, values, response) => {
   const productSubtotal = document.createElement('span')
   productQuantity.innerHTML = `Quantity: ${values.quantity}`
   productSubtotal.innerHTML = `Subtotal: ${formatPrice(
-    `${values[`subtotal_${response.currency}`]}`, response.currency
+    `${values['subtotal']}`, response.currency
   )}`
   bagProductStats.appendChild(productQuantity)
   bagProductStats.appendChild(productSubtotal)

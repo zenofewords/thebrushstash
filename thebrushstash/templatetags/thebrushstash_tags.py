@@ -9,6 +9,7 @@ from shop.utils import (
 from thebrushstash.constants import DEFAULT_REGION
 from thebrushstash.models import (
     CreditCardLogo,
+    ExchangeRate,
     FooterItem,
     FooterShareLink,
     NavigationItem,
@@ -21,11 +22,17 @@ register = template.Library()
 @register.inclusion_tag('thebrushstash/tags/navigation_tag.html', takes_context=True)
 def navigation_tag(context):
     request = context['request']
+
+    exchange_rates = {}
+    for exchange_rate in ExchangeRate.objects.all():
+        exchange_rates[exchange_rate.currency.lower()] = exchange_rate.middle_rate
+
     return {
         'current_url': request.path,
         'navigation_items': NavigationItem.published_objects.all(),
         'bag': request.session.get('bag'),
         'currency': request.session.get('currency', 'hrk'),
+        'exchange_rates': exchange_rates,
         'LANGUAGE_CODE': request.session.get('_language'),
     }
 

@@ -50,8 +50,7 @@ if DEBUG:
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # TODO: remove after int
-    'thebrushstash.middleware.force_default_language_middleware',
+    'thebrushstash.middleware.set_currency_middleware',
     'django.middleware.locale.LocaleMiddleware',
     'thebrushstash.middleware.set_currency_middleware',
     'django.middleware.common.CommonMiddleware',

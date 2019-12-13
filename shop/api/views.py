@@ -81,11 +81,8 @@ class AddToBagView(GenericAPIView):
             'total_quantity': bag['total_quantity'] + quantity,
             **get_totals(serializer.data, 'total', operator.add, bag),
         })
-        set_shipping_cost(bag, request.session['region'])
-        set_tax(bag)
-        bag.update(
-            **get_grandtotals(bag),
-        )
+
+        bag.update(**get_grandtotals(bag))
         request.session['bag'] = bag
         return response.Response({
             'bag': bag,
@@ -111,11 +108,8 @@ class RemoveFromBagView(GenericAPIView):
                 'total_quantity': bag['total_quantity'] - product.get('quantity'),
                 **get_totals(product, 'total', operator.sub, bag),
             })
-            set_shipping_cost(bag, request.session['region'])
-            set_tax(bag)
-            bag.update({
-                **get_grandtotals(bag),
-            })
+
+            bag.update({**get_grandtotals(bag)})
             del products[product_slug]
 
         if len(products.items()) == 0:
@@ -148,12 +142,8 @@ class UpdateBagView(GenericAPIView):
                 product['quantity'] = product['quantity'] + 1
                 bag['total_quantity'] = bag['total_quantity'] + 1
 
-                product.update({
-                    **get_totals(product, 'subtotal', operator.add, product, 1),
-                })
-                bag.update({
-                    **get_totals(product, 'total', operator.add, bag, 1)
-                })
+                product.update({**get_totals(product, 'subtotal', operator.add, product, 1)})
+                bag.update({**get_totals(product, 'total', operator.add, bag, 1)})
 
             elif serializer.data.get('action') == 'decrement':
                 product['quantity'] = product['quantity'] - 1
@@ -162,19 +152,13 @@ class UpdateBagView(GenericAPIView):
                 if product['quantity'] <= 0:
                     del products[product_slug]
 
-                product.update({
-                    **get_totals(product, 'subtotal', operator.sub, product, 1),
-                })
-                bag.update({
-                    **get_totals(product, 'total', operator.sub, bag, 1)
-                })
+                product.update({**get_totals(product, 'subtotal', operator.sub, product, 1)})
+                bag.update({**get_totals(product, 'total', operator.sub, bag, 1)})
 
             set_shipping_cost(bag, request.session['region'])
             set_tax(bag)
 
-            bag.update({
-                **get_grandtotals(bag)
-            })
+            bag.update({**get_grandtotals(bag)})
             bag['products'] = products
             request.session['bag'] = bag if bag['total_quantity'] > 0 else EMPTY_BAG
             request.session.modified = True

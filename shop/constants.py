@@ -1,5 +1,4 @@
 from thebrushstash.models import (
-    ExchangeRate,
     Setting,
 )
 
@@ -70,12 +69,3 @@ FREE_SHIPPING_PRODUCTS = free_shipping_products.value if free_shipping_products 
 FREE_SHIPPING_PRICE = free_shipping_price.value if free_shipping_price else '2000'
 GLS_FEE = gle_fee.value if gle_fee else '4'
 TAX = tax.value if tax else '0.25'
-
-EXCHANGE_RATE_MAPPING = {
-    'hrk': 1,
-    'eur': 1,
-    'gbp': 1,
-    'usd': 1,
-}
-for exchange_rate in ExchangeRate.objects.all():
-    EXCHANGE_RATE_MAPPING[exchange_rate.currency.lower()] = exchange_rate.middle_rate

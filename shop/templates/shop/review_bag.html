@@ -33,7 +33,7 @@
                 {{ value.name }}
               </span>
               <span class="bag-product-price">
-                {% get_price_in_currency value 'price_hrk' currency %}
+                {% get_price_in_currency value 'price_hrk' exchange_rates currency %}
               </span>
             </div>
             <div class="bag-product-quantity">
@@ -45,7 +45,7 @@
               <span class="bag-product-remove" data-slug="{{ key }}">
               </span>
               <span class="bag-product-subtotal" id="{{ key }}-item-subtotal">
-                {% get_price_in_currency value 'subtotal' currency %}
+                {% get_price_in_currency value 'subtotal' exchange_rates currency %}
               </span>
             </div>
           </div>
@@ -53,6 +53,6 @@
       </div>
     </div>
 
-    {% purchase_summary_tag bag region currency show_links='true' %}
+    {% purchase_summary_tag bag region exchange_rates currency show_links='true' %}
   </div>
 {% endblock content %}
