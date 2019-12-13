@@ -22,6 +22,7 @@ from shop.models import (
     InvoiceStatus,
     Product,
 )
+from shop.utils import set_shipping_cost
 from thebrushstash.models import ExchangeRate
 from thebrushstash.utils import (
     complete_purchase,
@@ -76,9 +77,16 @@ class CheckoutView(FormView):
         for exchange_rate in ExchangeRate.objects.all():
             exchange_rates[exchange_rate.currency.lower()] = exchange_rate.middle_rate
 
+        country_name = None
+        user_information = session.get('user_information')
+        if user_information:
+            country_name = user_information.get('country')
+        bag = session.get('bag')
+        set_shipping_cost(bag, session['region'], country_name)
+
         context.update({
             'api_version': settings.IPG_API_VERSION,
-            'bag': session.get('bag'),
+            'bag': bag,
             'region': session.get('region'),
             'language': session.get('_language'),
             'currency': session.get('currency'),
@@ -156,8 +164,11 @@ class ReviewBagView(TemplateView):
         for exchange_rate in ExchangeRate.objects.all():
             exchange_rates[exchange_rate.currency.lower()] = exchange_rate.middle_rate
 
+        bag = session.get('bag')
+        set_shipping_cost(bag, session['region'])
+
         context.update({
-            'bag': session.get('bag'),
+            'bag': bag,
             'region': session.get('region'),
             'currency': session.get('currency'),
             'exchange_rates': exchange_rates,

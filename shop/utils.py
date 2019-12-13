@@ -12,6 +12,7 @@ from thebrushstash.constants import (
     currency_symbol_mapping,
 )
 from thebrushstash.models import (
+    Country,
     ExchangeRate,
     Region,
 )
@@ -37,13 +38,19 @@ def update_product_prices(product):
             setattr(product, 'price_{}'.format(er.currency.lower()), price / er.middle_rate)
 
 
-def set_shipping_cost(bag, region):
+def set_shipping_cost(bag, region, country_name=None):
     quantity_condition = int(bag.get('total_quantity', 0)) >= int(FREE_SHIPPING_PRODUCTS)
     cost_condition = Decimal(bag.get('total', 0)) >= Decimal(FREE_SHIPPING_PRICE)
     free_shipping = quantity_condition or cost_condition
 
-    region = Region.objects.get(name=region)
-    shipping_cost = Decimal('0.00') if free_shipping else Decimal(region.shipping_cost)
+    cost = 0
+    if not free_shipping:
+        cost = Region.objects.get(name=region).shipping_cost
+    if country_name:
+        country = Country.published_objects.filter(name=country_name).first()
+        cost = country.shipping_cost if country and country.shipping_cost else cost
+
+    shipping_cost = Decimal('0.00') if free_shipping else Decimal(cost)
     bag['shipping_cost'] = str(shipping_cost)
     bag['grand_total'] = str(Decimal(bag.get('total', 0)) + shipping_cost)
 

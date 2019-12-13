@@ -6,6 +6,7 @@ import {
   subscribeToNewsletter,
   updateProduct,
   updateShippingAddress,
+  updateShippingCost,
 } from './requests'
 import {
   bag,
@@ -59,11 +60,13 @@ export const currencySymbolMapping = {
   usd: '$',
 }
 
-export const formatPrice = (price, currency) => {
+export const formatPrice = (price, exchangeRate, currency) => {
+  const displayPrice = (price * 1) / (exchangeRate * 1)
+
   if (currency === 'hrk') {
-    return `${price} ${currencySymbolMapping[currency]}`
+    return `${displayPrice.toFixed(2)} ${currencySymbolMapping[currency]}`
   }
-  return `${currencySymbolMapping[currency]}${price}`
+  return `${currencySymbolMapping[currency]}${displayPrice.toFixed(2)}`
 }
 
 export const getCookie = (name) => {
@@ -111,12 +114,12 @@ export const updatePaymentMethod = (paymentMethod) => {
 
     if (summaryShippingCost) {
       summaryShippingCost.innerHTML = formatPrice(
-        `${response.bag['shipping_cost']}`, response.currency
+        `${response.bag['shipping_cost']}`, response.exchange_rate, response.currency
       )
     }
     if (summaryGrandTotal) {
       summaryGrandTotal.innerHTML = formatPrice(
-        `${response.bag['grand_total']}`, response.currency
+        `${response.bag['grand_total']}`, response.exchange_rate, response.currency
       )
     }
   }))
@@ -258,7 +261,7 @@ export const refreshBag = (response) => {
   clearTimeout(hideBagTimer)
 
   bagTotal.innerHTML = formatPrice(
-    `${response.bag['total']}`, response.currency
+    `${response.bag['total']}`, response.exchange_rate, response.currency
   )
   bagContent.innerHTML = ''
 
@@ -298,7 +301,7 @@ const refreshReviewBag = (response, slug) => {
 
     itemCount.innerHTML = quantity
     itemSubtotal.innerHTML = formatPrice(
-      response.bag['products'][slug]['subtotal'], response.currency
+      response.bag['products'][slug]['subtotal'], response.exchange_rate, response.currency
     )
 
     if (quantity < 2) {
@@ -308,16 +311,16 @@ const refreshReviewBag = (response, slug) => {
     }
   }
   summaryShippingCost.innerHTML = formatPrice(
-    `${response.bag['shipping_cost']}`, response.currency
+    `${response.bag['shipping_cost']}`, response.exchange_rate, response.currency
   )
   summaryTotal.innerHTML = formatPrice(
-    `${response.bag['total']}`, response.currency
+    `${response.bag['total']}`, response.exchange_rate, response.currency
   )
   summaryGrandTotal.innerHTML = formatPrice(
-    `${response.bag['grand_total']}`, response.currency
+    `${response.bag['grand_total']}`, response.exchange_rate, response.currency
   )
   summaryTax.innerHTML = formatPrice(
-    response.bag['tax'], response.currency
+    response.bag['tax'], response.exchange_rate, response.currency
   )
 
   if (summaryGrandTotalHrk) {
@@ -367,7 +370,7 @@ const createProductNode = (key, values, response) => {
   const productSubtotal = document.createElement('span')
   productQuantity.innerHTML = `Quantity: ${values.quantity}`
   productSubtotal.innerHTML = `Subtotal: ${formatPrice(
-    `${values['subtotal']}`, response.currency
+    `${values['subtotal']}`, response.exchange_rate, response.currency
   )}`
   bagProductStats.appendChild(productQuantity)
   bagProductStats.appendChild(productSubtotal)
@@ -424,4 +427,16 @@ export const clearErrorMessages = () => {
   for (let i = 0; i < errorLabels.length; i++) {
     errorLabels[i].hidden = true
   }
+}
+
+export const updateShippingCostByCountry = (countryName) => {
+  updateShippingCost(countryName).then((data) => data.json().then((response) => {
+    summaryShippingCost.innerHTML = formatPrice(
+      response.bag['shipping_cost'], response.exchange_rate, response.currency
+    )
+    summaryGrandTotal.innerHTML = formatPrice(
+      response.bag['grand_total'], response.exchange_rate, response.currency
+    )
+    summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
+  }))
 }

@@ -7,7 +7,7 @@ class PaymentMethodSerializer(serializers.Serializer):
     payment_method = serializers.CharField(required=False, allow_blank=True, max_length=20)
 
 
-class ProductSeriazlier(serializers.Serializer):
+class ProductSerializer(serializers.Serializer):
     pk = serializers.CharField(required=True, max_length=10)
     slug = serializers.SlugField(required=True, max_length=500)
     name = serializers.CharField(required=True, max_length=500)
@@ -28,7 +28,7 @@ class UserInformationSerializer(serializers.Serializer):
     first_name = serializers.CharField(required=True, max_length=200)
     last_name = serializers.CharField(required=True, max_length=200)
     email = serializers.CharField(required=True, max_length=200)
-    country = serializers.CharField(required=True, max_length=30)
+    country = serializers.CharField(required=True, max_length=50)
     address = serializers.CharField(required=True, max_length=500)
     city = serializers.CharField(required=True, max_length=200)
     zip_code = serializers.CharField(required=True, max_length=100)
@@ -56,7 +56,11 @@ class UserInformationSerializer(serializers.Serializer):
 class ShippingAddressSerializer(serializers.Serializer):
     shipping_first_name = serializers.CharField(required=True, max_length=200)
     shipping_last_name = serializers.CharField(required=True, max_length=200)
-    shipping_country = serializers.CharField(required=False, allow_blank=True, max_length=30)
+    shipping_country = serializers.CharField(required=False, allow_blank=True, max_length=50)
     shipping_address = serializers.CharField(required=True, max_length=500)
     shipping_city = serializers.CharField(required=True, max_length=200)
     shipping_zip_code = serializers.CharField(required=True, max_length=100)
+
+
+class ShippingCostSerializer(serializers.Serializer):
+    country_name = serializers.CharField(required=True, max_length=50)

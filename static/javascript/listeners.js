@@ -4,8 +4,8 @@ import {
 } from './requests'
 import {
   addToBagButtons,
-  bagLink,
   bag,
+  bagLink,
   bagProductDecrement,
   bagProductIncrement,
   cashOnDeliveryRadio,
@@ -28,12 +28,9 @@ import {
   creditCardSecureLogos,
   creditCardSecureModals,
   creditCardWrapper,
+  differentShippingAddressInput,
+  differentShippingAddressInputWrapper,
   emailInputs,
-  joinNewsletterMessage,
-  logingFormUsernameInput,
-  logingFormPasswordInput,
-  logingFormPasswordInput1,
-  logingFormPasswordInput2,
   fieldInfo,
   fieldInfoIcon,
   invoiceFormAddressInput,
@@ -43,8 +40,23 @@ import {
   invoiceFormEmailInput,
   invoiceFormFirstNameInput,
   invoiceFormLastNameInput,
+  invoiceFormShippingAddressInput,
+  invoiceFormShippingCityInput,
+  invoiceFormShippingCountryInput,
+  invoiceFormShippingFirstNameInput,
+  invoiceFormShippingLastNameInput,
+  invoiceFormShippingZipCodeInput,
   invoiceFormZipCodeInput,
+  ipgCheckoutForm,
+  ipgFormSubmitButton,
+  joinNewsletterMessage,
+  languageFormsMobile,
+  languageInputsMobile,
   languageOptions,
+  logingFormPasswordInput,
+  logingFormPasswordInput1,
+  logingFormPasswordInput2,
+  logingFormUsernameInput,
   navigationWrapper,
   navMobileCloseButton,
   navMobileOpenButton,
@@ -54,31 +66,20 @@ import {
   registerButton,
   registerForm,
   removeProductButtons,
+  sameShippingAddressInput,
+  sameShippingAddressInputWrapper,
+  shippingAddressChoice,
+  shippingAddressWrapper,
   shipToMenu,
   subscribeToNewsletterButton,
   thumbnailWrappers,
-  shippingAddressWrapper,
-  shippingAddressChoice,
-  differentShippingAddressInput,
-  sameShippingAddressInput,
-  sameShippingAddressInputWrapper,
-  differentShippingAddressInputWrapper,
-  invoiceFormShippingFirstNameInput,
-  invoiceFormShippingLastNameInput,
-  invoiceFormShippingCountryInput,
-  invoiceFormShippingAddressInput,
-  invoiceFormShippingCityInput,
-  invoiceFormShippingZipCodeInput,
-  ipgFormSubmitButton,
-  ipgCheckoutForm,
-  languageFormsMobile,
-  languageInputsMobile,
 } from './selectors'
 import {
   addOneToBag,
   addToBag,
   clearErrorMessages,
   processPaymentAddressData,
+  refreshBag,
   removeFromBag,
   removeOneFromBag,
   showErrorMessage,
@@ -88,7 +89,7 @@ import {
   toggleStickyNav,
   updatePaymentMethod,
   updateShippingAddressData,
-  refreshBag,
+  updateShippingCostByCountry,
 } from './utils'
 
 const ready = (runScript) => {
@@ -367,6 +368,13 @@ ready(() => {
         clearErrorMessages()
         processPaymentAddressData(checkoutAddressForm)
       }
+    }
+  })
+
+  invoiceFormCountryInput && invoiceFormCountryInput.addEventListener('change', (event) => {
+    const selected = event.target.value
+    if (selected) {
+      updateShippingCostByCountry(selected)
     }
   })
 

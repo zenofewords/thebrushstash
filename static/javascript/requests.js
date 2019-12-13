@@ -139,6 +139,22 @@ export const updateShippingAddress = (data) => fetch(
   }
 )
 
+export const updateShippingCost = (countryName) => fetch(
+  '/api/update-shipping-cost/',
+  {
+    method: 'POST',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify({
+      country_name: countryName,
+    }),
+  }
+)
+
 export const subscribeToNewsletter = (emailData) => fetch(
   '/api/subscribe-to-newsletter/',
   {

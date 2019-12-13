@@ -117,5 +117,5 @@ def get_localized_item_price(obj, key, currency, multiply=1):
 
 @register.simple_tag()
 def get_price_in_currency(obj, key, exchange_rates, currency):
-    price = round(Decimal(obj.get(key, 0)) / exchange_rates[currency], 2)
+    price = '{:0.2f}'.format(Decimal(obj.get(key, 0)) / exchange_rates[currency], 2)
     return format_price_with_currency(price, currency)

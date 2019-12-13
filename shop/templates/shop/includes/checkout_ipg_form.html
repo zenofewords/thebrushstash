@@ -18,7 +18,7 @@
   <input id="cardholder_zip_code" name="cardholder_zip_code" value="" hidden>
   <input id="cardholder_country" name="cardholder_country" value="" hidden>
 
-  <div id="shipping-address-choice" hidden>
+  <div id="shipping-address-choice" {% if region == 'hr' %} hidden{% endif %}>
     <br>
     <h2 class="checkout-payment-title">
       3. Odaberite adresu dostave
@@ -45,11 +45,11 @@
       <span id="id_account_shipping_country-error" class="error" hidden></span>
     </div>
     {% include 'account/includes/form_field.html' with field=form.shipping_address %}
+    {% include 'account/includes/form_field.html' with field=form.shipping_city %}
+    {% include 'account/includes/form_field.html' with field=form.shipping_zip_code %}
     {% if region != 'hr' %}
       {% include 'account/includes/form_field.html' with field=form.shipping_state_county %}
     {% endif %}
-    {% include 'account/includes/form_field.html' with field=form.shipping_city %}
-    {% include 'account/includes/form_field.html' with field=form.shipping_zip_code %}
   </div>
 
   <button id="ipg-form-submit-button" class="{% if region == 'hr' %} hidden{% endif %}">

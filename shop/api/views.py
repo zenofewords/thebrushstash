@@ -12,10 +12,11 @@ from django.contrib.sites.shortcuts import get_current_site
 
 from shop.api.serializers import (
     PaymentMethodSerializer,
-    ProductSeriazlier,
+    ProductSerializer,
     SimpleProductSerializer,
     UserInformationSerializer,
     ShippingAddressSerializer,
+    ShippingCostSerializer,
 )
 from shop.constants import (
     GLS_FEE,
@@ -43,12 +44,15 @@ from thebrushstash.utils import (
     subscribe_to_newsletter,
     get_country,
 )
-from thebrushstash.models import Region
+from thebrushstash.models import (
+    ExchangeRate,
+    Region,
+)
 
 
 class AddToBagView(GenericAPIView):
     permission_classes = (AllowAny, )
-    serializer_class = ProductSeriazlier
+    serializer_class = ProductSerializer
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -81,12 +85,15 @@ class AddToBagView(GenericAPIView):
             'total_quantity': bag['total_quantity'] + quantity,
             **get_totals(serializer.data, 'total', operator.add, bag),
         })
+        currency = request.session['currency']
+        exchange_rate = ExchangeRate.objects.get(currency=currency.upper()).middle_rate
 
         bag.update(**get_grandtotals(bag))
         request.session['bag'] = bag
         return response.Response({
             'bag': bag,
-            'currency': request.session['currency'],
+            'currency': currency,
+            'exchange_rate': exchange_rate,
         }, status=status.HTTP_200_OK)
 
 
@@ -115,11 +122,15 @@ class RemoveFromBagView(GenericAPIView):
         if len(products.items()) == 0:
             bag = EMPTY_BAG
 
+        currency = request.session['currency']
+        exchange_rate = ExchangeRate.objects.get(currency=currency.upper()).middle_rate
+
         request.session['bag'] = bag
         return response.Response({
             'bag': bag,
             'cart': get_cart(bag),
-            'currency': request.session['currency'],
+            'currency': currency,
+            'exchange_rate': exchange_rate,
         }, status=status.HTTP_200_OK)
 
 
@@ -162,10 +173,15 @@ class UpdateBagView(GenericAPIView):
             bag['products'] = products
             request.session['bag'] = bag if bag['total_quantity'] > 0 else EMPTY_BAG
             request.session.modified = True
+
+        currency = request.session['currency']
+        exchange_rate = ExchangeRate.objects.get(currency=currency.upper()).middle_rate
+
         return response.Response({
             'bag': request.session['bag'],
             'cart': get_cart(request.session['bag']),
-            'currency': request.session['currency'],
+            'currency': currency,
+            'exchange_rate': exchange_rate,
         }, status=status.HTTP_200_OK)
 
 
@@ -243,6 +259,31 @@ class UpdateShippingAddressView(GenericAPIView):
         return response.Response({'order_number': order_number}, status=status.HTTP_200_OK)
 
 
+class UpdateShippingCostView(GenericAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = ShippingCostSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        bag = request.session.get('bag')
+        set_shipping_cost(
+            bag,
+            request.session['region'],
+            serializer.data.get('country_name')
+        )
+        currency = request.session['currency']
+        exchange_rate = ExchangeRate.objects.get(currency=currency.upper()).middle_rate
+
+        request.session['bag'] = bag
+        return response.Response({
+            'bag': bag,
+            'currency': currency,
+            'exchange_rate': exchange_rate,
+        }, status=status.HTTP_200_OK)
+
+
 class UpdatePaymentMethodView(GenericAPIView):
     permission_classes = (AllowAny, )
     serializer_class = PaymentMethodSerializer
@@ -266,9 +307,12 @@ class UpdatePaymentMethodView(GenericAPIView):
 
         session['bag']['grand_total'] = str(grand_total)
         session.modified = True
+        currency = request.session['currency']
+        exchange_rate = ExchangeRate.objects.get(currency=currency.upper()).middle_rate
 
         return response.Response({
             'bag': session['bag'],
-            'currency': session['currency'],
+            'currency': currency,
+            'exchange_rate': exchange_rate,
             'payment_method': session['payment_method'],
         }, status=status.HTTP_200_OK)
