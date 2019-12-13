@@ -73,6 +73,7 @@ import {
   shipToMenu,
   subscribeToNewsletterButton,
   thumbnailWrappers,
+  termsCheckboxErrorMessage,
 } from './selectors'
 import {
   addOneToBag,
@@ -136,7 +137,9 @@ ready(() => {
     checkoutAddressWrapper.classList.remove('inactive')
     checkoutPaymentTitle.classList.add('inactive')
     checkoutPaymentWrapper.classList.add('inactive')
+    updateShippingCostByCountry(invoiceFormCountryInput.value)
 
+    creditCardRadio.checked = false
     shippingAddressChoice.hidden = true
     shippingAddressWrapper.hidden = true
     invoiceFormShippingFirstNameInput.required = false
@@ -202,6 +205,7 @@ ready(() => {
       cashOnDeliveryRadio.checked = true
       phoneNumberInput.required = true
       updatePaymentMethod(cashOnDeliveryRadio.value)
+      updateShippingCostByCountry(invoiceFormCountryInput.value)
 
       shippingAddressChoice.hidden = true
       shippingAddressWrapper.hidden = true
@@ -232,6 +236,10 @@ ready(() => {
       differentShippingAddressInput.checked = true
       shippingAddressWrapper.hidden = false
 
+      if (invoiceFormShippingCountryInput.value) {
+        updateShippingCostByCountry(invoiceFormShippingCountryInput.value)
+      }
+
       invoiceFormShippingFirstNameInput.required = true
       invoiceFormShippingLastNameInput.required = true
       invoiceFormShippingCountryInput.required = true
@@ -247,6 +255,7 @@ ready(() => {
     if (!sameShippingAddressInput.checked) {
       sameShippingAddressInput.checked = true
       shippingAddressWrapper.hidden = true
+      updateShippingCostByCountry(invoiceFormCountryInput.value)
 
       invoiceFormShippingFirstNameInput.required = false
       invoiceFormShippingLastNameInput.required = false
@@ -287,6 +296,16 @@ ready(() => {
 
     if (valid) {
       processPaymentAddressData(checkoutAddressForm)
+
+      console.log('cc', creditCardRadio.checked, differentShippingAddressInput.checked)
+
+      if (creditCardRadio.checked) {
+        shippingAddressChoice.hidden = false
+      }
+      if (creditCardRadio.checked && differentShippingAddressInput.checked) {
+        shippingAddressWrapper.hidden = false
+        updateShippingCostByCountry(invoiceFormShippingCountryInput.value)
+      }
     } else {
       continueToPaymentButton.disabled = false
     }
@@ -360,7 +379,8 @@ ready(() => {
     event.target.setCustomValidity('')
 
     if (!event.target.checked) {
-      event.target.setCustomValidity('Potrebno je pristati na uvjete korištenja prije nastavka kupnje.')
+      const errorMessage = termsCheckboxErrorMessage.innerHTML
+      event.target.setCustomValidity(errorMessage)
     } else {
       const valid = checkoutAddressForm.reportValidity()
 
@@ -372,6 +392,13 @@ ready(() => {
   })
 
   invoiceFormCountryInput && invoiceFormCountryInput.addEventListener('change', (event) => {
+    const selected = event.target.value
+    if (selected && invoiceFormShippingCountryInput && !invoiceFormShippingCountryInput.value) {
+      updateShippingCostByCountry(selected)
+    }
+  })
+
+  invoiceFormShippingCountryInput && invoiceFormShippingCountryInput.addEventListener('change', (event) => {
     const selected = event.target.value
     if (selected) {
       updateShippingCostByCountry(selected)
@@ -390,7 +417,7 @@ ready(() => {
 
   invoiceFormCountryInput && invoiceFormCountryInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target, 'Odaberite državu.')
+    showErrorMessage(event.target)
   })
 
   invoiceFormAddressInput && invoiceFormAddressInput.addEventListener('invalid', (event) => {
@@ -420,7 +447,7 @@ ready(() => {
 
   invoiceFormShippingCountryInput && invoiceFormShippingCountryInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target, 'Odaberite državu.')
+    showErrorMessage(event.target)
   })
 
   invoiceFormShippingAddressInput && invoiceFormShippingAddressInput.addEventListener('invalid', (event) => {
@@ -440,48 +467,48 @@ ready(() => {
 
   invoiceFormEmailInput && invoiceFormEmailInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target, 'Unesite ispravnu e-mail adresu.')
+    showErrorMessage(event.target)
   })
 
   phoneNumberInput && phoneNumberInput.addEventListener('invalid', (event) => {
     event.preventDefault()
     fieldInfo.hidden = false
-    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+    showErrorMessage(event.target)
   })
 
   logingFormUsernameInput && logingFormUsernameInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target, 'Unesite ispravnu e-mail adresu.')
+    showErrorMessage(event.target)
   })
 
   logingFormPasswordInput && logingFormPasswordInput.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+    showErrorMessage(event.target)
   })
 
   logingFormPasswordInput1 && logingFormPasswordInput1.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+    showErrorMessage(event.target)
   })
 
   logingFormPasswordInput2 && logingFormPasswordInput2.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+    showErrorMessage(event.target)
   })
 
   checkoutR1CompanyAddress && checkoutR1CompanyAddress.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+    showErrorMessage(event.target)
   })
 
   checkoutR1CompanyName && checkoutR1CompanyName.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+    showErrorMessage(event.target)
   })
 
   checkoutR1CompanyUIN && checkoutR1CompanyUIN.addEventListener('invalid', (event) => {
     event.preventDefault()
-    showErrorMessage(event.target, 'Ovo polje je obavezno.')
+    showErrorMessage(event.target)
   })
 
   for (let i = languageFormsMobile.length - 1; i >= 0; i--) {

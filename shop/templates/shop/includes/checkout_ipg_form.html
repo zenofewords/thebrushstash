@@ -18,21 +18,21 @@
   <input id="cardholder_zip_code" name="cardholder_zip_code" value="" hidden>
   <input id="cardholder_country" name="cardholder_country" value="" hidden>
 
-  <div id="shipping-address-choice" {% if region == 'hr' %} hidden{% endif %}>
+  <div id="shipping-address-choice" hidden>
     <br>
     <h2 class="checkout-payment-title">
-      3. Odaberite adresu dostave
+      {% trans "3. Shipping address" %}
     </h2>
     <span id="same-shipping-address-input-wrapper" class="checkout-radio-wrapper">
       <input id="same-shipping-address" type="radio" name="shipping-address" checked>
       <label for="same-shipping-address">
-        Isto kao i adresa naplate
+        {% trans "Same as billing address" %}
       </label>
     </span>
     <span id="different-shipping-address-input-wrapper" class="checkout-radio-wrapper">
       <input id="different-shipping-address" type="radio" name="shipping-address">
       <label for="different-shipping-address">
-        Koristite drugu adresu za dostavu
+        {% trans "Use a different address" %}
       </label>
     </span>
   </div>

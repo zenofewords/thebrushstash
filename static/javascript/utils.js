@@ -415,11 +415,10 @@ export const removeOneFromBag = (slug) => {
   }))
 }
 
-export const showErrorMessage = (target, message = 'Ovo polje je obavezno.') => {
+export const showErrorMessage = (target) => {
   target.focus()
   const errorLabel = document.getElementById(`${target.id}-error`)
   errorLabel.hidden = false
-  errorLabel.innerHTML = message
 }
 
 export const clearErrorMessages = () => {
@@ -437,6 +436,8 @@ export const updateShippingCostByCountry = (countryName) => {
     summaryGrandTotal.innerHTML = formatPrice(
       response.bag['grand_total'], response.exchange_rate, response.currency
     )
-    summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
+    if (summaryGrandTotalHrk) {
+      summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
+    }
   }))
 }

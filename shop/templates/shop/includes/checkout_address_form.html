@@ -68,6 +68,7 @@
     <p class="checkout-help-text">
       {% url 'general-terms-and-conditions' as terms_url %}
       {% blocktrans %}Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="{{ terms_url }}" target="_blank" rel="noopener noreferrer">privacy policy</a>.{% endblocktrans %}
+      <span id="terms-checkbox-error-message" hidden>{% trans "You must agree to the terms and conditions to continue." %}</span>
     </p>
   </div>
 
