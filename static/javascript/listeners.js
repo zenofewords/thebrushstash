@@ -297,8 +297,6 @@ ready(() => {
     if (valid) {
       processPaymentAddressData(checkoutAddressForm)
 
-      console.log('cc', creditCardRadio.checked, differentShippingAddressInput.checked)
-
       if (creditCardRadio.checked) {
         shippingAddressChoice.hidden = false
       }
@@ -386,6 +384,14 @@ ready(() => {
 
       if (valid) {
         clearErrorMessages()
+
+        if (creditCardRadio.checked) {
+          shippingAddressChoice.hidden = false
+        }
+        if (creditCardRadio.checked && differentShippingAddressInput.checked) {
+          shippingAddressWrapper.hidden = false
+          updateShippingCostByCountry(invoiceFormShippingCountryInput.value)
+        }
         processPaymentAddressData(checkoutAddressForm)
       }
     }
