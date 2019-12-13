@@ -137,9 +137,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# TODO: replace after int
-# LANGUAGE_CODE = 'en'
-LANGUAGE_CODE = 'hr'
+LANGUAGE_CODE = 'en'
 LANGUAGES = [
     ('en', 'English'),
     ('hr', 'Croatian'),
