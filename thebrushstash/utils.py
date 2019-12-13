@@ -46,7 +46,10 @@ from shop.models import (
     InvoiceStatus,
     Product,
 )
-from thebrushstash.models import Country
+from thebrushstash.models import (
+    Country,
+    ExchangeRate,
+)
 
 
 def get_country(country_name):

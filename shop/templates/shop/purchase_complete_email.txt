@@ -47,14 +47,14 @@
 {% endfor %}
 {% trans "PAYMENT:" %}
 {% trans "Subtotal:" %}
-{% get_price_in_currency bag 'total' currency %}
+{% get_price_in_currency bag 'total' exchange_rates currency %}
 {% trans "VAT included:" %}
-{% get_price_in_currency bag 'tax' currency %}
+{% get_price_in_currency bag 'tax' exchange_rates currency %}
 {% trans "Shipping:" %}
-{% get_price_in_currency bag 'shipping_cost' currency %}
+{% get_price_in_currency bag 'shipping_cost' exchange_rates currency %}
 {% trans "GLS (cash on delivery):" %}
-{% get_price_in_currency bag 'fees' currency %}
+{% get_price_in_currency bag 'fees' exchange_rates currency %}
 {% trans "Grand total:" %}
-{% get_price_in_currency bag 'grand_total' currency %}
+{% get_price_in_currency bag 'grand_total' exchange_rates currency %}
 
 {% trans 'Thank you for using The Brush Stash products!' %}

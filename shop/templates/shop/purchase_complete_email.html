@@ -2294,7 +2294,7 @@
                                     {% trans "Subtotal:" %}
                                   </th>
                                   <th width="32%" align="right" style="Margin: 0; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; line-height: 1.3; margin: 0; padding: 0; text-align: right;">
-                                    {% get_price_in_currency bag 'total' currency %}
+                                    {% get_price_in_currency bag 'total' exchange_rates currency %}
                                   </th>
                                   <th width="34%"></th>
                                 </tr>
@@ -2303,7 +2303,7 @@
                                     {% trans "VAT included:" %}
                                   </td>
                                   <td align="right" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: right; vertical-align: top; word-wrap: break-word;">
-                                    {% get_price_in_currency bag 'tax' currency %}
+                                    {% get_price_in_currency bag 'tax' exchange_rates currency %}
                                   </td>
                                   <td></td>
                                 </tr>
@@ -2312,7 +2312,7 @@
                                     {% trans "Shipping:" %}
                                   </td>
                                   <td align="right" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: right; vertical-align: top; word-wrap: break-word;">
-                                    {% get_price_in_currency bag 'shipping_cost' currency %}
+                                    {% get_price_in_currency bag 'shipping_cost' exchange_rates currency %}
                                   </td>
                                   <td></td>
                                 </tr>
@@ -2323,7 +2323,7 @@
                                     {% trans "GLS (cash on delivery):" %}
                                   </td>
                                   <td align="right" style="-moz-hyphens: auto; -webkit-hyphens: auto; Margin: 0; border-collapse: collapse !important; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: normal; hyphens: auto; line-height: 1.3; margin: 0; padding: 0; text-align: right; vertical-align: top; word-wrap: break-word;">
-                                    {% get_price_in_currency bag 'fees' currency %}
+                                    {% get_price_in_currency bag 'fees' exchange_rates currency %}
                                   </td>
                                   <td></td>
                                 </tr>
@@ -2339,7 +2339,7 @@
                                     {% trans "Grand total:" %}
                                   </th>
                                   <th align="right" style="Margin: 0; color: #0a0a0a; font-family: Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; line-height: 1.3; margin: 0; padding: 0; text-align: right;">
-                                    {% get_price_in_currency bag 'grand_total' currency %}
+                                    {% get_price_in_currency bag 'grand_total' exchange_rates currency %}
                                   </th>
                                   <th></th>
                                 </tr>
