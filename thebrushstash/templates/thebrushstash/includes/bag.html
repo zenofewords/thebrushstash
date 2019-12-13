@@ -8,7 +8,7 @@
     </span>
     <span>
       {% trans 'Total:' %} <span id="bag-total" class="bag-total">
-        {% get_price_for_currency bag 'total' currency %}
+        {% get_price_in_currency bag 'total' exchange_rates currency %}
       </span>
     </span>
   </div>
@@ -24,7 +24,7 @@
             <span class="bag-product-name">
               {{ value.name }}
             </span>
-            {% if current_url != '/checkout/' %}
+            {% if current_url != '/checkout/' and current_url != '/review-bag/' %}
               <span class="bag-product-remove" data-slug="{{ key }}">
               </span>
             {% endif %}
@@ -35,7 +35,7 @@
             </div>
             <span></span>
             <div class="bag-product-subtotal">
-              {% trans 'Subtotal:' %} {% get_price_for_currency value 'subtotal' currency %}
+              {% trans 'Subtotal:' %} {% get_price_in_currency value 'subtotal' exchange_rates currency %}
             </div>
           </div>
         </div>

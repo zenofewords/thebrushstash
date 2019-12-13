@@ -107,16 +107,16 @@ export const updatePaymentMethod = (paymentMethod) => {
       cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.add('hidden')
       summaryRowFeesValue.innerHTML = null
     }
-    ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
+    ipgAmount.value = response.bag.grand_total // must be in hrk
 
     if (summaryShippingCost) {
       summaryShippingCost.innerHTML = formatPrice(
-        `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
+        `${response.bag['shipping_cost']}`, response.currency
       )
     }
     if (summaryGrandTotal) {
       summaryGrandTotal.innerHTML = formatPrice(
-        `${response.bag[`grand_total_${response.currency}`]}`, response.currency
+        `${response.bag['grand_total']}`, response.currency
       )
     }
   }))
@@ -124,7 +124,7 @@ export const updatePaymentMethod = (paymentMethod) => {
 
 const updateIPGInputs = (response) => {
   ipgOrderNumber.value = response.order_number
-  ipgAmount.value = response.grand_total_hrk // must be in hrk
+  ipgAmount.value = response.grand_total // must be in hrk
   ipgCart.value = response.cart
   ipgLanguage.value = response.language
   ipgSignature.value = response.signature
@@ -258,7 +258,7 @@ export const refreshBag = (response) => {
   clearTimeout(hideBagTimer)
 
   bagTotal.innerHTML = formatPrice(
-    `${response.bag[`total_${response.currency}`]}`, response.currency
+    `${response.bag['total']}`, response.currency
   )
   bagContent.innerHTML = ''
 
@@ -298,7 +298,7 @@ const refreshReviewBag = (response, slug) => {
 
     itemCount.innerHTML = quantity
     itemSubtotal.innerHTML = formatPrice(
-      response.bag['products'][slug][`subtotal_${response.currency}`], response.currency
+      response.bag['products'][slug]['subtotal'], response.currency
     )
 
     if (quantity < 2) {
@@ -308,20 +308,20 @@ const refreshReviewBag = (response, slug) => {
     }
   }
   summaryShippingCost.innerHTML = formatPrice(
-    `${response.bag[`shipping_cost_${response.currency}`]}`, response.currency
+    `${response.bag['shipping_cost']}`, response.currency
   )
   summaryTotal.innerHTML = formatPrice(
-    `${response.bag[`total_${response.currency}`]}`, response.currency
+    `${response.bag['total']}`, response.currency
   )
   summaryGrandTotal.innerHTML = formatPrice(
-    `${response.bag[`grand_total_${response.currency}`]}`, response.currency
+    `${response.bag['grand_total']}`, response.currency
   )
   summaryTax.innerHTML = formatPrice(
     response.bag['tax'], response.currency
   )
 
   if (summaryGrandTotalHrk) {
-    summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total_hrk} kn`
+    summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
   }
 
   const products = response.bag.products
@@ -367,7 +367,7 @@ const createProductNode = (key, values, response) => {
   const productSubtotal = document.createElement('span')
   productQuantity.innerHTML = `Quantity: ${values.quantity}`
   productSubtotal.innerHTML = `Subtotal: ${formatPrice(
-    `${values[`subtotal_${response.currency}`]}`, response.currency
+    `${values['subtotal']}`, response.currency
   )}`
   bagProductStats.appendChild(productQuantity)
   bagProductStats.appendChild(productSubtotal)
@@ -386,7 +386,7 @@ export const removeFromBag = (slug) => {
     refreshReviewBag(response, slug)
 
     if (ipgAmount && ipgCart) {
-      ipgAmount.value = response.bag.grand_total_hrk // must be in hrk
+      ipgAmount.value = response.bag.grand_total // must be in hrk
       ipgCart.value = response.cart
     }
   }))

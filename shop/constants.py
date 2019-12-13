@@ -1,21 +1,14 @@
-from thebrushstash.models import Setting
+from thebrushstash.models import (
+    Setting,
+)
 
 EMPTY_BAG = {
     'products': {},
     'total_quantity': 0,
     'fees': 0,
-    'total_hrk': 0,
-    'total_eur': 0,
-    'total_gbp': 0,
-    'total_usd': 0,
-    'shipping_cost_hrk': 0,
-    'shipping_cost_eur': 0,
-    'shipping_cost_gbp': 0,
-    'shipping_cost_usd': 0,
-    'grand_total_hrk': 0,
-    'grand_total_eur': 0,
-    'grand_total_gbp': 0,
-    'grand_total_usd': 0,
+    'total': 0,
+    'shipping_cost': 0,
+    'grand_total': 0,
     'tax': 0,
 }
 

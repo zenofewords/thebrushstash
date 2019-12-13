@@ -22,6 +22,7 @@ from shop.models import (
     InvoiceStatus,
     Product,
 )
+from thebrushstash.models import ExchangeRate
 from thebrushstash.utils import (
     complete_purchase,
     signature_is_valid,
@@ -71,6 +72,10 @@ class CheckoutView(FormView):
         if user.is_authenticated:
             subscribed_to_newsletter = NewsletterRecipient.objects.filter(user=user).first()
 
+        exchange_rates = {}
+        for exchange_rate in ExchangeRate.objects.all():
+            exchange_rates[exchange_rate.currency.lower()] = exchange_rate.middle_rate
+
         context.update({
             'api_version': settings.IPG_API_VERSION,
             'bag': session.get('bag'),
@@ -82,6 +87,7 @@ class CheckoutView(FormView):
             'require_complete': settings.IPG_REQUIRE_COMPLETE,
             'subscribed_to_newsletter': subscribed_to_newsletter,
             'gls_fee': GLS_FEE,
+            'exchange_rates': exchange_rates,
         })
         return context
 
@@ -146,10 +152,15 @@ class ReviewBagView(TemplateView):
         context = super().get_context_data(**kwargs)
         session = self.request.session
 
+        exchange_rates = {}
+        for exchange_rate in ExchangeRate.objects.all():
+            exchange_rates[exchange_rate.currency.lower()] = exchange_rate.middle_rate
+
         context.update({
             'bag': session.get('bag'),
             'region': session.get('region'),
             'currency': session.get('currency'),
+            'exchange_rates': exchange_rates,
         })
         return context
 
@@ -165,6 +176,7 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context.update({
             'selected_item_id': self.selected_item_id,
+            'currency': self.request.session.get('currency'),
             'other_products': Product.published_objects.exclude(id=self.object.pk)[:3]
         })
         return context
@@ -175,8 +187,10 @@ class ShopHomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context.update({
             'products': Product.published_objects.all(),
+            'currency': self.request.session.get('currency'),
             'full_site_url': '{}://{}'.format(self.request.scheme, get_current_site(self.request)),
         })
         return context

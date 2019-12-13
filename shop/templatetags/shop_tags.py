@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import get_language
@@ -7,8 +9,7 @@ from shop.models import (
     GalleryItem,
     Showcase,
 )
-from thebrushstash.utils import format_price
-
+from shop.utils import format_price_with_currency
 register = template.Library()
 
 
@@ -21,12 +22,13 @@ def showcase_tag():
 
 
 @register.inclusion_tag('shop/tags/purchase_summary_tag.html')
-def purchase_summary_tag(bag, region, currency, show_links=False):
+def purchase_summary_tag(bag, region, exchange_rates, currency, show_links=False):
     return {
         'bag': bag,
         'region': region,
         'currency': currency,
         'show_links': show_links,
+        'exchange_rates': exchange_rates,
     }
 
 
@@ -107,27 +109,13 @@ def gallery_item(obj, item, selected_item_id, first_item):
     }
 
 
-@register.simple_tag(takes_context=True)
-def get_localized_price(context, key, obj):
-    currency = context['request'].session['currency']
-    price = getattr(obj, '{}_{}'.format(key, currency))
-
-    return format_price(currency, price)
-
-
 @register.simple_tag()
-def get_localized_price_for_currency(obj, key, currency, multiply=1):
+def get_localized_item_price(obj, key, currency, multiply=1):
     price = getattr(obj, '{}_{}'.format(key, currency)) * multiply
-    return format_price(currency, price)
+    return format_price_with_currency(price, currency)
 
 
 @register.simple_tag()
-def get_price_for_currency(obj, key, currency):
-    price = obj.get('{}_{}'.format(key, currency))
-
-    return format_price(currency, price)
-
-
-@register.simple_tag
-def format_price_with_currency(price, currency):
-    return format_price(currency, price)
+def get_price_in_currency(obj, key, exchange_rates, currency):
+    price = round(Decimal(obj.get(key, 0)) / exchange_rates[currency], 2)
+    return format_price_with_currency(price, currency)

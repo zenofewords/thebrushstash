@@ -15,6 +15,6 @@
 
       {% include 'shop/includes/checkout_address_form.html' %}
       {% include 'shop/includes/checkout_payment_form.html' %}
-    {% purchase_summary_tag bag region currency %}
+    {% purchase_summary_tag bag region exchange_rates currency %}
   </div>
 {% endblock content %}

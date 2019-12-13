@@ -6,7 +6,6 @@ from django.utils.translation import gettext as _
 
 from account.models import CustomUser
 from thebrushstash.constants import (
-    DEFAULT_REGION,
     form_mandatory_fields,
     form_extra_fields,
 )
@@ -123,7 +122,7 @@ class AddressForm(forms.ModelForm):
         self.fields['email'].required = True
         self.fields['email'].widget.attrs['placeholder'] = _('E-mail address')
 
-        self.fields['phone_number'].required = False
+        self.fields['phone_number'].required = True
         self.fields['phone_number'].widget.attrs['placeholder'] = _('Phone number')
 
         self.fields['company_name'].required = False

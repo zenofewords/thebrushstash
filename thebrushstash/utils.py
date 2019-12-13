@@ -46,9 +46,6 @@ from shop.models import (
     InvoiceStatus,
     Product,
 )
-from thebrushstash.constants import (
-    currency_symbol_mapping,
-)
 from thebrushstash.models import Country
 
 
@@ -170,7 +167,7 @@ def generate_srcsets(path, url, original, slots):
     for key in srcset_mapping.keys():
         extension, device, shape = key.split('_')
 
-        properties = (('large', 2), ('medium', 1), )
+        properties = (('large', 3), ('medium', 2), ('small', 1))
         if device == 'mobile':
             properties = (('medium', 2), ('small', 1), )
 
@@ -428,6 +425,10 @@ def send_purchase_email(session, current_site, invoice):
         newsletter_recipient.subscribed = True
         newsletter_recipient.save()
 
+    exchange_rates = {}
+    for exchange_rate in ExchangeRate.objects.all():
+        exchange_rates[exchange_rate.currency.lower()] = exchange_rate.middle_rate
+
     data = {
         'domain': current_site.domain,
         'site_name': current_site.name,
@@ -440,6 +441,7 @@ def send_purchase_email(session, current_site, invoice):
         'currency': session['currency'],
         'include_registration': include_registration,
         'include_newsletter': include_newsletter,
+        'exchange_rates': exchange_rates,
         **registration_params,  # noqa
     }
     message_html = render_to_string('shop/purchase_complete_email.html', data)
@@ -510,7 +512,7 @@ def complete_purchase(session, invoice_status, request):
     if invoice:
         phone_number = request.POST.get('phone_number', '')
         invoice.status = invoice_status
-        invoice.order_total = session['bag']['grand_total_hrk']  # must be in hrk
+        invoice.order_total = session['bag']['grand_total']  # must be in hrk
         invoice.payment_method = session['payment_method']
         invoice.phone_number = phone_number
         invoice.save()
@@ -523,12 +525,6 @@ def complete_purchase(session, invoice_status, request):
         session['order_number'] = None
         session['user_information']['phone_number'] = phone_number
         session['user_information']['note'] = None
-
-
-def format_price(currency, price):
-    if currency == 'hrk':
-        return '{} {}'.format(price, currency_symbol_mapping[currency])
-    return '{}{}'.format(currency_symbol_mapping[currency], price)
 
 
 def check_bag_content(products):

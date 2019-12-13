@@ -123,6 +123,10 @@ ready(() => {
     fieldInfo.hidden = !fieldInfo.hidden
   })
 
+  fieldInfo && fieldInfo.addEventListener('click', (event) => {
+    fieldInfo.hidden = true
+  })
+
   previousStepLink && previousStepLink.addEventListener('click', (event) => {
     event.preventDefault()
     phoneNumberInput.required = false
@@ -433,6 +437,7 @@ ready(() => {
 
   phoneNumberInput && phoneNumberInput.addEventListener('invalid', (event) => {
     event.preventDefault()
+    fieldInfo.hidden = false
     showErrorMessage(event.target, 'Ovo polje je obavezno.')
   })
 
