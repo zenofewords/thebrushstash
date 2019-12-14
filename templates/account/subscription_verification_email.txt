@@ -1,5 +1,5 @@
 {% load i18n %}{% load shop_tags %}{% trans "You've been subscribed to our newsletter!" %}
-{% trans "Dear customers, you have subscribed to The Brush Stash Webshop newsletter! We will contact you only in cases of new products arriving or discounts and special offers." %}
+{% trans "Dear customer, you have subscribed to The Brush Stash Webshop newsletter! We will contact you only in cases of new products arriving or discounts and special offers." %}
 {% blocktrans %}Pretplatu na newsletter možete aktivirati ovdje:{% endblocktrans %}
 {{ protocol }}://{{ domain }}{% url 'account:subscribe-to-newsletter' uidb64=uid %}
 {% blocktrans %}Hvala vam, srdačan pozdrav,<br>vaš The Brush Stash team{% endblocktrans %}

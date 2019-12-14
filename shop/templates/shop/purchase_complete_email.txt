@@ -7,7 +7,7 @@
 {% blocktrans %}Thank you for using The Brush Stash!{% endblocktrans %}
 {% endif %}
 {% if include_newsletter %}
-{% trans "Dear customers, you have subscribed to The Brush Stash Webshop newsletter! We will contact you only in cases of new products arriving or discounts and special offers." %}
+{% trans "Dear customer, you have subscribed to The Brush Stash Webshop newsletter! We will contact you only in cases of new products arriving or discounts and special offers." %}
 {% endif %}
 {% trans "Thank you for your order and for choosing The Brush Stash! Your parcel will be packaged and shipped to your address as soon as possible." %}
 {% trans "Your order number is:" %} {{ invoice.order_number }}

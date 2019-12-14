@@ -1,10 +1,7 @@
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.utils.decorators import method_decorator
 from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 
-from shop.models import Invoice
 from thebrushstash.constants import (
     ABOUT,
     COMPLAINTS,
@@ -117,18 +114,6 @@ class TakingCareOfYourBrushView(TemplateView):
             'title_cro': sp_content.title_cro,
             'content': sp_content.content,
             'content_cro': sp_content.content_cro,
-        })
-        return context
-
-
-@method_decorator(staff_member_required, name='dispatch')
-class PrintShipInfoView(TemplateView):
-    template_name = 'thebrushstash/print_ship_info.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'invoice': Invoice.objects.get(pk=kwargs.get('pk'))
         })
         return context
 
