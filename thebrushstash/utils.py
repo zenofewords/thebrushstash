@@ -229,7 +229,7 @@ def update_user_information(user, email, data):
     user.save()
 
 
-def register_user(data, current_site):
+def register_user(data):
     email = data.get('email')
     user = CustomUser.objects.filter(email=email).first()
 
@@ -299,6 +299,7 @@ def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
     invoice.address = data.get('address')
     invoice.zip_code = data.get('zip_code')
 
+    invoice.phone_number = data.get('phone_number', '')
     invoice.state_county = data.get('state_county', '')
     invoice.company_name = data.get('company_name', '')
     invoice.company_address = data.get('company_address', '')
@@ -513,11 +514,9 @@ def complete_purchase(session, invoice_status, request):
     invoice = Invoice.objects.filter(order_number=session['order_number']).first()
 
     if invoice:
-        phone_number = request.POST.get('phone_number', '')
         invoice.status = invoice_status
-        invoice.order_total = session['bag']['grand_total']  # must be in hrk
+        invoice.order_total = session['bag']['grand_total']
         invoice.payment_method = session['payment_method']
-        invoice.phone_number = phone_number
         invoice.save()
 
         update_inventory(invoice, session['bag']['products'])
@@ -526,7 +525,6 @@ def complete_purchase(session, invoice_status, request):
         send_purchase_email(session, current_site, invoice)
         session['bag'] = EMPTY_BAG
         session['order_number'] = None
-        session['user_information']['phone_number'] = phone_number
         session['user_information']['note'] = None
 
 

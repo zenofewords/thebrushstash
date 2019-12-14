@@ -57,7 +57,9 @@ class UserInformationSerializer(serializers.Serializer):
 class ShippingAddressSerializer(serializers.Serializer):
     shipping_first_name = serializers.CharField(required=True, max_length=200)
     shipping_last_name = serializers.CharField(required=True, max_length=200)
-    shipping_country = serializers.CharField(required=False, allow_blank=True, max_length=50)
+    account_shipping_country = serializers.CharField(
+        required=False, allow_blank=True, max_length=50
+    )
     shipping_address = serializers.CharField(required=True, max_length=500)
     shipping_city = serializers.CharField(required=True, max_length=200)
     shipping_zip_code = serializers.CharField(required=True, max_length=100)

@@ -8,7 +8,6 @@ from rest_framework import (
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from django.conf import settings
-from django.contrib.sites.shortcuts import get_current_site
 
 from shop.api.serializers import (
     PaymentMethodSerializer,
@@ -193,9 +192,7 @@ class ProcessOrderView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        current_site = get_current_site(request)
-        user, active = register_user(serializer.data, current_site)
-
+        user, active = register_user(serializer.data)
         created = subscribe_to_newsletter(user, serializer.data)
 
         session = request.session
@@ -225,7 +222,7 @@ class ProcessOrderView(GenericAPIView):
             'region': session['region'],
             'language': session['_language'],
             'signature': get_signature({
-                'amount': bag['grand_total'],  # this value must stay in hrk
+                'amount': bag['grand_total'],
                 **user_info,  # noqa
                 'cart': cart,
                 'currency': 'HRK',
@@ -250,7 +247,9 @@ class UpdateShippingAddressView(GenericAPIView):
         invoice = Invoice.objects.get(order_number=order_number)
         invoice.shipping_first_name = serializer.data.get('shipping_first_name', '')
         invoice.shipping_last_name = serializer.data.get('shipping_last_name', '')
-        invoice.invoice_shipping_country = get_country(serializer.data.get('country', 'Croatia'))
+        invoice.invoice_shipping_country = get_country(
+            serializer.data.get('account_shipping_country', '')
+        )
         invoice.shipping_city = serializer.data.get('shipping_city', '')
         invoice.shipping_address = serializer.data.get('shipping_address', '')
         invoice.shipping_zip_code = serializer.data.get('shipping_zip_code', '')

@@ -101,7 +101,7 @@ export const updatePaymentMethod = (paymentMethod) => {
   setPaymentMethod(paymentMethod).then((data) => data.json().then((response) => {
     if (parseInt(response.bag.fees)) {
       summaryRowFees.classList.remove('hidden')
-      summaryRowFeesValue.innerHTML = `${response.bag.fees} kn` // must be in hrk
+      summaryRowFeesValue.innerHTML = `${response.bag.fees} kn` // COD is only available in hr
       ipgFormSubmitButton.classList.add('hidden')
       cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.remove('hidden')
     } else {
@@ -110,7 +110,7 @@ export const updatePaymentMethod = (paymentMethod) => {
       cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.add('hidden')
       summaryRowFeesValue.innerHTML = null
     }
-    ipgAmount.value = response.bag.grand_total // must be in hrk
+    ipgAmount.value = response.bag.grand_total
 
     if (summaryShippingCost) {
       summaryShippingCost.innerHTML = formatPrice(
@@ -127,7 +127,7 @@ export const updatePaymentMethod = (paymentMethod) => {
 
 const updateIPGInputs = (response) => {
   ipgOrderNumber.value = response.order_number
-  ipgAmount.value = response.grand_total // must be in hrk
+  ipgAmount.value = response.grand_total
   ipgCart.value = response.cart
   ipgLanguage.value = response.language
   ipgSignature.value = response.signature
@@ -389,7 +389,7 @@ export const removeFromBag = (slug) => {
     refreshReviewBag(response, slug)
 
     if (ipgAmount && ipgCart) {
-      ipgAmount.value = response.bag.grand_total // must be in hrk
+      ipgAmount.value = response.bag.grand_total
       ipgCart.value = response.cart
     }
   }))
