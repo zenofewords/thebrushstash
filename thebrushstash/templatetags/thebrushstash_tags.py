@@ -2,10 +2,7 @@ from django import template
 from django.utils.translation import get_language
 
 from shop.constants import EMPTY_BAG
-from shop.utils import (
-    set_tax,
-    set_shipping_cost,
-)
+from shop.utils import set_tax
 from thebrushstash.constants import DEFAULT_REGION
 from thebrushstash.models import (
     CreditCardLogo,

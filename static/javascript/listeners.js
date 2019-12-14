@@ -204,8 +204,8 @@ ready(() => {
     if (!cashOnDeliveryRadio.checked) {
       cashOnDeliveryRadio.checked = true
       phoneNumberInput.required = true
-      updatePaymentMethod(cashOnDeliveryRadio.value)
       updateShippingCostForCountry(invoiceFormCountryInput.value)
+      updatePaymentMethod(cashOnDeliveryRadio.value)
 
       shippingAddressChoice.hidden = true
       shippingAddressWrapper.hidden = true

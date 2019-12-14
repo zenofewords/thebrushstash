@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import get_language
 
 from thebrushstash.mixins import (
     LinkedMixin,
@@ -21,6 +22,9 @@ class Country(PublishedMixin):
         ordering = ('slug', )
 
     def __str__(self):
+        language = get_language()
+        if language == 'hr':
+            return self.name_cro
         return self.name
 
 
