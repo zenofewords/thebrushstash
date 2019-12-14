@@ -430,7 +430,7 @@ export const clearErrorMessages = () => {
   }
 }
 
-export const updateShippingCostForCountry = (countryName) => {
+export const updateShippingCostForCountry = (countryName, callback = null) => {
   updateShippingCost(countryName).then((data) => data.json().then((response) => {
     summaryShippingCost.innerHTML = formatPrice(
       response.bag['shipping_cost'], response.exchange_rate, response.currency
@@ -440,6 +440,10 @@ export const updateShippingCostForCountry = (countryName) => {
     )
     if (summaryGrandTotalHrk) {
       summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
+    }
+  }).then(() => {
+    if (callback) {
+      callback()
     }
   }))
 }
