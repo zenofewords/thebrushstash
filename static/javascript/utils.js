@@ -189,9 +189,11 @@ export const updateShippingAddressData = (form) => {
     data[key] = value
   }
 
-  updateShippingAddress(data).then(() => {
+  updateShippingAddress(data).then((data) => data.json().then((response) => {
+    ipgAmount.value = response.grand_total
+    ipgSignature.value = response.signature
     form.submit()
-  })
+  }))
 }
 
 export const switchActiveImage = (event) => {
@@ -428,7 +430,7 @@ export const clearErrorMessages = () => {
   }
 }
 
-export const updateShippingCostByCountry = (countryName) => {
+export const updateShippingCostForCountry = (countryName) => {
   updateShippingCost(countryName).then((data) => data.json().then((response) => {
     summaryShippingCost.innerHTML = formatPrice(
       response.bag['shipping_cost'], response.exchange_rate, response.currency

@@ -32,8 +32,8 @@ class UserInformationSerializer(serializers.Serializer):
     address = serializers.CharField(required=True, max_length=500)
     city = serializers.CharField(required=True, max_length=200)
     zip_code = serializers.CharField(required=True, max_length=100)
-    phone_number = serializers.CharField(required=True, max_length=50)
 
+    phone_number = serializers.CharField(required=True, max_length=50)
     state_county = serializers.CharField(required=False, allow_blank=True, max_length=200)
     note = serializers.CharField(required=False, allow_blank=True, max_length=1000)
 

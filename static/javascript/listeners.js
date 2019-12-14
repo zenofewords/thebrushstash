@@ -90,7 +90,7 @@ import {
   toggleStickyNav,
   updatePaymentMethod,
   updateShippingAddressData,
-  updateShippingCostByCountry,
+  updateShippingCostForCountry,
 } from './utils'
 
 const ready = (runScript) => {
@@ -137,7 +137,7 @@ ready(() => {
     checkoutAddressWrapper.classList.remove('inactive')
     checkoutPaymentTitle.classList.add('inactive')
     checkoutPaymentWrapper.classList.add('inactive')
-    updateShippingCostByCountry(invoiceFormCountryInput.value)
+    updateShippingCostForCountry(invoiceFormCountryInput.value)
 
     creditCardRadio.checked = false
     shippingAddressChoice.hidden = true
@@ -205,7 +205,7 @@ ready(() => {
       cashOnDeliveryRadio.checked = true
       phoneNumberInput.required = true
       updatePaymentMethod(cashOnDeliveryRadio.value)
-      updateShippingCostByCountry(invoiceFormCountryInput.value)
+      updateShippingCostForCountry(invoiceFormCountryInput.value)
 
       shippingAddressChoice.hidden = true
       shippingAddressWrapper.hidden = true
@@ -237,7 +237,7 @@ ready(() => {
       shippingAddressWrapper.hidden = false
 
       if (invoiceFormShippingCountryInput.value) {
-        updateShippingCostByCountry(invoiceFormShippingCountryInput.value)
+        updateShippingCostForCountry(invoiceFormShippingCountryInput.value)
       }
 
       invoiceFormShippingFirstNameInput.required = true
@@ -255,7 +255,7 @@ ready(() => {
     if (!sameShippingAddressInput.checked) {
       sameShippingAddressInput.checked = true
       shippingAddressWrapper.hidden = true
-      updateShippingCostByCountry(invoiceFormCountryInput.value)
+      updateShippingCostForCountry(invoiceFormCountryInput.value)
 
       invoiceFormShippingFirstNameInput.required = false
       invoiceFormShippingLastNameInput.required = false
@@ -302,7 +302,7 @@ ready(() => {
       }
       if (creditCardRadio.checked && differentShippingAddressInput.checked) {
         shippingAddressWrapper.hidden = false
-        updateShippingCostByCountry(invoiceFormShippingCountryInput.value)
+        updateShippingCostForCountry(invoiceFormShippingCountryInput.value)
       }
     } else {
       continueToPaymentButton.disabled = false
@@ -390,7 +390,7 @@ ready(() => {
         }
         if (creditCardRadio.checked && differentShippingAddressInput.checked) {
           shippingAddressWrapper.hidden = false
-          updateShippingCostByCountry(invoiceFormShippingCountryInput.value)
+          updateShippingCostForCountry(invoiceFormShippingCountryInput.value)
         }
         processPaymentAddressData(checkoutAddressForm)
       }
@@ -400,14 +400,14 @@ ready(() => {
   invoiceFormCountryInput && invoiceFormCountryInput.addEventListener('change', (event) => {
     const selected = event.target.value
     if (selected && invoiceFormShippingCountryInput && !invoiceFormShippingCountryInput.value) {
-      updateShippingCostByCountry(selected)
+      updateShippingCostForCountry(selected)
     }
   })
 
   invoiceFormShippingCountryInput && invoiceFormShippingCountryInput.addEventListener('change', (event) => {
     const selected = event.target.value
     if (selected) {
-      updateShippingCostByCountry(selected)
+      updateShippingCostForCountry(selected)
     }
   })
 

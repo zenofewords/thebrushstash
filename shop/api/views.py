@@ -255,7 +255,30 @@ class UpdateShippingAddressView(GenericAPIView):
         invoice.shipping_zip_code = serializer.data.get('shipping_zip_code', '')
         invoice.save()
 
-        return response.Response({'order_number': order_number}, status=status.HTTP_200_OK)
+        session = request.session
+        bag = session.get('bag')
+        cart = get_cart(bag)
+
+        user_info = {}
+        for key, ipg_key in dict(zip(form_mandatory_fields, ipg_fields)).items():
+            if key in form_mandatory_fields:
+                user_info[ipg_key] = session['user_information'][key]
+
+        return response.Response({
+            'order_number': order_number,
+            'grand_total': bag['grand_total'],
+            'signature': get_signature({
+                'amount': bag['grand_total'],
+                **user_info,  # noqa
+                'cart': cart,
+                'currency': 'HRK',
+                'language': session['_language'],
+                'order_number': session['order_number'],
+                'require_complete': settings.IPG_REQUIRE_COMPLETE,
+                'store_id': settings.IPG_STORE_ID,
+                'version': settings.IPG_API_VERSION,
+            }),
+        }, status=status.HTTP_200_OK)
 
 
 class UpdateShippingCostView(GenericAPIView):
