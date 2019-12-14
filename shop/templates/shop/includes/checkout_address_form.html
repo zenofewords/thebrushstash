@@ -31,7 +31,7 @@
     {% include 'account/includes/form_field.html' with field=form.zip_code %}
     {% include 'account/includes/form_field.html' with field=form.email %}
 
-    {% trans 'Kontakt broj služi kako biste mogli primiti sms obavijest od GLS-a o točnom danu i okvirnom terminu isporuke, a sve narudžbe koje uključuju plaćanje pouzećem, prethodno ćemo potvrditi telefonski.' as phone_info %}
+    {% trans 'Contact number is required for receiving sms info from our courier about the exact date and approximate time frame of delivery.' as phone_info %}
     {% include 'account/includes/form_field.html' with field=form.phone_number info=phone_info %}
 
     {% include 'account/includes/form_field.html' with field=form.note %}

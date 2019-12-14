@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-13 23:27+0000\n"
+"POT-Creation-Date: 2019-12-14 13:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,10 +163,12 @@ msgstr "Molimo provjerite točnost unešenih podataka."
 
 #: shop/templates/shop/includes/checkout_address_form.html:34
 msgid ""
+"Contact number is required for receiving sms info from our courier about the "
+"exact date and approximate time frame of delivery."
+msgstr ""
 "Kontakt broj služi kako biste mogli primiti sms obavijest od GLS-a o točnom "
 "danu i okvirnom terminu isporuke, a sve narudžbe koje uključuju plaćanje "
 "pouzećem, prethodno ćemo potvrditi telefonski."
-msgstr ""
 
 #: shop/templates/shop/includes/checkout_address_form.html:70
 #, python-format
@@ -325,11 +327,14 @@ msgstr "Hvala Vam što koristite The Brush Stash!"
 #: templates/account/subscription_verification_email.html:1987
 #: templates/account/subscription_verification_email.txt:2
 msgid ""
+"Dear customers, you have subscribed to The Brush Stash Webshop newsletter! "
+"We will contact you only in cases of new products arriving or discounts and "
+"special offers."
+msgstr ""
 "Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! "
 "Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam "
 "se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o "
 "eventualnim posebnim ponudama."
-msgstr ""
 
 #: shop/templates/shop/purchase_complete_email.html:2045
 #: shop/templates/shop/purchase_complete_email.txt:12
@@ -356,70 +361,70 @@ msgstr "ADRESA ZA NAPLATU:"
 msgid "SHIPPING TO:"
 msgstr "ADRESA DOSTAVE:"
 
-#: shop/templates/shop/purchase_complete_email.html:2205
+#: shop/templates/shop/purchase_complete_email.html:2198
 #: shop/templates/shop/purchase_complete_email.txt:37
 msgid "ITEMS ORDERED"
 msgstr "NARUČENI PROIZVODI:"
 
-#: shop/templates/shop/purchase_complete_email.html:2217
+#: shop/templates/shop/purchase_complete_email.html:2210
 #: shop/templates/shop/purchase_complete_email.txt:38
 msgid "PRODUCT"
 msgstr "PROIZVOD"
 
-#: shop/templates/shop/purchase_complete_email.html:2220
+#: shop/templates/shop/purchase_complete_email.html:2213
 #: shop/templates/shop/purchase_complete_email.txt:39
 msgid "PRICE"
 msgstr "CIJENA"
 
-#: shop/templates/shop/purchase_complete_email.html:2223
+#: shop/templates/shop/purchase_complete_email.html:2216
 #: shop/templates/shop/purchase_complete_email.txt:40
 msgid "QTY"
 msgstr "KOL"
 
-#: shop/templates/shop/purchase_complete_email.html:2226
+#: shop/templates/shop/purchase_complete_email.html:2219
 #: shop/templates/shop/purchase_complete_email.txt:41
 msgid "TOTAL"
 msgstr "UKUPNO"
 
-#: shop/templates/shop/purchase_complete_email.html:2270
+#: shop/templates/shop/purchase_complete_email.html:2263
 #: shop/templates/shop/purchase_complete_email.txt:48
 msgid "PAYMENT:"
 msgstr "NAPLATA:"
 
-#: shop/templates/shop/purchase_complete_email.html:2294
+#: shop/templates/shop/purchase_complete_email.html:2287
 #: shop/templates/shop/purchase_complete_email.txt:49
 #: thebrushstash/templates/thebrushstash/includes/bag.html:38
 msgid "Subtotal:"
 msgstr "Cijena:"
 
-#: shop/templates/shop/purchase_complete_email.html:2303
+#: shop/templates/shop/purchase_complete_email.html:2296
 #: shop/templates/shop/purchase_complete_email.txt:51
 msgid "VAT included:"
 msgstr "Uključen PDV:"
 
-#: shop/templates/shop/purchase_complete_email.html:2312
+#: shop/templates/shop/purchase_complete_email.html:2305
 #: shop/templates/shop/purchase_complete_email.txt:53
 #: shop/templates/shop/tags/purchase_summary_tag.html:24
 msgid "Shipping:"
 msgstr "Dostava:"
 
-#: shop/templates/shop/purchase_complete_email.html:2323
+#: shop/templates/shop/purchase_complete_email.html:2316
 #: shop/templates/shop/purchase_complete_email.txt:55
 msgid "GLS (cash on delivery):"
 msgstr "GLS (plaćanje pouzećem):"
 
-#: shop/templates/shop/purchase_complete_email.html:2339
+#: shop/templates/shop/purchase_complete_email.html:2332
 #: shop/templates/shop/purchase_complete_email.txt:57
 #: shop/templates/shop/tags/purchase_summary_tag.html:40
 msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
-#: shop/templates/shop/purchase_complete_email.html:2359
+#: shop/templates/shop/purchase_complete_email.html:2352
 #: shop/templates/shop/purchase_complete_email.txt:60
 msgid "Thank you for using The Brush Stash products!"
 msgstr "Hvala Vam što koristite The Brush Stash proizvode!"
 
-#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:453
+#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:457
 msgid "Purchase complete"
 msgstr "Vaša narudžba je izvršena!"
 
@@ -866,31 +871,31 @@ msgstr "Pošalji"
 msgid "Region:"
 msgstr "Regija:"
 
-#: thebrushstash/utils.py:275
+#: thebrushstash/utils.py:278
 msgid "Already subscribed."
 msgstr "Već ste prijavljeni na newsletter."
 
-#: thebrushstash/utils.py:277
+#: thebrushstash/utils.py:280
 msgid "Subscribed, thanks!"
 msgstr "Prijavljeni ste, hvala!"
 
-#: thebrushstash/utils.py:280
+#: thebrushstash/utils.py:283
 msgid "Check your e-mail for confirmation!"
 msgstr "Provjerite svoj e-mail kako biste potvrdili pretplatu na newsletter!"
 
-#: thebrushstash/utils.py:371
+#: thebrushstash/utils.py:375
 msgid "Activate your account"
 msgstr "Aktivirajte svoj korisnički račun"
 
-#: thebrushstash/utils.py:397
+#: thebrushstash/utils.py:401
 msgid "Subscribe to newsletter"
 msgstr "Pretplatite se na newsletter"
 
-#: thebrushstash/utils.py:532
+#: thebrushstash/utils.py:533
 msgid "There's nothing in your bag."
 msgstr "Vaša košarica je prazna."
 
-#: thebrushstash/utils.py:539
+#: thebrushstash/utils.py:540
 msgid ""
 "\n"
 "                Looks like {} is all sold out\n"
@@ -900,7 +905,7 @@ msgstr ""
 "                Čini se da je {} rasprodan\n"
 "                Morat ćete ga ukloniti iz košarice da bi mogli nastaviti."
 
-#: thebrushstash/utils.py:543
+#: thebrushstash/utils.py:544
 msgid ""
 "\n"
 "                We've got only {} {} left,\n"
