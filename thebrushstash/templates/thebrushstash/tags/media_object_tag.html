@@ -2,7 +2,7 @@
   {% if preview and not object.youtube_video_id %}
     <a class="images-with-preview" href="#">
   {% endif %}
-    <div {% if not exclude_id %} id="{{ object.pk }}" {% endif %} {{ class_list|safe }} {% if hidden %} hidden{% endif %}>
+    <div {% if data_id %} data-id="{{ object.pk }}" {% else %} id="{{ object.pk }}" {% endif %} {{ class_list|safe }} {% if hidden %} hidden{% endif %}>
       <picture>
         <source
           srcset="{{ webp_desktop_srcset }}"

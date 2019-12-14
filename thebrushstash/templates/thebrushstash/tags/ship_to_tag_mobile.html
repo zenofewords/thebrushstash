@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="ship-to-wrapper">
-  <label for="language-form-select" class="label-text">
+  <label for="{{ prefix }}language-form-select" class="label-text">
     {% trans 'Region:' %}
   </label>
 
@@ -9,10 +9,10 @@
     {% csrf_token %}
     <input class="language-inputs-mobile" name="language" type="hidden" value="hr">
 
-    <select id="language-form-select">
-      <option value="{{ selected_region.name }}" name="language">{{ selected_region.name|upper }}</option>
+    <select id="{{ prefix }}language-form-select">
+      <option value="{{ selected_region.name }}">{{ selected_region.name|upper }}</option>
       {% for region in regions %}
-        <option value="{{ region.name }}" name="language">
+        <option value="{{ region.name }}">
           {{ region.name|upper }}
         </option>
       {% endfor %}

@@ -197,7 +197,7 @@ export const updateShippingAddressData = (form) => {
 }
 
 export const switchActiveImage = (event) => {
-  const id = event.currentTarget.id
+  const id = event.currentTarget.dataset.id
   const reveal = [...imageWrappers].find(x => x.id === id)
   const hide = [...imageWrappers].find(x => x.classList.contains('selected'))
 

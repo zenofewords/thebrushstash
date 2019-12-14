@@ -89,7 +89,7 @@ def media_object(obj, shape, selected=False, hidden=False, preview=False, exclud
         'class_list': class_list,
         'hidden': hidden,
         'preview': preview,
-        'exclude_id': exclude_id,
+        'data_id': shape == 'thumbnail',
     }
     data.update(srcsets)
     return data

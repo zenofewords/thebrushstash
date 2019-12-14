@@ -28,7 +28,7 @@
 
       {% trans "E-mail address" as field_label %}
       {% trans "Type in a valid e-mail address." as field_error %}
-      {% include 'account/includes/custom_form_field.html' with field=form.username label=field_label error=field_error %}
+      {% include 'account/includes/custom_form_field.html' with field=form.username label=field_label error=field_error autofocus='true' %}
 
       {% trans "Password" as field_label %}
       {% trans "This field is required." as field_error %}
