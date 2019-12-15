@@ -3,8 +3,9 @@
 <div class="field-wrapper">
   <label for="{{ field.id_for_label }}" class="screen-reader-only">{{ field.label }}</label>
   {{ field }}
+  <span class="field-label {% if field.value %}show-label{% endif %}">{{ field.label }}</span>
   {{ field.errors }}
-  <span id="{{ field.id_for_label }}-error" class="error" hidden>{% trans "This field is required." %}</span>
+  <span id="{{ field.id_for_label }}-error" class="error" hidden>{% if custom_error %}{{ custom_error }}{% else %}{% trans "This field is required." %}{% endif %}</span>
 
   {% if info %}
     <span class="field-info-icon">

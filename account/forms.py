@@ -61,7 +61,7 @@ class PasswordForm(forms.ModelForm):
 
 class AddressForm(forms.ModelForm):
     note = forms.CharField(
-        label='note',
+        label=_('Note (optional)'),
         required=False,
         widget=forms.Textarea(attrs={'placeholder': _('Note (optional)')})
     )
@@ -73,65 +73,85 @@ class AddressForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['country'].empty_label = _('Select country')
         self.fields['country'].required = True
+        self.fields['country'].empty_label = _('Select country')
+        self.fields['country'].label = _('Select country')
         self.fields['country'].to_field_name = 'name'
         self.fields['country'].queryset = Country.published_objects.all()
 
         self.fields['first_name'].required = True
+        self.fields['first_name'].label = _('First name')
         self.fields['first_name'].widget.attrs['placeholder'] = _('First name')
+        self.fields['first_name'].widget.attrs['class'] = 'show-label'
 
         self.fields['last_name'].required = True
+        self.fields['last_name'].label = _('Last name')
         self.fields['last_name'].widget.attrs['placeholder'] = _('Last name')
 
         self.fields['address'].required = True
+        self.fields['address'].label = _('Address')
         self.fields['address'].widget.attrs['placeholder'] = _('Address')
 
         self.fields['city'].required = True
+        self.fields['city'].label = _('City')
         self.fields['city'].widget.attrs['placeholder'] = _('City')
 
         self.fields['zip_code'].required = True
+        self.fields['zip_code'].label = _('Postcode/ZIP')
         self.fields['zip_code'].widget.attrs['placeholder'] = _('Postcode/ZIP')
 
         self.fields['state_county'].required = False
+        self.fields['state_county'].label = _('State/County (optional)')
         self.fields['state_county'].widget.attrs['placeholder'] = _('State/County (optional)')
 
-        self.fields['account_shipping_country'].empty_label = _('Select country')
         self.fields['account_shipping_country'].required = False
+        self.fields['account_shipping_country'].label = _('Select country')
+        self.fields['account_shipping_country'].empty_label = _('Select country')
         self.fields['account_shipping_country'].to_field_name = 'name'
         self.fields['account_shipping_country'].queryset = Country.published_objects.all()
 
         self.fields['shipping_first_name'].required = False
+        self.fields['shipping_first_name'].label = _('First name')
         self.fields['shipping_first_name'].widget.attrs['placeholder'] = _('First name')
 
         self.fields['shipping_last_name'].required = False
+        self.fields['shipping_last_name'].label = _('Last name')
         self.fields['shipping_last_name'].widget.attrs['placeholder'] = _('Last name')
 
         self.fields['shipping_address'].required = False
+        self.fields['shipping_address'].label = _('Address')
         self.fields['shipping_address'].widget.attrs['placeholder'] = _('Address')
 
         self.fields['shipping_city'].required = False
+        self.fields['shipping_city'].label = _('City')
         self.fields['shipping_city'].widget.attrs['placeholder'] = _('City')
 
         self.fields['shipping_zip_code'].required = False
+        self.fields['shipping_zip_code'].label = _('Postcode/ZIP')
         self.fields['shipping_zip_code'].widget.attrs['placeholder'] = _('Postcode/ZIP')
 
         self.fields['shipping_state_county'].required = False
+        self.fields['shipping_state_county'].label = _('State/County (optional)')
         self.fields['shipping_state_county'].widget.attrs['placeholder'] = _('State/County (optional)')
 
         self.fields['email'].required = True
+        self.fields['email'].label = _('E-mail address')
         self.fields['email'].widget.attrs['placeholder'] = _('E-mail address')
 
         self.fields['phone_number'].required = True
+        self.fields['phone_number'].label = _('Phone number')
         self.fields['phone_number'].widget.attrs['placeholder'] = _('Phone number')
 
         self.fields['company_name'].required = False
+        self.fields['company_name'].label = _('Company name')
         self.fields['company_name'].widget.attrs['placeholder'] = _('Company name')
 
         self.fields['company_address'].required = False
+        self.fields['company_address'].label = _('Company address')
         self.fields['company_address'].widget.attrs['placeholder'] = _('Company address')
 
         self.fields['company_uin'].required = False
+        self.fields['company_uin'].label = _('Company UIN')
         self.fields['company_uin'].widget.attrs['placeholder'] = _('Company UIN')
 
         self.fields['register'].label = _('Create an account')
