@@ -16,6 +16,7 @@ export const checkoutAddressForm = document.getElementById('checkout-address-for
 export const checkoutAddressTitle = document.querySelector('.checkout-address-title')
 export const checkoutAddressWrapper = document.querySelector('.checkout-address-wrapper')
 export const checkoutHelpText = document.querySelector('.checkout-help-text')
+export const checkoutIpgWrapper = document.querySelector('.checkout-ipg-wrapper')
 export const checkoutPaymentTitle = document.querySelector('.checkout-payment-title')
 export const checkoutPaymentWrapper = document.querySelector('.checkout-payment-wrapper')
 export const checkoutR1CompanyAddress = document.getElementById('id_company_address')

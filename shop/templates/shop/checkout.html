@@ -11,11 +11,19 @@
   <div class="checkout-wrapper">
     <div class="checkout-form-wrapper">
       <form id="checkout-address-form" method="post" action="{% url 'shop:purchase-completed' %}">
-      {% csrf_token %}
-      {{ form.non_field_errors }}
+        {% csrf_token %}
+        {{ form.non_field_errors }}
 
-      {% include 'shop/includes/checkout_address_form.html' %}
-      {% include 'shop/includes/checkout_payment_form.html' %}
+        {% include 'shop/includes/checkout_address_form.html' %}
+        {% include 'shop/includes/checkout_payment_form.html' %}
+      </form>
+
+      <div class="checkout-ipg-wrapper inactive">
+        {% include 'shop/includes/checkout_ipg_form.html' with region=region %}
+        <a href="#" class="previous-step-link">
+          {% trans "Previous step" %}
+        </a>
+      </div>
     </div>
     {% purchase_summary_tag bag region exchange_rates currency %}
   </div>

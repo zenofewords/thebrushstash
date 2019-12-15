@@ -14,6 +14,7 @@ import {
   checkoutAddressForm,
   checkoutAddressTitle,
   checkoutAddressWrapper,
+  checkoutIpgWrapper,
   checkoutPaymentTitle,
   checkoutPaymentWrapper,
   checkoutR1CompanyAddress,
@@ -138,6 +139,7 @@ ready(() => {
     checkoutAddressWrapper.classList.remove('inactive')
     checkoutPaymentTitle.classList.add('inactive')
     checkoutPaymentWrapper.classList.add('inactive')
+    checkoutIpgWrapper.classList.add('inactive')
     updateShippingCostForCountry(invoiceFormCountryInput.value)
 
     creditCardRadio.checked = false

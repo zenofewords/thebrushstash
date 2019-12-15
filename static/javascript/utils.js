@@ -19,6 +19,7 @@ import {
   checkoutAddressTitle,
   checkoutAddressWrapper,
   checkoutHelpText,
+  checkoutIpgWrapper,
   checkoutPaymentTitle,
   checkoutPaymentWrapper,
   continueToPaymentButton,
@@ -40,8 +41,9 @@ import {
   joinNewsletterMessage,
   mainWrapper,
   navigationWrapper,
-  phoneNumberInput,
   reviewBagLink,
+  shippingAddressChoice,
+  shippingAddressWrapper,
   summaryCheckoutButton,
   summaryGrandTotal,
   summaryGrandTotalHrk,
@@ -142,10 +144,12 @@ const updateIPGInputs = (response) => {
 
 const moveToPaymentForm = () => {
   continueToPaymentButton.disabled = false
+
   checkoutAddressTitle.classList.add('inactive')
   checkoutAddressWrapper.classList.add('inactive')
   checkoutPaymentTitle.classList.remove('inactive')
   checkoutPaymentWrapper.classList.remove('inactive')
+  checkoutIpgWrapper.classList.remove('inactive')
 }
 
 export const processPaymentAddressData = (checkoutAddressForm) => {
@@ -165,6 +169,8 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
 
     if (response.region === 'hr') {
       cashOnDeliveryRadio.checked = true
+      shippingAddressChoice.hidden = true
+      shippingAddressWrapper.hidden = true
       updatePaymentMethod(cashOnDeliveryRadio.value)
     } else {
       updatePaymentMethod(creditCardRadio.value)
