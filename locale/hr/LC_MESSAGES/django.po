@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-15 09:27+0000\n"
+"POT-Creation-Date: 2019-12-15 13:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,26 +19,26 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: account/forms.py:16 account/forms.py:171
+#: account/forms.py:16 account/forms.py:191
 msgid "Required"
 msgstr "Obavezno"
 
-#: account/forms.py:25 account/forms.py:183
+#: account/forms.py:25 account/forms.py:203
 msgid "An account with this e-mail address already exits."
 msgstr "Korisnički račun s ovom e-mail adresom već postoji"
 
-#: account/forms.py:31 account/forms.py:169
+#: account/forms.py:31 account/forms.py:189
 msgid "The two password fields didn't match."
 msgstr "Lozinke se ne podudaraju"
 
-#: account/forms.py:34 account/forms.py:36 account/forms.py:172
-#: account/forms.py:206 templates/account/activate.html:19
+#: account/forms.py:34 account/forms.py:36 account/forms.py:192
+#: account/forms.py:226 templates/account/activate.html:19
 #: templates/registration/login.html:33
 #: templates/registration/password_reset_confirm.html:16
 msgid "Password"
 msgstr "Lozinka"
 
-#: account/forms.py:40 account/forms.py:173
+#: account/forms.py:40 account/forms.py:193
 msgid "Password confirmation"
 msgstr "Potvrdite lozinku"
 
@@ -47,43 +47,50 @@ msgstr "Potvrdite lozinku"
 msgid "Repeat password"
 msgstr "Ponovite lozinku"
 
-#: account/forms.py:44 account/forms.py:174
+#: account/forms.py:44 account/forms.py:194
 msgid "Enter the same password as above, for verification."
 msgstr "Ponovite istu lozinku za potvrdu"
 
-#: account/forms.py:66
+#: account/forms.py:64 account/forms.py:66
 msgid "Note (optional)"
 msgstr "Napomena (neobavezno)"
 
-#: account/forms.py:76 account/forms.py:99
+#: account/forms.py:77 account/forms.py:78 account/forms.py:108
+#: account/forms.py:109
 msgid "Select country"
 msgstr "Odaberite državu"
 
-#: account/forms.py:82 account/forms.py:105
+#: account/forms.py:83 account/forms.py:84 account/forms.py:114
+#: account/forms.py:115
 msgid "First name"
 msgstr "Ime"
 
-#: account/forms.py:85 account/forms.py:108
+#: account/forms.py:88 account/forms.py:89 account/forms.py:118
+#: account/forms.py:119
 msgid "Last name"
 msgstr "Prezime"
 
-#: account/forms.py:88 account/forms.py:111
+#: account/forms.py:92 account/forms.py:93 account/forms.py:122
+#: account/forms.py:123
 msgid "Address"
 msgstr "Adresa"
 
-#: account/forms.py:91 account/forms.py:114
+#: account/forms.py:96 account/forms.py:97 account/forms.py:126
+#: account/forms.py:127
 msgid "City"
 msgstr "Grad"
 
-#: account/forms.py:94 account/forms.py:117
+#: account/forms.py:100 account/forms.py:101 account/forms.py:130
+#: account/forms.py:131
 msgid "Postcode/ZIP"
 msgstr "Poštanski broj"
 
-#: account/forms.py:97 account/forms.py:120
+#: account/forms.py:104 account/forms.py:105 account/forms.py:134
+#: account/forms.py:135
 msgid "State/County (optional)"
 msgstr "Kat"
 
-#: account/forms.py:123 templates/account/register.html:23
+#: account/forms.py:138 account/forms.py:139 templates/account/register.html:23
 #: templates/registration/login.html:29
 #: templates/registration/password_reset_form.html:20
 #: thebrushstash/templates/thebrushstash/tags/newsletter_tag.html:14
@@ -91,35 +98,35 @@ msgstr "Kat"
 msgid "E-mail address"
 msgstr "E-mail adresa"
 
-#: account/forms.py:126
+#: account/forms.py:142 account/forms.py:143
 msgid "Phone number"
 msgstr "Telefon"
 
-#: account/forms.py:129
+#: account/forms.py:146 account/forms.py:147
 msgid "Company name"
 msgstr "Ime tvrtke"
 
-#: account/forms.py:132
+#: account/forms.py:150 account/forms.py:151
 msgid "Company address"
 msgstr "Adresa tvrtke"
 
-#: account/forms.py:135
+#: account/forms.py:154 account/forms.py:155
 msgid "Company UIN"
 msgstr "OIB tvrtke"
 
-#: account/forms.py:137
+#: account/forms.py:157
 msgid "Create an account"
 msgstr "Kreirajte korisnički račun"
 
-#: account/forms.py:142
+#: account/forms.py:162
 msgid "Join to get the latest news from TBS"
 msgstr "Saznajte najnovije TBS vijesti"
 
-#: account/forms.py:147
+#: account/forms.py:167
 msgid "I need an R1 receipt"
 msgstr "Želim R1 račun"
 
-#: account/forms.py:153
+#: account/forms.py:173
 msgid ""
 "I have read and agree to the <a href=\"/general-terms-and-conditions/\"\n"
 "            target=\"_blank\" rel=\"noopener noreferrer\">terms and "
@@ -129,8 +136,8 @@ msgstr ""
 "            target=\"_blank\" rel=\"noopener noreferrer\">uvjete korištenja</"
 "a>"
 
-#: account/forms.py:159
-#: shop/templates/shop/includes/checkout_address_form.html:71
+#: account/forms.py:179
+#: shop/templates/shop/includes/checkout_address_form.html:74
 msgid "You must agree to the terms and conditions to continue."
 msgstr "Potrebno je pristati na uvjete korištenja prije nastavka kupnje."
 
@@ -161,7 +168,22 @@ msgstr ""
 msgid "Please make sure the information listed below is correct."
 msgstr "Molimo provjerite točnost unešenih podataka."
 
+#: shop/templates/shop/includes/checkout_address_form.html:25
+#: templates/account/activate.html:20 templates/account/activate.html:24
+#: templates/account/includes/form_field.html:8
+#: templates/registration/login.html:34
+#: templates/registration/password_reset_confirm.html:17
+#: templates/registration/password_reset_confirm.html:21
+msgid "This field is required."
+msgstr "Ovo polje je obavezno."
+
 #: shop/templates/shop/includes/checkout_address_form.html:34
+#: templates/account/register.html:24 templates/registration/login.html:30
+#: templates/registration/password_reset_form.html:21
+msgid "Type in a valid e-mail address."
+msgstr "Upišite ispravnu e-mail adresu."
+
+#: shop/templates/shop/includes/checkout_address_form.html:37
 msgid ""
 "Contact number is required for receiving sms info from our courier about the "
 "exact date and approximate time frame of delivery."
@@ -170,7 +192,7 @@ msgstr ""
 "danu i okvirnom terminu isporuke, a sve narudžbe koje uključuju plaćanje "
 "pouzećem, prethodno ćemo potvrditi telefonski."
 
-#: shop/templates/shop/includes/checkout_address_form.html:70
+#: shop/templates/shop/includes/checkout_address_form.html:73
 #, python-format
 msgid ""
 "Your personal data will be used to process your order, support your "
@@ -183,7 +205,7 @@ msgstr ""
 "u našim <a href=\"%(terms_url)s\" target=\"_blank\" rel=\"noopener noreferrer"
 "\">Općim uvjetima i politici privatnosti</a>."
 
-#: shop/templates/shop/includes/checkout_address_form.html:87
+#: shop/templates/shop/includes/checkout_address_form.html:90
 msgid "Continue to payment"
 msgstr "Nastavite na plaćanje"
 
@@ -199,7 +221,7 @@ msgstr "Isto kao i adresa naplate"
 msgid "Use a different address"
 msgstr "Koristite drugu adresu za dostavu"
 
-#: shop/templates/shop/includes/checkout_ipg_form.html:56
+#: shop/templates/shop/includes/checkout_ipg_form.html:57
 #: shop/templates/shop/includes/checkout_payment_form.html:30
 msgid "Place order"
 msgstr "Potvrdite narudžbu"
@@ -563,14 +585,6 @@ msgstr ""
 "Vaš korisnički račun je kreiran, ali još uvijek trebate lozinku. Odaberite "
 "složeniju i sigurniju lozinku!"
 
-#: templates/account/activate.html:20 templates/account/activate.html:24
-#: templates/account/includes/form_field.html:7
-#: templates/registration/login.html:34
-#: templates/registration/password_reset_confirm.html:17
-#: templates/registration/password_reset_confirm.html:21
-msgid "This field is required."
-msgstr "Ovo polje je obavezno."
-
 #: templates/account/activate.html:28
 msgid "Submit"
 msgstr "Potvrdi unos"
@@ -619,11 +633,6 @@ msgid ""
 msgstr ""
 "Unesite e-mail adresu kako bismo Vam poslali link za aktivaciju korisničkog "
 "računa."
-
-#: templates/account/register.html:24 templates/registration/login.html:30
-#: templates/registration/password_reset_form.html:21
-msgid "Type in a valid e-mail address."
-msgstr "Upišite ispravnu e-mail adresu."
 
 #: templates/account/register.html:28
 msgid "Send me my activation link"

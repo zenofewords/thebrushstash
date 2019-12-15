@@ -42,6 +42,7 @@
     {% include 'account/includes/form_field.html' with field=form.shipping_last_name %}
     <div class="checkout-select-wrapper">
       {{ form.account_shipping_country }}
+      <span class="field-label">{{ form.account_shipping_country.label }}</span>
       <span id="id_account_shipping_country-error" class="error" hidden></span>
     </div>
     {% include 'account/includes/form_field.html' with field=form.shipping_address %}

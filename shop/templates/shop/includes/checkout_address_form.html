@@ -21,7 +21,8 @@
     {% include 'account/includes/form_field.html' with field=form.last_name %}
     <div class="checkout-select-wrapper">
       {{ form.country }}
-      <span id="id_country-error" class="error" hidden></span>
+      <span class="field-label">{{ form.country.label }}</span>
+      <span id="id_country-error" class="error" hidden>{% trans "This field is required." %}</span>
     </div>
     {% include 'account/includes/form_field.html' with field=form.address %}
     {% if region != 'hr' %}
@@ -29,7 +30,9 @@
     {% endif %}
     {% include 'account/includes/form_field.html' with field=form.city %}
     {% include 'account/includes/form_field.html' with field=form.zip_code %}
-    {% include 'account/includes/form_field.html' with field=form.email %}
+
+    {% trans 'Type in a valid e-mail address.' as email_error_message %}
+    {% include 'account/includes/form_field.html' with field=form.email custom_error=email_error_message %}
 
     {% trans 'Contact number is required for receiving sms info from our courier about the exact date and approximate time frame of delivery.' as phone_info %}
     {% include 'account/includes/form_field.html' with field=form.phone_number info=phone_info %}

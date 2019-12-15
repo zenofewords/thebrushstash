@@ -1,6 +1,7 @@
 <div class="field-wrapper">
   <label for="{{ field.id_for_label }}" class="screen-reader-only">{{ label }}</label>
   <input type="{{ field_type|default:'text' }}" name="{{ field.name }}" {% if autofocus %}autofocus{% endif %} required id="{{ field.id_for_label }}" placeholder="{{ label }}">
+  <span class="field-label {% if field.value %}show-label{% endif %}">{{ field.label }}</span>
   {{ field.errors }}
   <span id="{{ field.id_for_label }}-error" class="error" hidden>{{ error }}</span>
 </div>

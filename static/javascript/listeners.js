@@ -40,6 +40,8 @@ import {
   invoiceFormEmailInput,
   invoiceFormFirstNameInput,
   invoiceFormLastNameInput,
+  invoiceFormNote,
+  invoiceFormStateCountyInput,
   invoiceFormShippingAddressInput,
   invoiceFormShippingCityInput,
   invoiceFormShippingCountryInput,
@@ -131,7 +133,6 @@ ready(() => {
 
   previousStepLink && previousStepLink.addEventListener('click', (event) => {
     event.preventDefault()
-    phoneNumberInput.required = false
 
     checkoutAddressTitle.classList.remove('inactive')
     checkoutAddressWrapper.classList.remove('inactive')
@@ -203,7 +204,6 @@ ready(() => {
   cashOnDeliveryWrapper && cashOnDeliveryWrapper.addEventListener('click', (event) => {
     if (!cashOnDeliveryRadio.checked) {
       cashOnDeliveryRadio.checked = true
-      phoneNumberInput.required = true
       updateShippingCostForCountry(
         invoiceFormCountryInput.value, () => updatePaymentMethod(cashOnDeliveryRadio.value)
       )
@@ -222,7 +222,6 @@ ready(() => {
   creditCardWrapper && creditCardWrapper.addEventListener('click', (event) => {
     if (!creditCardRadio.checked) {
       creditCardRadio.checked = true
-      phoneNumberInput.required = false
 
       shippingAddressChoice.hidden = false
       sameShippingAddressInput.checked = true
@@ -269,6 +268,7 @@ ready(() => {
 
   ipgFormSubmitButton && ipgFormSubmitButton.addEventListener('click', (event) => {
     event.preventDefault()
+    clearErrorMessages()
     const valid = ipgCheckoutForm.reportValidity()
 
     if (valid) {
@@ -398,6 +398,63 @@ ready(() => {
     }
   })
 
+  const showInputLabel = (input) => {
+    const label = input.closest('div').querySelector('.field-label')
+
+    if (input.value.length > 0) {
+      input.classList.add('show-label')
+      label.classList.add('show-label')
+    } else {
+      input.classList.remove('show-label')
+      label.classList.remove('show-label')
+    }
+  }
+
+  const formInputs = [
+    invoiceFormFirstNameInput,
+    invoiceFormLastNameInput,
+    invoiceFormCountryInput,
+    invoiceFormAddressInput,
+    invoiceFormCityInput,
+    invoiceFormZipCodeInput,
+    invoiceFormStateCountyInput,
+    invoiceFormShippingFirstNameInput,
+    invoiceFormShippingLastNameInput,
+    invoiceFormShippingAddressInput,
+    invoiceFormShippingCityInput,
+    invoiceFormShippingZipCodeInput,
+    invoiceFormEmailInput,
+    phoneNumberInput,
+    logingFormUsernameInput,
+    logingFormPasswordInput,
+    logingFormPasswordInput1,
+    logingFormPasswordInput2,
+    checkoutR1CompanyAddress,
+    checkoutR1CompanyName,
+    checkoutR1CompanyUIN,
+    invoiceFormCountryInput,
+    invoiceFormNote,
+  ]
+
+  for (let i = 0; i < formInputs.length; i++) {
+    if (formInputs[i]) {
+      showInputLabel(formInputs[i])
+
+      formInputs[i].addEventListener('input', (event) => {
+        showInputLabel(formInputs[i])
+      })
+
+      formInputs[i].addEventListener('invalid', (event) => {
+        event.preventDefault()
+        showErrorMessage(event.target)
+
+        if (formInputs[i] === phoneNumberInput) {
+          fieldInfo.hidden = false
+        }
+      })
+    }
+  }
+
   invoiceFormCountryInput && invoiceFormCountryInput.addEventListener('change', (event) => {
     const selected = event.target.value
     if (selected && invoiceFormShippingCountryInput && !invoiceFormShippingCountryInput.value) {
@@ -410,112 +467,6 @@ ready(() => {
     if (selected) {
       updateShippingCostForCountry(selected)
     }
-  })
-
-  invoiceFormFirstNameInput && invoiceFormFirstNameInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormLastNameInput && invoiceFormLastNameInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormCountryInput && invoiceFormCountryInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormAddressInput && invoiceFormAddressInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormCityInput && invoiceFormCityInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormZipCodeInput && invoiceFormZipCodeInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormShippingFirstNameInput && invoiceFormShippingFirstNameInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormShippingLastNameInput && invoiceFormShippingLastNameInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormShippingCountryInput && invoiceFormShippingCountryInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormShippingAddressInput && invoiceFormShippingAddressInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormShippingCityInput && invoiceFormShippingCityInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormShippingZipCodeInput && invoiceFormShippingZipCodeInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  invoiceFormEmailInput && invoiceFormEmailInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  phoneNumberInput && phoneNumberInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    fieldInfo.hidden = false
-    showErrorMessage(event.target)
-  })
-
-  logingFormUsernameInput && logingFormUsernameInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  logingFormPasswordInput && logingFormPasswordInput.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  logingFormPasswordInput1 && logingFormPasswordInput1.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  logingFormPasswordInput2 && logingFormPasswordInput2.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  checkoutR1CompanyAddress && checkoutR1CompanyAddress.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  checkoutR1CompanyName && checkoutR1CompanyName.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
-  })
-
-  checkoutR1CompanyUIN && checkoutR1CompanyUIN.addEventListener('invalid', (event) => {
-    event.preventDefault()
-    showErrorMessage(event.target)
   })
 
   for (let i = languageFormsMobile.length - 1; i >= 0; i--) {
