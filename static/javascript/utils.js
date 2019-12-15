@@ -165,7 +165,6 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
 
     if (response.region === 'hr') {
       cashOnDeliveryRadio.checked = true
-      phoneNumberInput.required = true
       updatePaymentMethod(cashOnDeliveryRadio.value)
     } else {
       updatePaymentMethod(creditCardRadio.value)
@@ -173,7 +172,6 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
   }).then(
     () => moveToPaymentForm()
   ).then(() => {
-    phoneNumberInput.required = true
     checkoutAddressTitle.scrollIntoView(false)
   }).catch((error) => {
     checkoutHelpText.innerHTML = error

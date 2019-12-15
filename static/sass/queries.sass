@@ -199,7 +199,6 @@
         display: inline
 
         #review-language-form-select
-          @include hollow-select
           height: 20px
           width: 47px
           padding: 0 0 0 7px
@@ -207,6 +206,10 @@
           font-size: 12px
           line-height: 14px
           color: #000
+          border: $inputBorder
+          border-radius: 0
+          background-color: #fff
+          font-family: $bodyFont
 
         .ship-to-menu
           .language-option
@@ -275,7 +278,7 @@
     flex-direction: column
     margin: 0 0 40px
 
-    #checkout-address-form
+    .checkout-form-wrapper
       margin: 0 $gutter
 
     .summary-wrapper
@@ -423,7 +426,7 @@
   .payment-and-delivery-wrapper,
   .returns-and-complaints-wrapper,
   .general-terms-and-conditions-wrapper
-    margin-top: 120px
+    margin: 120px auto 50px
 
     h1
       padding: 0 10%

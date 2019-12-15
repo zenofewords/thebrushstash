@@ -9,12 +9,14 @@
 
 {% block content %}
   <div class="checkout-wrapper">
-    <form id="checkout-address-form" method="post" action="{% url 'shop:purchase-completed' %}" class="checkout-form-wrapper">
+    <div class="checkout-form-wrapper">
+      <form id="checkout-address-form" method="post" action="{% url 'shop:purchase-completed' %}">
       {% csrf_token %}
       {{ form.non_field_errors }}
 
       {% include 'shop/includes/checkout_address_form.html' %}
       {% include 'shop/includes/checkout_payment_form.html' %}
+    </div>
     {% purchase_summary_tag bag region exchange_rates currency %}
   </div>
 {% endblock content %}

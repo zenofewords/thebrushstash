@@ -295,6 +295,7 @@
       input,
       label
         cursor: pointer
+        margin-bottom: 15px
 
       p
         font-size: 14px
@@ -311,6 +312,9 @@
     .checkout-radio-wrapper
       display: flex
       padding-bottom: 15px
+
+      &:last-of-type
+        padding-bottom: 0
 
       input
         margin: 4px 10px 4px 3px
@@ -339,7 +343,8 @@
         max-width: $checkoutFormInputWidth
 
     .checkout-address-wrapper.inactive,
-    .checkout-payment-wrapper.inactive
+    .checkout-payment-wrapper.inactive,
+    .checkout-ipg-wrapper.inactive
       display: none
 
     #cash-on-delivery-submit-wrapper.hidden
@@ -347,6 +352,7 @@
 
     .checkout-address-wrapper,
     .checkout-payment-wrapper,
+    .checkout-ipg-wrapper,
     .cash-on-delivery-submit-wrapper
       button:disabled
         opacity: 0.3
@@ -364,7 +370,7 @@
       font-size: 16px
       line-height: 19px
       max-width: $checkoutFormInputWidth
-      margin-top: 0
+      margin-top: 15px
 
     .checkout-formfields
       margin-top: 30px
@@ -395,9 +401,9 @@
           font-style: italic
 
       textarea
-        width: 100%
+        width: calc(100% - 20px)
         height: 100px
-        max-width: calc(#{$checkoutFormInputWidth} - 21px)
+        max-width: calc(#{$checkoutFormInputWidth} - 22px)
         font-family: $bodyFont
         font-size: 16px
         line-height: 19px
@@ -421,7 +427,7 @@
       margin: 10px 0 50px
 
       &:last-of-type
-        margin: 30px 0 25px
+        margin: 25px 0
 
       &.hidden
         display: none
