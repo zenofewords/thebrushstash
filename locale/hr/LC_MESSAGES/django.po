@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-15 13:03+0000\n"
+"POT-Creation-Date: 2019-12-17 18:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,13 +137,17 @@ msgstr ""
 "a>"
 
 #: account/forms.py:179
-#: shop/templates/shop/includes/checkout_address_form.html:74
+#: shop/templates/shop/includes/checkout_address_form.html:75
 msgid "You must agree to the terms and conditions to continue."
 msgstr "Potrebno je pristati na uvjete korištenja prije nastavka kupnje."
 
 #: shop/templates/shop/checkout.html:7
 msgid "Checkout"
 msgstr "Blagajna"
+
+#: shop/templates/shop/checkout.html:24
+msgid "Previous step"
+msgstr "Prethodni korak"
 
 #: shop/templates/shop/includes/add_to_bag_button.html:23
 msgid "Add to bag"
@@ -168,7 +172,7 @@ msgstr ""
 msgid "Please make sure the information listed below is correct."
 msgstr "Molimo provjerite točnost unešenih podataka."
 
-#: shop/templates/shop/includes/checkout_address_form.html:25
+#: shop/templates/shop/includes/checkout_address_form.html:26
 #: templates/account/activate.html:20 templates/account/activate.html:24
 #: templates/account/includes/form_field.html:8
 #: templates/registration/login.html:34
@@ -177,13 +181,13 @@ msgstr "Molimo provjerite točnost unešenih podataka."
 msgid "This field is required."
 msgstr "Ovo polje je obavezno."
 
-#: shop/templates/shop/includes/checkout_address_form.html:34
+#: shop/templates/shop/includes/checkout_address_form.html:35
 #: templates/account/register.html:24 templates/registration/login.html:30
 #: templates/registration/password_reset_form.html:21
 msgid "Type in a valid e-mail address."
 msgstr "Upišite ispravnu e-mail adresu."
 
-#: shop/templates/shop/includes/checkout_address_form.html:37
+#: shop/templates/shop/includes/checkout_address_form.html:38
 msgid ""
 "Contact number is required for receiving sms info from our courier about the "
 "exact date and approximate time frame of delivery."
@@ -192,7 +196,7 @@ msgstr ""
 "danu i okvirnom terminu isporuke, a sve narudžbe koje uključuju plaćanje "
 "pouzećem, prethodno ćemo potvrditi telefonski."
 
-#: shop/templates/shop/includes/checkout_address_form.html:73
+#: shop/templates/shop/includes/checkout_address_form.html:74
 #, python-format
 msgid ""
 "Your personal data will be used to process your order, support your "
@@ -205,7 +209,7 @@ msgstr ""
 "u našim <a href=\"%(terms_url)s\" target=\"_blank\" rel=\"noopener noreferrer"
 "\">Općim uvjetima i politici privatnosti</a>."
 
-#: shop/templates/shop/includes/checkout_address_form.html:90
+#: shop/templates/shop/includes/checkout_address_form.html:91
 msgid "Continue to payment"
 msgstr "Nastavite na plaćanje"
 
@@ -221,7 +225,7 @@ msgstr "Isto kao i adresa naplate"
 msgid "Use a different address"
 msgstr "Koristite drugu adresu za dostavu"
 
-#: shop/templates/shop/includes/checkout_ipg_form.html:57
+#: shop/templates/shop/includes/checkout_ipg_form.html:58
 #: shop/templates/shop/includes/checkout_payment_form.html:30
 msgid "Place order"
 msgstr "Potvrdite narudžbu"
@@ -253,13 +257,9 @@ msgstr ""
 msgid "Use a credit card"
 msgstr "Kartična plaćanja"
 
-#: shop/templates/shop/includes/checkout_payment_form.html:44
+#: shop/templates/shop/includes/checkout_payment_form.html:46
 msgid "Note: all payments are processed in Croatian Kuna (HRK)"
 msgstr "Napomena: sve uplate se izvršavaju u hrvatskim kunama (HRK)"
-
-#: shop/templates/shop/includes/checkout_payment_form.html:52
-msgid "Previous step"
-msgstr "Prethodni korak"
 
 #: shop/templates/shop/includes/product.html:7
 msgid "Coming soon"
@@ -271,8 +271,9 @@ msgstr "Novo"
 
 #: shop/templates/shop/product_detail.html:22
 #: shop/templates/shop/product_detail.html:49
-#: shop/templates/shop/shop_base.html:7 shop/templates/shop/shop_base.html:11
-#: shop/templates/shop/shop_base.html:17
+#: shop/templates/shop/shop_base.html:7
+#: thebrushstash/templates/thebrushstash/base.html:26
+#: thebrushstash/templates/thebrushstash/base.html:32
 msgid "Webshop"
 msgstr "Webshop"
 
@@ -515,27 +516,6 @@ msgstr "Količina"
 msgid "Subtotal"
 msgstr "Cijena"
 
-#: shop/templates/shop/shop_base.html:12 shop/templates/shop/shop_base.html:18
-#: shop/templates/shop/shop_base.html:29
-msgid "The Brush Stash Webshop | Luxury makeup brushes handmade in Japan"
-msgstr ""
-"The Brush Stash Webshop | Luksuzni hrvatski kistovi za šminkanje ručno "
-"proizvedeni u Japanu"
-
-#: shop/templates/shop/shop_base.html:13
-msgid ""
-"the brush stash brushes, the brush stash buy, japanese brushes, kumano "
-"brushes, handmade makeup brushes, luxury makeup, makeup brushes, kumano "
-"fude, high end brushes, luxury cosmetics"
-msgstr ""
-"the brush stash kistovi, the brush stash kupi, japanski kistovi, kumano "
-"kistovi, ručno rađeni kistovi, luksuzni kistovi, kistovi za šminkanje, "
-"kumano fude, kistovi visoke kvalitete, luksuzna kozmetika"
-
-#: shop/templates/shop/shop_base.html:21 shop/templates/shop/shop_base.html:28
-msgid "The Brush Stash brush collection"
-msgstr "The Brush Stash kolekcija kistova"
-
 #: shop/templates/shop/tags/purchase_summary_tag.html:5
 msgid "Order summary"
 msgstr "Pregled narudžbe"
@@ -677,8 +657,8 @@ msgstr "Već ste ulogirani"
 #: templates/registration/login.html:13
 #, python-format
 msgid ""
-"You can find our brushes <a href=\"%(shop_url)s#products-anchor\">here</a>."
-msgstr "Naše kistove možete pronaći <a href=\"%(shop_url)s\">ovdje</a>."
+"You can <a href=\"%(shop_url)s#products-anchor\">find our brushes here</a>."
+msgstr "Naše <a href=\"%(shop_url)s\">kistove možete pronaći ovdje</a>."
 
 #: templates/registration/login.html:17
 #, python-format
@@ -785,6 +765,29 @@ msgstr ""
 msgid "About / The Story"
 msgstr "O nama / O kistovima"
 
+#: thebrushstash/templates/thebrushstash/base.html:27
+#: thebrushstash/templates/thebrushstash/base.html:33
+#: thebrushstash/templates/thebrushstash/base.html:44
+msgid "The Brush Stash Webshop | Luxury makeup brushes handmade in Japan"
+msgstr ""
+"The Brush Stash Webshop | Luksuzni hrvatski kistovi za šminkanje ručno "
+"proizvedeni u Japanu"
+
+#: thebrushstash/templates/thebrushstash/base.html:28
+msgid ""
+"the brush stash brushes, the brush stash buy, japanese brushes, kumano "
+"brushes, handmade makeup brushes, luxury makeup, makeup brushes, kumano "
+"fude, high end brushes, luxury cosmetics"
+msgstr ""
+"the brush stash kistovi, the brush stash kupi, japanski kistovi, kumano "
+"kistovi, ručno rađeni kistovi, luksuzni kistovi, kistovi za šminkanje, "
+"kumano fude, kistovi visoke kvalitete, luksuzna kozmetika"
+
+#: thebrushstash/templates/thebrushstash/base.html:36
+#: thebrushstash/templates/thebrushstash/base.html:43
+msgid "The Brush Stash brush collection"
+msgstr "The Brush Stash kolekcija kistova"
+
 #: thebrushstash/templates/thebrushstash/brush_care.html:7
 msgid "Brush Care"
 msgstr "Održavanje kistova"
@@ -834,13 +837,14 @@ msgstr "Povrati i reklamacije"
 msgid ""
 "The Brush Stash uses cookies to ensure a better user experience and the "
 "functionality of the site. By continuing to browse you agree to the use of "
-"cookies. Learn more\n"
-"        <a class=\"link-in-text\" href=\"%(terms_url)s\">here</a>."
+"cookies.\n"
+"      <a class=\"link-in-text\" href=\"%(terms_url)s\">Learn more here</a>."
 msgstr ""
 "The Brush Stash koristi kolačiće u svrhu boljeg korisničkog iskustva i "
 "poboljšane funkcionalnosti stranice. Daljnjim pregledom stranice pristajete "
-"na uporabu kolačića. Više saznajte\n"
-"        <a class=\"link-in-text\" href=\"%(terms_url)s\">ovdje</a>."
+"na uporabu kolačića.\n"
+"        <a class=\"link-in-text\" href=\"%(terms_url)s\">Više saznajte "
+"ovdje</a>."
 
 #: thebrushstash/templates/thebrushstash/tags/footer_tag.html:10
 msgid "Follow us on"
