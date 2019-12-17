@@ -20,6 +20,7 @@
     {% include 'account/includes/form_field.html' with field=form.first_name %}
     {% include 'account/includes/form_field.html' with field=form.last_name %}
     <div class="checkout-select-wrapper">
+      <label for="{{ form.country.id_for_label }}" class="screen-reader-only">{{ form.country.label }}</label>
       {{ form.country }}
       <span class="field-label">{{ form.country.label }}</span>
       <span id="id_country-error" class="error" hidden>{% trans "This field is required." %}</span>
