@@ -1,5 +1,6 @@
-var MiniCssExtractPlugin = require('mini-css-extract-plugin')
 var path = require('path')
+var MiniCssExtractPlugin = require('mini-css-extract-plugin')
+var TerserPlugin = require('terser-webpack-plugin')
 var WebpackBundleTracker = require('webpack-bundle-tracker')
 
 module.exports = {
@@ -58,5 +59,8 @@ module.exports = {
       filename: './webpack-stats.json'
     }),
   ],
+  optimization: {
+    minimizer: [new TerserPlugin()],
+  },
   mode: 'development',
 }
