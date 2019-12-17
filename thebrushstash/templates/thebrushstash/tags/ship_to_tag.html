@@ -6,7 +6,11 @@
       {% trans 'Region:' %}
     </span>
     <a class="ship-to-select" href="/">
-      <span class="flag-icon {{ selected_region.name }}"></span>
+      <span class="flag-icon">
+        {% with icon_path=selected_region.name|add:".html"  %}
+          {% include 'thebrushstash/icons/'|add:icon_path %}
+        {% endwith %}
+      </span>
       {{ selected_region.name }}
     </a>
   </div>
@@ -17,8 +21,12 @@
 
       {% for region in regions %}
         <a class="language-option" href="/" data-language="{{ region.language }}" data-region="{{ region.name }}">
-          <span class="flag-icon {{ region.name }}"></span>
-          {{ region.name|upper }}
+          <span class="flag-icon">
+            {% with icon_path=region.name|add:".html"  %}
+              {% include 'thebrushstash/icons/'|add:icon_path %}
+            {% endwith %}
+          </span>
+          {{ region.name }}
         </a>
       {% endfor %}
     </form>

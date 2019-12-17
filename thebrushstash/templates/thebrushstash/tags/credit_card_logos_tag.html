@@ -2,7 +2,10 @@
 
 <div class="credit-card-logos-wrapper {{ css }}">
   {% for credit_card_logo in credit_card_logos %}
-    <a class="icon {{ credit_card_logo.css_class }}" href="{{ credit_card_logo.location }}"{% if credit_card_logo.external %} target="_blank" rel="noopener noreferrer" {% endif %} aria-label="{{ credit_card_logo.name }} icon">
+    <a href="{{ credit_card_logo.location }}"{% if credit_card_logo.external %} target="_blank" rel="noopener noreferrer" {% endif %} aria-label="{{ credit_card_logo.name }} icon">
+      {% with icon_path=credit_card_logo.css_class|add:".html" %}
+        {% include 'thebrushstash/icons/'|add:icon_path %}
+      {% endwith %}
     </a>
   {% endfor %}
 </div>
