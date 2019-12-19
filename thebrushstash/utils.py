@@ -331,7 +331,7 @@ def get_logo_attachement():
         tbs_logo_image.save(image_byte_array, format='png')
 
         image = MIMEImage(image_byte_array.getvalue(), 'png')
-        image.add_header('Content-ID', '<{}>'.format(logo_path))
+        image.add_header('Content-ID', '<0>')
         image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
     return logo_path, image
 
@@ -350,8 +350,7 @@ def attach_images(message, invoice):
             image.save(image_byte_array, format='jpeg')
 
             image = MIMEImage(image_byte_array.getvalue(), 'jpeg')
-
-            image.add_header('Content-ID', '<{}>'.format(gallery_item.image.path))
+            image.add_header('Content-ID', '<{}>'.format(invoice_item.product.pk))
             image.add_header('Content-Disposition', 'inline', filename=invoice_item.product.name)
             message.attach(image)
     return message
