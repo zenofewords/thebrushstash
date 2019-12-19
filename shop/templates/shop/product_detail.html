@@ -55,6 +55,7 @@
       <h1 class="header">
         {{ object.name }}
       </h1>
+      {% rating_tag object request.user %}
       <div class="price-tag">
         {% get_localized_item_price object 'price' currency %}
       </div>

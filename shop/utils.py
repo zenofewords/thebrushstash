@@ -40,6 +40,12 @@ def update_product_prices(product):
             setattr(product, 'price_{}'.format(er.currency.lower()), price / er.middle_rate)
 
 
+def update_product_rating(product, score):
+    product.ratings += 1
+    product.score += score
+    product.save()
+
+
 def set_shipping_cost(bag, region, country_name=None):
     quantity_condition = int(bag.get('total_quantity', 0)) >= int(FREE_SHIPPING_PRODUCTS)
     cost_condition = Decimal(bag.get('total', 0)) >= Decimal(FREE_SHIPPING_PRICE)

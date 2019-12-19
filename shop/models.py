@@ -1,14 +1,17 @@
+from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.postgres.fields import JSONField
-from django.db import models
-
-from shop.mixins import (
-    ShopObjectMixin,
+from django.core.validators import (
+    MinValueValidator,
+    MaxValueValidator,
 )
+
+from shop.mixins import ShopObjectMixin
 from shop.utils import (
     get_default_product_type,
     update_product_prices,
+    update_product_rating,
 )
 from thebrushstash.mixins import TimeStampMixin
 from thebrushstash.models import PublishedMixin
@@ -30,6 +33,8 @@ class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
         default=0, blank=True,
         help_text='If set to 0, products are ordered by "new", then by creation date'
     )
+    score = models.PositiveIntegerField(default=0)
+    ratings = models.PositiveIntegerField(default=0)
 
     price_hrk = models.DecimalField(
         verbose_name='Price (HRK)', max_digits=14, decimal_places=2, blank=True, null=True,
@@ -249,3 +254,23 @@ class EmailAudit(TimeStampMixin):
 
     def __str__(self):
         return '{} by {}'.format(self.receiver, self.payment_method)
+
+
+class Review(TimeStampMixin, PublishedMixin):
+    product = models.ForeignKey('shop.Product', on_delete=models.deletion.CASCADE)
+    user = models.ForeignKey('account.CustomUser', on_delete=models.deletion.CASCADE)
+    score = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )
+    content = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = 'Review'
+        verbose_name_plural = 'Reviews'
+
+    def __str__(self):
+        return '{} review by {}'.format(self.product.name, self.user.email)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        update_product_rating(self.product, self.score)

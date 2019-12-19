@@ -8,6 +8,7 @@ from shop.models import (
     GalleryItem,
     Invoice,
     Product,
+    Review,
     Showcase,
 )
 from thebrushstash.utils import get_preview_image
@@ -106,6 +107,9 @@ class ProductAdmin(AutoSlugAdmin):
                 'product_type', 'name', 'slug', 'in_stock', 'ordering', 'published', 'new',
             )
         }),
+        ('Rating', {
+            'fields': ('score', 'ratings', ),
+        }),
         ('Text fields (ENG)', {
             'classes': ('collapse', ),
             'fields': ('foreword', 'title', 'description', ),
@@ -124,6 +128,11 @@ class ProductAdmin(AutoSlugAdmin):
 
 class ProductTypeAdmin(AutoSlugAdmin):
     pass
+
+
+class ReviewAdmin(admin.ModelAdmin):
+    raw_id_fields = ('user', )
+    list_display = ('product', 'user', 'score', )
 
 
 class ShowcaseAdmin(AutoSlugAdmin):
@@ -160,4 +169,5 @@ admin.site.register(EmailAudit, EmailAuditAdmin)
 admin.site.register(GalleryItem, GalleryItemAdmin)
 admin.site.register(Invoice, InvoiceAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Review, ReviewAdmin)
 admin.site.register(Showcase, ShowcaseAdmin)
