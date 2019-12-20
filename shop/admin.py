@@ -1,8 +1,6 @@
 from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
-from django.urls import reverse
-from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
 from shop.models import (
@@ -74,8 +72,8 @@ class SingleGalleryItemInline(GenericTabularInline):
     formset = SingleGalleryItemInlineFormSet
     fields = ('name', 'image', 'image_preview_thumb', )
     readonly_fields = ('image_preview_thumb', )
-    extra = 1
-    max_num = 1
+    extra = 2
+    max_num = 2
     verbose_name = 'Image'
     verbose_name_plural = 'Images'
 

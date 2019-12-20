@@ -19,7 +19,7 @@
       {% get_price_in_currency bag 'tax' exchange_rates currency %}
     </span>
   </div>
-  <div class="summary-row">
+  <div class="summary-row {% if bag.shipping_cost == '0' %}hidden{% endif %}">
     <span class="summary-label">
       {% trans "Shipping:" %}
     </span>

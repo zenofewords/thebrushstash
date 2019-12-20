@@ -47,8 +47,10 @@ def get_gallery(obj, standalone=False, gallery_only=False):
 
 
 @register.simple_tag
-def get_image_for_model(obj, standalone=False):
-    return get_gallery(obj, standalone).first()
+def get_images_for_model(obj, standalone=False, number=1):
+    if number == 1:
+        return get_gallery(obj, standalone).first()
+    return get_gallery(obj, standalone).all()[:number]
 
 
 @register.simple_tag

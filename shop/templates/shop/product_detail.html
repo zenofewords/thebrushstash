@@ -13,8 +13,7 @@
 
   <meta property="og:title" content="{{ object.name }}">
   <meta property="og:description" content="{% if LANGUAGE_CODE == 'hr' %}{{ product.foreword_cro }}{% else %}{{ product.foreword }}{% endif %}">
-  {% get_image_for_model object as lead_image %}
-
+  {% get_images_for_model object as lead_image %}
   {% if lead_image.image %}
     <meta property="og:image" content="{{ lead_image.image.url }}">
   {% endif %}
@@ -109,8 +108,10 @@
       </p>
     </div>
     <div class="media-wrapper">
-      {% get_image_for_model obj=product standalone=True as body_image %}
-      {% media_object obj=body_image shape='square' %}
+      {% get_images_for_model obj=product standalone=True number=2 as body_images %}
+      {% for body_image in body_images %}
+        {% media_object obj=body_image shape='square' %}
+      {% endfor %}
     </div>
   </div>
   <div class="more-from-shop-wrapper">

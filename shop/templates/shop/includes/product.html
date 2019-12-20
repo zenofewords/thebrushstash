@@ -15,7 +15,7 @@
   {% endif %}
 
   <a href="{% url 'shop:product-detail' product.slug %}">
-    {% get_image_for_model product as lead_image %}
+    {% get_images_for_model product as lead_image %}
     {% media_object obj=lead_image shape='square' %}
 
     <h2>

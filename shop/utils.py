@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.apps import apps
 
 from shop.constants import (
+    FREE_SHIPPING_COUNTRY,
     FREE_SHIPPING_PRICE,
     FREE_SHIPPING_PRODUCTS,
     TAX,
@@ -41,11 +42,9 @@ def update_product_prices(product):
 def set_shipping_cost(bag, region, country_name=None):
     quantity_condition = int(bag.get('total_quantity', 0)) >= int(FREE_SHIPPING_PRODUCTS)
     cost_condition = Decimal(bag.get('total', 0)) >= Decimal(FREE_SHIPPING_PRICE)
-    free_shipping = quantity_condition or cost_condition
+    free_shipping = (quantity_condition or cost_condition) and country_name == FREE_SHIPPING_COUNTRY
 
     cost = 0
-    if not free_shipping:
-        cost = Region.objects.get(name=region).shipping_cost
     if country_name:
         country = Country.published_objects.filter(name=country_name).first()
         cost = country.shipping_cost if country and country.shipping_cost else cost
