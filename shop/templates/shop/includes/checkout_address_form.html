@@ -56,18 +56,16 @@
       </span>
     {% endif %}
 
-    {% if region == 'hr' %}
-      <span class="checkout-checkbox-wrapper">
-        {{ form.r1_receipt }}
-        {{ form.r1_receipt.label_tag }}
-      </span>
+    <span class="checkout-checkbox-wrapper">
+      {{ form.r1_receipt }}
+      {{ form.r1_receipt.label_tag }}
+    </span>
 
-      <div class="checkout-r1-fields-wrapper" hidden>
-        {% include 'account/includes/form_field.html' with field=form.company_name %}
-        {% include 'account/includes/form_field.html' with field=form.company_address %}
-        {% include 'account/includes/form_field.html' with field=form.company_uin %}
-      </div>
-    {% endif %}
+    <div class="checkout-r1-fields-wrapper" hidden>
+      {% include 'account/includes/form_field.html' with field=form.company_name %}
+      {% include 'account/includes/form_field.html' with field=form.company_address %}
+      {% include 'account/includes/form_field.html' with field=form.company_uin %}
+    </div>
 
     <p class="checkout-help-text">
       {% url 'general-terms-and-conditions' as terms_url %}

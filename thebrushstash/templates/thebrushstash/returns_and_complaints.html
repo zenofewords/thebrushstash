@@ -20,6 +20,6 @@
     {% else %}
       {{ content|safe }}
     {% endif %}
-    Obrazac o jednostranom raskidu ugovora možete skinuti <a class="link-in-text" href="{% static 'files/standardni_informacijski_obrazac_za_jednostrani_raskid_ugovora.pdf' %}" download>OVDJE</a>.
+    <a class="link-in-text" href="{% static 'files/standardni_informacijski_obrazac_za_jednostrani_raskid_ugovora.pdf' %}" download>{% trans "The unilateral termination Contract form can be donwloaded here" %}</a>.
   </div>
 {% endblock content %}

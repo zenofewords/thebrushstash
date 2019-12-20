@@ -56,5 +56,7 @@
 {% get_price_in_currency bag 'fees' exchange_rates currency %}
 {% trans "Grand total:" %}
 {% get_price_in_currency bag 'grand_total' exchange_rates currency %}
+{% trans "Grand total (HRK):" %}
+{% get_price_in_currency bag 'grand_total' exchange_rates 'hrk' %}
 
 {% trans 'Thank you for using The Brush Stash products!' %}
