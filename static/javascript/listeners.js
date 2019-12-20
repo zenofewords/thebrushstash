@@ -81,6 +81,7 @@ import {
 import {
   addOneToBag,
   addToBag,
+  codCountry,
   clearErrorMessages,
   processPaymentAddressData,
   refreshBag,
@@ -307,6 +308,9 @@ ready(() => {
         shippingAddressWrapper.hidden = false
         updateShippingCostForCountry(invoiceFormShippingCountryInput.value)
       }
+      if (invoiceFormCountryInput && invoiceFormCountryInput.value === codCountry) {
+        cashOnDeliveryWrapper.hidden = !invoiceFormCountryInput.value === codCountry
+      }
     } else {
       continueToPaymentButton.disabled = false
     }
@@ -461,6 +465,10 @@ ready(() => {
     const selected = event.target.value
     if (selected && invoiceFormShippingCountryInput && !invoiceFormShippingCountryInput.value) {
       updateShippingCostForCountry(selected)
+
+      if (selected) {
+        cashOnDeliveryWrapper.hidden = selected !== codCountry
+      }
     }
   })
 

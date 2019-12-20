@@ -10,27 +10,25 @@
     {% trans "Select your payment method and place your order." %}
   </p>
 
-  {% if region == 'hr' %}
-    <div class="cash-on-delivery-wrapper">
-      <span class="checkout-radio-wrapper">
-        <input type="radio" id="cash-on-delivery" name="payment-method" value="cash-on-delivery" checked>
-        <label for="cash-on-delivery">
-          {% trans "Cash on delivery" %}
-        </label>
-      </span>
-      <p>
-        {% trans "Note: requires an additional fee for the GLS service." %} ({{ gls_fee }} kn)
-      </p>
-      <p>
-        {% trans "For security reasons, every cash on delivery order must be verified by phone." %}
-      </p>
-    </div>
-    <div id="cash-on-delivery-submit-wrapper">
-      <button id="cash-on-delivery-submit-button">
-        {% trans "Place order" %}
-      </button>
-    </div>
-  {% endif %}
+  <div class="cash-on-delivery-wrapper" hidden>
+    <span class="checkout-radio-wrapper">
+      <input type="radio" id="cash-on-delivery" name="payment-method" value="cash-on-delivery" checked>
+      <label for="cash-on-delivery">
+        {% trans "Cash on delivery" %}
+      </label>
+    </span>
+    <p>
+      {% trans "Note: requires an additional fee for the GLS service." %} ({{ gls_fee }} kn)
+    </p>
+    <p>
+      {% trans "For security reasons, every cash on delivery order must be verified by phone." %}
+    </p>
+  </div>
+  <div id="cash-on-delivery-submit-wrapper">
+    <button id="cash-on-delivery-submit-button">
+      {% trans "Place order" %}
+    </button>
+  </div>
 
   <div class="credit-card-wrapper">
     <span class="checkout-radio-wrapper">

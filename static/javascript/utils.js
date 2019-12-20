@@ -55,6 +55,7 @@ import {
   thumbnailWrappers,
 } from './selectors'
 
+export const codCountry = 'Croatia'
 export const currencySymbolMapping = {
   hrk: 'kn',
   eur: '€',
