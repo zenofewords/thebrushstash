@@ -13,7 +13,7 @@ class Country(PublishedMixin):
     name_cro = models.CharField(max_length=500, blank=True)
     slug = models.CharField(max_length=500)
     shipping_cost = models.DecimalField(
-        verbose_name='Shipping cost', max_digits=14, decimal_places=2
+        verbose_name='Shipping cost', max_digits=14, decimal_places=2, blank=False, null=True,
     )
 
     class Meta:
