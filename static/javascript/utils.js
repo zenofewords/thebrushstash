@@ -104,7 +104,9 @@ export const updatePaymentMethod = (paymentMethod) => {
   setPaymentMethod(paymentMethod).then((data) => data.json().then((response) => {
     if (parseInt(response.bag.fees)) {
       summaryRowFees.classList.remove('hidden')
-      summaryRowFeesValue.innerHTML = `${response.bag.fees} kn` // COD is only available in hr
+      summaryRowFeesValue.innerHTML = formatPrice(
+        `${response.bag['fees']}`, response.exchange_rate, response.currency
+      )
       ipgFormSubmitButton.classList.add('hidden')
       cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.remove('hidden')
     } else {

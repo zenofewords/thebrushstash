@@ -465,10 +465,7 @@ ready(() => {
     const selected = event.target.value
     if (selected && invoiceFormShippingCountryInput && !invoiceFormShippingCountryInput.value) {
       updateShippingCostForCountry(selected)
-
-      if (selected) {
-        cashOnDeliveryWrapper.hidden = selected !== codCountry
-      }
+      cashOnDeliveryWrapper.hidden = selected !== codCountry
     }
   })
 

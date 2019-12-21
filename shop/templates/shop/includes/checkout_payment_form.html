@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load static %}
+{% load shop_tags %}
 {% load thebrushstash_tags %}
 
 <h2 class="checkout-payment-title inactive">
@@ -18,7 +18,8 @@
       </label>
     </span>
     <p>
-      {% trans "Note: requires an additional fee for the GLS service." %} ({{ gls_fee }} kn)
+      {% trans "Note: requires an additional fee for the GLS service." %}
+      {% get_price_in_currency bag 'fees' exchange_rates currency %}
     </p>
     <p>
       {% trans "For security reasons, every cash on delivery order must be verified by phone." %}
