@@ -58,7 +58,6 @@ import {
   thumbnailWrappers,
 } from './selectors'
 
-export const codCountry = 'Croatia'
 export const currencySymbolMapping = {
   hrk: 'kn',
   eur: '€',
@@ -176,7 +175,10 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
     updateIPGInputs(response)
 
     if (response.show_cod) {
+      cashOnDeliveryWrapper.hidden = false
+      cashOnDeliverySubmitWrapper.hidden = false
       cashOnDeliveryRadio.checked = true
+
       shippingAddressChoice.hidden = true
       shippingAddressWrapper.hidden = true
 

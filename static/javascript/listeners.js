@@ -81,7 +81,6 @@ import {
 import {
   addOneToBag,
   addToBag,
-  codCountry,
   clearErrorMessages,
   processPaymentAddressData,
   refreshBag,
@@ -458,7 +457,6 @@ ready(() => {
     const selected = event.target.value
     if (selected && invoiceFormShippingCountryInput && !invoiceFormShippingCountryInput.value) {
       updateShippingCostForCountry(selected)
-      cashOnDeliveryWrapper.hidden = selected !== codCountry
     }
   })
 
