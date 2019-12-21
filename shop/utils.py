@@ -3,12 +3,12 @@ from decimal import Decimal
 from django.apps import apps
 
 from shop.constants import (
-    FREE_SHIPPING_COUNTRY,
     FREE_SHIPPING_PRICE,
     FREE_SHIPPING_PRODUCTS,
     TAX,
 )
 from thebrushstash.constants import (
+    DEFAULT_COUNTRY,
     DEFAULT_CURRENCY,
     DEFAULT_REGION,
     currency_symbol_mapping,
@@ -43,7 +43,7 @@ def update_product_prices(product):
 def set_shipping_cost(bag, region, country_name=None):
     quantity_condition = int(bag.get('total_quantity', 0)) >= int(FREE_SHIPPING_PRODUCTS)
     cost_condition = Decimal(bag.get('total', 0)) >= Decimal(FREE_SHIPPING_PRICE)
-    free_shipping = (quantity_condition or cost_condition) and country_name == FREE_SHIPPING_COUNTRY
+    free_shipping = (quantity_condition or cost_condition) and country_name == DEFAULT_COUNTRY
 
     cost = 0
     if country_name:

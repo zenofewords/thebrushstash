@@ -32,6 +32,7 @@ from shop.utils import (
     set_tax,
 )
 from thebrushstash.constants import (
+    DEFAULT_COUNTRY,
     ipg_fields,
     form_mandatory_fields,
 )
@@ -221,6 +222,7 @@ class ProcessOrderView(GenericAPIView):
             'user_information': session['user_information'],
             'region': session['region'],
             'language': session['_language'],
+            'show_cod': session['user_information'].get('country', '') == DEFAULT_COUNTRY,
             'signature': get_signature({
                 'amount': bag['grand_total'],
                 **user_info,  # noqa

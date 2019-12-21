@@ -300,17 +300,6 @@ ready(() => {
 
     if (valid) {
       processPaymentAddressData(checkoutAddressForm)
-
-      if (creditCardRadio.checked) {
-        shippingAddressChoice.hidden = false
-      }
-      if (creditCardRadio.checked && differentShippingAddressInput.checked) {
-        shippingAddressWrapper.hidden = false
-        updateShippingCostForCountry(invoiceFormShippingCountryInput.value)
-      }
-      if (invoiceFormCountryInput && invoiceFormCountryInput.value === codCountry) {
-        cashOnDeliveryWrapper.hidden = !invoiceFormCountryInput.value === codCountry
-      }
     } else {
       continueToPaymentButton.disabled = false
     }
