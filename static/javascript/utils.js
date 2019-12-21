@@ -131,6 +131,9 @@ export const updatePaymentMethod = (paymentMethod) => {
         `${response.bag['grand_total']}`, response.exchange_rate, response.currency
       )
     }
+    if (summaryGrandTotalHrk) {
+      summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
+    }
   }))
 }
 
