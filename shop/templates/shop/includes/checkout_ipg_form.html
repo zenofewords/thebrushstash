@@ -18,7 +18,7 @@
   <input id="cardholder_zip_code" name="cardholder_zip_code" value="" hidden>
   <input id="cardholder_country" name="cardholder_country" value="" hidden>
 
-  <div id="shipping-address-choice" hidden>
+  <div id="shipping-address-choice">
     <br>
     <h2 class="checkout-payment-title">
       {% trans "3. Shipping address" %}
@@ -54,7 +54,7 @@
     {% endif %}
   </div>
 
-  <button id="ipg-form-submit-button" class="{% if region == 'hr' %} hidden{% endif %}">
+  <button id="ipg-form-submit-button">
     {% trans "Place order" %}
   </button>
 </form>

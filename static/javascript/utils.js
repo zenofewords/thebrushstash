@@ -107,12 +107,8 @@ export const updatePaymentMethod = (paymentMethod) => {
       summaryRowFeesValue.innerHTML = formatPrice(
         `${response.bag['fees']}`, response.exchange_rate, response.currency
       )
-      ipgFormSubmitButton.classList.add('hidden')
-      cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.remove('hidden')
     } else {
       summaryRowFees.classList.add('hidden')
-      ipgFormSubmitButton.classList.remove('hidden')
-      cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.add('hidden')
       summaryRowFeesValue.innerHTML = null
     }
     ipgAmount.value = response.bag.grand_total

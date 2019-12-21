@@ -22,12 +22,12 @@ def showcase_tag():
 
 
 @register.inclusion_tag('shop/tags/purchase_summary_tag.html')
-def purchase_summary_tag(bag, region, exchange_rates, currency, show_links=False):
+def purchase_summary_tag(bag, region, exchange_rates, currency, review=False):
     return {
         'bag': bag,
         'region': region,
         'currency': currency,
-        'show_links': show_links,
+        'review': review,
         'exchange_rates': exchange_rates,
     }
 

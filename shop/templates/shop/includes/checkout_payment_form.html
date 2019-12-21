@@ -10,7 +10,7 @@
     {% trans "Select your payment method and place your order." %}
   </p>
 
-  <div class="cash-on-delivery-wrapper" hidden>
+  <div class="cash-on-delivery-wrapper">
     <span class="checkout-radio-wrapper">
       <input type="radio" id="cash-on-delivery" name="payment-method" value="cash-on-delivery" checked>
       <label for="cash-on-delivery">
@@ -32,7 +32,7 @@
 
   <div class="credit-card-wrapper">
     <span class="checkout-radio-wrapper">
-      <input type="radio" id="credit-card" name="payment-method" value="credit-card"{% if region != 'hr' %} checked{% endif %}>
+      <input type="radio" id="credit-card" name="payment-method" value="credit-card">
       <label for="credit-card">
         {% trans "Use a credit card" %}
       </label>
