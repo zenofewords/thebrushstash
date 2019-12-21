@@ -16,6 +16,7 @@ import {
   bagTotal,
   cashOnDeliveryRadio,
   cashOnDeliverySubmitWrapper,
+  cashOnDeliveryWrapper,
   checkoutAddressTitle,
   checkoutAddressWrapper,
   checkoutHelpText,
@@ -24,7 +25,9 @@ import {
   checkoutPaymentWrapper,
   continueToPaymentButton,
   creditCardRadio,
+  differentShippingAddressInput,
   imageWrappers,
+  invoiceFormShippingCountryInput,
   ipgAmount,
   ipgCardholderAddress,
   ipgCardholderCity,
@@ -55,6 +58,7 @@ import {
   thumbnailWrappers,
 } from './selectors'
 
+export const codCountry = 'Croatia'
 export const currencySymbolMapping = {
   hrk: 'kn',
   eur: '€',
@@ -101,16 +105,20 @@ export const toggleStickyNav = (scrollPosition) => {
 
 export const updatePaymentMethod = (paymentMethod) => {
   setPaymentMethod(paymentMethod).then((data) => data.json().then((response) => {
-    if (parseInt(response.bag.fees)) {
+    if (response.payment_method === 'cash-on-delivery') {
       summaryRowFees.classList.remove('hidden')
-      summaryRowFeesValue.innerHTML = `${response.bag.fees} kn` // COD is only available in hr
+      summaryRowFeesValue.innerHTML = formatPrice(
+        `${response.bag['fees']}`, response.exchange_rate, response.currency
+      )
+
       ipgFormSubmitButton.classList.add('hidden')
-      cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.remove('hidden')
+      cashOnDeliverySubmitWrapper.classList.remove('hidden')
     } else {
       summaryRowFees.classList.add('hidden')
-      ipgFormSubmitButton.classList.remove('hidden')
-      cashOnDeliverySubmitWrapper && cashOnDeliverySubmitWrapper.classList.add('hidden')
       summaryRowFeesValue.innerHTML = null
+
+      cashOnDeliverySubmitWrapper.classList.add('hidden')
+      ipgFormSubmitButton.classList.remove('hidden')
     }
     ipgAmount.value = response.bag.grand_total
 
@@ -167,12 +175,24 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
     }
     updateIPGInputs(response)
 
-    if (response.region === 'hr') {
+    if (response.show_cod) {
       cashOnDeliveryRadio.checked = true
       shippingAddressChoice.hidden = true
       shippingAddressWrapper.hidden = true
+
       updatePaymentMethod(cashOnDeliveryRadio.value)
     } else {
+      creditCardRadio.checked = true
+      shippingAddressChoice.hidden = false
+
+      cashOnDeliveryWrapper.hidden = true
+      cashOnDeliverySubmitWrapper.hidden = true
+
+      if (creditCardRadio.checked && differentShippingAddressInput.checked) {
+        shippingAddressWrapper.hidden = false
+        updateShippingCostForCountry(invoiceFormShippingCountryInput.value)
+      }
+
       updatePaymentMethod(creditCardRadio.value)
     }
   }).then(

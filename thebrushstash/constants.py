@@ -409,8 +409,9 @@ inital_exchange_rates = (
     },
 )
 
-DEFAULT_REGION = 'hr'
+DEFAULT_COUNTRY = 'Croatia'
 DEFAULT_CURRENCY = 'hrk'
+DEFAULT_REGION = 'hr'
 currency_symbol_mapping = {
     'hrk': 'kn',
     'eur': '€',

@@ -22,7 +22,10 @@ from shop.models import (
     InvoiceStatus,
     Product,
 )
-from shop.utils import set_shipping_cost
+from shop.utils import (
+    format_price_with_currency,
+    set_shipping_cost,
+)
 from thebrushstash.models import ExchangeRate
 from thebrushstash.utils import (
     complete_purchase,
@@ -84,17 +87,20 @@ class CheckoutView(FormView):
         bag = session.get('bag')
         set_shipping_cost(bag, session['region'], country_name)
 
+        currency = session.get('currency')
+        gls_fee = '{:0.2f}'.format(GLS_FEE / exchange_rates[currency], 2)
+
         context.update({
             'api_version': settings.IPG_API_VERSION,
             'bag': bag,
             'region': session.get('region'),
             'language': session.get('_language'),
-            'currency': session.get('currency'),
+            'currency': currency,
             'ipg_url': settings.IPG_URL,
             'store_id': settings.IPG_STORE_ID,
             'require_complete': settings.IPG_REQUIRE_COMPLETE,
             'subscribed_to_newsletter': subscribed_to_newsletter,
-            'gls_fee': GLS_FEE,
+            'gls_fee': format_price_with_currency(gls_fee, currency),
             'exchange_rates': exchange_rates,
         })
         return context

@@ -43,8 +43,8 @@ class TestImageAdmin(admin.ModelAdmin):
 
 class RegionAdmin(admin.ModelAdmin):
     list_display_links = ('name', )
-    list_display = ('name', 'language', 'currency', 'shipping_cost', 'published', 'ordering', )
-    list_editable = ('shipping_cost', 'published', )
+    list_display = ('name', 'language', 'currency', 'published', 'ordering', )
+    list_editable = ('published', )
 
 
 class QandAPairAdmin(admin.ModelAdmin):

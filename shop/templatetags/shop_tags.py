@@ -22,12 +22,12 @@ def showcase_tag():
 
 
 @register.inclusion_tag('shop/tags/purchase_summary_tag.html')
-def purchase_summary_tag(bag, region, exchange_rates, currency, show_links=False):
+def purchase_summary_tag(bag, region, exchange_rates, currency, review=False):
     return {
         'bag': bag,
         'region': region,
         'currency': currency,
-        'show_links': show_links,
+        'review': review,
         'exchange_rates': exchange_rates,
     }
 
@@ -47,8 +47,10 @@ def get_gallery(obj, standalone=False, gallery_only=False):
 
 
 @register.simple_tag
-def get_image_for_model(obj, standalone=False):
-    return get_gallery(obj, standalone).first()
+def get_images_for_model(obj, standalone=False, number=1):
+    if number == 1:
+        return get_gallery(obj, standalone).first()
+    return get_gallery(obj, standalone).all()[:number]
 
 
 @register.simple_tag

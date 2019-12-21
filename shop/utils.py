@@ -8,6 +8,8 @@ from shop.constants import (
     TAX,
 )
 from thebrushstash.constants import (
+    DEFAULT_COUNTRY,
+    DEFAULT_CURRENCY,
     DEFAULT_REGION,
     currency_symbol_mapping,
 )
@@ -41,11 +43,9 @@ def update_product_prices(product):
 def set_shipping_cost(bag, region, country_name=None):
     quantity_condition = int(bag.get('total_quantity', 0)) >= int(FREE_SHIPPING_PRODUCTS)
     cost_condition = Decimal(bag.get('total', 0)) >= Decimal(FREE_SHIPPING_PRICE)
-    free_shipping = quantity_condition or cost_condition
+    free_shipping = (quantity_condition or cost_condition) and country_name == DEFAULT_COUNTRY
 
     cost = 0
-    if not free_shipping:
-        cost = Region.objects.get(name=region).shipping_cost
     if country_name:
         country = Country.published_objects.filter(name=country_name).first()
         cost = country.shipping_cost if country and country.shipping_cost else cost
@@ -65,9 +65,7 @@ def get_totals(data, key, operator, product={}, quantity=None):
 
     price_hrk = Decimal(data.get('price_hrk'))
     subototal = quantity * price_hrk
-    prices = {
-        'price_hrk': str(price_hrk),
-    } if key == 'subtotal' else {}
+    prices = {'price_hrk': str(price_hrk)} if key == 'subtotal' else {}
 
     if product:
         return {'{}'.format(key): str(operator(Decimal(product.get('{}'.format(key))), subototal))}
@@ -79,14 +77,10 @@ def get_totals(data, key, operator, product={}, quantity=None):
 
 
 def get_grandtotals(data):
-    return {
-        'grand_total': str(
-            Decimal(data.get('total')) + Decimal(data.get('shipping_cost'))
-        ),
-    }
+    return {'grand_total': str(Decimal(data.get('total')) + Decimal(data.get('shipping_cost')))}
 
 
 def format_price_with_currency(price, currency):
-    if currency == 'hrk':
+    if currency == DEFAULT_CURRENCY:
         return '{} {}'.format(price, currency_symbol_mapping[currency])
     return '{}{}'.format(currency_symbol_mapping[currency], price)

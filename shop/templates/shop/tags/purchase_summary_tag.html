@@ -19,7 +19,7 @@
       {% get_price_in_currency bag 'tax' exchange_rates currency %}
     </span>
   </div>
-  <div class="summary-row">
+  <div class="summary-row{% if review %} hidden{% endif %}">
     <span class="summary-label">
       {% trans "Shipping:" %}
     </span>
@@ -54,7 +54,7 @@
     </div>
   {% endif %}
 
-  {% if show_links %}
+  {% if review %}
     <a href="{% url 'shop:checkout' %}" class="summary-check-out-button{% if not bag.products %} disabled{% endif %}">
       <span>{% trans "Check out" %}</span>
     </a>

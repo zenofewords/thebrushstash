@@ -81,6 +81,7 @@ import {
 import {
   addOneToBag,
   addToBag,
+  codCountry,
   clearErrorMessages,
   processPaymentAddressData,
   refreshBag,
@@ -299,14 +300,6 @@ ready(() => {
 
     if (valid) {
       processPaymentAddressData(checkoutAddressForm)
-
-      if (creditCardRadio.checked) {
-        shippingAddressChoice.hidden = false
-      }
-      if (creditCardRadio.checked && differentShippingAddressInput.checked) {
-        shippingAddressWrapper.hidden = false
-        updateShippingCostForCountry(invoiceFormShippingCountryInput.value)
-      }
     } else {
       continueToPaymentButton.disabled = false
     }
@@ -461,6 +454,7 @@ ready(() => {
     const selected = event.target.value
     if (selected && invoiceFormShippingCountryInput && !invoiceFormShippingCountryInput.value) {
       updateShippingCostForCountry(selected)
+      cashOnDeliveryWrapper.hidden = selected !== codCountry
     }
   })
 
