@@ -204,6 +204,10 @@ ready(() => {
 
   bagLink && bagLink.addEventListener('click', toggleBag)
 
+  if (invoiceFormCountryInput && invoiceFormCountryInput.value) {
+    updateShippingCostForCountry(invoiceFormCountryInput.value)
+  }
+
   cashOnDeliveryWrapper && cashOnDeliveryWrapper.addEventListener('click', (event) => {
     if (!cashOnDeliveryRadio.checked) {
       cashOnDeliveryRadio.checked = true
