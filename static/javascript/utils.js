@@ -1,5 +1,6 @@
 import {
   addProduct,
+  continueToPaymentRequest,
   processOrder,
   removeProduct,
   setPaymentMethod,
@@ -103,7 +104,9 @@ export const toggleStickyNav = (scrollPosition) => {
 }
 
 export const updatePaymentMethod = (paymentMethod) => {
-  setPaymentMethod(paymentMethod).then((data) => data.json().then((response) => {
+  setPaymentMethod(paymentMethod).then(
+    (data) => data.json()
+  ).then((response) => {
     if (response.payment_method === 'cash-on-delivery') {
       summaryRowFees.classList.remove('hidden')
       summaryRowFeesValue.innerHTML = formatPrice(
@@ -134,7 +137,7 @@ export const updatePaymentMethod = (paymentMethod) => {
     if (summaryGrandTotalHrk) {
       summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
     }
-  }))
+  })
 }
 
 const updateIPGInputs = (response) => {
@@ -162,21 +165,10 @@ const moveToPaymentForm = () => {
   checkoutIpgWrapper.classList.remove('inactive')
 }
 
-export const processPaymentAddressData = (checkoutAddressForm) => {
-  const formData = new FormData(checkoutAddressForm)
-  const data = {}
-  for (const [key, value] of formData.entries()) {
-    data[key] = value
-  }
-
-  processOrder(data).then(
+export const continueToPayment = (country) => {
+  continueToPaymentRequest(country).then(
     (data) => data.json()
   ).then((response) => {
-    if (response.non_field_errors) {
-      throw response.non_field_errors
-    }
-    updateIPGInputs(response)
-
     if (response.show_cod) {
       cashOnDeliveryWrapper.hidden = false
       cashOnDeliverySubmitWrapper.hidden = false
@@ -204,6 +196,25 @@ export const processPaymentAddressData = (checkoutAddressForm) => {
     () => moveToPaymentForm()
   ).then(() => {
     checkoutAddressTitle.scrollIntoView(false)
+  })
+}
+
+export const processPaymentAddressData = (checkoutAddressForm, callback) => {
+  const formData = new FormData(checkoutAddressForm)
+  const data = {}
+  for (const [key, value] of formData.entries()) {
+    data[key] = value
+  }
+
+  processOrder(data).then(
+    (data) => data.json()
+  ).then((response) => {
+    if (response.non_field_errors) {
+      throw response.non_field_errors
+    }
+    updateIPGInputs(response)
+  }).then(() => {
+    callback()
   }).catch((error) => {
     checkoutHelpText.innerHTML = error
     checkoutHelpText.classList.add('error')

@@ -81,6 +81,7 @@ import {
 import {
   addOneToBag,
   addToBag,
+  continueToPayment,
   clearErrorMessages,
   processPaymentAddressData,
   refreshBag,
@@ -279,9 +280,9 @@ ready(() => {
 
     if (valid) {
       if (differentShippingAddressInput.checked) {
-        updateShippingAddressData(ipgCheckoutForm)
+        processPaymentAddressData(checkoutAddressForm, () => updateShippingAddressData(ipgCheckoutForm))
       } else {
-        ipgCheckoutForm.submit()
+        processPaymentAddressData(checkoutAddressForm, () => ipgCheckoutForm.submit())
       }
     }
   })
@@ -302,7 +303,7 @@ ready(() => {
     const valid = checkoutAddressForm.reportValidity()
 
     if (valid) {
-      processPaymentAddressData(checkoutAddressForm)
+      continueToPayment(invoiceFormCountryInput.value)
     } else {
       continueToPaymentButton.disabled = false
     }
@@ -317,7 +318,7 @@ ready(() => {
     const valid = checkoutAddressForm.reportValidity()
 
     if (valid) {
-      checkoutAddressForm.submit()
+      processPaymentAddressData(checkoutAddressForm, () => checkoutAddressForm.submit())
     } else {
       cashOnDeliverySubmitButton.disabled = false
       previousStepLink.style.pointerEvents = 'auto'
@@ -391,7 +392,7 @@ ready(() => {
           shippingAddressWrapper.hidden = false
           updateShippingCostForCountry(invoiceFormShippingCountryInput.value)
         }
-        processPaymentAddressData(checkoutAddressForm)
+        continueToPayment(invoiceFormCountryInput.value)
       }
     }
   })

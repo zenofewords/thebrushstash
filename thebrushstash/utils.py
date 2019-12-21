@@ -283,13 +283,18 @@ def safe_subscribe_to_newsletter(user, email, current_site):
     return _('Check your e-mail for confirmation!')
 
 
-def create_or_update_invoice(order_number, user, cart, data, payment_method=''):
-    invoice = Invoice.objects.filter(order_number=order_number).first()
+def create_or_update_invoice(order_number, grand_total, payment_method, data, cart, user):
+    invoice = Invoice.objects.filter(
+        status=InvoiceStatus.PENDING, order_number=order_number
+    ).first()
 
     if not invoice:
         invoice = Invoice()
         invoice.save()
         invoice.order_number = 'TBS_{}'.format(invoice.pk)
+
+    invoice.order_total = grand_total
+    invoice.payment_method = payment_method
 
     invoice.email = data.get('email')
     invoice.first_name = data.get('first_name')
@@ -514,8 +519,6 @@ def complete_purchase(session, invoice_status, request):
 
     if invoice:
         invoice.status = invoice_status
-        invoice.order_total = session['bag']['grand_total']
-        invoice.payment_method = session['payment_method']
         invoice.save()
 
         update_inventory(invoice, session['bag']['products'])

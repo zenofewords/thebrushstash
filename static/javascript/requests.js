@@ -5,169 +5,100 @@ import {
   getCookie,
 } from './utils'
 
-export const setRegion = (region) => fetch(
+const fetchRequest = (url, payload) => fetch(
+  url,
+  {
+    method: 'POST',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken'),
+    },
+    body: JSON.stringify(payload),
+  }
+)
+
+export const setRegion = (region) => fetchRequest(
   '/api/region/',
   {
-    method: 'POST',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify({
-      region: region,
-    }),
+    region: region,
   }
 )
 
-export const setCookieInfo = () => fetch(
+export const setCookieInfo = () => fetchRequest(
   '/api/cookie/',
   {
-    method: 'POST',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify({
-      accepted: true,
-    }),
+    accepted: true,
   }
 )
 
-export const setPaymentMethod = (paymentMethod) => fetch(
+export const setPaymentMethod = (paymentMethod) => fetchRequest(
   '/api/update-payment-method/',
   {
-    method: 'POST',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify({
-      payment_method: paymentMethod,
-    }),
+    payment_method: paymentMethod,
   }
 )
 
-export const processOrder = (data) => fetch(
-  '/api/process-order/',
+export const continueToPaymentRequest = (countryName) => fetchRequest(
+  '/api/continue-to-payment/',
   {
-    method: 'POST',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify(data),
+    country_name: countryName,
   }
 )
 
-export const removeProduct = (slug) => fetch(
+export const processOrder = (data) => fetchRequest(
+  '/api/process-order/',
+  data,
+)
+
+export const removeProduct = (slug) => fetchRequest(
   '/api/remove-from-bag/',
   {
-    method: 'POST',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify({
-      slug: slug,
-    }),
+    slug: slug,
   }
 )
 
-export const addProduct = (dataset) => fetch(
+export const addProduct = (dataset) => fetchRequest(
   '/api/add-to-bag/',
   {
-    method: 'POST',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify({
-      pk: dataset.id,
-      slug: dataset.slug,
-      name: dataset.name,
-      quantity: parseInt(dataset.multiple ? addToBagSelect.value : 1),
-      price_hrk: parseFloat(dataset.priceHrk.replace(',', '.')),
-      price_eur: parseFloat(dataset.priceEur.replace(',', '.')),
-      price_gbp: parseFloat(dataset.priceGbp.replace(',', '.')),
-      price_usd: parseFloat(dataset.priceUsd.replace(',', '.')),
-      tax: parseFloat(dataset.tax.replace(',', '.')),
-      image_url: dataset.imageUrl,
-    }),
+    pk: dataset.id,
+    slug: dataset.slug,
+    name: dataset.name,
+    quantity: parseInt(dataset.multiple ? addToBagSelect.value : 1),
+    price_hrk: parseFloat(dataset.priceHrk.replace(',', '.')),
+    price_eur: parseFloat(dataset.priceEur.replace(',', '.')),
+    price_gbp: parseFloat(dataset.priceGbp.replace(',', '.')),
+    price_usd: parseFloat(dataset.priceUsd.replace(',', '.')),
+    tax: parseFloat(dataset.tax.replace(',', '.')),
+    image_url: dataset.imageUrl,
   }
 )
 
-export const updateProduct = (slug, action) => fetch(
+export const updateProduct = (slug, action) => fetchRequest(
   '/api/update-bag/',
   {
-    method: 'POST',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify({
-      slug: slug,
-      action: action,
-    }),
+    slug: slug,
+    action: action,
   }
 )
 
-export const updateShippingAddress = (data) => fetch(
+export const updateShippingAddress = (data) => fetchRequest(
   '/api/update-shipping-address/',
-  {
-    method: 'POST',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify(data),
-  }
+  data,
 )
 
-export const updateShippingCost = (countryName) => fetch(
+export const updateShippingCost = (countryName) => fetchRequest(
   '/api/update-shipping-cost/',
   {
-    method: 'POST',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify({
-      country_name: countryName,
-    }),
+    country_name: countryName,
   }
 )
 
-export const subscribeToNewsletter = (emailData) => fetch(
+export const subscribeToNewsletter = (emailData) => fetchRequest(
   '/api/subscribe-to-newsletter/',
   {
-    method: 'POST',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken'),
-    },
-    body: JSON.stringify({
-      email0: emailData['email0'],
-      email1: emailData['email1'],
-    }),
+    email0: emailData['email0'],
+    email1: emailData['email1'],
   }
 )

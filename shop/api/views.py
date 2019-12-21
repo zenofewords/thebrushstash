@@ -15,7 +15,7 @@ from shop.api.serializers import (
     SimpleProductSerializer,
     UserInformationSerializer,
     ShippingAddressSerializer,
-    ShippingCostSerializer,
+    CountryNameSerializer,
 )
 from shop.constants import (
     GLS_FEE,
@@ -185,6 +185,19 @@ class UpdateBagView(GenericAPIView):
         }, status=status.HTTP_200_OK)
 
 
+class ContinueToPaymentView(GenericAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = CountryNameSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        return response.Response({
+            'show_cod': serializer.data.get('country_name') == DEFAULT_COUNTRY,
+        }, status=status.HTTP_200_OK)
+
+
 class ProcessOrderView(GenericAPIView):
     permission_classes = (AllowAny, )
     serializer_class = UserInformationSerializer
@@ -198,13 +211,15 @@ class ProcessOrderView(GenericAPIView):
 
         session = request.session
         bag = session.get('bag')
+        grand_total = bag['grand_total']
         cart = get_cart(bag)
         session['order_number'] = create_or_update_invoice(
-            session.get('order_number'),
-            user,
-            cart,
+            session.get('order_number', ''),
+            grand_total,
+            session['payment_method'],
             serializer.data,
-            session.get('payment_method', '')
+            cart,
+            user
         )
         session['user_information'] = serializer.data
         session['user_information']['registration_email_in_use'] = active
@@ -218,13 +233,12 @@ class ProcessOrderView(GenericAPIView):
         return response.Response({
             'order_number': session['order_number'],
             'cart': cart,
-            'grand_total': bag['grand_total'],
+            'grand_total': grand_total,
             'user_information': session['user_information'],
             'region': session['region'],
             'language': session['_language'],
-            'show_cod': session['user_information'].get('country', '') == DEFAULT_COUNTRY,
             'signature': get_signature({
-                'amount': bag['grand_total'],
+                'amount': grand_total,
                 **user_info,  # noqa
                 'cart': cart,
                 'currency': 'HRK',
@@ -285,7 +299,7 @@ class UpdateShippingAddressView(GenericAPIView):
 
 class UpdateShippingCostView(GenericAPIView):
     permission_classes = (AllowAny, )
-    serializer_class = ShippingCostSerializer
+    serializer_class = CountryNameSerializer
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)

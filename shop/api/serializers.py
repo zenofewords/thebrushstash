@@ -65,5 +65,5 @@ class ShippingAddressSerializer(serializers.Serializer):
     shipping_zip_code = serializers.CharField(required=True, max_length=100)
 
 
-class ShippingCostSerializer(serializers.Serializer):
+class CountryNameSerializer(serializers.Serializer):
     country_name = serializers.CharField(required=True, max_length=50)
