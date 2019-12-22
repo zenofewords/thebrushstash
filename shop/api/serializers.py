@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from shop.models import Review
 from thebrushstash.utils import check_bag_content
 
 
@@ -67,3 +68,9 @@ class ShippingAddressSerializer(serializers.Serializer):
 
 class CountryNameSerializer(serializers.Serializer):
     country_name = serializers.CharField(required=True, max_length=50)
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ('product', 'score', 'content', )

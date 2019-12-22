@@ -147,6 +147,23 @@
       @extend %price-tag
       margin-bottom: 20px
 
+    .product-rating-wrapper
+      width: 150px
+      position: relative
+      border: 1px solid $colorBlue
+
+      .product-rating-gauge
+        background-color: $colorBlue
+        color: #fff
+        line-height: 28px
+        text-align: center
+        height: 30px
+
+      .product-rating-count
+        position: absolute
+        top: 3px
+        right: -25px
+
     .foreword
       font-size: 18px
       line-height: 30px
@@ -197,9 +214,31 @@
   margin: 85px $gutter 0
 
   .text-wrapper
+    display: flex
+    flex-direction: column
     flex: 1 0 0px
     padding: 0 20px 0 0
     min-width: 423px
+
+    .product-description-headers
+      display: flex
+      justify-content: space-evenly
+
+      #product-about-tab,
+      #product-review-tab
+        color: #aaa
+        cursor: pointer
+        margin: 0 0 25px
+        font-size: 16px
+        line-height: 22px
+        text-transform: uppercase
+
+        &.active
+          color: #000
+          cursor: initial
+
+      span
+        font-size: 19px
 
     h2
       padding: 0 0 20px
@@ -211,6 +250,52 @@
       margin: 0 35px 30px 0
       font-size: 18px
       line-height: 30px
+
+    button
+      @extend %summary-check-out-button
+      width: 100%
+      margin: 0 auto
+
+      &:disabled
+        background-color: $colorDarkGreen
+        cursor: not-allowed
+
+    textarea
+      width: calc(100% - 22px)
+      max-width: calc(100% - 22px)
+      height: 200px
+      font-family: $bodyFont
+      font-size: 16px
+      line-height: 19px
+
+      padding: 12px 0 1px 20px
+      border: $inputBorder
+      border-radius: 0
+      margin: 0 0 20px
+
+    #product-review-form
+      margin-bottom: 30px
+
+    .product-review-rating
+      text-align: center
+      margin: 0 auto 25px
+
+    .product-reviews-wrapper
+      h3
+        &.stars-1:after
+          content: ' 1 star'
+
+        &.stars-2:after
+          content: ' 2 stars'
+
+        &.stars-3:after
+          content: ' 3 stars'
+
+        &.stars-4:after
+          content: ' 4 stars'
+
+        &.stars-5:after
+          content: ' 5 stars'
 
   .media-wrapper
     flex: 1 1 0px

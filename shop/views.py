@@ -18,9 +18,11 @@ from account.models import (
 from shop.constants import GLS_FEE
 from shop.models import (
     Invoice,
+    InvoiceItem,
     InvoicePaymentMethod,
     InvoiceStatus,
     Product,
+    Review,
 )
 from shop.utils import (
     format_price_with_currency,
@@ -191,10 +193,23 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        can_review = False
+        if self.request.user.is_authenticated:
+            bought_the_item = InvoiceItem.objects.filter(
+                product=self.object, invoice__user=self.request.user
+            ).exists()
+            already_reviewed = Review.objects.filter(
+                product=self.object, user=self.request.user
+            )
+            can_review = bought_the_item and not already_reviewed
+
         context.update({
             'selected_item_id': self.selected_item_id,
             'currency': self.request.session.get('currency'),
-            'other_products': Product.published_objects.exclude(id=self.object.pk)[:3]
+            'other_products': Product.published_objects.exclude(id=self.object.pk)[:3],
+            'reviews': Review.published_objects.filter(product=self.object),
+            'can_review': can_review,
         })
         return context
 

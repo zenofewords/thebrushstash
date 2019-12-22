@@ -42,13 +42,13 @@ import {
   invoiceFormFirstNameInput,
   invoiceFormLastNameInput,
   invoiceFormNote,
-  invoiceFormStateCountyInput,
   invoiceFormShippingAddressInput,
   invoiceFormShippingCityInput,
   invoiceFormShippingCountryInput,
   invoiceFormShippingFirstNameInput,
   invoiceFormShippingLastNameInput,
   invoiceFormShippingZipCodeInput,
+  invoiceFormStateCountyInput,
   invoiceFormZipCodeInput,
   ipgCheckoutForm,
   ipgFormSubmitButton,
@@ -65,7 +65,13 @@ import {
   navMobileOpenButton,
   phoneNumberInput,
   previousStepLink,
+  productDescription,
+  productAboutTab,
+  productReviewTab,
+  productReview,
+  productReviewForm,
   r1ReceiptCheckbox,
+  ratingLink,
   registerButton,
   registerForm,
   removeProductButtons,
@@ -74,9 +80,10 @@ import {
   shippingAddressChoice,
   shippingAddressWrapper,
   shipToMenu,
+  submitReviewButton,
   subscribeToNewsletterButton,
-  thumbnailWrappers,
   termsCheckboxErrorMessage,
+  thumbnailWrappers,
 } from './selectors'
 import {
   addOneToBag,
@@ -87,7 +94,9 @@ import {
   refreshBag,
   removeFromBag,
   removeOneFromBag,
+  scrollToElement,
   showErrorMessage,
+  submitReview,
   subToNewsletter,
   switchActiveImage,
   toggleBag,
@@ -478,4 +487,47 @@ ready(() => {
       }))
     })
   }
+
+  ratingLink && ratingLink.addEventListener('click', (event) => {
+    event.preventDefault()
+
+    productDescription.hidden = true
+    productReview.hidden = false
+    productAboutTab.classList.remove('active')
+    productReviewTab.classList.add('active')
+
+    scrollToElement(productReviewTab)
+  })
+
+  submitReviewButton && submitReviewButton.addEventListener('click', (event) => {
+    event.preventDefault()
+
+    submitReviewButton.disabled = true
+    clearErrorMessages()
+
+    const valid = productReviewForm.reportValidity()
+    if (valid) {
+      submitReview(productReviewForm)
+    } else {
+      submitReviewButton.disabled = false
+    }
+  })
+
+  productAboutTab && productAboutTab.addEventListener('click', (event) => {
+    event.preventDefault()
+
+    productDescription.hidden = false
+    productReview.hidden = true
+    productAboutTab.classList.add('active')
+    productReviewTab.classList.remove('active')
+  })
+
+  productReviewTab && productReviewTab.addEventListener('click', (event) => {
+    event.preventDefault()
+
+    productDescription.hidden = true
+    productReview.hidden = false
+    productAboutTab.classList.remove('active')
+    productReviewTab.classList.add('active')
+  })
 })

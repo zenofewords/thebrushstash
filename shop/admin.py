@@ -132,7 +132,8 @@ class ProductTypeAdmin(AutoSlugAdmin):
 
 class ReviewAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', )
-    list_display = ('product', 'user', 'score', )
+    list_display = ('product', 'user', 'score', 'published', )
+    list_editable = ('published', )
 
 
 class ShowcaseAdmin(AutoSlugAdmin):

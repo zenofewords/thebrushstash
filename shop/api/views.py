@@ -6,16 +6,17 @@ from rest_framework import (
     status,
 )
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from django.conf import settings
 
 from shop.api.serializers import (
+    CountryNameSerializer,
     PaymentMethodSerializer,
     ProductSerializer,
+    ReviewSerializer,
+    ShippingAddressSerializer,
     SimpleProductSerializer,
     UserInformationSerializer,
-    ShippingAddressSerializer,
-    CountryNameSerializer,
 )
 from shop.constants import (
     GLS_FEE,
@@ -24,6 +25,8 @@ from shop.constants import (
 from shop.models import (
     InvoicePaymentMethod,
     Invoice,
+    Product,
+    Review,
 )
 from shop.utils import (
     get_grandtotals,
@@ -354,3 +357,31 @@ class UpdatePaymentMethodView(GenericAPIView):
             'exchange_rate': exchange_rate,
             'payment_method': session['payment_method'],
         }, status=status.HTTP_200_OK)
+
+
+class SubmitReviewView(GenericAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+    serializer_class = ReviewSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        product_id = serializer.data.get('product')
+        Review.objects.get_or_create(
+            product_id=product_id,
+            user_id=request.user.pk,
+            defaults={
+                'score': serializer.data.get('score'),
+                'content': serializer.data.get('content'),
+                'published': True,
+            }
+        )
+        product = Product.objects.filter(pk=product_id).first()
+        data = serializer.data
+        data.update({
+            'user_name': self.request.user.first_name,
+            'total_score': product.score if product else 0,
+            'ratings': product.ratings if product else 0,
+        })
+        return response.Response(data, status=status.HTTP_200_OK)

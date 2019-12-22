@@ -267,6 +267,7 @@ class Review(TimeStampMixin, PublishedMixin):
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews'
+        ordering = ('-created_at', )
 
     def __str__(self):
         return '{} review by {}'.format(self.product.name, self.user.email)

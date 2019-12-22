@@ -102,3 +102,8 @@ export const subscribeToNewsletter = (emailData) => fetchRequest(
     email1: emailData['email1'],
   }
 )
+
+export const submitReviewRequest = (data) => fetchRequest(
+  '/api/submit-review/',
+  data,
+)

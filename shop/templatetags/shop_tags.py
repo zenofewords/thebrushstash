@@ -6,7 +6,6 @@ from django.utils.translation import get_language
 
 from shop.constants import VARIATIONS
 from shop.models import (
-    InvoiceItem,
     GalleryItem,
     Showcase,
 )
@@ -114,19 +113,16 @@ def gallery_item(obj, item, selected_item_id, first_item):
 
 
 @register.inclusion_tag('thebrushstash/tags/rating_tag.html')
-def rating_tag(obj, user):
+def rating_tag(obj, can_review=False):
     percentage = 0
 
     if obj.ratings > 0:
-        percentage = ((obj.score / obj.ratings - 1) / 5) * 100
-
-    bought_the_item = False
-    if user.is_authenticated:
-        bought_the_item = InvoiceItem.objects.filter(product=obj, invoice__user=user).exists()
+        percentage = obj.score / obj.ratings / 5 * 100
 
     return {
+        'ratings': obj.ratings,
         'percentage': percentage,
-        'can_rate': bought_the_item,
+        'can_review': can_review,
     }
 
 

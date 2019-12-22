@@ -55,7 +55,7 @@
       <h1 class="header">
         {{ object.name }}
       </h1>
-      {% rating_tag object request.user %}
+      {% rating_tag object can_review %}
       <div class="price-tag">
         {% get_localized_item_price object 'price' currency %}
       </div>
@@ -91,22 +91,58 @@
   </div>
   <div class="product-description-wrapper">
     <div class="text-wrapper">
-      {% if product.title and product.title_cro %}
-        <h2>
-          {% if LANGUAGE_CODE == 'hr' %}
-            {{ product.title_cro }}
-          {% else %}
-            {{ product.title }}
-          {% endif %}
-        </h2>
+      {% if reviews or can_review %}
+        <div class="product-description-headers">
+          <a href="#" id="product-about-tab" class="active">{% trans "About" %}</a>
+          <span>|</span>
+          <a href="#" id="product-review-tab">{% trans "Reviews" %}</a>
+        </div>
       {% endif %}
-      <p>
-        {% if LANGUAGE_CODE == 'hr' %}
-          {{ product.description_cro|safe|linebreaksbr }}
-        {% else %}
-          {{ product.description|safe|linebreaksbr }}
+      <div id="product-description">
+        {% if product.title and product.title_cro %}
+          <h2>
+            {% if LANGUAGE_CODE == 'hr' %}
+              {{ product.title_cro }}
+            {% else %}
+              {{ product.title }}
+            {% endif %}
+          </h2>
         {% endif %}
-      </p>
+        <p>
+          {% if LANGUAGE_CODE == 'hr' %}
+            {{ product.description_cro|safe|linebreaksbr }}
+          {% else %}
+            {{ product.description|safe|linebreaksbr }}
+          {% endif %}
+        </p>
+      </div>
+      <div id="product-review" hidden>
+        {% if can_review %}
+          <form id="product-review-form">
+            <input type="hidden" id="product" name="product" value="{{ object.pk }}">
+            <textarea id="content" name="content" cols="40" rows="10" required></textarea>
+
+            <div class="product-review-rating">
+              {% for score in '12345' %}
+                <label>
+                  <input type="radio" name="score" value={{ score }} required> {{ score }}
+                </label>
+              {% endfor %}
+            </div>
+            <button id="submit-review-button">
+              {% trans 'Submit review' %}
+            </button>
+          </form>
+        {% endif %}
+        <div class="product-reviews-wrapper">
+          {% for review in reviews %}
+            <h3 class="stars-{{ review.score }}">{{ review.user.first_name }}, </h3>
+            <p>
+              {{ review.content|linebreaksbr }}
+            </p>
+          {% endfor %}
+        </div>
+      </div>
     </div>
     <div class="media-wrapper">
       {% get_images_for_model obj=product standalone=True number=2 as body_images %}

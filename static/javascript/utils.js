@@ -4,6 +4,7 @@ import {
   processOrder,
   removeProduct,
   setPaymentMethod,
+  submitReviewRequest,
   subscribeToNewsletter,
   updateProduct,
   updateShippingAddress,
@@ -45,6 +46,9 @@ import {
   joinNewsletterMessage,
   mainWrapper,
   navigationWrapper,
+  productRatingCount,
+  productRatingGauge,
+  productReviewsWrapper,
   reviewBagLink,
   shippingAddressChoice,
   shippingAddressWrapper,
@@ -486,4 +490,50 @@ export const updateShippingCostForCountry = (countryName, callback = null) => {
       callback()
     }
   }))
+}
+
+export const scrollToElement = (element) => {
+  const bodyRect = document.body.getBoundingClientRect().top
+  const elementRect = element.getBoundingClientRect().top
+  window.scrollTo(
+    {top: elementRect - bodyRect - 60}
+  )
+}
+
+export const submitReview = (productReviewForm) => {
+  const formData = new FormData(productReviewForm)
+  const data = {}
+  for (const [key, value] of formData.entries()) {
+    data[key] = value
+  }
+
+  submitReviewRequest(data).then(
+    (data) => data.json()
+  ).then((response) => {
+    productReviewForm.hidden = true
+
+    const title = document.createElement('h3')
+    title.innerHTML = `${response.user_name},`
+    title.classList.add(`stars-${response.score}`)
+    const content = document.createElement('p')
+    content.innerHTML = response.content.replace(/(?:\r\n|\r|\n)/g, '<br>')
+
+    const ratings = response.ratings
+    let percentage = 0
+    if (ratings > 0) {
+      percentage = Math.round(response.total_score / ratings / 5 * 100)
+    }
+
+    productRatingCount.innerHTML = `(${response.ratings})`
+    productRatingGauge.innerHTML = `${percentage}%`
+    productRatingGauge.style = `width: ${percentage}%`
+
+    if (productReviewsWrapper.children) {
+      productReviewsWrapper.insertBefore(content, productReviewsWrapper.childNodes[0])
+      productReviewsWrapper.insertBefore(title, productReviewsWrapper.childNodes[0])
+    } else {
+      productReviewsWrapper.appendChild(content)
+      productReviewsWrapper.appendChild(title)
+    }
+  })
 }
