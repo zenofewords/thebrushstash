@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-21 17:37+0000\n"
+"POT-Creation-Date: 2019-12-23 22:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,6 +173,7 @@ msgid "Please make sure the information listed below is correct."
 msgstr "Molimo provjerite točnost unešenih podataka."
 
 #: shop/templates/shop/includes/checkout_address_form.html:26
+#: shop/templates/shop/product_detail.html:139
 #: templates/account/activate.html:20 templates/account/activate.html:24
 #: templates/account/includes/form_field.html:8
 #: templates/registration/login.html:34
@@ -226,7 +227,7 @@ msgid "Use a different address"
 msgstr "Koristite drugu adresu za dostavu"
 
 #: shop/templates/shop/includes/checkout_ipg_form.html:58
-#: shop/templates/shop/includes/checkout_payment_form.html:30
+#: shop/templates/shop/includes/checkout_payment_form.html:29
 msgid "Place order"
 msgstr "Potvrdite narudžbu"
 
@@ -246,18 +247,18 @@ msgstr "Plaćanje pouzećem"
 msgid "Note: requires an additional fee for the GLS service"
 msgstr "Napomena: GLS naplaćuje dodatnu naknadu za ovu uslugu"
 
-#: shop/templates/shop/includes/checkout_payment_form.html:25
+#: shop/templates/shop/includes/checkout_payment_form.html:24
 msgid ""
 "For security reasons, every cash on delivery order must be verified by phone."
 msgstr ""
 "Iz sigurnosnih razloga, sve narudžbe koje uključuju plaćanje pouzećem, prije "
 "slanja potvrdit ćemo telefonski."
 
-#: shop/templates/shop/includes/checkout_payment_form.html:38
+#: shop/templates/shop/includes/checkout_payment_form.html:37
 msgid "Use a credit card"
 msgstr "Kartična plaćanja"
 
-#: shop/templates/shop/includes/checkout_payment_form.html:45
+#: shop/templates/shop/includes/checkout_payment_form.html:44
 msgid ""
 "Note: all payments are processed in Croatian Kuna (HRK). Prices in other "
 "currencies are shown for information purposes only and are calculated by the "
@@ -283,7 +284,7 @@ msgstr "Novo"
 msgid "Webshop"
 msgstr "Webshop"
 
-#: shop/templates/shop/product_detail.html:84
+#: shop/templates/shop/product_detail.html:86
 #, python-format
 msgid ""
 "*Prices include VAT.\n"
@@ -296,7 +297,27 @@ msgstr ""
 "            Opcije dostave\n"
 "          </a>"
 
-#: shop/templates/shop/product_detail.html:119
+#: shop/templates/shop/product_detail.html:97
+msgid "About"
+msgstr "Detalji o kistu"
+
+#: shop/templates/shop/product_detail.html:99
+msgid "Reviews"
+msgstr "Recenzije"
+
+#: shop/templates/shop/product_detail.html:135
+msgid "Rating is required."
+msgstr "Potrebno je dati ocjenu."
+
+#: shop/templates/shop/product_detail.html:138
+msgid "Tell us what you think"
+msgstr ""
+
+#: shop/templates/shop/product_detail.html:141
+msgid "Submit review"
+msgstr "Ostavite recenziju"
+
+#: shop/templates/shop/product_detail.html:164
 msgid "More from our shop"
 msgstr "Više iz naše ponude"
 
@@ -448,18 +469,18 @@ msgstr "GLS (plaćanje pouzećem):"
 msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
-#: shop/templates/shop/purchase_complete_email.html:405
-#: shop/templates/shop/purchase_complete_email.txt:59
+#: shop/templates/shop/purchase_complete_email.html:406
+#: shop/templates/shop/purchase_complete_email.txt:60
 #: shop/templates/shop/tags/purchase_summary_tag.html:49
 msgid "Grand total (HRK):"
 msgstr "Ukupna cijena (HRK):"
 
-#: shop/templates/shop/purchase_complete_email.html:425
-#: shop/templates/shop/purchase_complete_email.txt:62
+#: shop/templates/shop/purchase_complete_email.html:427
+#: shop/templates/shop/purchase_complete_email.txt:63
 msgid "Thank you for using The Brush Stash products!"
 msgstr "Hvala Vam što koristite The Brush Stash proizvode!"
 
-#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:456
+#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:461
 msgid "Purchase complete"
 msgstr "Vaša narudžba je izvršena!"
 
@@ -904,19 +925,19 @@ msgstr "Prijavljeni ste, hvala!"
 msgid "Check your e-mail for confirmation!"
 msgstr "Provjerite svoj e-mail kako biste potvrdili pretplatu na newsletter!"
 
-#: thebrushstash/utils.py:374
+#: thebrushstash/utils.py:379
 msgid "Activate your account"
 msgstr "Aktivirajte svoj korisnički račun"
 
-#: thebrushstash/utils.py:400
+#: thebrushstash/utils.py:405
 msgid "Subscribe to newsletter"
 msgstr "Pretplatite se na newsletter"
 
-#: thebrushstash/utils.py:532
+#: thebrushstash/utils.py:535
 msgid "There's nothing in your bag."
 msgstr "Vaša košarica je prazna."
 
-#: thebrushstash/utils.py:539
+#: thebrushstash/utils.py:542
 msgid ""
 "\n"
 "                Looks like {} is all sold out\n"
@@ -926,7 +947,7 @@ msgstr ""
 "                Čini se da je {} rasprodan\n"
 "                Morat ćete ga ukloniti iz košarice da bi mogli nastaviti."
 
-#: thebrushstash/utils.py:543
+#: thebrushstash/utils.py:546
 msgid ""
 "\n"
 "                We've got only {} {} left,\n"

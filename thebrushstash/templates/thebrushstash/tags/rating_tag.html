@@ -1,7 +1,7 @@
 {% if can_review %}<a id="rating-link" href="#">{% endif %}
   <div class="product-rating-wrapper">
+    {% include 'thebrushstash/icons/star-gauge-icon.html' %}
     <div class="product-rating-gauge" style="width: {{ percentage|floatformat:"0" }}%">
-      {{ percentage|floatformat:"0" }}%
     </div>
     <span class="product-rating-count">
       ({{ ratings }})

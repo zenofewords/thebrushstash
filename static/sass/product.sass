@@ -1,3 +1,5 @@
+@import './icons/starIcon.sass'
+
 .product-detail-wrapper
   position: relative
   display: flex
@@ -74,7 +76,7 @@
       flex-flow: row wrap
       justify-content: center
 
-      a
+      div
         margin: 15px 10px
 
       .image-wrapper
@@ -141,28 +143,29 @@
       font-size: 38px
       font-weight: $heavy
       line-height: 51px
-      margin-bottom: 18px
+      margin-bottom: 5px
 
     .price-tag
       @extend %price-tag
       margin-bottom: 20px
 
     .product-rating-wrapper
-      width: 150px
+      width: 140px
       position: relative
-      border: 1px solid $colorBlue
+      display: inline-block
 
       .product-rating-gauge
+        position: absolute
+        top: 5px
+        left: 0
+        z-index: -1
         background-color: $colorBlue
-        color: #fff
-        line-height: 28px
-        text-align: center
-        height: 30px
+        height: 24px
 
       .product-rating-count
         position: absolute
-        top: 3px
-        right: -25px
+        top: 5px
+        left: 110%
 
     .foreword
       font-size: 18px
@@ -222,13 +225,12 @@
 
     .product-description-headers
       display: flex
-      justify-content: space-evenly
 
       #product-about-tab,
       #product-review-tab
         color: #aaa
         cursor: pointer
-        margin: 0 0 25px
+        margin: 0 30px 25px 0
         font-size: 16px
         line-height: 22px
         text-transform: uppercase
@@ -236,6 +238,9 @@
         &.active
           color: #000
           cursor: initial
+
+      #product-review-tab
+        margin: 0 0 25px 30px
 
       span
         font-size: 19px
@@ -274,28 +279,52 @@
       margin: 0 0 20px
 
     #product-review-form
-      margin-bottom: 30px
+      margin-bottom: 25px
 
     .product-review-rating
-      text-align: center
-      margin: 0 auto 25px
+      margin: 0 auto 20px
+      position: relative
+
+      .star-score-input
+        opacity: 0
+        position: absolute
+        top: 5px
 
     .product-reviews-wrapper
       h3
-        &.stars-1:after
-          content: ' 1 star'
+        &.stars-1:after,
+        &.stars-2:after,
+        &.stars-3:after,
+        &.stars-4:after,
+        &.stars-5:after
+          content: ''
+          padding: 2px 12px 0
+          margin: 0 0 0 5px
+          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
 
         &.stars-2:after
-          content: ' 2 stars'
+          padding: 2px 24px 0
+          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
 
         &.stars-3:after
-          content: ' 3 stars'
+          padding: 2px 36px 0
+          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
 
         &.stars-4:after
-          content: ' 4 stars'
+          padding: 2px 48px 0
+          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
 
         &.stars-5:after
-          content: ' 5 stars'
+          padding: 2px 60px 0
+          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
+
+      p
+        margin: 0 0 20px
+        padding-bottom: 20px
+        border-bottom: $discreetGreyBorder
+
+        &:last-of-type
+          border-bottom: 0
 
   .media-wrapper
     flex: 1 1 0px

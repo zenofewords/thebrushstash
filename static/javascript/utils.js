@@ -525,7 +525,6 @@ export const submitReview = (productReviewForm) => {
     }
 
     productRatingCount.innerHTML = `(${response.ratings})`
-    productRatingGauge.innerHTML = `${percentage}%`
     productRatingGauge.style = `width: ${percentage}%`
 
     if (productReviewsWrapper.children) {

@@ -69,6 +69,7 @@
 
       <div class="ui-wrapper">
         <span>
+          <label for="add-to-bag-select" class="screen-reader-only">Add to bag select</label>
           <select id="add-to-bag-select">
             <option>1</option>
             <option>2</option>
@@ -119,16 +120,23 @@
       <div id="product-review" hidden>
         {% if can_review %}
           <form id="product-review-form">
-            <input type="hidden" id="product" name="product" value="{{ object.pk }}">
-            <textarea id="content" name="content" cols="40" rows="10" required></textarea>
-
             <div class="product-review-rating">
               {% for score in '12345' %}
                 <label>
-                  <input type="radio" name="score" value={{ score }} required> {{ score }}
+                  <input class="star-score-input" type="radio" name="score" value={{ score }} required>
+                  <span id="star-{{ score }}" class="star-icon">
+                    {% include 'thebrushstash/icons/star-icon.html' %}
+                  </span>
+                  <span id="star-fill-{{ score }}" class="star-fill-icon" hidden>
+                    {% include 'thebrushstash/icons/star-fill-icon.html' %}
+                  </span>
                 </label>
               {% endfor %}
+              <span id="product-review-rating-error-message" hidden>{% trans "Rating is required." %}</span>
             </div>
+            <input type="hidden" id="product" name="product" value="{{ object.pk }}">
+            <textarea id="content" name="content" cols="40" rows="10" required placeholder="{% trans 'Tell us what you think' %}"></textarea>
+            <span id="product-review-content-error-message" class="error" hidden>{% trans "This field is required." %}</span>
             <button id="submit-review-button">
               {% trans 'Submit review' %}
             </button>

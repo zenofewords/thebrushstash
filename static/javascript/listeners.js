@@ -67,6 +67,9 @@ import {
   previousStepLink,
   productDescription,
   productAboutTab,
+  productReviewContent,
+  productReviewContentErrorMessage,
+  productReviewRatingErrorMessage,
   productReviewTab,
   productReview,
   productReviewForm,
@@ -80,6 +83,7 @@ import {
   shippingAddressChoice,
   shippingAddressWrapper,
   shipToMenu,
+  starScoreInputs,
   submitReviewButton,
   subscribeToNewsletterButton,
   termsCheckboxErrorMessage,
@@ -386,8 +390,7 @@ ready(() => {
     event.target.setCustomValidity('')
 
     if (!event.target.checked) {
-      const errorMessage = termsCheckboxErrorMessage.innerHTML
-      event.target.setCustomValidity(errorMessage)
+      event.target.setCustomValidity(termsCheckboxErrorMessage.innerHTML)
     } else {
       const valid = checkoutAddressForm.reportValidity()
 
@@ -501,6 +504,8 @@ ready(() => {
 
   submitReviewButton && submitReviewButton.addEventListener('click', (event) => {
     event.preventDefault()
+    starScoreInputs[0].setCustomValidity('')
+    productReviewContent.setCustomValidity('')
 
     submitReviewButton.disabled = true
     clearErrorMessages()
@@ -509,6 +514,8 @@ ready(() => {
     if (valid) {
       submitReview(productReviewForm)
     } else {
+      starScoreInputs[0].setCustomValidity(productReviewRatingErrorMessage.innerHTML)
+      productReviewContent.setCustomValidity(productReviewContentErrorMessage.innerHTML)
       submitReviewButton.disabled = false
     }
   })
@@ -530,4 +537,27 @@ ready(() => {
     productAboutTab.classList.remove('active')
     productReviewTab.classList.add('active')
   })
+
+  for (let i = 0; i < starScoreInputs.length; i++) {
+    starScoreInputs[i].addEventListener('click', (event) => {
+      const score = parseInt(event.target.value)
+
+      const starIcons = document.getElementsByClassName('star-icon')
+      for (var s = 0; s < starIcons.length; s++) {
+        starIcons[s].hidden = false
+      }
+      const starFillIcons = document.getElementsByClassName('star-fill-icon')
+      for (let f = 0; f < starFillIcons.length; f++) {
+        starFillIcons[f].hidden = true
+      }
+
+      for (let j = 0; j < score; j++) {
+        const starFillIcon = starFillIcons[j]
+        starFillIcon.hidden = false
+
+        const starIcon = starIcons[j]
+        starIcon.hidden = true
+      }
+    })
+  }
 })
