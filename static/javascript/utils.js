@@ -492,11 +492,11 @@ export const updateShippingCostForCountry = (countryName, callback = null) => {
   }))
 }
 
-export const scrollToElement = (element) => {
+export const scrollToElement = (element, offset = 60) => {
   const bodyRect = document.body.getBoundingClientRect().top
   const elementRect = element.getBoundingClientRect().top
   window.scrollTo(
-    {top: elementRect - bodyRect - 60}
+    {top: elementRect - bodyRect - offset}
   )
 }
 
