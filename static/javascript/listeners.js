@@ -247,7 +247,7 @@ ready(() => {
       sameShippingAddressInput.checked = true
       updatePaymentMethod(creditCardRadio.value)
 
-      differentShippingAddressInputWrapper.scrollIntoView(false)
+      scrollToElement(differentShippingAddressInputWrapper)
     }
   })
 
@@ -267,7 +267,7 @@ ready(() => {
       invoiceFormShippingCityInput.required = true
       invoiceFormShippingZipCodeInput.required = true
 
-      differentShippingAddressInput.scrollIntoView()
+      scrollToElement(differentShippingAddressInput)
     }
   })
 
