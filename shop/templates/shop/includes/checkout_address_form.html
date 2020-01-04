@@ -35,7 +35,7 @@
     {% trans 'Type in a valid e-mail address.' as email_error_message %}
     {% include 'account/includes/form_field.html' with field=form.email custom_error=email_error_message %}
 
-    {% trans 'Contact number is required for receiving sms info from our courier about the exact date and approximate time frame of delivery.' as phone_info %}
+    {% trans 'Phone number is required so that our courier can contact you if needed regarding delivery.' as phone_info %}
     {% include 'account/includes/form_field.html' with field=form.phone_number info=phone_info %}
 
     {% include 'account/includes/form_field.html' with field=form.note %}
