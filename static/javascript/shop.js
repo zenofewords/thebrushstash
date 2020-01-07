@@ -118,7 +118,7 @@ ready(() => {
       const picture = document.querySelector('.selected')
       const size = window.innerWidth > window.innerHeight ? window.innerHeight * 0.9 : window.innerWidth * 0.9
       const imagePreview = new Image(size, size)
-      const image = picture.getElementsByTagName('img')[0].currentSrc
+      const image = picture.getElementsByTagName('img')[0].currentSrc.replace(/_medium\.|_small\./g, '_large.')
       imagePreview.src = image
 
       previewImageWrapper.appendChild(imagePreview)
