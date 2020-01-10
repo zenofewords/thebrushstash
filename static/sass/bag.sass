@@ -1,3 +1,5 @@
+@import './icons/uiIcons.sass'
+
 .bag
   display: flex
   flex-direction: column
@@ -72,13 +74,13 @@
       text-overflow: ellipsis
 
     .bag-product-remove
-      &:before
-        @extend %background-circle-icon
-        top: 21%
-
-      &:after
-        @extend %circle-icon-content
-        content: '\00D7'
+      background: url('data:image/svg+xml;base64,#{$removeIcon}') no-repeat center
+      width: 18px
+      height: 18px
+      cursor: pointer
+      position: absolute
+      top: 3px
+      right: 0
 
   .bag-product-stats
     display: flex
@@ -140,7 +142,7 @@
         font-weight: $heavy
         line-height: 13px
         text-transform: uppercase
-        margin: 10px 0 0 11%
+        margin: 10px 0 0 8%
         min-width: 60px
 
         &:first-child
@@ -179,8 +181,8 @@
         flex-direction: column
 
       .bag-product-and-price
-        width: 45%
-        padding: 0 0 0 25px
+        width: 50%
+        padding: 0 0 0 5px
 
         .bag-product-name
           font-family: $headerFont
@@ -199,38 +201,32 @@
         font-size: 15px
         font-weight: $heavy
         line-height: 18px
-        text-align: right
-        margin: 24px 0 0 0
-        padding: 0 15px 0 0
-        width: 60px
+        text-align: center
+        margin: 27px 0 0 0
+        width: 70px
+        min-width: 65px
 
         .bag-product-decrement
+          background: url('data:image/svg+xml;base64,#{$decrementIcon}') no-repeat center
+          width: 18px
+          height: 18px
+          cursor: pointer
+          position: absolute
+          top: 0
+          left: 0
+
           &.disabled
             opacity: 0.3
             pointer-events: none
 
-          &:before
-            @extend %background-circle-icon
-            top: 10%
-            right: 38px
-
-          &:after
-            @extend %circle-icon-content
-            content: '\2212'
-            top: 0
-            right: 41px
-
         .bag-product-increment
-          &:before
-            @extend %background-circle-icon
-            top: 10%
-            right: -10px
-
-          &:after
-            @extend %circle-icon-content
-            content: '\002B'
-            top: 0
-            right: -7px
+          background: url('data:image/svg+xml;base64,#{$incrementIcon}') no-repeat center
+          width: 18px
+          height: 18px
+          cursor: pointer
+          position: absolute
+          top: 0
+          right: 0
 
       .bag-subtotal
         position: relative
@@ -239,20 +235,20 @@
         margin: 0 25px
 
         .bag-product-remove
-          &:before
-            @extend %background-circle-icon
-            top: 10%
-
-          &:after
-            @extend %circle-icon-content
-            content: '\00D7'
+          background: url('data:image/svg+xml;base64,#{$removeIcon}') no-repeat center
+          width: 18px
+          height: 18px
+          cursor: pointer
+          position: absolute
+          top: 3px
+          right: 0
 
         .bag-product-subtotal
           font-size: 15px
           font-weight: $heavy
           line-height: 18px
           text-align: right
-          margin-bottom: 6px
+          margin-bottom: 3px
 
   .summary-wrapper
     @extend %summary-wrapper
