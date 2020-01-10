@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth.forms import UserChangeForm
 from django.utils.safestring import mark_safe
-from django.utils.translation import gettext as _
+from django.utils.translation import get_language, gettext as _
 
 from account.models import CustomUser
 from thebrushstash.constants import (
@@ -71,13 +71,18 @@ class AddressForm(forms.ModelForm):
     r1_receipt = forms.BooleanField()
 
     def __init__(self, *args, **kwargs):
+        language = get_language()
+        country_qs = Country.published_objects.all()
+        if language == 'hr':
+            country_qs = country_qs.order_by('name_cro')
+
         super().__init__(*args, **kwargs)
 
         self.fields['country'].required = True
         self.fields['country'].empty_label = _('Select country')
         self.fields['country'].label = _('Select country')
         self.fields['country'].to_field_name = 'name'
-        self.fields['country'].queryset = Country.published_objects.all()
+        self.fields['country'].queryset = country_qs
 
         self.fields['first_name'].required = True
         self.fields['first_name'].label = _('First name')
@@ -108,7 +113,7 @@ class AddressForm(forms.ModelForm):
         self.fields['account_shipping_country'].label = _('Select country')
         self.fields['account_shipping_country'].empty_label = _('Select country')
         self.fields['account_shipping_country'].to_field_name = 'name'
-        self.fields['account_shipping_country'].queryset = Country.published_objects.all()
+        self.fields['account_shipping_country'].queryset = country_qs
 
         self.fields['shipping_first_name'].required = False
         self.fields['shipping_first_name'].label = _('First name')
