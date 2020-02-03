@@ -7,6 +7,7 @@ from shop.models import (
     EmailAudit,
     GalleryItem,
     Invoice,
+    Newsletter,
     Product,
     Review,
     Showcase,
@@ -96,6 +97,27 @@ class InvoiceAdmin(admin.ModelAdmin):
     search_fields = ('created_at', 'first_name', 'last_name', )
 
 
+class NewsletterAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'schedule_at', 'status', 'status_message', 'completed_at', )
+    readonly_fields = ('status', 'completed_at', 'status_message', )
+    fieldsets = (
+        (None, {
+            'fields': ('schedule_at', 'recipient_list', 'header_image', 'body_image', ),
+        }),
+        ('Text fields (ENG)', {
+            'classes': ('collapse', ),
+            'fields': ('header_text', 'body_text', ),
+        }),
+        ('Text fields (CRO)', {
+            'classes': ('collapse', ),
+            'fields': ('header_text_cro', 'body_text_cro', ),
+        }),
+        (None, {
+            'fields': ('status', 'status_message', 'completed_at', )
+        }),
+    )
+
+
 class ProductAdmin(AutoSlugAdmin):
     list_display_links = ('name', )
     list_display = ('name', 'price_hrk', 'in_stock', 'ordering', 'published', )
@@ -169,6 +191,7 @@ class EmailAuditAdmin(admin.ModelAdmin):
 admin.site.register(EmailAudit, EmailAuditAdmin)
 admin.site.register(GalleryItem, GalleryItemAdmin)
 admin.site.register(Invoice, InvoiceAdmin)
+admin.site.register(Newsletter, NewsletterAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Showcase, ShowcaseAdmin)

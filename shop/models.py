@@ -275,3 +275,50 @@ class Review(TimeStampMixin, PublishedMixin):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         update_product_rating(self.product, self.score)
+
+
+class NewsletterStatus:
+    READY = 'ready'
+    IN_PROGRESS = 'in progress'
+    FINISHED = 'finished'
+    FAILED = 'failed'
+
+    CHOICES = (
+        (READY, 'Ready'),
+        (IN_PROGRESS, 'In Progress'),
+        (FINISHED, 'Finished'),
+        (FAILED, 'Failed'),
+    )
+
+
+class Newsletter(TimeStampMixin, PublishedMixin):
+    schedule_at = models.DateTimeField(blank=True)
+    recipient_list = models.ManyToManyField(
+        'account.CustomUser',
+        help_text='Use for testing, if left blank the newsletter will be sent to all recipients.'
+    )
+    header_image = models.ImageField(upload_to='shop/%Y/%m/', blank=True, null=True)
+    body_image = models.ImageField(upload_to='shop/%Y/%m/', blank=True, null=True)
+
+    header_text_cro = models.TextField(blank=True)
+    header_text = models.TextField(blank=True)
+    body_text_cro = models.TextField(blank=True)
+    body_text = models.TextField(blank=True)
+
+    status = models.CharField(max_length=100, choices=NewsletterStatus.CHOICES)
+    status_message = models.TextField(blank=True)
+    completed_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Newsletter'
+        verbose_name_plural = 'Newsletter'
+        ordering = ('-created_at', )
+
+    def __str__(self):
+        return '{}...'.format(self.header_text[:50])
+
+    def save(self, *args, **kwargs):
+        if self.schedule_at:
+            self.status = NewsletterStatus.READY
+            self.status_message = 'Scheduled for delivery'
+        super().save(*args, **kwargs)
