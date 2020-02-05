@@ -45,7 +45,7 @@ class CustomUserAdmin(UserAdmin):
 
 
 class NewsletterRecipientAdmin(admin.ModelAdmin):
-    list_display = ('email', 'subscribed', 'user', )
+    list_display = ('email', 'subscribed', 'user', 'language_preference', )
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
