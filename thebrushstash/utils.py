@@ -364,14 +364,15 @@ def attach_images(message, invoice):
 
 def attach_newsletter_images(newsletter, message):
     for image_id, image in enumerate([newsletter.header_image, newsletter.body_image], start=1):
-        with Image.open(image.path, mode='r') as img:
-            image_byte_array = io.BytesIO()
-            img.save(image_byte_array, format='jpeg')
+        if image:
+            with Image.open(image.path, mode='r') as img:
+                image_byte_array = io.BytesIO()
+                img.save(image_byte_array, format='jpeg')
 
-            img = MIMEImage(image_byte_array.getvalue(), 'jpeg')
-            img.add_header('Content-ID', '<{}>'.format(image_id))
-            img.add_header('Content-Disposition', 'inline', filename=image.name)
-            message.attach(img)
+                img = MIMEImage(image_byte_array.getvalue(), 'jpeg')
+                img.add_header('Content-ID', '<{}>'.format(image_id))
+                img.add_header('Content-Disposition', 'inline', filename=image.name)
+                message.attach(img)
     return message
 
 
@@ -499,6 +500,8 @@ def send_newsletter(recipient, newsletter):
     data = {
         'logo_path': logo_path,
         'title': title,
+        'header_image': newsletter.header_image,
+        'body_image': newsletter.body_image,
         'header_text': header_text,
         'body_text': body_text,
         'token': recipient.token,
