@@ -294,18 +294,21 @@ class NewsletterStatus:
 class Newsletter(TimeStampMixin, PublishedMixin):
     schedule_at = models.DateTimeField(blank=True)
     recipient_list = models.ManyToManyField(
-        'account.CustomUser',
-        help_text='Use for testing, if left blank the newsletter will be sent to all recipients.'
+        'account.NewsletterRecipient',
+        help_text='Use for testing, if left blank the newsletter will be sent to all recipients.',
+        blank=True
     )
-    header_image = models.ImageField(upload_to='shop/%Y/%m/', blank=True, null=True)
-    body_image = models.ImageField(upload_to='shop/%Y/%m/', blank=True, null=True)
+    header_image = models.ImageField(upload_to='newsletter/%Y/%m/', blank=True, null=True)
+    body_image = models.ImageField(upload_to='newsletter/%Y/%m/', blank=True, null=True)
 
+    title_cro = models.CharField(max_length=200, blank=True)
+    title = models.CharField(max_length=200, blank=True)
     header_text_cro = models.TextField(blank=True)
     header_text = models.TextField(blank=True)
     body_text_cro = models.TextField(blank=True)
     body_text = models.TextField(blank=True)
 
-    status = models.CharField(max_length=100, choices=NewsletterStatus.CHOICES)
+    status = models.CharField(max_length=100, choices=NewsletterStatus.CHOICES, blank=True)
     status_message = models.TextField(blank=True)
     completed_at = models.DateTimeField(blank=True, null=True)
 
@@ -315,10 +318,10 @@ class Newsletter(TimeStampMixin, PublishedMixin):
         ordering = ('-created_at', )
 
     def __str__(self):
-        return '{}...'.format(self.header_text[:50])
+        return self.title
 
     def save(self, *args, **kwargs):
-        if self.schedule_at:
+        if self.schedule_at and not self.status:
             self.status = NewsletterStatus.READY
             self.status_message = 'Scheduled for delivery'
         super().save(*args, **kwargs)
