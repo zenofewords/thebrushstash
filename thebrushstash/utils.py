@@ -26,6 +26,7 @@ from django.utils.timezone import now
 
 from account.models import (
     CustomUser,
+    LanguagePreference,
     NewsletterRecipient,
 )
 from account.tokens import account_activation_token
@@ -361,6 +362,19 @@ def attach_images(message, invoice):
     return message
 
 
+def attach_newsletter_images(newsletter, message):
+    for image_id, image in enumerate([newsletter.header_image, newsletter.body_image], start=1):
+        with Image.open(image.path, mode='r') as img:
+            image_byte_array = io.BytesIO()
+            img.save(image_byte_array, format='jpeg')
+
+            img = MIMEImage(image_byte_array.getvalue(), 'jpeg')
+            img.add_header('Content-ID', '<{}>'.format(image_id))
+            img.add_header('Content-Disposition', 'inline', filename=image.name)
+            message.attach(img)
+    return message
+
+
 def send_registration_email(user, current_site):
     email_audit = start_audit(EmailSource.REGISTRATION, user.email)
     logo_path, logo_image = get_logo_attachement()
@@ -464,6 +478,43 @@ def send_purchase_email(session, current_site, invoice):
     message.mixed_subtype = 'related'
     message.attach(logo_image)
     message = attach_images(message, invoice)
+    send_message(message, email_audit)
+
+
+def send_newsletter(recipient, newsletter):
+    email_audit = start_audit(EmailSource.NEWSLETTER, recipient.email)
+    logo_path, logo_image = get_logo_attachement()
+
+    title = newsletter.title
+    header_text = newsletter.header_text
+    body_text = newsletter.body_text
+
+    if recipient.language_preference == 'hr':
+        title = newsletter.title_cro
+        header_text = newsletter.header_text_cro
+        body_text = newsletter.body_text_cro
+
+    language_preferences = [x[0] for x in LanguagePreference.CHOICES]
+    language_preferences.remove(recipient.language_preference)
+    data = {
+        'logo_path': logo_path,
+        'title': title,
+        'header_text': header_text,
+        'body_text': body_text,
+        'token': recipient.token,
+        'language': language_preferences[0],
+    }
+    message_txt = render_to_string('shop/newsletter_template.txt', data)
+    message_html = render_to_string('shop/newsletter_template.html', data)
+    message = EmailMultiAlternatives(
+        title, message_html, settings.DEFAULT_FROM_EMAIL, [recipient.email]
+    )
+    email_audit.content = message_txt
+
+    message.content_subtype = 'html'
+    message.mixed_subtype = 'related'
+    message.attach(logo_image)
+    message = attach_newsletter_images(newsletter, message)
     send_message(message, email_audit)
 
 

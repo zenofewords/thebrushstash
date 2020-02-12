@@ -31,10 +31,22 @@ class CustomUser(AbstractUser):
         return self.username
 
 
+class LanguagePreference:
+    ENGLISH = 'en'
+    CROATIAN = 'hr'
+
+    CHOICES = (
+        (ENGLISH, 'English'),
+        (CROATIAN, 'Croatian'),
+    )
+
+
 class NewsletterRecipient(models.Model):
     subscribed = models.BooleanField()
     email = models.EmailField()
-    language_preference = models.CharField(max_length=100, blank=True)
+    language_preference = models.CharField(
+        max_length=10, choices=LanguagePreference.CHOICES, blank=True
+    )
     user = models.ForeignKey(
         'account.CustomUser', on_delete=models.deletion.CASCADE, blank=True, null=True,
     )
@@ -44,5 +56,6 @@ class NewsletterRecipient(models.Model):
         return self.email
 
     def save(self, *args, **kwargs):
-        self.language_preference = get_language()
+        if not self.language_preference:
+            self.language_preference = get_language()
         super().save(*args, **kwargs)

@@ -14,6 +14,7 @@ from account.forms import (
 )
 from account.models import (
     CustomUser,
+    LanguagePreference,
     NewsletterRecipient,
 )
 from account.tokens import account_activation_token
@@ -98,12 +99,49 @@ class SubscribeToNewsletterView(TemplateView):
 
 
 class UnsubscribeFromNewsletter(TemplateView):
-    template_name = 'account/unsubscribe_from_newsletter'
+    template_name = 'account/unsubscribe_from_newsletter.html'
 
     def get(self, request, *args, **kwargs):
         try:
-            newsletter_recipient = NewsletterRecipient.objects.get(token=request.GET.get('token'))
-            newsletter_recipient.subscribed = False
-            newsletter_recipient.save()
+            self.newsletter_recipient = NewsletterRecipient.objects.get(token=request.GET.get('token'))
+            self.newsletter_recipient.subscribed = False
+            self.newsletter_recipient.save()
         except Exception:
             pass
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'newsletter_recipient': self.newsletter_recipient,
+        })
+        return context
+
+
+class SetNewsletterLanguage(TemplateView):
+    template_name = 'account/set_newsletter_language.html'
+
+    def get_verbose_language_preference(self):
+        for code, language in LanguagePreference.CHOICES:
+            if code == self.preference:
+                return language
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.newsletter_recipient = NewsletterRecipient.objects.get(token=request.GET.get('token'))
+            self.preference = request.GET.get('language_preference')
+
+            if self.preference in [x[0] for x in LanguagePreference.CHOICES]:
+                self.newsletter_recipient.language_preference = self.preference
+            self.newsletter_recipient.save()
+        except Exception:
+            pass
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'newsletter_recipient': self.newsletter_recipient,
+            'language_preference': self.get_verbose_language_preference(),
+        })
+        return context

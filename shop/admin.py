@@ -99,18 +99,18 @@ class InvoiceAdmin(admin.ModelAdmin):
 
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'schedule_at', 'status', 'status_message', 'completed_at', )
-    readonly_fields = ('status', 'completed_at', 'status_message', )
+    readonly_fields = ('completed_at', 'status_message', )
     fieldsets = (
         (None, {
             'fields': ('schedule_at', 'recipient_list', 'header_image', 'body_image', ),
         }),
         ('Text fields (ENG)', {
             'classes': ('collapse', ),
-            'fields': ('header_text', 'body_text', ),
+            'fields': ('title', 'header_text', 'body_text', ),
         }),
         ('Text fields (CRO)', {
             'classes': ('collapse', ),
-            'fields': ('header_text_cro', 'body_text_cro', ),
+            'fields': ('title_cro', 'header_text_cro', 'body_text_cro', ),
         }),
         (None, {
             'fields': ('status', 'status_message', 'completed_at', )
