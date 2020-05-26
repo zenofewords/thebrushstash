@@ -175,7 +175,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 ANYMAIL = {
     'MAILGUN_API_KEY': os.getenv('MAILGUN_API_KEY'),
-    'MAILGUN_SENDER_DOMAIN': 'sandboxf816a2fbdc5f4b0db34fe0908c647403.mailgun.org',
+    'MAILGUN_SENDER_DOMAIN': os.getenv('MAILGUN_SENDER_DOMAIN'),
 }
 DEFAULT_FROM_EMAIL = 'zen.dominik@gmail.com'
 SERVER_EMAIL = 'zen.dominik@gmail.com'
