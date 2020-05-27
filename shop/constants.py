@@ -10,6 +10,7 @@ EMPTY_BAG = {
     'shipping_cost': 0,
     'grand_total': 0,
     'tax': 0,
+    'promo_code': '',
 }
 
 DEFAULT_IMAGE_QUALITY = 80

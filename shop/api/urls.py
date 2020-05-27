@@ -2,6 +2,7 @@ from django.urls import path
 
 from shop.api.views import (
     AddToBagView,
+    ApplyPromoCodeView,
     ContinueToPaymentView,
     ProcessOrderView,
     RemoveFromBagView,
@@ -16,6 +17,7 @@ from shop.api.views import (
 shop_api_urls = []
 shop_api_urls.extend((
     path('add-to-bag/', AddToBagView.as_view(), name='add-to-bag'),
+    path('apply-promo-code/', ApplyPromoCodeView.as_view(), name='apply-promo-code'),
     path('continue-to-payment/', ContinueToPaymentView.as_view(), name='continue-to-payment'),
     path('process-order/', ProcessOrderView.as_view(), name='process-order'),
     path('remove-from-bag/', RemoveFromBagView.as_view(), name='remove-from-bag'),

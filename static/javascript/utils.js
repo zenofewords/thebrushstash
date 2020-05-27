@@ -1,5 +1,6 @@
 import {
   addProduct,
+  applyPromoCode,
   continueToPaymentRequest,
   processOrder,
   removeProduct,
@@ -46,9 +47,14 @@ import {
   joinNewsletterMessage,
   mainWrapper,
   navigationWrapper,
+  newSummaryGrandTotal,
+  newSummaryGrandTotalHrk,
+  newSummaryTax,
+  newSummaryTotal,
   productRatingCount,
   productRatingGauge,
   productReviewsWrapper,
+  promoCodeInput,
   reviewBagLink,
   shippingAddressChoice,
   shippingAddressWrapper,
@@ -534,5 +540,33 @@ export const submitReview = (productReviewForm) => {
       productReviewsWrapper.appendChild(content)
       productReviewsWrapper.appendChild(title)
     }
+  })
+}
+
+export const processPromoCode = (code) => {
+  applyPromoCode({'code': code}).then(
+    (data) => data.json()
+  ).then((response) => {
+    console.log(response)
+
+    if (response.bag) {
+      newSummaryTax.innerHTML = formatPrice(
+        response.bag['tax'], response.exchange_rate, response.currency
+      )
+      newSummaryTotal.innerHTML = formatPrice(
+        response.bag['total'], response.exchange_rate, response.currency
+      )
+      newSummaryGrandTotal.innerHTML = formatPrice(
+        response.bag['grand_total'], response.exchange_rate, response.currency
+      )
+
+      if (newSummaryGrandTotalHrk) {
+        newSummaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
+      }
+    } else {
+      promoCodeInput.value = response.code
+    }
+  }).catch((error) => {
+    console.log('error', error)
   })
 }

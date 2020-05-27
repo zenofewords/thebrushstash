@@ -14,9 +14,6 @@ class ProductSerializer(serializers.Serializer):
     name = serializers.CharField(required=True, max_length=500)
     quantity = serializers.IntegerField(required=True)
     price_hrk = serializers.DecimalField(required=True, max_digits=14, decimal_places=2)
-    price_eur = serializers.DecimalField(required=True, max_digits=14, decimal_places=2)
-    price_gbp = serializers.DecimalField(required=True, max_digits=14, decimal_places=2)
-    price_usd = serializers.DecimalField(required=True, max_digits=14, decimal_places=2)
     image_url = serializers.CharField(required=True, max_length=1000)
 
 
@@ -74,3 +71,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('product', 'score', 'content', )
+
+
+class PromoCodeSerializer(serializers.Serializer):
+    code = serializers.CharField(required=True, max_length=50)

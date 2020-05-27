@@ -9,6 +9,7 @@ from django.core.validators import (
 
 from shop.mixins import ShopObjectMixin
 from shop.utils import (
+    create_promo_code_products,
     get_default_product_type,
     update_product_prices,
     update_product_rating,
@@ -325,3 +326,50 @@ class Newsletter(TimeStampMixin, PublishedMixin):
             self.status = NewsletterStatus.READY
             self.status_message = 'Scheduled for delivery'
         super().save(*args, **kwargs)
+
+
+class PromoCode(TimeStampMixin, PublishedMixin):
+    code = models.CharField(max_length=50, unique=True)
+    expires = models.DateTimeField(
+        blank=True, null=True, help_text='The code will become inactive on the set time and date.'
+    )
+    single_use = models.BooleanField(
+        default=False, help_text='Check if the code is intended for one use only.'
+    )
+    auto_apply_discount = models.DecimalField(
+        max_digits=14, decimal_places=2, blank=True, null=True,
+        help_text='Input to apply the same discount to all products.'
+    )
+    product_list = models.ManyToManyField(
+        'shop.Product', blank=True, through='PromoCodeProduct',
+        help_text='If blank, creates a discount template for every product.'
+    )
+
+    class Meta:
+        verbose_name = 'Promo code'
+        verbose_name_plural = 'Promo codes'
+        ordering = ('-created_at', )
+
+    def __str__(self):
+        return self.code
+
+    def save(self, *args, **kwargs):
+        if self.pk is None and self.auto_apply_discount:
+            super().save(*args, **kwargs)
+            create_promo_code_products(self)
+        else:
+            super().save(*args, **kwargs)
+
+
+class PromoCodeProduct(TimeStampMixin):
+    promo_code = models.ForeignKey('shop.PromoCode', on_delete=models.deletion.CASCADE)
+    product = models.ForeignKey('shop.Product', on_delete=models.deletion.CASCADE)
+    discount = models.DecimalField(max_digits=5, decimal_places=2)
+
+    class Meta:
+        verbose_name = 'Promo code for product'
+        verbose_name_plural = 'Promo code for products'
+        unique_together = ['promo_code', 'product']
+
+    def __str__(self):
+        return '{}, {}, {}'.format(self.promo_code, self.product, self.discount)

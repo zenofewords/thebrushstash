@@ -73,6 +73,8 @@ import {
   productReviewTab,
   productReview,
   productReviewForm,
+  promoCodeInput,
+  promoCodeSubmitButton,
   r1ReceiptCheckbox,
   ratingLink,
   registerButton,
@@ -95,6 +97,7 @@ import {
   continueToPayment,
   clearErrorMessages,
   processPaymentAddressData,
+  processPromoCode,
   refreshBag,
   removeFromBag,
   removeOneFromBag,
@@ -560,4 +563,9 @@ ready(() => {
       }
     })
   }
+
+  promoCodeSubmitButton && promoCodeSubmitButton.addEventListener('click', (event) => {
+    // todo validate
+    processPromoCode(promoCodeInput.value)
+  })
 })

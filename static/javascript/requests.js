@@ -67,9 +67,6 @@ export const addProduct = (dataset) => fetchRequest(
     name: dataset.name,
     quantity: parseInt(dataset.multiple ? addToBagSelect.value : 1),
     price_hrk: parseFloat(dataset.priceHrk.replace(',', '.')),
-    price_eur: parseFloat(dataset.priceEur.replace(',', '.')),
-    price_gbp: parseFloat(dataset.priceGbp.replace(',', '.')),
-    price_usd: parseFloat(dataset.priceUsd.replace(',', '.')),
     tax: parseFloat(dataset.tax.replace(',', '.')),
     image_url: dataset.imageUrl,
   }
@@ -105,5 +102,10 @@ export const subscribeToNewsletter = (emailData) => fetchRequest(
 
 export const submitReviewRequest = (data) => fetchRequest(
   '/api/submit-review/',
+  data,
+)
+
+export const applyPromoCode = (data) => fetchRequest(
+  '/api/apply-promo-code/',
   data,
 )

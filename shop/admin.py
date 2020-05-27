@@ -9,6 +9,7 @@ from shop.models import (
     Invoice,
     Newsletter,
     Product,
+    PromoCode,
     Review,
     Showcase,
 )
@@ -188,6 +189,16 @@ class EmailAuditAdmin(admin.ModelAdmin):
     search_fields = ('receiver', )
 
 
+class PromoCodeInline(admin.TabularInline):
+    model = PromoCode.product_list.through
+    extra = 0
+
+
+class PromoCodeAdmin(admin.ModelAdmin):
+    exclude = ('product_list', )
+    inlines = [PromoCodeInline]
+
+
 admin.site.register(EmailAudit, EmailAuditAdmin)
 admin.site.register(GalleryItem, GalleryItemAdmin)
 admin.site.register(Invoice, InvoiceAdmin)
@@ -195,3 +206,4 @@ admin.site.register(Newsletter, NewsletterAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Showcase, ShowcaseAdmin)
+admin.site.register(PromoCode, PromoCodeAdmin)

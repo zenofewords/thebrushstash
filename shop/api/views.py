@@ -1,3 +1,4 @@
+import json
 import operator
 from decimal import Decimal
 
@@ -13,6 +14,7 @@ from shop.api.serializers import (
     CountryNameSerializer,
     PaymentMethodSerializer,
     ProductSerializer,
+    PromoCodeSerializer,
     ReviewSerializer,
     ShippingAddressSerializer,
     SimpleProductSerializer,
@@ -26,9 +28,11 @@ from shop.models import (
     InvoicePaymentMethod,
     Invoice,
     Product,
+    PromoCode,
     Review,
 )
 from shop.utils import (
+    apply_discount,
     get_grandtotals,
     get_totals,
     set_shipping_cost,
@@ -97,6 +101,61 @@ class AddToBagView(GenericAPIView):
             'bag': bag,
             'currency': currency,
             'exchange_rate': exchange_rate,
+        }, status=status.HTTP_200_OK)
+
+
+class ApplyPromoCodeView(GenericAPIView):
+    permission_classes = (AllowAny, )
+    serializer_class = PromoCodeSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        promo_code = PromoCode.objects.filter(code=serializer.data.get('code')).first()
+        if not promo_code:
+            return response.Response({
+                'code': 'The code you used is invalid or inactive.'
+            }, status=status.HTTP_200_OK)
+
+        bag = request.session.get('bag')
+        bag_products = [product_slug for product_slug in bag.get('products')]
+        discounted_products = promo_code.product_list.all()
+
+        eligilbe_products = []
+        for promo_code_product in discounted_products:
+            if promo_code_product.slug in bag_products:
+                eligilbe_products.append(promo_code_product)
+
+        if len(eligilbe_products) < 1:
+            return response.Response({
+                'code': 'This code does not apply to any item in your bag.'
+            }, status=status.HTTP_200_OK)
+
+        if promo_code.code == bag.get('promo_code'):
+            return response.Response({
+                'code': "The code is already applied."
+            }, status=status.HTTP_200_OK)
+
+        bag = apply_discount(promo_code.code, eligilbe_products, bag)
+        bag.update({
+            'promo_code': promo_code.code,
+            'total': str(sum([Decimal(data['subtotal']) for (_, data) in bag['products'].items()])),
+        })
+        bag.update({
+            **get_grandtotals(bag),
+        })
+        set_tax(bag)
+        request.session.modified = True
+
+        # todo remove print
+        print(json.dumps(bag, indent=2))
+
+        currency = request.session['currency']
+        return response.Response({
+            'bag': bag,
+            'currency': currency,
+            'exchange_rate': ExchangeRate.objects.get(currency=currency.upper()).middle_rate,
         }, status=status.HTTP_200_OK)
 
 

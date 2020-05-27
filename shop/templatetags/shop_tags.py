@@ -21,14 +21,16 @@ def showcase_tag():
     }
 
 
-@register.inclusion_tag('shop/tags/purchase_summary_tag.html')
-def purchase_summary_tag(bag, region, exchange_rates, currency, review=False):
+@register.inclusion_tag('shop/tags/purchase_summary_tag.html', takes_context=True)
+def purchase_summary_tag(context, bag, region, exchange_rates, currency, review=False):
+    request = context['request']
     return {
         'bag': bag,
         'region': region,
         'currency': currency,
         'review': review,
         'exchange_rates': exchange_rates,
+        'user': request.user,
     }
 
 

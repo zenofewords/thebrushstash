@@ -1,3 +1,4 @@
+import operator
 from decimal import Decimal
 
 from django.apps import apps
@@ -90,3 +91,32 @@ def format_price_with_currency(price, currency):
     if currency == DEFAULT_CURRENCY:
         return '{} {}'.format(price, currency_symbol_mapping[currency])
     return '{}{}'.format(currency_symbol_mapping[currency], price)
+
+
+def create_promo_code_products(promo_code):
+    Product = apps.get_model('shop', 'Product')
+    PromoCodeProduct = apps.get_model('shop', 'PromoCodeProduct')
+
+    for product in Product.objects.all():
+        pcp = PromoCodeProduct()
+        pcp.promo_code = promo_code
+        pcp.product = product
+        pcp.discount = promo_code.auto_apply_discount
+        pcp.save()
+
+
+def apply_discount(code, eligible_products, bag):
+    PromoCodeProduct = apps.get_model('shop', 'PromoCodeProduct')
+
+    for product in eligible_products:
+        discount = PromoCodeProduct.objects.get(promo_code__code=code, product=product).discount
+        discounted_price = round(product.price_hrk - product.price_hrk * discount / 100, 2)
+
+        bag_product = bag['products'][product.slug]
+        bag_product.update({
+            'discount': str(discount),
+            'price_hrk': str(discounted_price),
+            'subtotal': str(int(bag_product['quantity']) * discounted_price),
+        })
+        bag['products'][product.slug] = bag_product
+    return bag
