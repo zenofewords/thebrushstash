@@ -27,6 +27,7 @@ from shop.models import (
 from shop.utils import (
     format_price_with_currency,
     set_shipping_cost,
+    update_bag_with_discount,
 )
 from thebrushstash.models import ExchangeRate
 from thebrushstash.utils import (
@@ -91,6 +92,9 @@ class CheckoutView(FormView):
 
         currency = session.get('currency')
         gls_fee = '{:0.2f}'.format(GLS_FEE / exchange_rates[currency], 2)
+
+        if bag.get('promo_code'):
+            update_bag_with_discount(bag, bag.get('promo_code'))
 
         context.update({
             'api_version': settings.IPG_API_VERSION,

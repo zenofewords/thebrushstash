@@ -62,9 +62,9 @@ def set_shipping_cost(bag, region, country_name=None):
     bag['grand_total'] = str(Decimal(bag.get('total', 0)) + shipping_cost)
 
 
-def set_tax(bag):
-    total = Decimal(bag.get('total', 0))
-    bag['tax'] = str(round(total - total / (Decimal(TAX) + 1), 2))
+def set_tax(bag, key_prefix=''):
+    total = Decimal(bag.get('{}{}'.format(key_prefix, 'total'), 0))
+    bag['{}{}'.format(key_prefix, 'tax')] = str(round(total - total / (Decimal(TAX) + 1), 2))
 
 
 def get_totals(data, key, operator, product={}, quantity=None):
@@ -83,8 +83,10 @@ def get_totals(data, key, operator, product={}, quantity=None):
         }
 
 
-def get_grandtotals(data):
-    return {'grand_total': str(Decimal(data.get('total')) + Decimal(data.get('shipping_cost')))}
+def get_grandtotals(data, key_prefix=''):
+    return {'{}{}'.format(key_prefix, 'grand_total'): str(Decimal(data.get('{}{}'.format(
+        key_prefix, 'total'))) + Decimal(data.get('shipping_cost')))
+    }
 
 
 def format_price_with_currency(price, currency):
@@ -112,11 +114,49 @@ def apply_discount(code, eligible_products, bag):
         discount = PromoCodeProduct.objects.get(promo_code__code=code, product=product).discount
         discounted_price = round(product.price_hrk - product.price_hrk * discount / 100, 2)
 
+        print(product.price_hrk, discounted_price)
+
         bag_product = bag['products'][product.slug]
         bag_product.update({
             'discount': str(discount),
-            'price_hrk': str(discounted_price),
-            'subtotal': str(int(bag_product['quantity']) * discounted_price),
+            'new_price_hrk': str(discounted_price),
+            'new_subtotal': str(int(bag_product['quantity']) * discounted_price),
         })
         bag['products'][product.slug] = bag_product
     return bag
+
+
+def update_bag_with_discount(bag, code):
+    PromoCode = apps.get_model('shop', 'PromoCode')
+
+    promo_code = PromoCode.objects.filter(code=code).first()
+    if not promo_code:
+        bag['promo_code'] = ''
+
+    bag_products = [product_slug for product_slug in bag.get('products')]
+    discounted_products = promo_code.product_list.all()
+
+    eligilbe_products = []
+    for promo_code_product in discounted_products:
+        if promo_code_product.slug in bag_products:
+            eligilbe_products.append(promo_code_product)
+
+    if len(eligilbe_products) < 1:
+        return
+
+    if promo_code.code == bag.get('promo_code'):
+        return
+
+    bag = apply_discount(promo_code.code, eligilbe_products, bag)
+    request.session.modified = True
+    bag.update({
+        'promo_code': promo_code.code,
+        'new_total': str(sum(
+            [Decimal(data.get('new_subtotal', 0)) for (_, data) in bag['products'].items()]
+        )),
+    })
+    bag.update({
+        **get_grandtotals(bag, key_prefix='new_'),
+    })
+    set_tax(bag, key_prefix='new_')
+    request.session.modified = True

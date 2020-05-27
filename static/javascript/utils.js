@@ -51,6 +51,7 @@ import {
   newSummaryGrandTotalHrk,
   newSummaryTax,
   newSummaryTotal,
+  newSummaryWrapper,
   productRatingCount,
   productRatingGauge,
   productReviewsWrapper,
@@ -142,6 +143,11 @@ export const updatePaymentMethod = (paymentMethod) => {
     if (summaryGrandTotal) {
       summaryGrandTotal.innerHTML = formatPrice(
         `${response.bag['grand_total']}`, response.exchange_rate, response.currency
+      )
+    }
+    if (newSummaryGrandTotal) {
+      newSummaryGrandTotal.innerHTML = formatPrice(
+        `${response.bag['new_grand_total']}`, response.exchange_rate, response.currency
       )
     }
     if (summaryGrandTotalHrk) {
@@ -488,8 +494,19 @@ export const updateShippingCostForCountry = (countryName, callback = null) => {
     summaryGrandTotal.innerHTML = formatPrice(
       response.bag['grand_total'], response.exchange_rate, response.currency
     )
+
+    if (newSummaryGrandTotal) {
+      newSummaryGrandTotal.innerHTML = formatPrice(
+        response.bag['new_grand_total'], response.exchange_rate, response.currency
+      )
+    }
+
     if (summaryGrandTotalHrk) {
       summaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
+
+      if (newSummaryGrandTotalHrk) {
+        newSummaryGrandTotalHrk.innerHTML = `${response.bag.new_grand_total} kn`
+      }
     }
   }).then(() => {
     if (callback) {
@@ -547,26 +564,27 @@ export const processPromoCode = (code) => {
   applyPromoCode({'code': code}).then(
     (data) => data.json()
   ).then((response) => {
-    console.log(response)
+    if (response.bag && response.bag.promo_code) {
+      newSummaryWrapper.classList.remove('hidden')
 
-    if (response.bag) {
       newSummaryTax.innerHTML = formatPrice(
-        response.bag['tax'], response.exchange_rate, response.currency
+        response.bag['new_tax'], response.exchange_rate, response.currency
       )
       newSummaryTotal.innerHTML = formatPrice(
-        response.bag['total'], response.exchange_rate, response.currency
+        response.bag['new_total'], response.exchange_rate, response.currency
       )
       newSummaryGrandTotal.innerHTML = formatPrice(
-        response.bag['grand_total'], response.exchange_rate, response.currency
+        response.bag['new_grand_total'], response.exchange_rate, response.currency
       )
 
       if (newSummaryGrandTotalHrk) {
-        newSummaryGrandTotalHrk.innerHTML = `${response.bag.grand_total} kn`
+        newSummaryGrandTotalHrk.innerHTML = `${response.bag.new_grand_total} kn`
       }
     } else {
+      newSummaryWrapper.classList.add('hidden')
       promoCodeInput.value = response.code
     }
   }).catch((error) => {
-    console.log('error', error)
+    console.log(error)
   })
 }

@@ -129,7 +129,7 @@ class ApplyPromoCodeView(GenericAPIView):
 
         if len(eligilbe_products) < 1:
             return response.Response({
-                'code': 'This code does not apply to any item in your bag.'
+                'code': 'This code does not apply to items in your bag.'
             }, status=status.HTTP_200_OK)
 
         if promo_code.code == bag.get('promo_code'):
@@ -138,18 +138,18 @@ class ApplyPromoCodeView(GenericAPIView):
             }, status=status.HTTP_200_OK)
 
         bag = apply_discount(promo_code.code, eligilbe_products, bag)
+        request.session.modified = True
         bag.update({
             'promo_code': promo_code.code,
-            'total': str(sum([Decimal(data['subtotal']) for (_, data) in bag['products'].items()])),
+            'new_total': str(sum(
+                [Decimal(data.get('new_subtotal', 0)) for (_, data) in bag['products'].items()]
+            )),
         })
         bag.update({
-            **get_grandtotals(bag),
+            **get_grandtotals(bag, key_prefix='new_'),
         })
-        set_tax(bag)
+        set_tax(bag, key_prefix='new_')
         request.session.modified = True
-
-        # todo remove print
-        print(json.dumps(bag, indent=2))
 
         currency = request.session['currency']
         return response.Response({
@@ -273,7 +273,7 @@ class ProcessOrderView(GenericAPIView):
 
         session = request.session
         bag = session.get('bag')
-        grand_total = bag['grand_total']
+        grand_total = bag['new_grand_total'] if bag.get('new_grand_total', None) else bag['grand_total']
         cart = get_cart(bag)
         session['order_number'] = create_or_update_invoice(
             session.get('order_number', ''),
@@ -394,6 +394,7 @@ class UpdatePaymentMethodView(GenericAPIView):
         session = request.session
 
         total = Decimal(session['bag'].get('total'))
+        new_total = Decimal(session['bag'].get('new_total', 0))
         shipping_cost = Decimal(session['bag']['shipping_cost'])
         fee = session['bag'].get('fees')
         session['payment_method'] = serializer.data.get('payment_method')
@@ -401,11 +402,19 @@ class UpdatePaymentMethodView(GenericAPIView):
         if session['payment_method'] == InvoicePaymentMethod.CASH_ON_DELIVERY:
             session['bag']['fees'] = str(GLS_FEE)
             grand_total = total + shipping_cost + GLS_FEE
+
+            if new_total > 0:
+                new_grand_total = new_total + shipping_cost + GLS_FEE
         else:
             session['bag']['fees'] = 0
             grand_total = total + shipping_cost
 
+            if new_total > 0:
+                new_grand_total = new_total + shipping_cost
+
         session['bag']['grand_total'] = str(grand_total)
+        if new_total > 0:
+            session['bag']['new_grand_total'] = str(new_grand_total)
         session.modified = True
         currency = request.session['currency']
         exchange_rate = ExchangeRate.objects.get(currency=currency.upper()).middle_rate

@@ -86,6 +86,7 @@ export const newSummaryGrandTotal = document.getElementById('new-summary-grand-t
 export const newSummaryGrandTotalHrk = document.getElementById('new-summary-grand-total-hrk')
 export const newSummaryTax = document.getElementById('new-summary-tax')
 export const newSummaryTotal = document.getElementById('new-summary-total')
+export const newSummaryWrapper = document.querySelector('.new-summary-wrapper')
 export const phoneNumberInput = document.getElementById('id_phone_number')
 export const previousStepLink = document.querySelector('.previous-step-link')
 export const productAboutTab = document.getElementById('product-about-tab')
