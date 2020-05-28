@@ -200,9 +200,27 @@
         text-transform: uppercase
 
     .promo-code-input
-      width: 200px
-      height: 25px
-      font-size: 15px
+      width: 205px
+      height: 50px
+      font-family: $bodyFont
+      font-size: 16px
+      line-height: 19px
+      text-indent: 3px
+
+      border: $inputBorder
+      border-radius: 0
+      transition: $transitionDurationShort
+
+      &.promo-code-error
+        border: 1px solid #f00
+        box-shadow: inset 0 0 2px 2px rgba(255, 0, 0, .7)
+
+    .promo-code-submit
+      @extend %summary-check-out-button
+      cursor: pointer
+      border: none
+      padding: 0 10px
+      margin: 0 0 20px
 
   .summary-check-out-button
     @extend %summary-check-out-button

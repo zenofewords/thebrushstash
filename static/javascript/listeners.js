@@ -565,7 +565,12 @@ ready(() => {
   }
 
   promoCodeSubmitButton && promoCodeSubmitButton.addEventListener('click', (event) => {
-    // todo validate
-    processPromoCode(promoCodeInput.value)
+    promoCodeInput.classList.remove('promo-code-error')
+
+    if (!promoCodeInput.value) {
+      promoCodeInput.classList.add('promo-code-error')
+    } else {
+      processPromoCode(promoCodeInput.value)
+    }
   })
 })

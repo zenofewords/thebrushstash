@@ -582,6 +582,9 @@ export const processPromoCode = (code) => {
       }
     } else {
       newSummaryWrapper.classList.add('hidden')
+    }
+
+    if (response.code) {
       promoCodeInput.value = response.code
     }
   }).catch((error) => {

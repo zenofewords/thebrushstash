@@ -1,4 +1,3 @@
-import json
 import operator
 from decimal import Decimal
 
@@ -9,6 +8,7 @@ from rest_framework import (
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from django.conf import settings
+from django.utils.translation import gettext as _
 
 from shop.api.serializers import (
     CountryNameSerializer,
@@ -111,11 +111,12 @@ class ApplyPromoCodeView(GenericAPIView):
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        message = ''
 
         promo_code = PromoCode.objects.filter(code=serializer.data.get('code')).first()
         if not promo_code:
             return response.Response({
-                'code': 'The code you used is invalid or inactive.'
+                'code': _('The code you used is invalid or inactive.'),
             }, status=status.HTTP_200_OK)
 
         bag = request.session.get('bag')
@@ -129,21 +130,25 @@ class ApplyPromoCodeView(GenericAPIView):
 
         if len(eligilbe_products) < 1:
             return response.Response({
-                'code': 'This code does not apply to items in your bag.'
+                'code': _('This code does not apply to items in your bag.'),
             }, status=status.HTTP_200_OK)
 
         if promo_code.code == bag.get('promo_code'):
-            return response.Response({
-                'code': "The code is already applied."
-            }, status=status.HTTP_200_OK)
+            message = _('The code is already applied.')
 
         bag = apply_discount(promo_code.code, eligilbe_products, bag)
         request.session.modified = True
+
+        new_total = Decimal('0.00')
+        for product, data in bag['products'].items():
+            if data.get('new_subtotal'):
+                new_total += Decimal(data.get('new_subtotal'))
+            else:
+                new_total += Decimal(data.get('subtotal'))
+
         bag.update({
             'promo_code': promo_code.code,
-            'new_total': str(sum(
-                [Decimal(data.get('new_subtotal', 0)) for (_, data) in bag['products'].items()]
-            )),
+            'new_total': str(new_total),
         })
         bag.update({
             **get_grandtotals(bag, key_prefix='new_'),
@@ -156,6 +161,7 @@ class ApplyPromoCodeView(GenericAPIView):
             'bag': bag,
             'currency': currency,
             'exchange_rate': ExchangeRate.objects.get(currency=currency.upper()).middle_rate,
+            'code': message,
         }, status=status.HTTP_200_OK)
 
 

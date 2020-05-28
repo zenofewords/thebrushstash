@@ -65,13 +65,13 @@
 
   {% if user.is_authenticated and user.is_staff and not review %}
     <div class="summary-row">
-      <input class="promo-code-input" type="text" name="promo_code" placeholder="Discount code">
-      <input class="promo-code-submit" type="submit" name="submit_promo_code" value="Apply">
+      <input class="promo-code-input" type="text" name="promo_code" placeholder="{% trans 'Enter promo code' %}">
+      <input class="promo-code-submit" type="submit" name="submit_promo_code" value="{% trans 'Activate' %}">
     </div>
     <div class="new-summary-wrapper {% if not bag.promo_code %}hidden{% endif %}">
       <div class="summary-row">
         <span class="summary-label">
-          New total:
+           {% trans "New total:" %}
         </span>
         <span id="new-summary-total" class="summary-value">
           {% get_price_in_currency bag 'new_total' exchange_rates currency %}
@@ -87,7 +87,7 @@
       </div>
       <div class="summary-row">
         <span class="summary-grand-total-label">
-          New grand total:
+           {% trans "New grand total:" %}
         </span>
         <span id="new-summary-grand-total" class="summary-grand-total-value">
           {% get_price_in_currency bag 'new_grand_total' exchange_rates currency %}
@@ -97,7 +97,7 @@
       {% if region != 'hr' %}
         <div class="summary-row">
           <span class="summary-label">
-            New grand total (hrk):
+             {% trans "New grand total (hrk):" %}
           </span>
           <span id="new-summary-grand-total-hrk" class="summary-value">
             {% get_price_in_currency bag 'new_grand_total' exchange_rates 'hrk' %}
