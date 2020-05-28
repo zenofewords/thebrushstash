@@ -2,6 +2,7 @@ import operator
 from decimal import Decimal
 
 from django.apps import apps
+from django.utils.translation import gettext as _
 
 from shop.constants import (
     FREE_SHIPPING_PRICE,
@@ -114,8 +115,6 @@ def apply_discount(code, eligible_products, bag):
         discount = PromoCodeProduct.objects.get(promo_code__code=code, product=product).discount
         discounted_price = round(product.price_hrk - product.price_hrk * discount / 100, 2)
 
-        print(product.price_hrk, discounted_price)
-
         bag_product = bag['products'][product.slug]
         bag_product.update({
             'discount': str(discount),
@@ -126,15 +125,19 @@ def apply_discount(code, eligible_products, bag):
     return bag
 
 
-def update_bag_with_discount(bag, code):
+def update_bag_with_discount(bag, code, session):
     PromoCode = apps.get_model('shop', 'PromoCode')
 
     promo_code = PromoCode.objects.filter(code=code).first()
     if not promo_code:
         bag['promo_code'] = ''
+    update_discount(bag, promo_code, session)
 
+
+def update_discount(bag, promo_code, session):
     bag_products = [product_slug for product_slug in bag.get('products')]
     discounted_products = promo_code.product_list.all()
+    message = ''
 
     eligilbe_products = []
     for promo_code_product in discounted_products:
@@ -142,21 +145,29 @@ def update_bag_with_discount(bag, code):
             eligilbe_products.append(promo_code_product)
 
     if len(eligilbe_products) < 1:
-        return
+        message = _('This code does not apply to items in your bag.')
 
-    if promo_code.code == bag.get('promo_code'):
-        return
+    if len(eligilbe_products) > 0 and promo_code.code == bag.get('promo_code'):
+        message = _('The code is already applied.')
 
     bag = apply_discount(promo_code.code, eligilbe_products, bag)
-    request.session.modified = True
+    session.modified = True
+
+    new_total = Decimal('0.00')
+    for product, data in bag['products'].items():
+        if data.get('new_subtotal'):
+            new_total += Decimal(data.get('new_subtotal'))
+        else:
+            new_total += Decimal(data.get('subtotal'))
+
     bag.update({
         'promo_code': promo_code.code,
-        'new_total': str(sum(
-            [Decimal(data.get('new_subtotal', 0)) for (_, data) in bag['products'].items()]
-        )),
+        'new_total': str(new_total),
     })
     bag.update({
         **get_grandtotals(bag, key_prefix='new_'),
     })
     set_tax(bag, key_prefix='new_')
-    request.session.modified = True
+    session.modified = True
+
+    return message

@@ -94,7 +94,7 @@ class CheckoutView(FormView):
         gls_fee = '{:0.2f}'.format(GLS_FEE / exchange_rates[currency], 2)
 
         if bag.get('promo_code'):
-            update_bag_with_discount(bag, bag.get('promo_code'))
+            update_bag_with_discount(bag, bag.get('promo_code'), self.request.session)
 
         context.update({
             'api_version': settings.IPG_API_VERSION,

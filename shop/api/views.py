@@ -8,6 +8,7 @@ from rest_framework import (
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from django.conf import settings
+from django.utils.timezone import now
 from django.utils.translation import gettext as _
 
 from shop.api.serializers import (
@@ -37,6 +38,7 @@ from shop.utils import (
     get_totals,
     set_shipping_cost,
     set_tax,
+    update_discount,
 )
 from thebrushstash.constants import (
     DEFAULT_COUNTRY,
@@ -111,50 +113,19 @@ class ApplyPromoCodeView(GenericAPIView):
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        message = ''
 
-        promo_code = PromoCode.objects.filter(code=serializer.data.get('code')).first()
+        promo_code = PromoCode.published_objects.filter(
+            code__iexact=serializer.data.get('code'),
+        ).exclude(
+            expires__lt=now()
+        ).first()
         if not promo_code:
             return response.Response({
                 'code': _('The code you used is invalid or inactive.'),
             }, status=status.HTTP_200_OK)
 
         bag = request.session.get('bag')
-        bag_products = [product_slug for product_slug in bag.get('products')]
-        discounted_products = promo_code.product_list.all()
-
-        eligilbe_products = []
-        for promo_code_product in discounted_products:
-            if promo_code_product.slug in bag_products:
-                eligilbe_products.append(promo_code_product)
-
-        if len(eligilbe_products) < 1:
-            return response.Response({
-                'code': _('This code does not apply to items in your bag.'),
-            }, status=status.HTTP_200_OK)
-
-        if promo_code.code == bag.get('promo_code'):
-            message = _('The code is already applied.')
-
-        bag = apply_discount(promo_code.code, eligilbe_products, bag)
-        request.session.modified = True
-
-        new_total = Decimal('0.00')
-        for product, data in bag['products'].items():
-            if data.get('new_subtotal'):
-                new_total += Decimal(data.get('new_subtotal'))
-            else:
-                new_total += Decimal(data.get('subtotal'))
-
-        bag.update({
-            'promo_code': promo_code.code,
-            'new_total': str(new_total),
-        })
-        bag.update({
-            **get_grandtotals(bag, key_prefix='new_'),
-        })
-        set_tax(bag, key_prefix='new_')
-        request.session.modified = True
+        message = update_discount(bag, promo_code, request.session)
 
         currency = request.session['currency']
         return response.Response({
