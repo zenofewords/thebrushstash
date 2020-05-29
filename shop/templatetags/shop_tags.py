@@ -129,8 +129,10 @@ def rating_tag(obj, can_review=False):
 
 
 @register.simple_tag()
-def get_localized_item_price(obj, key, currency, multiply=1):
+def get_localized_item_price(obj, key, currency, multiply=1, discount=None):
     price = getattr(obj, '{}_{}'.format(key, currency)) * multiply
+    if discount:
+        price = round(price - price * Decimal(discount) / 100, 2)
     return format_price_with_currency(price, currency)
 
 

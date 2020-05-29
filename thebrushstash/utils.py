@@ -46,6 +46,7 @@ from shop.models import (
     InvoiceItem,
     InvoiceStatus,
     Product,
+    PromoCode,
 )
 from thebrushstash.models import (
     Country,
@@ -575,7 +576,7 @@ def complete_purchase(session, invoice_status, request):
         invoice.status = invoice_status
         invoice.save()
 
-        update_inventory(invoice, session['bag']['products'])
+        update_inventory(invoice, session['bag'])
         current_site = get_current_site(request)
 
         send_purchase_email(session, current_site, invoice)
@@ -605,14 +606,25 @@ def check_bag_content(products):
     return None
 
 
-def update_inventory(invoice, products):
-    for key, value in products.items():
+def update_inventory(invoice, bag):
+    for key, value in bag['products'].items():
         sold_count = value['quantity']
 
         product = Product.objects.get(pk=value['pk'])
         product.in_stock -= sold_count
         product.save()
-        InvoiceItem.objects.create(invoice=invoice, product=product, sold_count=sold_count)
+
+        invoice_item = InvoiceItem.objects.create(
+            invoice=invoice, product=product, sold_count=sold_count
+        )
+
+        promo_code = PromoCode.objects.filter(code=bag.get('promo_code')).first()
+        if promo_code:
+            invoice_item.promo_code = promo_code
+
+            if value.get('discount'):
+                invoice_item.discount = Decimal(value.get('discount'))
+            invoice_item.save()
 
 
 def get_random_string():

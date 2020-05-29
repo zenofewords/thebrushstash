@@ -35,7 +35,7 @@
       {% get_price_in_currency bag 'fees' exchange_rates currency %}
     </span>
   </div>
-  <div class="summary-row">
+  <div class="summary-row {% if region == 'hr' %}no-border-row{% endif %}">
     <span class="summary-grand-total-label">
       {% trans "Grand total:" %}
     </span>
@@ -44,7 +44,7 @@
     </span>
   </div>
   {% if region != 'hr' %}
-    <div class="summary-row">
+    <div class="summary-row no-border-row">
       <span class="summary-label">
         {% trans "Grand total (HRK):" %}
       </span>
@@ -64,7 +64,7 @@
   {% endif %}
 
   {% if user.is_authenticated and user.is_staff and not review %}
-    <div class="summary-row">
+    <div class="summary-row promo-code-row">
       <input class="promo-code-input" type="text" name="promo_code" placeholder="{% trans 'Enter promo code' %}">
       <input class="promo-code-submit" type="submit" name="submit_promo_code" value="{% trans 'Activate' %}">
     </div>

@@ -159,7 +159,11 @@ class Invoice(TimeStampMixin):
 class InvoiceItem(TimeStampMixin):
     invoice = models.ForeignKey('shop.Invoice', on_delete=models.deletion.CASCADE)
     product = models.ForeignKey('shop.Product', on_delete=models.deletion.CASCADE)
+    promo_code = models.ForeignKey(
+        'shop.PromoCode', on_delete=models.deletion.CASCADE, blank=True, null=True
+    )
     sold_count = models.IntegerField()
+    discount = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
 
 class Showcase(ShopObjectMixin, PublishedMixin):
