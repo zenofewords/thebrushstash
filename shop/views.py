@@ -25,7 +25,7 @@ from shop.models import (
     Review,
 )
 from shop.utils import (
-    format_price_with_currency,
+    get_price_with_currency,
     set_shipping_cost,
     update_bag_with_discount,
 )
@@ -106,7 +106,7 @@ class CheckoutView(FormView):
             'store_id': settings.IPG_STORE_ID,
             'require_complete': settings.IPG_REQUIRE_COMPLETE,
             'subscribed_to_newsletter': subscribed_to_newsletter,
-            'gls_fee': format_price_with_currency(gls_fee, currency),
+            'gls_fee': get_price_with_currency(gls_fee, currency),
             'exchange_rates': exchange_rates,
         })
         return context

@@ -196,6 +196,7 @@ class PromoCodeInline(admin.TabularInline):
 
 class PromoCodeAdmin(admin.ModelAdmin):
     exclude = ('product_list', )
+    list_display = ('code', 'published', 'expires', 'single_use', )
     inlines = [PromoCodeInline]
 
 

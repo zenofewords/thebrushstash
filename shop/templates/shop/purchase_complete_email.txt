@@ -50,10 +50,6 @@
 {% get_price_in_currency bag 'total' exchange_rates currency %}
 {% trans "VAT included:" %}
 {% get_price_in_currency bag 'tax' exchange_rates currency %}
-{% trans "Shipping:" %}
-{% get_price_in_currency bag 'shipping_cost' exchange_rates currency %}
-{% trans "GLS (cash on delivery):" %}
-{% get_price_in_currency bag 'fees' exchange_rates currency %}
 {% if bag.new_total %}
 {% trans "New subtotal:" %}
 {% get_price_in_currency bag 'new_total' exchange_rates currency %}
@@ -62,18 +58,24 @@
 {% trans "VAT included:" %}
 {% get_price_in_currency bag 'new_tax' exchange_rates currency %}
 {% endif %}
-{% trans "Grand total:" %}
-{% get_price_in_currency bag 'grand_total' exchange_rates currency %}
+{% trans "Shipping:" %}
+{% get_price_in_currency bag 'shipping_cost' exchange_rates currency %}
+{% trans "GLS (cash on delivery):" %}
+{% get_price_in_currency bag 'fees' exchange_rates currency %}
 {% if bag.new_grand_total %}
 {% trans "New grand total:" %}
 {% get_price_in_currency bag 'new_grand_total' exchange_rates currency %}
+{% else %}
+{% trans "Grand total:" %}
+{% get_price_in_currency bag 'grand_total' exchange_rates currency %}
 {% endif %}
 {% if currency != 'hrk' %}
-{% trans "Grand total (HRK):" %}
-{% get_price_in_currency bag 'grand_total' exchange_rates 'hrk' %}
 {% if bag.new_grand_total %}
 {% trans "New grand total (HRK):" %}
 {% get_price_in_currency bag 'new_grand_total' exchange_rates 'hrk' %}
+{% else %}
+{% trans "Grand total (HRK):" %}
+{% get_price_in_currency bag 'grand_total' exchange_rates 'hrk' %}
 {% endif %}
 {% endif %}
 {% trans 'Thank you for using The Brush Stash products!' %}

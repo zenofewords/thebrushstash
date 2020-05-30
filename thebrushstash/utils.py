@@ -626,6 +626,10 @@ def update_inventory(invoice, bag):
                 invoice_item.discount = Decimal(value.get('discount'))
             invoice_item.save()
 
+            if promo_code.single_use:
+                promo_code.published = False
+                promo_code.save()
+
 
 def get_random_string():
     return '{}-{}'.format(secrets.token_urlsafe(12), now().time().microsecond)

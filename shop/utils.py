@@ -85,12 +85,14 @@ def get_totals(data, key, operator, product={}, quantity=None):
 
 
 def get_grandtotals(data, key_prefix=''):
-    return {'{}{}'.format(key_prefix, 'grand_total'): str(Decimal(data.get('{}{}'.format(
-        key_prefix, 'total'))) + Decimal(data.get('shipping_cost')))
-    }
+    return {'{}{}'.format(key_prefix, 'grand_total'): str(
+        Decimal(data.get('{}{}'.format(key_prefix, 'total')))
+        + Decimal(data.get('shipping_cost'))
+        + Decimal(data.get('fees'))
+    )}
 
 
-def format_price_with_currency(price, currency):
+def get_price_with_currency(price, currency):
     if currency == DEFAULT_CURRENCY:
         return '{} {}'.format(price, currency_symbol_mapping[currency])
     return '{}{}'.format(currency_symbol_mapping[currency], price)

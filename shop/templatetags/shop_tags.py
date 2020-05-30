@@ -9,7 +9,7 @@ from shop.models import (
     GalleryItem,
     Showcase,
 )
-from shop.utils import format_price_with_currency
+from shop.utils import get_price_with_currency
 register = template.Library()
 
 
@@ -129,14 +129,19 @@ def rating_tag(obj, can_review=False):
 
 
 @register.simple_tag()
+def get_formatted_discount(value):
+    return '-{}%'.format(round(value, 2))
+
+
+@register.simple_tag()
 def get_localized_item_price(obj, key, currency, multiply=1, discount=None):
     price = getattr(obj, '{}_{}'.format(key, currency)) * multiply
     if discount:
         price = round(price - price * Decimal(discount) / 100, 2)
-    return format_price_with_currency(price, currency)
+    return get_price_with_currency(price, currency)
 
 
 @register.simple_tag()
 def get_price_in_currency(obj, key, exchange_rates, currency):
     price = '{:0.2f}'.format(Decimal(obj.get(key, 0)) / exchange_rates[currency], 2)
-    return format_price_with_currency(price, currency)
+    return get_price_with_currency(price, currency)
