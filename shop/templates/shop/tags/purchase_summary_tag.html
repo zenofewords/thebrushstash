@@ -63,7 +63,7 @@
     </a>
   {% endif %}
 
-  {% if user.is_authenticated and user.is_staff and not review %}
+  {% if not review %}
     <div class="summary-row promo-code-row">
       <input class="promo-code-input" type="text" name="promo_code" placeholder="{% trans 'Enter promo code' %}" value="{{ bag.promo_code }}">
       <input class="promo-code-submit" type="submit" name="submit_promo_code" value="{% trans 'Activate' %}">
