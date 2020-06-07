@@ -36,7 +36,6 @@ INSTALLED_APPS = [
 
     'webpack_loader',
     'rest_framework',
-    'anymail',
 
     'account.apps.AccountConfig',
     'django.contrib.admin',
@@ -173,16 +172,11 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-ANYMAIL = {
-    'MAILGUN_API_KEY': os.getenv('MAILGUN_API_KEY'),
-    'MAILGUN_SENDER_DOMAIN': os.getenv('MAILGUN_SENDER_DOMAIN'),
-    'MAILGUN_API_URL': os.getenv('MAILGUN_API_URL'),
-}
-DEFAULT_FROM_EMAIL = 'The Brush Stash Webshop <webshop@mg.thebrushstash.com>'
-EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
-EMAIL_HOST = 'smtp.mailgun.com'
+DEFAULT_FROM_EMAIL = 'The Brush Stash Webshop'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_SSL = True
-EMAIL_PORT = 587
+EMAIL_PORT = 465
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
