@@ -176,9 +176,9 @@ LOGOUT_REDIRECT_URL = '/'
 ANYMAIL = {
     'MAILGUN_API_KEY': os.getenv('MAILGUN_API_KEY'),
     'MAILGUN_SENDER_DOMAIN': os.getenv('MAILGUN_SENDER_DOMAIN'),
+    'MAILGUN_API_URL': os.getenv('MAILGUN_API_URL'),
 }
-DEFAULT_FROM_EMAIL = 'zen.dominik@gmail.com'
-SERVER_EMAIL = 'zen.dominik@gmail.com'
+DEFAULT_FROM_EMAIL = 'The Brush Stash Webshop <webshop@mg.thebrushstash.com>'
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 EMAIL_HOST = 'smtp.mailgun.com'
 EMAIL_USE_SSL = True
