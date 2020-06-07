@@ -507,6 +507,7 @@ def send_newsletter(recipient, newsletter):
         'body_text': body_text,
         'token': recipient.token,
         'language': language_preferences[0],
+        'preferred_language': recipient.language_preference,
     }
     message_txt = render_to_string('shop/newsletter_template.txt', data)
     message_html = render_to_string('shop/newsletter_template.html', data)
