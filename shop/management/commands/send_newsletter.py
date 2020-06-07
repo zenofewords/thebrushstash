@@ -1,7 +1,8 @@
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-# from account.models import NewsletterRecipient
+from account.models import NewsletterRecipient
 from shop.models import (
     Newsletter,
     NewsletterStatus,
@@ -16,10 +17,10 @@ class Command(BaseCommand):
         if newsletter.recipient_list:
             for newsletter_recipient in newsletter.recipient_list.all():
                 send_newsletter(newsletter_recipient, newsletter)
-        # else:
-        #     recipients = NewsletterRecipient.objects.filter(subscribed=True)
-        #     for newsletter_recipiet in recipients:
-        #         send_newsletter(newsletter_recipiet, newsletter)
+        elif not settings.DEBUG:
+            recipients = NewsletterRecipient.objects.filter(subscribed=True)
+            for newsletter_recipiet in recipients:
+                send_newsletter(newsletter_recipiet, newsletter)
 
     def handle(self, *args, **options):
         newsletter = Newsletter.objects.filter(
