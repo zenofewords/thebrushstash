@@ -25,8 +25,9 @@
         &:before
           position: absolute
           content: ''
-          top: 41%
-          left: 35%
+          top: 50%
+          left: 50%
+          transform: translate(-50%, -50%)
           width: 120px
           height: 120px
           pointer-events: none
@@ -35,8 +36,6 @@
 
         &:after
           @extend %play-icon
-          top: 48%
-          left: 46%
           border-width: 24px 38px
 
     .video-wrapper
@@ -86,7 +85,7 @@
         padding: 3px
         border: 1px solid rgba(0, 0, 0, .3)
         cursor: pointer
-        transition: $transitionDuration
+        transition: box-shadow $transitionDuration
 
         &:hover
           box-shadow: $hoverShadow
@@ -100,10 +99,11 @@
           &:before
             position: absolute
             content: ''
-            top: 10px
-            left: 10px
             width: 70%
             height: 70%
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
             pointer-events: none
             background-color: rgba(0, 0, 0, .5)
             border-radius: 50%

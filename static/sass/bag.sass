@@ -9,7 +9,7 @@
   width: 300px
   background-color: #fff
   z-index: 2
-  transition: $transitionDuration
+  transition: opacity $transitionDuration
   box-shadow: $boxShadow
   opacity: 0
   pointer-events: none
@@ -410,7 +410,8 @@
         padding: 12px 0 1px 20px
         border: $inputBorder
         border-radius: 0
-        transition: $transitionDurationShort
+        transition-duration: $transitionDurationShort
+        transition-property: height, padding
 
         &.show-label
           padding: 22px 0 11px 20px

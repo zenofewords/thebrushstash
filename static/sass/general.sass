@@ -49,7 +49,8 @@ a
   font-weight: $heavy
   text-decoration: none
   color: #000
-  transition: $transitionDuration
+  transition-duration: $transitionDuration
+  transition-property: color, background-color, opacity
 
 p
   font-weight: $light
@@ -72,7 +73,8 @@ button
   color: #fff
   background-color: #000
   border: 0
-  transition: $transitionDuration
+  transition-duration: $transitionDuration
+  transition-property: color, background-color
 
   &:hover
     color: #000
@@ -156,6 +158,7 @@ button
   height: 100%
 
 .auth-wrapper
+  position: relative
   display: flex
   flex-direction: column
   align-items: center
