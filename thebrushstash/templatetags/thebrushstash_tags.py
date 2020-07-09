@@ -104,8 +104,3 @@ def credit_card_logos_tag(css=''):
 @register.inclusion_tag('thebrushstash/tags/newsletter_tag.html')
 def newsletter_tag():
     pass
-
-
-@register.simple_tag
-def get_font_chars():
-    return 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.-%C4%8C%C4%86%C4%90%C5%A0%C5%BD%C4%8D%C4%87%C4%91%C5%A1%C5%BE%E2%80%98%3F%E2%80%99%E2%80%9C%21%E2%80%9D%28%25%29%5B%23%5D%7B%40%7D%2F%26%5C%3C%2B%C3%B7%C3%97%3D%3E%C2%AE%C2%A9%24%E2%82%AC%C2%A3%C2%A5%C2%A2%3A%3B%2C%2A%20'
