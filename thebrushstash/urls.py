@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls import include
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
@@ -14,6 +15,10 @@ from thebrushstash.constants import (
     COMPLAINTS,
     TOS,
 )
+from shop.views import (
+    IPGPurchaseCompletedView,
+    IPGPurchaseCancelledView,
+)
 from thebrushstash.views import (
     AboutTheStoryView,
     ContactView,
@@ -25,13 +30,18 @@ from thebrushstash.views import (
     TestImageView,
 )
 
-
+# may not be suffixed by language code
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include(('account.urls', 'account'), namespace='account')),
     path('api/', include((shop_api_urls + thebrushstash_api_urls, 'api'), namespace='api')),
+    path('test-images/', TestImageView.as_view(), name='other-images'),
     path('i18n/', include('django.conf.urls.i18n')),
 
+    path('ipg-purchase-completed/', IPGPurchaseCompletedView.as_view(), name='ipg-purchase-completed'),
+    path('ipg-purchase-cancelled/', IPGPurchaseCancelledView.as_view(), name='ipg-purchase-cancelled'),
+]
+urlpatterns += i18n_patterns(
     path('faq/', FaqView.as_view(), name='faq'),
 
     path('{}/'.format(ABOUT), AboutTheStoryView.as_view(), name=ABOUT),
@@ -43,8 +53,8 @@ urlpatterns = [
 
     path('', include('django.contrib.auth.urls')),
     path('', include(('shop.urls', 'shop'), namespace='shop')),
-    path('test-images/', TestImageView.as_view(), name='other-images'),
-]
+    prefix_default_language=False,
+)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
