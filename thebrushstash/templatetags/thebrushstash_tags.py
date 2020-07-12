@@ -41,13 +41,13 @@ def ship_to_tag(context, prefix=''):
     default = regions.get(name=DEFAULT_REGION)
 
     language = get_language()
-    if not session.get('_language'):
+    if language != session.get('_language'):
         session['_language'] = language
 
     default_region = default if language == default.name else regions.first()
     region = session.get('region')
 
-    if not region:
+    if not region or language == default.name:
         session['region'] = default_region.name
         selected_region = default_region
     else:
