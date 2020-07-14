@@ -291,6 +291,8 @@ ready(() => {
 
   ipgFormSubmitButton && ipgFormSubmitButton.addEventListener('click', (event) => {
     event.preventDefault()
+
+    ipgFormSubmitButton.disabled = true
     clearErrorMessages()
     const valid = ipgCheckoutForm.reportValidity()
 
@@ -300,6 +302,8 @@ ready(() => {
       } else {
         processPaymentAddressData(checkoutAddressForm, () => ipgCheckoutForm.submit())
       }
+    } else {
+      ipgFormSubmitButton.disabled = false
     }
   })
 
@@ -330,14 +334,12 @@ ready(() => {
 
     cashOnDeliverySubmitButton.disabled = true
     clearErrorMessages()
-    previousStepLink.style.pointerEvents = 'none'
     const valid = checkoutAddressForm.reportValidity()
 
     if (valid) {
       processPaymentAddressData(checkoutAddressForm, () => checkoutAddressForm.submit())
     } else {
       cashOnDeliverySubmitButton.disabled = false
-      previousStepLink.style.pointerEvents = 'auto'
     }
   })
 

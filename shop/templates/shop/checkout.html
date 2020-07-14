@@ -10,6 +10,7 @@
 {% block content %}
   <div class="checkout-wrapper">
     <div class="checkout-form-wrapper">
+      <p class="non-field-error" hidden></p>
       <form id="checkout-address-form" method="post" action="{% url 'shop:purchase-completed' %}">
         {% csrf_token %}
         {{ form.non_field_errors }}
