@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-30 21:15+0100\n"
+"POT-Creation-Date: 2020-07-14 21:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,7 +149,7 @@ msgstr "Unijeli ste neispravan ili neaktivan kod."
 msgid "Checkout"
 msgstr "Blagajna"
 
-#: shop/templates/shop/checkout.html:24
+#: shop/templates/shop/checkout.html:25
 msgid "Previous step"
 msgstr "Prethodni korak"
 
@@ -280,19 +280,19 @@ msgstr "Dolazi uskoro"
 msgid "New"
 msgstr "Novo"
 
-#: shop/templates/shop/newsletter_template.html:144
+#: shop/templates/shop/newsletter_template.html:145
 msgid "Unsubscribe"
 msgstr "Odjavi se"
 
-#: shop/templates/shop/newsletter_template.html:149
+#: shop/templates/shop/newsletter_template.html:150
 msgid "Update newsletter language"
 msgstr "Ažuriraj jezik newslettera"
 
 #: shop/templates/shop/product_detail.html:21
 #: shop/templates/shop/product_detail.html:48
 #: shop/templates/shop/shop_base.html:7
-#: thebrushstash/templates/thebrushstash/base.html:26
-#: thebrushstash/templates/thebrushstash/base.html:32
+#: thebrushstash/templates/thebrushstash/base.html:27
+#: thebrushstash/templates/thebrushstash/base.html:33
 msgid "Webshop"
 msgstr "Webshop"
 
@@ -621,11 +621,11 @@ msgstr "Cijena s popustom:"
 msgid "New grand total (hrk):"
 msgstr "Nova ukupna cijena (HRK):"
 
-#: shop/utils.py:150
+#: shop/utils.py:151
 msgid "This code does not apply to items in your bag."
 msgstr "Ovaj kod se ne odnosi na sadržaj vaše košarice."
 
-#: shop/utils.py:153
+#: shop/utils.py:154
 msgid "The code is already applied."
 msgstr "Kod je već unešen i aktiviran."
 
@@ -860,15 +860,15 @@ msgstr ""
 msgid "About / The Story"
 msgstr "O nama / O kistovima"
 
-#: thebrushstash/templates/thebrushstash/base.html:27
-#: thebrushstash/templates/thebrushstash/base.html:33
-#: thebrushstash/templates/thebrushstash/base.html:44
+#: thebrushstash/templates/thebrushstash/base.html:28
+#: thebrushstash/templates/thebrushstash/base.html:34
+#: thebrushstash/templates/thebrushstash/base.html:45
 msgid "The Brush Stash Webshop | Luxury makeup brushes handmade in Japan"
 msgstr ""
 "The Brush Stash Webshop | Luksuzni hrvatski kistovi za šminkanje ručno "
 "proizvedeni u Japanu"
 
-#: thebrushstash/templates/thebrushstash/base.html:28
+#: thebrushstash/templates/thebrushstash/base.html:29
 msgid ""
 "the brush stash brushes, the brush stash buy, japanese brushes, kumano "
 "brushes, handmade makeup brushes, luxury makeup, makeup brushes, kumano "
@@ -878,8 +878,8 @@ msgstr ""
 "kistovi, ručno rađeni kistovi, luksuzni kistovi, kistovi za šminkanje, "
 "kumano fude, kistovi visoke kvalitete, luksuzna kozmetika"
 
-#: thebrushstash/templates/thebrushstash/base.html:36
-#: thebrushstash/templates/thebrushstash/base.html:43
+#: thebrushstash/templates/thebrushstash/base.html:37
+#: thebrushstash/templates/thebrushstash/base.html:44
 msgid "The Brush Stash brush collection"
 msgstr "The Brush Stash kolekcija kistova"
 
@@ -999,26 +999,30 @@ msgstr "Aktivirajte svoj korisnički račun"
 msgid "Subscribe to newsletter"
 msgstr "Pretplatite se na newsletter"
 
-#: thebrushstash/utils.py:590
+#: thebrushstash/utils.py:591
 msgid "There's nothing in your bag."
 msgstr "Vaša košarica je prazna."
 
-#: thebrushstash/utils.py:597
+#: thebrushstash/utils.py:599
 msgid ""
-"\n"
-"                Looks like {} is all sold out\n"
+"Looks like {} is all sold out.\n"
 "                You'll have to remove it from your bag to continue."
 msgstr ""
-"\n"
-"                Čini se da je {} rasprodan\n"
-"                Morat ćete ga ukloniti iz košarice da bi mogli nastaviti."
+"Čini se da je {} rasprodan. Morat ćete ga ukloniti iz košarice da bi mogli "
+"nastaviti."
 
-#: thebrushstash/utils.py:601
+#: thebrushstash/utils.py:604
 msgid ""
-"\n"
-"                We've got only {} {} left,\n"
-"                please remove at least {} from your bag to continue."
+"We've got only {} {} left, please remove at least {}\n"
+"                from your bag to continue."
 msgstr ""
-"\n"
-"                Ostalo nam je samo {} {},\n"
-"                molimo uklonite barem {} iz košarice da bi mogli nastaviti."
+"Ostalo nam je samo {} {}, molimo uklonite barem {} iz košarice da bi mogli "
+"nastaviti."
+
+#: thebrushstash/utils.py:610
+msgid ""
+"{}'s price has changed, please remove it from your bag to continue.\n"
+"                You can readd it from the home or product page."
+msgstr ""
+"{} ima novu cijenu, molimo uklonite ga iz košarice da bi mogli nastaviti. "
+"Možete ga ponovo dodati s naslovnice ili stranice proizvoda."

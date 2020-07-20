@@ -20,8 +20,8 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.safestring import mark_safe
-from django.utils.text import slugify
-from django.utils.translation import gettext as _
+from django.utils.text import format_lazy, slugify
+from django.utils.translation import get_language, gettext as _
 from django.utils.timezone import now
 
 from account.models import (
@@ -595,15 +595,20 @@ def check_bag_content(products):
         product = Product.objects.get(pk=value['pk'])
 
         if product.in_stock <= 0:
-            return _('''
-                Looks like {} is all sold out
-                You\'ll have to remove it from your bag to continue.'''.format(product.name))
+            return _(
+                '''Looks like {} is all sold out.
+                You\'ll have to remove it from your bag to continue.'''
+            ).format(product.name)
         if product.in_stock < value['quantity']:
-            return _('''
-                We've got only {} {} left,
-                please remove at least {} from your bag to continue.'''.format(
-                product.in_stock, product.name, purchase_count - product.in_stock)
-            )
+            return _(
+                '''We\'ve got only {} {} left, please remove at least {}
+                from your bag to continue.'''
+            ).format(product.in_stock, product.name, purchase_count - product.in_stock)
+        if product.price_hrk != Decimal(value['price_hrk']):
+            return _(
+                '''{}\'s price has changed, please remove it from your bag to continue.
+                You can readd it from the home or product page.'''
+            ).format(product.name)
     return None
 
 

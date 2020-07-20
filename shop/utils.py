@@ -131,9 +131,10 @@ def update_bag_with_discount(bag, code, session):
     PromoCode = apps.get_model('shop', 'PromoCode')
 
     promo_code = PromoCode.objects.filter(code=code).first()
-    if not promo_code:
+    if promo_code:
+        update_discount(bag, promo_code, session)
+    else:
         bag['promo_code'] = ''
-    update_discount(bag, promo_code, session)
 
 
 def update_discount(bag, promo_code, session):

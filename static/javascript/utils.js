@@ -22,7 +22,6 @@ import {
   cashOnDeliveryWrapper,
   checkoutAddressTitle,
   checkoutAddressWrapper,
-  checkoutHelpText,
   checkoutIpgWrapper,
   checkoutPaymentTitle,
   checkoutPaymentWrapper,
@@ -52,6 +51,7 @@ import {
   newSummaryTax,
   newSummaryTotal,
   newSummaryWrapper,
+  nonFieldError,
   productRatingCount,
   productRatingGauge,
   productReviewsWrapper,
@@ -232,8 +232,9 @@ export const processPaymentAddressData = (checkoutAddressForm, callback) => {
   }).then(() => {
     callback()
   }).catch((error) => {
-    checkoutHelpText.innerHTML = error
-    checkoutHelpText.classList.add('error')
+    nonFieldError.innerHTML = error
+    nonFieldError.hidden = false
+    nonFieldError.scrollIntoView(false)
   })
 }
 

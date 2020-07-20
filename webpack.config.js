@@ -10,8 +10,9 @@ module.exports = {
   output: {
     filename: '[name]_[hash].js',
     path: path.resolve(__dirname, 'staticfiles/bundles'),
-    publicPath: 'http://localhost:3000/static/bundles/',
+    publicPath: 'http://localhost:8080/static/bundles/',
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
