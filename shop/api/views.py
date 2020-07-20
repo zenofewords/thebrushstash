@@ -38,6 +38,7 @@ from shop.utils import (
     get_totals,
     set_shipping_cost,
     set_tax,
+    update_bag_with_discount,
     update_discount,
 )
 from thebrushstash.constants import (
@@ -250,6 +251,8 @@ class ProcessOrderView(GenericAPIView):
 
         session = request.session
         bag = session.get('bag')
+        update_bag_with_discount(bag, bag.get('promo_code'), session)
+
         grand_total = bag['new_grand_total'] if bag.get('new_grand_total', None) else bag['grand_total']
         cart = get_cart(bag)
         session['order_number'] = create_or_update_invoice(

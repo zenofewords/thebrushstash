@@ -130,11 +130,12 @@ def apply_discount(code, eligible_products, bag):
 def update_bag_with_discount(bag, code, session):
     PromoCode = apps.get_model('shop', 'PromoCode')
 
-    promo_code = PromoCode.objects.filter(code=code).first()
+    promo_code = PromoCode.published_objects.filter(code=code).first()
     if promo_code:
         update_discount(bag, promo_code, session)
     else:
-        bag['promo_code'] = ''
+        clear_discount_data(bag)
+        session.modified = True
 
 
 def update_discount(bag, promo_code, session):
@@ -174,3 +175,15 @@ def update_discount(bag, promo_code, session):
     session.modified = True
 
     return message
+
+
+def clear_discount_data(bag):
+    bag.pop('promo_code', None)
+    bag.pop('new_total', None)
+    bag.pop('new_grand_total', None)
+    bag.pop('new_tax', None)
+
+    for _, product in bag.get('products', {}).items():
+        product.pop('discount', None)
+        product.pop('new_price_hrk', None)
+        product.pop('new_subtotal', None)
