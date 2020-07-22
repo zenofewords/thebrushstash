@@ -3,6 +3,7 @@ var MiniCssExtractPlugin = require('mini-css-extract-plugin')
 var WebpackBundleTracker = require('webpack-bundle-tracker')
 
 config.output.publicPath = '',
+config.devtool = '',
 config.plugins = [
   new MiniCssExtractPlugin({filename: '[name]_[hash].css'}),
   new WebpackBundleTracker({filename: './webpack-stats-prod.json'}),
