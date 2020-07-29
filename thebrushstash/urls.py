@@ -18,6 +18,7 @@ from thebrushstash.constants import (
 from shop.views import (
     IPGPurchaseCompletedView,
     IPGPurchaseCancelledView,
+    PurchaseCompletedView,
 )
 from thebrushstash.views import (
     AboutTheStoryView,
@@ -38,6 +39,7 @@ urlpatterns = [
     path('test-images/', TestImageView.as_view(), name='other-images'),
     path('i18n/', include('django.conf.urls.i18n')),
 
+    path('purchase-completed/', PurchaseCompletedView.as_view(), name='purchase-completed'),
     path('ipg-purchase-completed/', IPGPurchaseCompletedView.as_view(), name='ipg-purchase-completed'),
     path('ipg-purchase-cancelled/', IPGPurchaseCancelledView.as_view(), name='ipg-purchase-cancelled'),
 ]

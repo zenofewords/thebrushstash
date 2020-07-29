@@ -37,7 +37,7 @@ class CustomUserAdmin(UserAdmin):
     form = ChangeForm
     add_form = CustomUserForm
     change_password_form = auth_admin.AdminPasswordChangeForm
-    list_display = ('email', 'first_name', 'last_name', 'is_superuser', )
+    list_display = ('email', 'first_name', 'last_name', 'is_superuser', 'is_active', )
     list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups', )
     search_fields = ('first_name', 'last_name', 'email', )
     ordering = ('email', )
@@ -46,7 +46,7 @@ class CustomUserAdmin(UserAdmin):
 
 class NewsletterRecipientAdmin(admin.ModelAdmin):
     list_display = ('email', 'subscribed', 'user', 'language_preference', )
-
+    search_fields = ('user__first_name', 'user__last_name', 'email', )
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(NewsletterRecipient, NewsletterRecipientAdmin)

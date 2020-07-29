@@ -4,7 +4,6 @@ from shop.views import (
     CheckoutView,
     ReviewBagView,
     ProductDetailView,
-    PurchaseCompletedView,
     ShopHomeView,
 )
 
@@ -15,5 +14,4 @@ urlpatterns = (
     path('products/<slug:slug>/', ProductDetailView.as_view(), name='product-detail'),
     path('review-bag/', ReviewBagView.as_view(), name='review-bag'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),
-    path('purchase-completed/', PurchaseCompletedView.as_view(), name='purchase-completed'),
 )

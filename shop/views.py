@@ -39,7 +39,7 @@ from thebrushstash.utils import (
 class CheckoutView(FormView):
     template_name = 'shop/checkout.html'
     form_class = AddressForm
-    success_url = reverse_lazy('shop:purchase-completed')
+    success_url = reverse_lazy('purchase-completed')
 
     def get(self, request, *args, **kwargs):
         if not request.session.get('bag'):
