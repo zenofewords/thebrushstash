@@ -315,6 +315,7 @@ class UpdateShippingAddressView(GenericAPIView):
 
         session = request.session
         bag = session.get('bag')
+        grand_total = bag['new_grand_total'] if bag.get('new_grand_total', None) else bag['grand_total']
         cart = get_cart(bag)
 
         user_info = {}
@@ -324,9 +325,9 @@ class UpdateShippingAddressView(GenericAPIView):
 
         return response.Response({
             'order_number': order_number,
-            'grand_total': bag['grand_total'],
+            'grand_total': grand_total,
             'signature': get_signature({
-                'amount': bag['grand_total'],
+                'amount': grand_total,
                 **user_info,  # noqa
                 'cart': cart,
                 'currency': 'HRK',
