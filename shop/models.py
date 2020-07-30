@@ -138,6 +138,12 @@ class Invoice(TimeStampMixin):
     payment_method = models.CharField(
         max_length=100, choices=InvoicePaymentMethod.CHOICES, blank=True
     )
+    region = models.ForeignKey(
+        'thebrushstash.Region', on_delete=models.deletion.CASCADE, blank=True, null=True,
+    )
+    promo_code = models.ForeignKey(
+        'shop.PromoCode', on_delete=models.deletion.CASCADE, blank=True, null=True,
+    )
     status = models.CharField(max_length=100, choices=InvoiceStatus.CHOICES)
 
     shipping_first_name = models.CharField(max_length=500, blank=True)
@@ -150,6 +156,8 @@ class Invoice(TimeStampMixin):
     shipping_address = models.CharField(max_length=1000, blank=True)
     shipping_zip_code = models.CharField(max_length=500, blank=True)
     shipping_state_county = models.CharField(max_length=500, blank=True)
+
+    resend_purchase_confirmation_email = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Invoice'
