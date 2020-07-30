@@ -2,6 +2,7 @@ import copy
 import hashlib
 import hmac
 import io
+import logging
 import os
 import secrets
 
@@ -52,6 +53,7 @@ from thebrushstash.models import (
     Country,
     ExchangeRate,
 )
+logger = logging.getLogger(__name__)
 
 
 def get_country(country_name):
@@ -571,7 +573,7 @@ def signature_is_valid(data):
 
 
 def complete_purchase(session, invoice_status, request):
-    invoice = Invoice.objects.filter(order_number=session['order_number']).first()
+    invoice = Invoice.objects.filter(order_number=session.get('order_number')).first()
 
     if invoice:
         invoice.status = invoice_status
@@ -581,9 +583,15 @@ def complete_purchase(session, invoice_status, request):
         current_site = get_current_site(request)
 
         send_purchase_email(session, current_site, invoice)
-        session['bag'] = EMPTY_BAG
-        session['order_number'] = None
-        session['user_information']['note'] = None
+    else:
+        logger.error('Invoice not found for order number: {}, user: {}'.format(
+            session.get('order_number'),
+            str(session.get('user_information')),
+        ))
+
+    session['order_number'] = None
+    session['bag'] = EMPTY_BAG
+    session['user_information']['note'] = None
 
 
 def check_bag_content(products):

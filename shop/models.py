@@ -158,6 +158,7 @@ class Invoice(TimeStampMixin):
     shipping_state_county = models.CharField(max_length=500, blank=True)
 
     resend_purchase_confirmation_email = models.BooleanField(default=False)
+    bag_dump = JSONField(blank=True, null=True)
 
     class Meta:
         verbose_name = 'Invoice'

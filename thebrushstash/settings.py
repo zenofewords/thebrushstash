@@ -222,5 +222,10 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False
         },
+        'thebrushstash': {
+            'handlers': ['logfile'],
+            'level': 'ERROR',
+            'propagate': False
+        },
     },
 }
