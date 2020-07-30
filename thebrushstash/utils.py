@@ -2,6 +2,7 @@ import copy
 import hashlib
 import hmac
 import io
+import json
 import logging
 import os
 import secrets
@@ -52,6 +53,7 @@ from shop.models import (
 from thebrushstash.models import (
     Country,
     ExchangeRate,
+    Region,
 )
 logger = logging.getLogger(__name__)
 
@@ -287,9 +289,9 @@ def safe_subscribe_to_newsletter(user, email, current_site):
     return _('Check your e-mail for confirmation!')
 
 
-def create_or_update_invoice(order_number, grand_total, payment_method, data, cart, user):
+def create_or_update_invoice(session, grand_total, data, cart, user):
     invoice = Invoice.objects.filter(
-        status=InvoiceStatus.PENDING, order_number=order_number
+        status=InvoiceStatus.PENDING, order_number=session.get('order_number', '')
     ).first()
 
     if not invoice:
@@ -298,7 +300,7 @@ def create_or_update_invoice(order_number, grand_total, payment_method, data, ca
         invoice.order_number = 'TBS_{}'.format(invoice.pk)
 
     invoice.order_total = grand_total
-    invoice.payment_method = payment_method
+    invoice.payment_method = session.get('payment_method')
 
     invoice.email = data.get('email')
     invoice.first_name = data.get('first_name')
@@ -314,6 +316,11 @@ def create_or_update_invoice(order_number, grand_total, payment_method, data, ca
     invoice.company_address = data.get('company_address', '')
     invoice.company_uin = data.get('company_uin', '')
     invoice.note = data.get('note', '')
+
+    invoice.region = Region.objects.filter(name=session.get('region')).first()
+    bag = session.get('bag', {})
+    invoice.bag_dump = json.loads(json.dumps(bag))
+    invoice.promo_code = PromoCode.objects.filter(code=bag.get('promo_code')).first()
 
     invoice.status = InvoiceStatus.PENDING
     invoice.cart = cart
@@ -584,7 +591,8 @@ def complete_purchase(session, invoice_status, request):
 
         send_purchase_email(session, current_site, invoice)
     else:
-        logger.error('Invoice not found for order number: {}, user: {}'.format(
+        logger.error('{} - invoice not found for order number: {}, user: {}'.format(
+            now(),
             session.get('order_number'),
             str(session.get('user_information')),
         ))

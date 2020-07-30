@@ -256,9 +256,8 @@ class ProcessOrderView(GenericAPIView):
         grand_total = bag['new_grand_total'] if bag.get('new_grand_total', None) else bag['grand_total']
         cart = get_cart(bag)
         session['order_number'] = create_or_update_invoice(
-            session.get('order_number', ''),
+            session,
             grand_total,
-            session['payment_method'],
             serializer.data,
             cart,
             user
