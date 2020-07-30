@@ -33,6 +33,7 @@ from thebrushstash.views import (
 
 # may not be suffixed by language code
 urlpatterns = [
+    path('', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('account/', include(('account.urls', 'account'), namespace='account')),
     path('api/', include((shop_api_urls + thebrushstash_api_urls, 'api'), namespace='api')),
@@ -53,7 +54,6 @@ urlpatterns += i18n_patterns(
     path('{}/'.format(COMPLAINTS), ReturnsAndComplaintsView.as_view(), name=COMPLAINTS),
     path('{}/'.format(TOS), GeneralTermsAndConditions.as_view(), name=TOS),
 
-    path('', include('django.contrib.auth.urls')),
     path('', include(('shop.urls', 'shop'), namespace='shop')),
     prefix_default_language=False,
 )
