@@ -29,21 +29,10 @@ class Command(BaseCommand):
         )
 
         for flagged_invoice in flagged_invoices:
-            bag = flagged_invoice.bag_dump
-            update_inventory(flagged_invoice, bag)
+            update_inventory(flagged_invoice)
 
             with translation.override(flagged_invoice.region.language):
-                send_purchase_email({
-                        'payment_method': flagged_invoice.payment_method,
-                        'bag': bag,
-                        'currency': flagged_invoice.region.currency,
-                        'user_information': {
-                            'email': flagged_invoice.email,
-                        }
-                    },
-                    Site,
-                    flagged_invoice,
-                )
+                send_purchase_email(Site, flagged_invoice)
             flagged_invoice.resend_purchase_confirmation_email = False
             flagged_invoice.status = InvoiceStatus.COMPLETED
             flagged_invoice.save()

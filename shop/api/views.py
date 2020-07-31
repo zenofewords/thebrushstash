@@ -49,10 +49,11 @@ from thebrushstash.constants import (
 from thebrushstash.utils import (
     create_or_update_invoice,
     get_cart,
+    get_country,
     get_signature,
+    map_ipg_fields,
     register_user,
     subscribe_to_newsletter,
-    get_country,
 )
 from thebrushstash.models import (
     ExchangeRate,
@@ -266,11 +267,6 @@ class ProcessOrderView(GenericAPIView):
         session['user_information']['registration_email_in_use'] = active
         session['user_information']['newsletter_email_in_use'] = not created
 
-        user_info = {}
-        for key, ipg_key in dict(zip(form_mandatory_fields, ipg_fields)).items():
-            if key in form_mandatory_fields:
-                user_info[ipg_key] = serializer.data[key]
-
         return response.Response({
             'order_number': session['order_number'],
             'cart': cart,
@@ -280,7 +276,7 @@ class ProcessOrderView(GenericAPIView):
             'language': session['_language'],
             'signature': get_signature({
                 'amount': grand_total,
-                **user_info,  # noqa
+                **map_ipg_fields(serializer.data, form_mandatory_fields, ipg_fields),  # noqa
                 'cart': cart,
                 'currency': 'HRK',
                 'language': session['_language'],
@@ -317,17 +313,12 @@ class UpdateShippingAddressView(GenericAPIView):
         grand_total = bag['new_grand_total'] if bag.get('new_grand_total', None) else bag['grand_total']
         cart = get_cart(bag)
 
-        user_info = {}
-        for key, ipg_key in dict(zip(form_mandatory_fields, ipg_fields)).items():
-            if key in form_mandatory_fields:
-                user_info[ipg_key] = session['user_information'][key]
-
         return response.Response({
             'order_number': order_number,
             'grand_total': grand_total,
             'signature': get_signature({
                 'amount': grand_total,
-                **user_info,  # noqa
+                **map_ipg_fields(session['user_information'], form_mandatory_fields, ipg_fields),  # noqa
                 'cart': cart,
                 'currency': 'HRK',
                 'language': session['_language'],

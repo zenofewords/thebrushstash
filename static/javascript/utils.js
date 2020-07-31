@@ -25,6 +25,7 @@ import {
   checkoutIpgWrapper,
   checkoutPaymentTitle,
   checkoutPaymentWrapper,
+  codOrderNumber,
   continueToPaymentButton,
   creditCardRadio,
   differentShippingAddressInput,
@@ -228,6 +229,7 @@ export const processPaymentAddressData = (checkoutAddressForm, callback) => {
     if (response.non_field_errors) {
       throw response.non_field_errors
     }
+    codOrderNumber.value = response.order_number
     updateIPGInputs(response)
   }).then(() => {
     callback()

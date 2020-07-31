@@ -16,6 +16,7 @@
     </p>
   {% endif %}
 
+  <input id="cod_order_number" name="order_number" value="" hidden>
   <div class="checkout-formfields">
     {% include 'account/includes/form_field.html' with field=form.first_name %}
     {% include 'account/includes/form_field.html' with field=form.last_name %}

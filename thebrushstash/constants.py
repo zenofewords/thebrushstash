@@ -225,7 +225,6 @@ ipg_fields = (
     'cardholder_zip_code',
 )
 form_extra_fields = (
-    'state_county',
     'phone_number',
     'state_county',
     'phone_number',

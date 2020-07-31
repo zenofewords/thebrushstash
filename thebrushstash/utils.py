@@ -14,6 +14,7 @@ from webptools import webplib
 from email.mime.image import MIMEImage
 
 from django.conf import settings
+from django.contrib.auth import login
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.staticfiles import finders
@@ -49,6 +50,10 @@ from shop.models import (
     InvoiceStatus,
     Product,
     PromoCode,
+)
+from thebrushstash.constants import (
+    form_extra_fields,
+    form_mandatory_fields,
 )
 from thebrushstash.models import (
     Country,
@@ -317,6 +322,8 @@ def create_or_update_invoice(session, grand_total, data, cart, user):
     invoice.company_uin = data.get('company_uin', '')
     invoice.note = data.get('note', '')
 
+    invoice.register_user = bool(data.get('register'))
+    invoice.subscribe_to_newsletter = bool(data.get('subscribe_to_newsletter'))
     invoice.region = Region.objects.filter(name=session.get('region')).first()
     bag = session.get('bag', {})
     invoice.bag_dump = json.loads(json.dumps(bag))
@@ -437,8 +444,8 @@ def send_subscription_email(email_address, current_site):
     send_message(message, email_audit)
 
 
-def send_purchase_email(session, current_site, invoice):
-    email_audit = start_audit(EmailSource.PURCHASE, invoice.email, session['payment_method'])
+def send_purchase_email(current_site, invoice):
+    email_audit = start_audit(EmailSource.PURCHASE, invoice.email, invoice.payment_method)
 
     logo_path, logo_image = get_logo_attachement()
     newsletter_recipient = NewsletterRecipient.objects.filter(user=invoice.user).first()
@@ -470,8 +477,8 @@ def send_purchase_email(session, current_site, invoice):
         'invoice_items': InvoiceItem.objects.filter(
             invoice=invoice).select_related('invoice', 'product'),
         'logo_path': logo_path,
-        'bag': session['bag'],
-        'currency': session['currency'],
+        'bag': invoice.bag_dump,
+        'currency': invoice.region.currency,
         'include_registration': include_registration,
         'include_newsletter': include_newsletter,
         'exchange_rates': exchange_rates,
@@ -481,7 +488,7 @@ def send_purchase_email(session, current_site, invoice):
     message_txt = render_to_string('shop/purchase_complete_email.txt', data)
     email_audit.content = message_txt
 
-    email_address = session['user_information']['email']
+    email_address = invoice.email
     message = EmailMultiAlternatives(
         _('Purchase complete'), message_html, settings.DEFAULT_FROM_EMAIL, [email_address]
     )
@@ -579,27 +586,50 @@ def signature_is_valid(data):
     ).hexdigest().lower()
 
 
-def complete_purchase(session, invoice_status, request):
-    invoice = Invoice.objects.filter(order_number=session.get('order_number')).first()
+def map_ipg_fields(data, mandatory_fields, extra_fields):
+    user_info = {}
+    for key, extra_key in dict(zip(mandatory_fields, extra_fields)).items():
+        if key in mandatory_fields:
+            user_info[extra_key] = data[key]
+    return user_info
+
+
+def get_user_information(request, invoice):
+    user_info = {}
+    for key in form_mandatory_fields + form_extra_fields:
+        user_info[key] = request.POST.get(key)
+
+    user = CustomUser.objects.filter(email=user_info.get('email')).first()
+    if user and user.is_active:
+        user_info['registration_email_in_use'] = invoice.register_user
+
+        if not user.is_authenticated:
+            login(request, user)
+
+    if invoice.subscribe_to_newsletter:
+        user_info['newsletter_email_in_use'] = NewsletterRecipient.objects.filter(
+            email=user_info.get('email')
+        ).exists()
+    return user_info
+
+
+def complete_purchase(order_number, invoice_status, request):
+    invoice = Invoice.objects.filter(order_number=order_number).first()
 
     if invoice:
         invoice.status = invoice_status
         invoice.save()
 
-        update_inventory(invoice, session['bag'])
+        update_inventory(invoice)
         current_site = get_current_site(request)
-
-        send_purchase_email(session, current_site, invoice)
+        send_purchase_email(current_site, invoice)
     else:
-        logger.error('{} - invoice not found for order number: {}, user: {}'.format(
-            now(),
-            session.get('order_number'),
-            str(session.get('user_information')),
-        ))
+        logger.error('{} - invoice not found for order number: {}'.format(order_number))
 
-    session['order_number'] = None
-    session['bag'] = EMPTY_BAG
-    session['user_information']['note'] = None
+    request.session['order_number'] = None
+    request.session['bag'] = EMPTY_BAG
+    request.session['user_information'] = None
+    return invoice
 
 
 def check_bag_content(products):
@@ -628,8 +658,8 @@ def check_bag_content(products):
     return None
 
 
-def update_inventory(invoice, bag):
-    for key, value in bag['products'].items():
+def update_inventory(invoice):
+    for key, value in invoice.bag_dump['products'].items():
         sold_count = value['quantity']
 
         product = Product.objects.get(pk=value['pk'])
@@ -640,17 +670,16 @@ def update_inventory(invoice, bag):
             invoice=invoice, product=product, sold_count=sold_count
         )
 
-        promo_code = PromoCode.objects.filter(code=bag.get('promo_code')).first()
-        if promo_code:
-            invoice_item.promo_code = promo_code
+        if invoice.promo_code:
+            invoice_item.promo_code = invoice.promo_code
 
             if value.get('discount'):
                 invoice_item.discount = Decimal(value.get('discount'))
             invoice_item.save()
 
-            if promo_code.single_use:
-                promo_code.published = False
-                promo_code.save()
+            if invoice.promo_code.single_use:
+                invoice.promo_code.published = False
+                invoice.promo_code.save()
 
 
 def get_random_string():

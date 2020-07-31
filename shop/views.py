@@ -32,6 +32,8 @@ from shop.utils import (
 from thebrushstash.models import ExchangeRate
 from thebrushstash.utils import (
     complete_purchase,
+    complete_purchase,
+    get_user_information,
     signature_is_valid,
 )
 
@@ -116,12 +118,13 @@ class PurchaseCompletedView(TemplateView):
     template_name = 'shop/purchase_completed.html'
 
     def post(self, request, *args, **kwargs):
-        session = request.session
-
         user_information = {}
-        if session['payment_method'] == InvoicePaymentMethod.CASH_ON_DELIVERY:
-            complete_purchase(session, InvoiceStatus.PROCESSED, request)
-            user_information = {'user_information': session['user_information']}
+
+        if request.POST.get('payment-method') == InvoicePaymentMethod.CASH_ON_DELIVERY:
+            invoice = complete_purchase(request.POST.get('order_number'), InvoiceStatus.PROCESSED, request)
+            user_information = {
+                'user_information': get_user_information(request, invoice)
+            }
         return render(request, self.template_name, user_information)
 
 
@@ -137,9 +140,10 @@ class IPGPurchaseCompletedView(TemplateView):
         user_information = {}
 
         if signature_is_valid(request.POST):
-            session = request.session
-            complete_purchase(session, InvoiceStatus.PAID, request)
-            user_information = {'user_information': session['user_information']}
+            invoice = complete_purchase(request.POST.get('order_number'), InvoiceStatus.PAID, request)
+            user_information = {
+                'user_information': get_user_information(request, invoice)
+            }
         return render(request, self.template_name, user_information)
 
 
@@ -152,11 +156,12 @@ class IPGPurchaseCancelledView(TemplateView):
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
-        invoice = Invoice.objects.filter(order_number=request.POST.get('order_number')).first()
+        if signature_is_valid(request.POST):
+            invoice = Invoice.objects.filter(order_number=request.POST.get('order_number')).first()
 
-        if invoice:
-            invoice.status = InvoiceStatus.CANCELLED
-            invoice.save()
+            if invoice:
+                invoice.status = InvoiceStatus.CANCELLED
+                invoice.save()
         return render(request, self.template_name)
 
 
