@@ -45,7 +45,7 @@
   <a href="{% url 'shop:shop' %}#products-anchor" id="bag-buy-link" class="review-bag-link{% if bag.products.items %} hidden{% endif %}">
     {% trans "Buy some brushes" %}
   </a>
-  <a href="{% url 'shop:review-bag' %}" id="bag-review-link" class="review-bag-link{% if not bag.products.items %} hidden{% endif %}">
+  <a href="{% url 'review-bag' %}" id="bag-review-link" class="review-bag-link{% if not bag.products.items %} hidden{% endif %}">
     {% trans 'Review bag' %}
   </a>
 </div>

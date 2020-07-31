@@ -16,9 +16,11 @@ from thebrushstash.constants import (
     TOS,
 )
 from shop.views import (
-    IPGPurchaseCompletedView,
+    CheckoutView,
     IPGPurchaseCancelledView,
+    IPGPurchaseCompletedView,
     PurchaseCompletedView,
+    ReviewBagView,
 )
 from thebrushstash.views import (
     AboutTheStoryView,
@@ -39,6 +41,9 @@ urlpatterns = [
     path('api/', include((shop_api_urls + thebrushstash_api_urls, 'api'), namespace='api')),
     path('test-images/', TestImageView.as_view(), name='other-images'),
     path('i18n/', include('django.conf.urls.i18n')),
+
+    path('checkout/', CheckoutView.as_view(), name='checkout'),
+    path('review-bag/', ReviewBagView.as_view(), name='review-bag'),
 
     path('purchase-completed/', PurchaseCompletedView.as_view(), name='purchase-completed'),
     path('ipg-purchase-completed/', IPGPurchaseCompletedView.as_view(), name='ipg-purchase-completed'),
