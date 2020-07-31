@@ -159,6 +159,8 @@ class Invoice(TimeStampMixin):
 
     resend_purchase_confirmation_email = models.BooleanField(default=False)
     bag_dump = JSONField(blank=True, null=True)
+    register_user = models.BooleanField(default=False)
+    subscribe_to_newsletter = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Invoice'
