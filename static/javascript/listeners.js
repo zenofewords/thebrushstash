@@ -56,6 +56,7 @@ import {
   languageFormsMobile,
   languageInputsMobile,
   languageOptions,
+  loginButton,
   logingFormPasswordInput,
   logingFormPasswordInput1,
   logingFormPasswordInput2,
@@ -574,5 +575,13 @@ ready(() => {
     } else {
       processPromoCode(promoCodeInput.value)
     }
+  })
+
+  loginButton && loginButton.addEventListener('click', (event) => {
+    const redirect = () => {
+      const search = new URLSearchParams(window.location.search)
+      window.location.replace(search.get('next') ? search.get('next') : '/')
+    }
+    setTimeout(redirect, 5000)
   })
 })

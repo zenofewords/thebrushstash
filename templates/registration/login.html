@@ -34,7 +34,7 @@
       {% trans "This field is required." as field_error %}
       {% include 'account/includes/custom_form_field.html' with field=form.password label=field_label error=field_error field_type=form.password.name %}
 
-      <button type="submit">
+      <button id="login-button" type="submit">
         {% trans "Login" %}
       </button>
 

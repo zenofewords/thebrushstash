@@ -74,6 +74,7 @@ export const languageFormsMobile = document.getElementsByClassName('language-for
 export const languageInput = document.querySelector('.language-input')
 export const languageInputsMobile = document.getElementsByClassName('language-inputs-mobile')
 export const languageOptions = document.getElementsByClassName('language-option')
+export const loginButton = document.getElementById('login-button')
 export const logingFormPasswordInput = document.getElementById('id_password')
 export const logingFormPasswordInput1 = document.getElementById('id_password1')
 export const logingFormPasswordInput2 = document.getElementById('id_password2')
