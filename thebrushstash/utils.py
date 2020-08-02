@@ -296,7 +296,7 @@ def safe_subscribe_to_newsletter(user, email, current_site):
 
 def create_or_update_invoice(session, grand_total, data, cart, user):
     invoice = Invoice.objects.filter(
-        status=InvoiceStatus.PENDING, order_number=session.get('order_number', '')
+        status__in=(InvoiceStatus.PENDING, InvoiceStatus.CANCELLED), order_number=session.get('order_number', '')
     ).first()
 
     if not invoice:
@@ -611,6 +611,42 @@ def get_user_information(request, invoice):
             email=user_info.get('email')
         ).exists()
     return user_info
+
+
+def restore_session_from_invoice(request, invoice):
+    request.session['order_number'] = invoice.order_number
+    request.session['bag'] = invoice.bag_dump
+
+    for key in form_mandatory_fields + form_extra_fields:
+        request.session['user_information'] = {}
+        request.session['user_information']['email'] = invoice.email
+        request.session['user_information']['first_name'] = invoice.first_name
+        request.session['user_information']['last_name'] = invoice.last_name
+        request.session['user_information']['city'] = invoice.city
+        request.session['user_information']['address'] = invoice.address
+        request.session['user_information']['zip_code'] = invoice.zip_code
+        request.session['user_information']['state_county'] = invoice.state_county
+        request.session['user_information']['phone_number'] = invoice.phone_number
+        request.session['user_information']['company_name'] = invoice.company_name
+        request.session['user_information']['company_address'] = invoice.company_address
+        request.session['user_information']['company_uin'] = invoice.company_uin
+        request.session['user_information']['note'] = invoice.note
+        request.session['user_information']['shipping_first_name'] = invoice.shipping_first_name
+        request.session['user_information']['shipping_last_name'] = invoice.shipping_last_name
+        request.session['user_information']['shipping_city'] = invoice.shipping_city
+        request.session['user_information']['shipping_address'] = invoice.shipping_address
+        request.session['user_information']['shipping_zip_code'] = invoice.shipping_zip_code
+        request.session['user_information']['shipping_state_county'] = invoice.shipping_state_county
+        request.session['user_information']['country'] = invoice.country.name
+
+        if invoice.invoice_shipping_country:
+            request.session['user_information']['account_shipping_country'] = invoice.invoice_shipping_country.name
+
+    request.session.modified = True
+
+    user = CustomUser.objects.filter(email=invoice.email).first()
+    if user and user.is_active:
+        login(request, user)
 
 
 def complete_purchase(order_number, invoice_status, request):

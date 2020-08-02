@@ -32,8 +32,8 @@ from shop.utils import (
 from thebrushstash.models import ExchangeRate
 from thebrushstash.utils import (
     complete_purchase,
-    complete_purchase,
     get_user_information,
+    restore_session_from_invoice,
     signature_is_valid,
 )
 
@@ -156,12 +156,12 @@ class IPGPurchaseCancelledView(TemplateView):
         return render(request, self.template_name)
 
     def post(self, request, *args, **kwargs):
-        if signature_is_valid(request.POST):
-            invoice = Invoice.objects.filter(order_number=request.POST.get('order_number')).first()
+        invoice = Invoice.objects.filter(order_number=request.POST.get('order_number')).first()
 
-            if invoice:
-                invoice.status = InvoiceStatus.CANCELLED
-                invoice.save()
+        if invoice:
+            invoice.status = InvoiceStatus.CANCELLED
+            invoice.save()
+            restore_session_from_invoice(request, invoice)
         return render(request, self.template_name)
 
 
