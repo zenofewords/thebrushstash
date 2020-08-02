@@ -96,6 +96,7 @@ class InvoiceAdmin(admin.ModelAdmin):
     list_filter = ('status', 'payment_method', )
     readonly_fields = ('created_at', 'modified_at', )
     search_fields = ('created_at', 'first_name', 'last_name', )
+    exclude = ('bag_dump', 'resend_purchase_confirmation_email', 'register_user', 'subscribe_to_newsletter', )
 
 
 class NewsletterAdmin(admin.ModelAdmin):
