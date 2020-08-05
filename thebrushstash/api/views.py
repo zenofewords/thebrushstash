@@ -26,6 +26,11 @@ class CookieView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
 
         request.session['accepted'] = bool(serializer.data.get('accepted', False))
+
+        if request.user.is_authenticated:
+            request.user.accepted_cookies = True
+            request.user.save()
+
         return response.Response(
             {'accepted': request.session['accepted']}, status=status.HTTP_200_OK
         )

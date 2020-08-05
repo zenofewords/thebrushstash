@@ -27,6 +27,8 @@ class CustomUser(AbstractUser):
     shipping_zip_code = models.CharField(max_length=500, blank=True)
     shipping_state_county = models.CharField(max_length=500, blank=True)
 
+    accepted_cookies = models.BooleanField(default=False, blank=True, null=True)
+
     def __str__(self):
         return self.username
 

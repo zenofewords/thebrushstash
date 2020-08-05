@@ -88,8 +88,9 @@ def footer_tag(context, hide_social=False):
 @register.inclusion_tag('thebrushstash/tags/cookie_tag.html', takes_context=True)
 def cookie_tag(context):
     request = context['request']
+    accepted = request.user.is_authenticated and request.user.accepted_cookies
     return {
-        'accepted': request.session.get('accepted', None),
+        'accepted': accepted or request.session.get('accepted', False),
     }
 
 
