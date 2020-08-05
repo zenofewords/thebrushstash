@@ -156,8 +156,6 @@ class Invoice(TimeStampMixin):
     shipping_zip_code = models.CharField(max_length=500, blank=True)
     shipping_state_county = models.CharField(max_length=500, blank=True)
 
-    installments = models.IntegerField(default=0, blank=True, null=True)
-
     resend_purchase_confirmation_email = models.BooleanField(default=False)
     bag_dump = models.JSONField(blank=True, null=True)
     register_user = models.BooleanField(default=False)
