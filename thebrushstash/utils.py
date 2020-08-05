@@ -42,9 +42,10 @@ from shop.constants import (
 )
 from shop.models import (
     EmailAudit,
-    EmailSource,
     EmailAuditStatus,
+    EmailSource,
     GalleryItem,
+    InstallmentOption,
     Invoice,
     InvoiceItem,
     InvoiceStatus,
@@ -52,6 +53,7 @@ from shop.models import (
     PromoCode,
 )
 from thebrushstash.constants import (
+    DEFAULT_INSTALLMENT_CODE,
     form_extra_fields,
     form_mandatory_fields,
     ipg_fields,
@@ -722,7 +724,17 @@ def get_random_string():
     return '{}-{}'.format(secrets.token_urlsafe(12), now().time().microsecond)
 
 
+def get_installment_option(grand_total):
+    installment_option = InstallmentOption.objects.filter(
+        range_from__lte=grand_total, range_to__gte=grand_total
+    ).first()
+    if installment_option:
+        return installment_option.installment_code
+    return DEFAULT_INSTALLMENT_CODE
+
+
 def assemble_order_response(session, cart, grand_total, data):
+    installment_option = get_installment_option(grand_total)
     return {
         'order_number': session['order_number'],
         'cart': cart,
@@ -730,6 +742,9 @@ def assemble_order_response(session, cart, grand_total, data):
         'user_information': session['user_information'],
         'region': session['region'],
         'language': session['_language'],
+        'payment_maestro': installment_option,
+        'payment_master': installment_option,
+        'payment_visa': installment_option,
         'signature': get_signature({
             'amount': grand_total,
             **map_ipg_fields(data),  # noqa
@@ -737,6 +752,10 @@ def assemble_order_response(session, cart, grand_total, data):
             'currency': 'HRK',
             'language': session['_language'],
             'order_number': session['order_number'],
+            'payment_all_dynamic': settings.IPG_PAYMENT_ALL_DYNAMIC,
+            'payment_maestro': installment_option,
+            'payment_master': installment_option,
+            'payment_visa': installment_option,
             'require_complete': settings.IPG_REQUIRE_COMPLETE,
             'store_id': settings.IPG_STORE_ID,
             'version': settings.IPG_API_VERSION,

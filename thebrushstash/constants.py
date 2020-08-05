@@ -453,6 +453,7 @@ initial_region_data = (
     },
 )
 
+DEFAULT_INSTALLMENT_CODE = 'Y0000'
 initial_installment_options = [
     {
         'range_from': '0',

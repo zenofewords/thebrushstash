@@ -43,6 +43,9 @@ import {
   ipgFormSubmitButton,
   ipgLanguage,
   ipgOrderNumber,
+  ipgPaymentMaestro,
+  ipgPaymentMaster,
+  ipgPaymentVisa,
   ipgSignature,
   joinNewsletterMessage,
   mainWrapper,
@@ -170,6 +173,9 @@ const updateIPGInputs = (response) => {
   ipgCardholderCity.value = response.user_information.city
   ipgCardholderZipCode.value = response.user_information.zip_code
   ipgCardholderCountry.value = response.user_information.country
+  ipgPaymentMaestro.value = response.payment_maestro
+  ipgPaymentMaster.value = response.payment_master
+  ipgPaymentVisa.value = response.payment_visa
 }
 
 const moveToPaymentForm = () => {

@@ -107,6 +107,7 @@ class CheckoutView(FormView):
             'ipg_url': settings.IPG_URL,
             'store_id': settings.IPG_STORE_ID,
             'require_complete': settings.IPG_REQUIRE_COMPLETE,
+            'payment_all_dynamic': settings.IPG_PAYMENT_ALL_DYNAMIC,
             'subscribed_to_newsletter': subscribed_to_newsletter,
             'gls_fee': get_price_with_currency(gls_fee, currency),
             'exchange_rates': exchange_rates,
