@@ -452,3 +452,31 @@ initial_region_data = (
         'ordering': 0,
     },
 )
+
+initial_installment_options = [
+    {
+        'range_from': '0',
+        'range_to': '499.99',
+        'installment_number': 2,
+    },
+    {
+        'range_from': '500',
+        'range_to': '999.99',
+        'installment_number': 3,
+    },
+    {
+        'range_from': '1000',
+        'range_to': '1999.99',
+        'installment_number': 4,
+    },
+    {
+        'range_from': '2000',
+        'range_to': '3999.99',
+        'installment_number': 5,
+    },
+    {
+        'range_from': '4000',
+        'range_to': '999999999',
+        'installment_number': 6,
+    },
+]

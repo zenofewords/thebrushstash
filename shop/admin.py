@@ -6,6 +6,7 @@ from django.utils.text import slugify
 from shop.models import (
     EmailAudit,
     GalleryItem,
+    InstallmentOption,
     Invoice,
     Newsletter,
     Product,
@@ -201,6 +202,10 @@ class PromoCodeAdmin(admin.ModelAdmin):
     inlines = [PromoCodeInline]
 
 
+class InstallmentOptionAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'range_from', 'range_to', 'installment_number', )
+
+
 admin.site.register(EmailAudit, EmailAuditAdmin)
 admin.site.register(GalleryItem, GalleryItemAdmin)
 admin.site.register(Invoice, InvoiceAdmin)
@@ -209,3 +214,4 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Showcase, ShowcaseAdmin)
 admin.site.register(PromoCode, PromoCodeAdmin)
+admin.site.register(InstallmentOption, InstallmentOptionAdmin)

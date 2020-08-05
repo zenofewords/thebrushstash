@@ -187,3 +187,12 @@ def clear_discount_data(bag):
         product.pop('discount', None)
         product.pop('new_price_hrk', None)
         product.pop('new_subtotal', None)
+
+
+def create_installment_code(installment):
+    if installment.installment_number < 10:
+        installments = '0{}'.format(installment.installment_number)
+    else:
+        installments = str(installment.installment_number)
+    installment.installment_code = 'Y02{}'.format(installments)
+    installment.save()

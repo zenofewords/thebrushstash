@@ -8,6 +8,7 @@ from django.core.validators import (
 
 from shop.mixins import ShopObjectMixin
 from shop.utils import (
+    create_installment_code,
     create_promo_code_products,
     get_default_product_type,
     update_product_prices,
@@ -387,3 +388,25 @@ class PromoCodeProduct(TimeStampMixin):
 
     def __str__(self):
         return '{}, {}, {}'.format(self.promo_code, self.product, self.discount)
+
+
+class InstallmentOption(TimeStampMixin):
+    range_from = models.DecimalField(max_digits=15, decimal_places=2)
+    range_to = models.DecimalField(max_digits=15, decimal_places=2)
+    installment_number = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(2), MaxValueValidator(36)]
+    )
+    installment_code = models.CharField(max_length=5, blank=True)
+
+    class Meta:
+        verbose_name = 'Installment option'
+        verbose_name_plural = 'Installment options'
+
+    def __str__(self):
+        return '{} - {}, {} installemnts'.format(
+            self.range_from, self.range_to, self.installment_number
+        )
+
+    def save(self, *args, **kwargs):
+        create_installment_code(self)
+        super().save(*args, **kwargs)
