@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='invoice',
             name='bag_dump',
-            field=django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True),
+            field=models.JSONField(blank=True, null=True),
         ),
         migrations.AddField(
             model_name='invoice',

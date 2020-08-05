@@ -121,7 +121,7 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(blank=True, null=True, upload_to='shop/%Y/%m/')),
                 ('youtube_video_id', models.CharField(blank=True, max_length=500)),
                 ('ordering', models.IntegerField(blank=True, default=0, help_text='If set to 0, items are ordered by creation date')),
-                ('srcsets', django.contrib.postgres.fields.jsonb.JSONField(blank=True, null=True)),
+                ('srcsets', models.JSONField(blank=True, null=True)),
                 ('object_id', models.PositiveIntegerField()),
                 ('content_type', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='contenttypes.ContentType')),
             ],

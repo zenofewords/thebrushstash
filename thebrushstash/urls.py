@@ -67,6 +67,7 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = 'The Brush Stash Webshop'
 admin.site.site_title = 'The Brush Stash Webshop'
+admin.site.enable_nav_sidebar = False
 
 if settings.DEBUG_TOOLBAR:
     import debug_toolbar

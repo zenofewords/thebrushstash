@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.postgres.fields import JSONField
 from django.core.validators import (
     MinValueValidator,
     MaxValueValidator,
@@ -158,7 +157,7 @@ class Invoice(TimeStampMixin):
     shipping_state_county = models.CharField(max_length=500, blank=True)
 
     resend_purchase_confirmation_email = models.BooleanField(default=False)
-    bag_dump = JSONField(blank=True, null=True)
+    bag_dump = models.JSONField(blank=True, null=True)
     register_user = models.BooleanField(default=False)
     subscribe_to_newsletter = models.BooleanField(default=False)
 
@@ -203,7 +202,7 @@ class GalleryItem(TimeStampMixin):
     standalone = models.BooleanField(
         default=False, help_text='Automatically set for the "one item per gallery" use case'
     )
-    srcsets = JSONField(blank=True, null=True)
+    srcsets = models.JSONField(blank=True, null=True)
     content_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE, limit_choices_to=LIMIT,
     )
