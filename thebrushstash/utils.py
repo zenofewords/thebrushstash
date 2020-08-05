@@ -586,11 +586,11 @@ def signature_is_valid(data):
     ).hexdigest().lower()
 
 
-def map_ipg_fields(data, mandatory_fields, extra_fields):
+def map_ipg_fields(data, mandatory_fields, ipg_fields):
     user_info = {}
-    for key, extra_key in dict(zip(mandatory_fields, extra_fields)).items():
+    for key, ipg_key in dict(zip(mandatory_fields, ipg_fields)).items():
         if key in mandatory_fields:
-            user_info[extra_key] = data[key]
+            user_info[ipg_key] = data[key]
     return user_info
 
 
@@ -599,16 +599,16 @@ def get_user_information(request, invoice):
     for key in form_mandatory_fields + form_extra_fields:
         user_info[key] = request.POST.get(key)
 
-    user = CustomUser.objects.filter(email=user_info.get('email')).first()
+    user = CustomUser.objects.filter(email=invoice.email).first()
     if user and user.is_active:
         user_info['registration_email_in_use'] = invoice.register_user
 
-        if not user.is_authenticated:
+        if not request.user.is_authenticated:
             login(request, user)
 
     if invoice.subscribe_to_newsletter:
         user_info['newsletter_email_in_use'] = NewsletterRecipient.objects.filter(
-            email=user_info.get('email')
+            email=invoice.email
         ).exists()
     return user_info
 
@@ -617,30 +617,29 @@ def restore_session_from_invoice(request, invoice):
     request.session['order_number'] = invoice.order_number
     request.session['bag'] = invoice.bag_dump
 
-    for key in form_mandatory_fields + form_extra_fields:
-        request.session['user_information'] = {}
-        request.session['user_information']['email'] = invoice.email
-        request.session['user_information']['first_name'] = invoice.first_name
-        request.session['user_information']['last_name'] = invoice.last_name
-        request.session['user_information']['city'] = invoice.city
-        request.session['user_information']['address'] = invoice.address
-        request.session['user_information']['zip_code'] = invoice.zip_code
-        request.session['user_information']['state_county'] = invoice.state_county
-        request.session['user_information']['phone_number'] = invoice.phone_number
-        request.session['user_information']['company_name'] = invoice.company_name
-        request.session['user_information']['company_address'] = invoice.company_address
-        request.session['user_information']['company_uin'] = invoice.company_uin
-        request.session['user_information']['note'] = invoice.note
-        request.session['user_information']['shipping_first_name'] = invoice.shipping_first_name
-        request.session['user_information']['shipping_last_name'] = invoice.shipping_last_name
-        request.session['user_information']['shipping_city'] = invoice.shipping_city
-        request.session['user_information']['shipping_address'] = invoice.shipping_address
-        request.session['user_information']['shipping_zip_code'] = invoice.shipping_zip_code
-        request.session['user_information']['shipping_state_county'] = invoice.shipping_state_county
-        request.session['user_information']['country'] = invoice.country.name
+    request.session['user_information'] = {}
+    request.session['user_information']['email'] = invoice.email
+    request.session['user_information']['first_name'] = invoice.first_name
+    request.session['user_information']['last_name'] = invoice.last_name
+    request.session['user_information']['city'] = invoice.city
+    request.session['user_information']['address'] = invoice.address
+    request.session['user_information']['zip_code'] = invoice.zip_code
+    request.session['user_information']['state_county'] = invoice.state_county
+    request.session['user_information']['phone_number'] = invoice.phone_number
+    request.session['user_information']['company_name'] = invoice.company_name
+    request.session['user_information']['company_address'] = invoice.company_address
+    request.session['user_information']['company_uin'] = invoice.company_uin
+    request.session['user_information']['note'] = invoice.note
+    request.session['user_information']['shipping_first_name'] = invoice.shipping_first_name
+    request.session['user_information']['shipping_last_name'] = invoice.shipping_last_name
+    request.session['user_information']['shipping_city'] = invoice.shipping_city
+    request.session['user_information']['shipping_address'] = invoice.shipping_address
+    request.session['user_information']['shipping_zip_code'] = invoice.shipping_zip_code
+    request.session['user_information']['shipping_state_county'] = invoice.shipping_state_county
+    request.session['user_information']['country'] = invoice.country.name
 
-        if invoice.invoice_shipping_country:
-            request.session['user_information']['account_shipping_country'] = invoice.invoice_shipping_country.name
+    if invoice.invoice_shipping_country:
+        request.session['user_information']['account_shipping_country'] = invoice.invoice_shipping_country.name
 
     request.session.modified = True
 
