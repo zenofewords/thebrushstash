@@ -47,11 +47,10 @@ from thebrushstash.constants import (
     form_mandatory_fields,
 )
 from thebrushstash.utils import (
+    assemble_order_response,
     create_or_update_invoice,
     get_cart,
     get_country,
-    get_signature,
-    map_ipg_fields,
     register_user,
     subscribe_to_newsletter,
 )
@@ -267,25 +266,9 @@ class ProcessOrderView(GenericAPIView):
         session['user_information']['registration_email_in_use'] = active
         session['user_information']['newsletter_email_in_use'] = not created
 
-        return response.Response({
-            'order_number': session['order_number'],
-            'cart': cart,
-            'grand_total': grand_total,
-            'user_information': session['user_information'],
-            'region': session['region'],
-            'language': session['_language'],
-            'signature': get_signature({
-                'amount': grand_total,
-                **map_ipg_fields(serializer.data, form_mandatory_fields, ipg_fields),  # noqa
-                'cart': cart,
-                'currency': 'HRK',
-                'language': session['_language'],
-                'order_number': session['order_number'],
-                'require_complete': settings.IPG_REQUIRE_COMPLETE,
-                'store_id': settings.IPG_STORE_ID,
-                'version': settings.IPG_API_VERSION,
-            }),
-        }, status=status.HTTP_200_OK)
+        return response.Response(
+            assemble_order_response(session, cart, grand_total, serializer.data)
+        , status=status.HTTP_200_OK)
 
 
 class UpdateShippingAddressView(GenericAPIView):
@@ -313,21 +296,9 @@ class UpdateShippingAddressView(GenericAPIView):
         grand_total = bag['new_grand_total'] if bag.get('new_grand_total', None) else bag['grand_total']
         cart = get_cart(bag)
 
-        return response.Response({
-            'order_number': order_number,
-            'grand_total': grand_total,
-            'signature': get_signature({
-                'amount': grand_total,
-                **map_ipg_fields(session['user_information'], form_mandatory_fields, ipg_fields),  # noqa
-                'cart': cart,
-                'currency': 'HRK',
-                'language': session['_language'],
-                'order_number': session['order_number'],
-                'require_complete': settings.IPG_REQUIRE_COMPLETE,
-                'store_id': settings.IPG_STORE_ID,
-                'version': settings.IPG_API_VERSION,
-            }),
-        }, status=status.HTTP_200_OK)
+        return response.Response(
+            assemble_order_response(session, cart, grand_total, session['user_information'])
+        , status=status.HTTP_200_OK)
 
 
 class UpdateShippingCostView(GenericAPIView):

@@ -54,6 +54,7 @@ from shop.models import (
 from thebrushstash.constants import (
     form_extra_fields,
     form_mandatory_fields,
+    ipg_fields,
 )
 from thebrushstash.models import (
     Country,
@@ -586,10 +587,10 @@ def signature_is_valid(data):
     ).hexdigest().lower()
 
 
-def map_ipg_fields(data, mandatory_fields, ipg_fields):
+def map_ipg_fields(data):
     user_info = {}
-    for key, ipg_key in dict(zip(mandatory_fields, ipg_fields)).items():
-        if key in mandatory_fields:
+    for key, ipg_key in dict(zip(form_mandatory_fields, ipg_fields)).items():
+        if key in form_mandatory_fields:
             user_info[ipg_key] = data[key]
     return user_info
 
@@ -719,3 +720,25 @@ def update_inventory(invoice):
 
 def get_random_string():
     return '{}-{}'.format(secrets.token_urlsafe(12), now().time().microsecond)
+
+
+def assemble_order_response(session, cart, grand_total, data):
+    return {
+        'order_number': session['order_number'],
+        'cart': cart,
+        'grand_total': grand_total,
+        'user_information': session['user_information'],
+        'region': session['region'],
+        'language': session['_language'],
+        'signature': get_signature({
+            'amount': grand_total,
+            **map_ipg_fields(data),  # noqa
+            'cart': cart,
+            'currency': 'HRK',
+            'language': session['_language'],
+            'order_number': session['order_number'],
+            'require_complete': settings.IPG_REQUIRE_COMPLETE,
+            'store_id': settings.IPG_STORE_ID,
+            'version': settings.IPG_API_VERSION,
+        }),
+    }
