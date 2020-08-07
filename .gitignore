@@ -104,3 +104,6 @@ server.js
 
 # vscode
 .vscode/
+
+# certs
+*.p12
