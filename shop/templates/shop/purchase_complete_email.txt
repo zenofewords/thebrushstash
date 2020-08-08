@@ -46,6 +46,9 @@
 {% get_localized_item_price item.product 'price' currency item.sold_count %}
 {% endfor %}
 {% trans "PAYMENT:" %}
+{% if invoice.installment_number > 0 %}
+{% trans "INSTALLMENTS:" %} {{ invoice.installment_number }}
+{% endif %}
 {% trans "Subtotal:" %}
 {% get_price_in_currency bag 'total' exchange_rates currency %}
 {% trans "VAT included:" %}
