@@ -410,6 +410,7 @@ inital_exchange_rates = (
 
 DEFAULT_COUNTRY = 'Croatia'
 DEFAULT_CURRENCY = 'hrk'
+DEFAULT_CURRENCY_CODE = 191
 DEFAULT_REGION = 'hr'
 currency_symbol_mapping = {
     'hrk': 'kn',

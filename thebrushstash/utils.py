@@ -6,10 +6,12 @@ import json
 import logging
 import os
 import secrets
+import xml.etree.ElementTree as ET
 
 from decimal import Decimal
 from pathlib import Path
 from PIL import Image
+from requests_pkcs12 import post
 from webptools import webplib
 from email.mime.image import MIMEImage
 
@@ -53,6 +55,7 @@ from shop.models import (
     PromoCode,
 )
 from thebrushstash.constants import (
+    DEFAULT_CURRENCY_CODE,
     DEFAULT_INSTALLMENT_CODE,
     form_extra_fields,
     form_mandatory_fields,
@@ -655,6 +658,9 @@ def complete_purchase(order_number, invoice_status, request):
     invoice = Invoice.objects.filter(order_number=order_number).first()
 
     if invoice:
+        installments = fetch_transaction_installment_number(order_number)
+
+        invoice.installment_number = installments
         invoice.status = invoice_status
         invoice.save()
 
@@ -699,16 +705,17 @@ def check_bag_content(products):
 def update_inventory(invoice):
     for key, value in invoice.bag_dump['products'].items():
         sold_count = value['quantity']
-
         product = Product.objects.get(pk=value['pk'])
-        product.in_stock -= sold_count
-        product.save()
 
-        invoice_item = InvoiceItem.objects.create(
+        invoice_item, created = InvoiceItem.objects.get_or_create(
             invoice=invoice, product=product, sold_count=sold_count
         )
 
-        if invoice.promo_code:
+        if created:
+            product.in_stock -= sold_count
+            product.save()
+
+        if created and invoice.promo_code:
             invoice_item.promo_code = invoice.promo_code
 
             if value.get('discount'):
@@ -761,3 +768,42 @@ def assemble_order_response(session, cart, grand_total, data):
             'version': settings.IPG_API_VERSION,
         }),
     }
+
+
+def fetch_transaction_installment_number(order_number):
+    timestamp = now().strftime('%Y%m%d%H%M%S')
+    data = {
+        'key': settings.IPG_API_KEY,
+        'order_number': order_number,
+        'store_id': settings.IPG_STORE_ID,
+        'currency_code': DEFAULT_CURRENCY_CODE,
+        'timestamp': timestamp,
+        'version': settings.IPG_API_VERSION,
+        'hash': get_transaction_hash(order_number, timestamp)
+    }
+    response = post(
+        settings.IPG_TRANSACTION_STATUS_ENDPOINT,
+        data=data,
+        pkcs12_filename=settings.PKCS12_FILENAME,
+        pkcs12_password=settings.PKCS12_PASSWORD
+    )
+
+    installment_number = 0
+    if response.status_code == 200 and response.content:
+        root = ET.fromstring(response.content)
+        try:
+            installment_number = int(getattr(root.find('installments-number'), 'text', 0))
+        except ValueError:
+            installment_number = 0
+    return installment_number
+
+
+def get_transaction_hash(order_number, timestamp):
+    return hashlib.sha1(str.encode('{}{}{}{}{}{}'.format(
+        settings.IPG_API_KEY,
+        order_number,
+        settings.IPG_STORE_ID,
+        DEFAULT_CURRENCY_CODE,
+        timestamp,
+        settings.IPG_API_VERSION
+    ))).hexdigest()
