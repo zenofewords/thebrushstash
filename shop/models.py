@@ -145,6 +145,9 @@ class Invoice(TimeStampMixin):
         'shop.PromoCode', on_delete=models.deletion.CASCADE, blank=True, null=True,
     )
     status = models.CharField(max_length=100, choices=InvoiceStatus.CHOICES)
+    installment_number = models.PositiveIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(60)], blank=True, null=True
+    )
 
     shipping_first_name = models.CharField(max_length=500, blank=True)
     shipping_last_name = models.CharField(max_length=500, blank=True)
@@ -394,7 +397,7 @@ class InstallmentOption(TimeStampMixin):
     range_from = models.DecimalField(max_digits=15, decimal_places=2)
     range_to = models.DecimalField(max_digits=15, decimal_places=2)
     installment_number = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(2), MaxValueValidator(36)]
+        validators=[MinValueValidator(2), MaxValueValidator(60)]
     )
     installment_code = models.CharField(max_length=5, blank=True)
 
