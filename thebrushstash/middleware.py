@@ -11,7 +11,9 @@ from django.utils.deprecation import MiddlewareMixin
 def set_currency_middleware(get_response):
     def middleware(request):
         language = translation.get_language()
-        request.session['currency'] = 'eur' if language != 'hr' else 'hrk'
+
+        if not request.session.get('currency'):
+            request.session['currency'] = 'eur' if language != 'hr' else 'hrk'
         response = get_response(request)
         return response
 
