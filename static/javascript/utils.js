@@ -545,7 +545,7 @@ export const submitReview = (productReviewForm) => {
     productReviewForm.hidden = true
 
     const title = document.createElement('h3')
-    title.innerHTML = `${response.user_name},`
+    title.innerHTML = `${response.user_name}`
     title.classList.add(`stars-${response.score}`)
     const content = document.createElement('p')
     content.innerHTML = response.content.replace(/(?:\r\n|\r|\n)/g, '<br>')

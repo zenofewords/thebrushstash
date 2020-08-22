@@ -14,10 +14,17 @@
     </li>
   {% endfor %}
   <li class="nav-item-log-in-register">
-    <a href="{% url 'login' %}" class="user-link">
-      <span class="user-icon"></span>
-      {% trans 'Login/Register' %}
-    </a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'logout' %}" class="user-link">
+        <span class="user-icon"></span>
+        {% trans 'Logout' %}
+      </a>
+    {% else %}
+      <a href="{% url 'login' %}" class="user-link">
+        <span class="user-icon"></span>
+        {% trans 'Login/Register' %}
+      </a>
+    {% endif %}
   </li>
   <li class="nav-item-bag">
     <a href="#" class="bag-link">

@@ -144,7 +144,7 @@
         {% endif %}
         <div class="product-reviews-wrapper">
           {% for review in reviews %}
-            <h3 class="stars-{{ review.score }}">{{ review.user.first_name }}, </h3>
+            <h3 class="stars-{{ review.score }}">{{ review.user.first_name }}</h3>
             <p>
               {{ review.content|linebreaksbr }}
             </p>

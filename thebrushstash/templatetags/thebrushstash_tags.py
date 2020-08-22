@@ -25,12 +25,13 @@ def navigation_tag(context):
         exchange_rates[exchange_rate.currency.lower()] = exchange_rate.middle_rate
 
     return {
-        'current_url': request.path,
-        'navigation_items': NavigationItem.published_objects.all(),
+        'LANGUAGE_CODE': request.session.get('_language'),
         'bag': request.session.get('bag'),
         'currency': request.session.get('currency', 'hrk'),
+        'current_url': request.path,
         'exchange_rates': exchange_rates,
-        'LANGUAGE_CODE': request.session.get('_language'),
+        'navigation_items': NavigationItem.published_objects.all(),
+        'user': request.user,
     }
 
 
