@@ -3,31 +3,37 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS').split(',')]
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CACHE = bool(os.getenv('CACHE', False))
 DEBUG = bool(os.getenv('DEBUG', False))
 DEBUG_TOOLBAR = bool(os.getenv('DEBUG_TOOLBAR', False) and DEBUG)
-CACHE = bool(os.getenv('CACHE', False))
-
+INTERNAL_IPS = ['127.0.0.1', ]
 SECRET_KEY = os.getenv('SECRET_KEY')
-IPG_URL = os.getenv('IPG_URL')
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = not DEBUG and bool(os.getenv('SECURE_SSL_REDIRECT', False))
+
+CSRF_COOKIE_HTTPONLY = not DEBUG
+CSRF_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_SECURE = not DEBUG
+LANGUAGE_COOKIE_HTTPONLY = not DEBUG
+LANGUAGE_COOKIE_SAMESITE = 'Strict'
+LANGUAGE_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_AGE = 31536000
+SESSION_COOKIE_HTTPONLY = not DEBUG
+SESSION_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SECURE = not DEBUG
+
 IPG_API_KEY = os.getenv('IPG_API_KEY')
 IPG_API_VERSION = os.getenv('IPG_API_VERSION')
-IPG_STORE_ID = os.getenv('IPG_STORE_ID')
-IPG_REQUIRE_COMPLETE = os.getenv('IPG_REQUIRE_COMPLETE')
 IPG_PAYMENT_ALL_DYNAMIC = os.getenv('IPG_PAYMENT_ALL_DYNAMIC')
+IPG_REQUIRE_COMPLETE = os.getenv('IPG_REQUIRE_COMPLETE')
+IPG_STORE_ID = os.getenv('IPG_STORE_ID')
 IPG_TRANSACTION_STATUS_ENDPOINT = os.getenv('IPG_TRANSACTION_STATUS_ENDPOINT')
+IPG_URL = os.getenv('IPG_URL')
 PKCS12_FILENAME = os.getenv('PKCS12_FILENAME')
 PKCS12_PASSWORD = os.getenv('PKCS12_PASSWORD')
-SECURE_BROWSER_XSS_FILTER = True
-SESSION_COOKIE_SECURE = not DEBUG and bool(os.getenv('SESSION_COOKIE_SECURE', False))
-SESSION_COOKIE_AGE = 31536000
-CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
-CSRF_COOKIE_HTTPONLY = SESSION_COOKIE_SECURE
-SECURE_SSL_REDIRECT = not DEBUG and bool(os.getenv('SECURE_SSL_REDIRECT', False))
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS').split(',')]
-INTERNAL_IPS = ['127.0.0.1', ]
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -183,10 +189,8 @@ ANYMAIL = {
 DEFAULT_FROM_EMAIL = 'The Brush Stash Webshop <webshop@mg.thebrushstash.com>'
 EMAIL_BACKEND = 'anymail.backends.mailgun.EmailBackend'
 EMAIL_HOST = 'smtp.mailgun.com'
-EMAIL_USE_SSL = True
 EMAIL_PORT = 587
-# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
