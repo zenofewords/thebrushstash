@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-22 13:52+0100\n"
+"POT-Creation-Date: 2020-08-22 15:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -780,12 +780,12 @@ msgstr "Zaboravili ste lozinku?"
 
 #: templates/registration/password_reset_complete.html:5
 #: templates/registration/password_reset_complete.html:9
-msgid "Password Reset"
-msgstr "Resetirajte lozinku"
+msgid "Set Password"
+msgstr "Postavite lozinku"
 
 #: templates/registration/password_reset_complete.html:10
-msgid "Your password has been reset."
-msgstr "Vaša lozinka je promijenjena."
+msgid "Your password has been set."
+msgstr "Vaša lozinka je postavljena."
 
 #: templates/registration/password_reset_complete.html:12
 msgid "Log in"

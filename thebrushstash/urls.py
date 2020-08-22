@@ -3,7 +3,8 @@ from django.conf.urls import include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.contrib.auth.views import PasswordResetConfirmView
+from django.urls import path, reverse_lazy
 
 from shop.api.urls import shop_api_urls
 from thebrushstash.api.urls import thebrushstash_api_urls
@@ -35,6 +36,10 @@ from thebrushstash.views import (
 
 # may not be suffixed by language code
 urlpatterns = [
+    path('reset/<slug:uidb64>/<slug:token>/', PasswordResetConfirmView.as_view(
+        post_reset_login=True,
+        success_url=reverse_lazy('shop:shop')
+    ), name='password_reset_confirm'),
     path('', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('account/', include(('account.urls', 'account'), namespace='account')),
