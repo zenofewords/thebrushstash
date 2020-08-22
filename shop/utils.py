@@ -42,9 +42,12 @@ def update_product_prices(product):
             setattr(product, 'price_{}'.format(er.currency.lower()), price / er.middle_rate)
 
 
-def update_product_rating(product, score):
-    product.ratings += 1
-    product.score += score
+def update_product_rating(product):
+    Review = apps.get_model('shop', 'Review')
+
+    reviews = Review.published_objects.filter(product=product)
+    product.ratings = reviews.count()
+    product.score = sum([r.score for r in reviews])
     product.save()
 
 

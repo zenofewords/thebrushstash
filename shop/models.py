@@ -293,7 +293,7 @@ class Review(TimeStampMixin, PublishedMixin):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        update_product_rating(self.product, self.score)
+        update_product_rating(self.product)
 
 
 class NewsletterStatus:
