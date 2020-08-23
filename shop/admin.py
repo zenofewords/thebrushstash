@@ -106,7 +106,7 @@ class NewsletterAdmin(admin.ModelAdmin):
     raw_id_fields = ('recipient_list', )
     autocomplete_fields = ('recipient_list', )
     fieldsets = (
-        ('Images', {
+        ('Content', {
             'fields': ('header_image', 'body_image', ),
         }),
         ('Text fields (ENG)', {
