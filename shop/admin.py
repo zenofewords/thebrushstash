@@ -102,10 +102,12 @@ class InvoiceAdmin(admin.ModelAdmin):
 
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'schedule_at', 'status', 'status_message', 'completed_at', )
-    readonly_fields = ('completed_at', 'status_message', )
+    readonly_fields = ('completed_at', 'status', 'status_message', )
+    raw_id_fields = ('recipient_list', )
+    autocomplete_fields = ('recipient_list', )
     fieldsets = (
-        (None, {
-            'fields': ('schedule_at', 'recipient_list', 'header_image', 'body_image', ),
+        ('Images', {
+            'fields': ('header_image', 'body_image', ),
         }),
         ('Text fields (ENG)', {
             'classes': ('collapse', ),
@@ -115,7 +117,10 @@ class NewsletterAdmin(admin.ModelAdmin):
             'classes': ('collapse', ),
             'fields': ('title_cro', 'header_text_cro', 'body_text_cro', ),
         }),
-        (None, {
+        ('Manage', {
+            'fields': ('send', 'schedule_at', 'recipient_list', ),
+        }),
+        ('Info', {
             'fields': ('status', 'status_message', 'completed_at', )
         }),
     )

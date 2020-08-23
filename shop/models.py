@@ -297,13 +297,13 @@ class Review(TimeStampMixin, PublishedMixin):
 
 
 class NewsletterStatus:
-    READY = 'ready'
+    PENDING = 'pending'
     IN_PROGRESS = 'in progress'
     FINISHED = 'finished'
     FAILED = 'failed'
 
     CHOICES = (
-        (READY, 'Ready'),
+        (PENDING, 'Pending'),
         (IN_PROGRESS, 'In Progress'),
         (FINISHED, 'Finished'),
         (FAILED, 'Failed'),
@@ -311,10 +311,10 @@ class NewsletterStatus:
 
 
 class Newsletter(TimeStampMixin, PublishedMixin):
-    schedule_at = models.DateTimeField(blank=True)
+    schedule_at = models.DateTimeField(blank=True, null=True, help_text='Leave blank for "now".')
     recipient_list = models.ManyToManyField(
         'account.NewsletterRecipient',
-        help_text='Use for testing, if left blank the newsletter will be sent to all recipients.',
+        help_text='If left blank the newsletter will be sent to all recipients.',
         blank=True
     )
     header_image = models.ImageField(upload_to='newsletter/%Y/%m/', blank=True, null=True)
@@ -327,7 +327,9 @@ class Newsletter(TimeStampMixin, PublishedMixin):
     body_text_cro = models.TextField(blank=True)
     body_text = models.TextField(blank=True)
 
-    status = models.CharField(max_length=100, choices=NewsletterStatus.CHOICES, blank=True)
+    send = models.BooleanField(default=False, help_text='Checking will mark the newsletter for sending.')
+
+    status = models.CharField(max_length=100, choices=NewsletterStatus.CHOICES)
     status_message = models.TextField(blank=True)
     completed_at = models.DateTimeField(blank=True, null=True)
 
@@ -337,11 +339,11 @@ class Newsletter(TimeStampMixin, PublishedMixin):
         ordering = ('-created_at', )
 
     def __str__(self):
-        return self.title
+        return 'Newsletter {}'.format(self.title)
 
     def save(self, *args, **kwargs):
-        if self.schedule_at and not self.status:
-            self.status = NewsletterStatus.READY
+        if self.send and self.status != NewsletterStatus.FAILED:
+            self.status = NewsletterStatus.PENDING
             self.status_message = 'Scheduled for delivery'
         super().save(*args, **kwargs)
 

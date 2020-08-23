@@ -390,9 +390,9 @@ def attach_newsletter_images(newsletter, message):
         if image:
             with Image.open(image.path, mode='r') as img:
                 image_byte_array = io.BytesIO()
-                img.save(image_byte_array, format='jpeg')
+                img.save(image_byte_array, img.format.lower())
 
-                img = MIMEImage(image_byte_array.getvalue(), 'jpeg')
+                img = MIMEImage(image_byte_array.getvalue(), img.format.lower())
                 img.add_header('Content-ID', '<{}>'.format(image_id))
                 img.add_header('Content-Disposition', 'inline', filename=image.name)
                 message.attach(img)
@@ -542,6 +542,7 @@ def send_newsletter(recipient, newsletter):
     message.mixed_subtype = 'related'
     message.attach(logo_image)
     message = attach_newsletter_images(newsletter, message)
+
     send_message(message, email_audit)
 
 
@@ -553,7 +554,6 @@ def send_message(message, email_audit):
     except Exception as error:
         email_audit.status = EmailAuditStatus.FAILED
         email_audit.error_message = error
-
     email_audit.save()
 
 
