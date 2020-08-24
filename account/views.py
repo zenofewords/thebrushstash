@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.views import LoginView
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse_lazy
 from django.utils.encoding import force_text
@@ -7,6 +8,8 @@ from django.views.generic import (
     FormView,
     TemplateView,
 )
+from django.utils.translation import gettext as _
+
 
 from account.forms import (
     PasswordForm,
@@ -145,3 +148,17 @@ class SetNewsletterLanguage(TemplateView):
             'language_preference': self.get_verbose_language_preference(),
         })
         return context
+
+
+class LoginOverrideView(LoginView):
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+
+    def form_invalid(self, form):
+        """If the form is invalid, render the invalid form."""
+        user = CustomUser.objects.filter(email=form.data.get('username')).first()
+        if user.password == '':
+            form.add_error('password', _(
+                'You\'ve never set a password. Click the "Forgot your password?" link to request a reset.'
+            ))
+        return self.render_to_response(self.get_context_data(form=form))

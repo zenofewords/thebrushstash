@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-22 15:06+0100\n"
+"POT-Creation-Date: 2020-08-24 17:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -140,6 +140,14 @@ msgstr ""
 #: shop/templates/shop/includes/checkout_address_form.html:74
 msgid "You must agree to the terms and conditions to continue."
 msgstr "Potrebno je pristati na uvjete korištenja prije nastavka kupnje."
+
+#: account/views.py:162
+msgid ""
+"You've never set a password. Click the \"Forgot your password?\" link to "
+"request a reset."
+msgstr ""
+"Niste postavili lozinku. Kliknite na \"Zaboravili ste lozinku?\" "
+"kako biste dobili link za reset."
 
 #: shop/api/views.py:125
 msgid "The code you used is invalid or inactive."
@@ -280,11 +288,11 @@ msgstr "Dolazi uskoro"
 msgid "New"
 msgstr "Novo"
 
-#: shop/templates/shop/newsletter_template.html:145
+#: shop/templates/shop/newsletter_template.html:150
 msgid "Unsubscribe"
 msgstr "Odjavi se"
 
-#: shop/templates/shop/newsletter_template.html:150
+#: shop/templates/shop/newsletter_template.html:155
 msgid "Update newsletter language"
 msgstr "Ažuriraj jezik newslettera"
 
@@ -626,11 +634,11 @@ msgstr "Cijena s popustom:"
 msgid "New grand total (hrk):"
 msgstr "Nova ukupna cijena (HRK):"
 
-#: shop/utils.py:152
+#: shop/utils.py:155
 msgid "This code does not apply to items in your bag."
 msgstr "Ovaj kod se ne odnosi na sadržaj vaše košarice."
 
-#: shop/utils.py:155
+#: shop/utils.py:158
 msgid "The code is already applied."
 msgstr "Kod je već unešen i aktiviran."
 

@@ -3,7 +3,7 @@ from django.conf.urls import include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth.views import PasswordResetConfirmView
+from django.contrib.auth.views import LoginView, PasswordResetConfirmView
 from django.urls import path, reverse_lazy
 
 from shop.api.urls import shop_api_urls
@@ -16,6 +16,7 @@ from thebrushstash.constants import (
     COMPLAINTS,
     TOS,
 )
+from account.views import LoginOverrideView
 from shop.views import (
     CheckoutView,
     IPGPurchaseCancelledView,
@@ -40,6 +41,7 @@ urlpatterns = [
         post_reset_login=True,
         success_url=reverse_lazy('shop:shop')
     ), name='password_reset_confirm'),
+    path('login/', LoginOverrideView.as_view(), name='login'),
     path('', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('account/', include(('account.urls', 'account'), namespace='account')),

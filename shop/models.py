@@ -343,6 +343,7 @@ class Newsletter(TimeStampMixin, PublishedMixin):
 
     def save(self, *args, **kwargs):
         if self.send and self.status != NewsletterStatus.FAILED:
+            self.completed_at = None
             self.status = NewsletterStatus.PENDING
             self.status_message = 'Scheduled for delivery'
         super().save(*args, **kwargs)
