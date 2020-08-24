@@ -1,9 +1,9 @@
 var path = require('path')
 var MiniCssExtractPlugin = require('mini-css-extract-plugin')
-var TerserPlugin = require('terser-webpack-plugin')
 var WebpackBundleTracker = require('webpack-bundle-tracker')
 
 module.exports = {
+  mode: 'development',
   entry: {
     shop: './static/javascript/shop',
   },
@@ -12,7 +12,11 @@ module.exports = {
     path: path.resolve(__dirname, 'staticfiles/bundles'),
     publicPath: 'http://localhost:8080/static/bundles/',
   },
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
+  devServer: {
+    compress: true,
+    hot: true,
+  },
   module: {
     rules: [
       {
@@ -42,26 +46,14 @@ module.exports = {
           },
         ]
       },
-      {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ]
-      },
     ]
   },
   plugins: [
+    new WebpackBundleTracker({
+      filename: './webpack-stats.json',
+    }),
     new MiniCssExtractPlugin({
       filename: '[name]_[hash].css',
     }),
-    new WebpackBundleTracker({
-      filename: './webpack-stats.json'
-    }),
   ],
-  optimization: {
-    minimizer: [new TerserPlugin()],
-  },
-  mode: 'development',
 }
