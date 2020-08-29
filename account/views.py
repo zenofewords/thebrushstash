@@ -110,7 +110,7 @@ class UnsubscribeFromNewsletter(TemplateView):
             self.newsletter_recipient.subscribed = False
             self.newsletter_recipient.save()
         except Exception:
-            pass
+            self.newsletter_recipient = None
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -138,7 +138,8 @@ class SetNewsletterLanguage(TemplateView):
                 self.newsletter_recipient.language_preference = self.preference
             self.newsletter_recipient.save()
         except Exception:
-            pass
+            self.newsletter_recipient = None
+            self.preference = None
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -155,9 +156,8 @@ class LoginOverrideView(LoginView):
         return super().post(request, *args, **kwargs)
 
     def form_invalid(self, form):
-        """If the form is invalid, render the invalid form."""
         user = CustomUser.objects.filter(email=form.data.get('username')).first()
-        if user.password == '':
+        if user and user.password == '':
             form.add_error('password', _(
                 'You\'ve never set a password. Click the "Forgot your password?" link to request a reset.'
             ))
