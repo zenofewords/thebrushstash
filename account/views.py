@@ -38,6 +38,15 @@ class RegisterView(FormView):
         send_registration_email(user, get_current_site(self.request))
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        user = CustomUser.objects.filter(email=form.data.get('email')).first()
+        if user and not user.is_active:
+            form.add_error('email', _(
+                'Since your account was never activated, we\'ve emailed you a new activation link.'
+            ))
+            send_registration_email(user, get_current_site(self.request))
+        return super().form_invalid(form)
+
 
 class VerificationSentView(TemplateView):
     template_name = 'account/confirmation_sent.html'
@@ -157,7 +166,13 @@ class LoginOverrideView(LoginView):
 
     def form_invalid(self, form):
         user = CustomUser.objects.filter(email=form.data.get('username')).first()
-        if user and user.password == '':
+        if user and not user.is_active:
+            form.add_error('username', _(
+                '''You've never activated your account. The activation link was sent to your email when you
+                registered your account. If you can't find the link, go to "register here" to request a new one.
+                '''
+            ))
+        elif user and user.password == '':
             form.add_error('password', _(
                 'You\'ve never set a password. Click the "Forgot your password?" link to request a reset.'
             ))

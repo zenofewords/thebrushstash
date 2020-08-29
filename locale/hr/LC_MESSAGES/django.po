@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-24 17:27+0100\n"
+"POT-Creation-Date: 2020-08-29 15:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgid "Required"
 msgstr "Obavezno"
 
 #: account/forms.py:25 account/forms.py:208
-msgid "An account with this e-mail address already exits."
+msgid "An account with this e-mail address already exists."
 msgstr "Korisnički račun s ovom e-mail adresom već postoji"
 
 #: account/forms.py:31 account/forms.py:194
@@ -141,13 +141,28 @@ msgstr ""
 msgid "You must agree to the terms and conditions to continue."
 msgstr "Potrebno je pristati na uvjete korištenja prije nastavka kupnje."
 
-#: account/views.py:162
+#: account/views.py:45
+msgid ""
+"Since your account was never activated, we've emailed you a new activation "
+"link."
+msgstr ""
+
+#: account/views.py:171
+msgid ""
+"You've never activated your account. The activation link was sent to your "
+"email when you\n"
+"                registered your account. If you can't find the link, go to "
+"\"register here\" to request a new one.\n"
+"                "
+msgstr ""
+
+#: account/views.py:177
 msgid ""
 "You've never set a password. Click the \"Forgot your password?\" link to "
 "request a reset."
 msgstr ""
-"Niste postavili lozinku. Kliknite na \"Zaboravili ste lozinku?\" "
-"kako biste dobili link za reset."
+"Niste postavili lozinku. Kliknite na \"Zaboravili ste lozinku?\" kako biste "
+"dobili link za reset."
 
 #: shop/api/views.py:125
 msgid "The code you used is invalid or inactive."
@@ -523,7 +538,7 @@ msgstr "Ukupna cijena (HRK):"
 msgid "Thank you for using The Brush Stash products!"
 msgstr "Hvala Vam što koristite The Brush Stash proizvode!"
 
-#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:499
+#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:500
 msgid "Purchase complete"
 msgstr "Vaša narudžba je izvršena!"
 
@@ -1008,19 +1023,19 @@ msgstr "Prijavljeni ste, hvala!"
 msgid "Check your e-mail for confirmation!"
 msgstr "Provjerite svoj e-mail kako biste potvrdili pretplatu na newsletter!"
 
-#: thebrushstash/utils.py:417
+#: thebrushstash/utils.py:418
 msgid "Activate your account"
 msgstr "Aktivirajte svoj korisnički račun"
 
-#: thebrushstash/utils.py:443
+#: thebrushstash/utils.py:444
 msgid "Subscribe to newsletter"
 msgstr "Pretplatite se na newsletter"
 
-#: thebrushstash/utils.py:681
+#: thebrushstash/utils.py:683
 msgid "There's nothing in your bag."
 msgstr "Vaša košarica je prazna."
 
-#: thebrushstash/utils.py:689
+#: thebrushstash/utils.py:691
 msgid ""
 "Looks like {} is all sold out.\n"
 "                You'll have to remove it from your bag to continue."
@@ -1028,7 +1043,7 @@ msgstr ""
 "Čini se da je {} rasprodan. Morat ćete ga ukloniti iz košarice da bi mogli "
 "nastaviti."
 
-#: thebrushstash/utils.py:694
+#: thebrushstash/utils.py:696
 msgid ""
 "We've got only {} {} left, please remove at least {}\n"
 "                from your bag to continue."
@@ -1036,7 +1051,7 @@ msgstr ""
 "Ostalo nam je samo {} {}, molimo uklonite barem {} iz košarice da bi mogli "
 "nastaviti."
 
-#: thebrushstash/utils.py:699
+#: thebrushstash/utils.py:701
 msgid ""
 "{}'s price has changed, please remove it from your bag to continue.\n"
 "                You can readd it from the home or product page."

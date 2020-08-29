@@ -22,7 +22,7 @@ class RegistrationForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data['email']
         if CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError(_('An account with this e-mail address already exits.'))
+            raise forms.ValidationError(_('An account with this e-mail address already exists.'))
         return email
 
 
@@ -205,7 +205,7 @@ class CustomUserForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data['email']
         if CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError(_('An account with this e-mail address already exits.'))
+            raise forms.ValidationError(_('An account with this e-mail address already exists.'))
         return email
 
     def clean_password2(self):

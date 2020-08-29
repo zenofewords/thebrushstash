@@ -1,4 +1,7 @@
+from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.utils.crypto import constant_time_compare
+from django.utils.http import base36_to_int
 
 
 class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
@@ -29,5 +32,6 @@ class AccountActivationTokenGenerator(PasswordResetTokenGenerator):
         if (self._num_seconds(self._now()) - ts) > settings.ACTIVATION_RESET_TIMEOUT:
             return False
         return True
+
 
 account_activation_token = AccountActivationTokenGenerator()

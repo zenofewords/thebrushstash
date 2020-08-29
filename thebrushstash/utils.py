@@ -8,12 +8,12 @@ import os
 import secrets
 import xml.etree.ElementTree as ET
 
-from decimal import Decimal
-from pathlib import Path
 from PIL import Image
+from decimal import Decimal
+from email.mime.image import MIMEImage
+from pathlib import Path
 from requests_pkcs12 import post
 from webptools import webplib
-from email.mime.image import MIMEImage
 
 from django.conf import settings
 from django.contrib.auth import login
@@ -25,9 +25,9 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.safestring import mark_safe
-from django.utils.text import format_lazy, slugify
-from django.utils.translation import get_language, gettext as _
+from django.utils.text import slugify
 from django.utils.timezone import now
+from django.utils.translation import gettext as _
 
 from account.models import (
     CustomUser,
@@ -302,7 +302,8 @@ def safe_subscribe_to_newsletter(user, email, current_site):
 
 def create_or_update_invoice(session, grand_total, data, cart, user):
     invoice = Invoice.objects.filter(
-        status__in=(InvoiceStatus.PENDING, InvoiceStatus.CANCELLED), order_number=session.get('order_number', '')
+        status__in=(InvoiceStatus.PENDING, InvoiceStatus.CANCELLED),
+        order_number=session.get('order_number', '')
     ).first()
 
     if not invoice:
@@ -644,8 +645,9 @@ def restore_session_from_invoice(request, invoice):
     request.session['user_information']['shipping_state_county'] = invoice.shipping_state_county
     request.session['user_information']['country'] = invoice.country.name
 
-    if invoice.invoice_shipping_country:
-        request.session['user_information']['account_shipping_country'] = invoice.invoice_shipping_country.name
+    shipping_country = invoice.invoice_shipping_country
+    if shipping_country:
+        request.session['user_information']['account_shipping_country'] = shipping_country.name
 
     request.session.modified = True
 
@@ -668,7 +670,7 @@ def complete_purchase(order_number, invoice_status, request):
         current_site = get_current_site(request)
         send_purchase_email(current_site, invoice)
     else:
-        logger.error('{} - invoice not found for order number: {}'.format(order_number))
+        logger.error('Invoice not found for order number: {}'.format(order_number))
 
     request.session['order_number'] = None
     request.session['bag'] = EMPTY_BAG
