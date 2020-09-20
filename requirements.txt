@@ -1,13 +1,13 @@
 asgiref==3.2.10
 certifi==2020.6.20
 chardet==3.0.4
-Django==3.1
-django-anymail==7.2.1
+Django==3.1.1
+django-anymail==8.0
 django-webpack-loader==0.7.0
 djangorestframework==3.11.1
 Pillow==7.2.0
-psycopg2-binary==2.8.5
-Pygments==2.6.1
+psycopg2-binary==2.8.6
+Pygments==2.7.1
 python-dotenv==0.14.0
 python-memcached==1.59
 pytz==2020.1

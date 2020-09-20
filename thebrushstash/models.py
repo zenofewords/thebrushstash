@@ -95,7 +95,7 @@ class StaticPageContent(models.Model):
 
     class Meta:
         verbose_name = 'Static page content'
-        verbose_name = 'Static pages content'
+        verbose_name_plural = 'Static pages content'
 
     def __str__(self):
         return self.title

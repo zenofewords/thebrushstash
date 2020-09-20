@@ -50,5 +50,6 @@ class NewsletterRecipientAdmin(admin.ModelAdmin):
     list_display = ('email', 'subscribed', 'user', 'language_preference', )
     search_fields = ('user__first_name', 'user__last_name', 'email', )
 
+
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(NewsletterRecipient, NewsletterRecipientAdmin)
