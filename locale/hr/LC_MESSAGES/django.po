@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-29 15:00+0100\n"
+"POT-Creation-Date: 2020-09-23 06:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,6 +146,8 @@ msgid ""
 "Since your account was never activated, we've emailed you a new activation "
 "link."
 msgstr ""
+"Budući da još niste aktivirali svoj korisnički račun, poslali smo Vam novi "
+"aktivacijski link."
 
 #: account/views.py:171
 msgid ""
@@ -155,6 +157,11 @@ msgid ""
 "\"register here\" to request a new one.\n"
 "                "
 msgstr ""
+"Niste aktivirali svoj korisnički račun. Aktivacijski link dobili ste "
+"prilikom \n"
+"                registracije. Ako ga ne možete pronaći,kliknite na "
+"\"Registrirajte se ovdje\" kako bismo vam poslali novi.\n"
+"                "
 
 #: account/views.py:177
 msgid ""
@@ -192,7 +199,7 @@ msgid ""
 "automatically populated."
 msgstr ""
 "Ukoliko već imate korisnički račun, <a href=\"%(login_url)s?next="
-"%(checkout_url)s\">logirajte se</a> kako bi se vaši podaci za dostavu "
+"%(checkout_url)s\">logirajte se</a> kako bi se Vaši podaci za dostavu "
 "automatski popunili"
 
 #: shop/templates/shop/includes/checkout_address_form.html:15
@@ -417,7 +424,7 @@ msgid ""
 "special offers."
 msgstr ""
 "Dragi naši, upravo ste se pretplatili na The Brush Stash Webshop newsletter! "
-"Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo vam "
+"Budući da nam je svima dosta pretjerane količine mailova, javljat ćemo Vam "
 "se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o "
 "eventualnim posebnim ponudama."
 
@@ -538,7 +545,7 @@ msgstr "Ukupna cijena (HRK):"
 msgid "Thank you for using The Brush Stash products!"
 msgstr "Hvala Vam što koristite The Brush Stash proizvode!"
 
-#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:500
+#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:504
 msgid "Purchase complete"
 msgstr "Vaša narudžba je izvršena!"
 
@@ -651,7 +658,7 @@ msgstr "Nova ukupna cijena (HRK):"
 
 #: shop/utils.py:155
 msgid "This code does not apply to items in your bag."
-msgstr "Ovaj kod se ne odnosi na sadržaj vaše košarice."
+msgstr "Ovaj kod se ne odnosi na sadržaj Vaše košarice."
 
 #: shop/utils.py:158
 msgid "The code is already applied."
@@ -757,7 +764,7 @@ msgstr "Pretplatu na newsletter možete aktivirati ovdje:"
 #: templates/account/subscription_verification_email.html:64
 #: templates/account/subscription_verification_email.txt:5
 msgid "Thank you, best regards,<br>your The Brush Stash team"
-msgstr "Hvala vam, srdačan pozdrav,<br>vaš The Brush Stash team"
+msgstr "Hvala Vam, srdačan pozdrav,<br>Vaš The Brush Stash team"
 
 #: templates/account/unsubscribe_from_newsletter.html:5
 #: templates/account/unsubscribe_from_newsletter.html:10
@@ -1011,31 +1018,31 @@ msgstr "Pošalji"
 msgid "Region:"
 msgstr "Regija:"
 
-#: thebrushstash/utils.py:295
+#: thebrushstash/utils.py:296
 msgid "Already subscribed."
 msgstr "Već ste prijavljeni na newsletter."
 
-#: thebrushstash/utils.py:297
+#: thebrushstash/utils.py:302
 msgid "Subscribed, thanks!"
 msgstr "Prijavljeni ste, hvala!"
 
-#: thebrushstash/utils.py:300
-msgid "Check your e-mail for confirmation!"
-msgstr "Provjerite svoj e-mail kako biste potvrdili pretplatu na newsletter!"
+#: thebrushstash/utils.py:304
+msgid "You've been subscribed!"
+msgstr "Prijavljeni ste, hvala!"
 
-#: thebrushstash/utils.py:418
+#: thebrushstash/utils.py:422
 msgid "Activate your account"
 msgstr "Aktivirajte svoj korisnički račun"
 
-#: thebrushstash/utils.py:444
+#: thebrushstash/utils.py:448
 msgid "Subscribe to newsletter"
 msgstr "Pretplatite se na newsletter"
 
-#: thebrushstash/utils.py:683
+#: thebrushstash/utils.py:687
 msgid "There's nothing in your bag."
 msgstr "Vaša košarica je prazna."
 
-#: thebrushstash/utils.py:691
+#: thebrushstash/utils.py:695
 msgid ""
 "Looks like {} is all sold out.\n"
 "                You'll have to remove it from your bag to continue."
@@ -1043,7 +1050,7 @@ msgstr ""
 "Čini se da je {} rasprodan. Morat ćete ga ukloniti iz košarice da bi mogli "
 "nastaviti."
 
-#: thebrushstash/utils.py:696
+#: thebrushstash/utils.py:700
 msgid ""
 "We've got only {} {} left, please remove at least {}\n"
 "                from your bag to continue."
@@ -1051,7 +1058,7 @@ msgstr ""
 "Ostalo nam je samo {} {}, molimo uklonite barem {} iz košarice da bi mogli "
 "nastaviti."
 
-#: thebrushstash/utils.py:701
+#: thebrushstash/utils.py:705
 msgid ""
 "{}'s price has changed, please remove it from your bag to continue.\n"
 "                You can readd it from the home or product page."

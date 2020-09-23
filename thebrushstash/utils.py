@@ -286,18 +286,22 @@ def safe_subscribe_to_newsletter(user, email, current_site):
     obj, created = NewsletterRecipient.objects.get_or_create(
         email=email,
         defaults={
-            'subscribed': True if user.is_authenticated else False,
+            'subscribed': False,
             'user': user if user.is_authenticated else None,
             'token': get_random_string(),
         }
     )
-    if user.is_authenticated and not created:
+
+    if user.is_authenticated and obj.subscribed:
         return _('Already subscribed.')
+
+    obj.subscribed = True
+    obj.save()
+
     if user.is_authenticated and created:
         return _('Subscribed, thanks!')
 
-    send_subscription_email(email, current_site)
-    return _('Check your e-mail for confirmation!')
+    return _('You\'ve been subscribed!')
 
 
 def create_or_update_invoice(session, grand_total, data, cart, user):
