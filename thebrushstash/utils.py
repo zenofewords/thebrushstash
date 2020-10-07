@@ -13,7 +13,6 @@ from decimal import Decimal
 from email.mime.image import MIMEImage
 from pathlib import Path
 from requests_pkcs12 import post
-from webptools import webplib
 
 from django.conf import settings
 from django.contrib.auth import login
@@ -149,7 +148,7 @@ def create_variations(path, cropped_image, slot):
 
         # create webp image
         webp_image_path = get_resized_path(path, slot_shape, size, 'webp')
-        webplib.cwebp(resized_image_path, webp_image_path, '-q {}'.format(DEFAULT_IMAGE_QUALITY))
+        resized_image.save(webp_image_path, 'webp', quality=DEFAULT_IMAGE_QUALITY)
 
 
 def generate_srcsets(path, url, original, slots):
