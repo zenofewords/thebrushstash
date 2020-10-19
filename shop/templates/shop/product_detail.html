@@ -57,7 +57,12 @@
       </h1>
       {% rating_tag object can_review %}
       <div class="price-tag">
-        {% get_localized_item_price object 'price' currency %}
+        {% if product.price_hrk != product.old_price_hrk %}
+          <span class="old-price">
+            {% get_localized_item_price product 'old_price' currency %}
+          </span>
+        {% endif %}
+        {% get_localized_item_price product 'price' currency %}
       </div>
       <p class="foreword">
         {% if LANGUAGE_CODE == 'hr' %}

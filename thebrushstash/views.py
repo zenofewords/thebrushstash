@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from django.views.generic.list import ListView
 from django.views.generic import TemplateView
 
@@ -118,6 +118,11 @@ class TakingCareOfYourBrushView(TemplateView):
         return context
 
 
-class TestImageView(LoginRequiredMixin, ListView):
+class TestImageView(ListView):
     model = TestImage
     template_name = 'shop/test_images.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.is_staff:
+            return super().dispatch(request, *args, **kwargs)
+        raise Http404

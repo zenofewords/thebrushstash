@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
+from django.http import Http404
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import (
@@ -232,6 +233,25 @@ class ShopHomeView(TemplateView):
 
         context.update({
             'products': Product.published_objects.all(),
+            'currency': self.request.session.get('currency'),
+            'full_site_url': '{}://{}'.format(self.request.scheme, get_current_site(self.request)),
+        })
+        return context
+
+
+class ShopHomePreviewView(TemplateView):
+    template_name = 'shop/shop_base.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.is_staff:
+            return super().dispatch(request, *args, **kwargs)
+        raise Http404
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context.update({
+            'products': Product.objects.all(),
             'currency': self.request.session.get('currency'),
             'full_site_url': '{}://{}'.format(self.request.scheme, get_current_site(self.request)),
         })

@@ -41,6 +41,11 @@ def update_product_prices(product):
             price = product.price_hrk + product.price_hrk * er.added_value / 100
             setattr(product, 'price_{}'.format(er.currency.lower()), price / er.middle_rate)
 
+    if product.old_price_hrk:
+        for er in exchange_rates:
+            old_price = product.old_price_hrk + product.old_price_hrk * er.added_value / 100
+            setattr(product, 'old_price_{}'.format(er.currency.lower()), old_price / er.middle_rate)
+
 
 def update_product_rating(product):
     Review = apps.get_model('shop', 'Review')

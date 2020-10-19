@@ -50,6 +50,19 @@
   max-width: $contentWidth
   margin: 0 auto
 
+%old-price
+  color: $colorGrey
+  position: relative
+
+  &::after
+    background-color: $colorGrey
+    content: ''
+    height: 1px
+    left: 0
+    position: absolute
+    top: 53%
+    width: 95%
+
 %price-tag
   font-family: $headerFont
   font-weight: $regular

@@ -12,6 +12,17 @@
         {% trans "New" %}
       </div>
     {% endif %}
+
+    {% if product.custom_label %}
+      <div class="label-new">
+        {% if LANGUAGE_CODE == 'hr' %}
+          {{ product.custom_label.label_cro }}
+        {% else %}
+          {{ product.custom_label.label }}
+        {% endif %}
+      </div>
+    {% endif %}
+
   {% endif %}
 
   <a href="{% url 'shop:product-detail' product.slug %}">
@@ -29,6 +40,11 @@
       {% endif %}
     </p>
     <div class="price-tag">
+      {% if product.price_hrk != product.old_price_hrk %}
+        <span class="old-price">
+          {% get_localized_item_price product 'old_price' currency %}
+        </span>
+      {% endif %}
       {% get_localized_item_price product 'price' currency %}
     </div>
   </a>

@@ -28,7 +28,11 @@ class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
     foreword = models.TextField(
         max_length=300, blank=True, help_text='Short decription',
     )
+    free_shipping = models.BooleanField(default=False)
     new = models.BooleanField(default=True)
+    custom_label = models.ForeignKey(
+        'shop.CustomLabel', on_delete=models.deletion.CASCADE, blank=True, null=True
+    )
     in_stock = models.IntegerField(default=0)
     ordering = models.IntegerField(
         default=0, blank=True,
@@ -50,6 +54,22 @@ class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
     )
     price_gbp = models.DecimalField(
         verbose_name='Price (GBP)', max_digits=14, decimal_places=2, blank=True, null=True,
+        help_text="Auto populates from HRK when saved"
+    )
+
+    old_price_hrk = models.DecimalField(
+        verbose_name='Old price (HRK)', max_digits=14, decimal_places=2, blank=True, null=True,
+    )
+    old_price_usd = models.DecimalField(
+        verbose_name='Old price (USD)', max_digits=14, decimal_places=2, blank=True, null=True,
+        help_text="Auto populates from HRK when saved"
+    )
+    old_price_eur = models.DecimalField(
+        verbose_name='Old price (EUR)', max_digits=14, decimal_places=2, blank=True, null=True,
+        help_text="Auto populates from HRK when saved"
+    )
+    old_price_gbp = models.DecimalField(
+        verbose_name='Old price (GBP)', max_digits=14, decimal_places=2, blank=True, null=True,
         help_text="Auto populates from HRK when saved"
     )
 
@@ -416,3 +436,15 @@ class InstallmentOption(TimeStampMixin):
     def save(self, *args, **kwargs):
         create_installment_code(self)
         super().save(*args, **kwargs)
+
+
+class CustomLabel(models.Model):
+    label = models.CharField(max_length=100)
+    label_cro = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = 'Custom label'
+        verbose_name_plural = 'Custom labels'
+
+    def __str__(self):
+        return self.label

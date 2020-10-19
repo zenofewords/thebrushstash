@@ -4,6 +4,7 @@ from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
 from django.utils.text import slugify
 
 from shop.models import (
+    CustomLabel,
     EmailAudit,
     GalleryItem,
     InstallmentOption,
@@ -134,11 +135,9 @@ class ProductAdmin(AutoSlugAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                'product_type', 'name', 'slug', 'in_stock', 'ordering', 'published', 'new',
+                'product_type', 'name', 'slug', 'in_stock', 'ordering', 'published',
+                'new', 'custom_label',
             )
-        }),
-        ('Rating', {
-            'fields': ('score', 'ratings', ),
         }),
         ('Text fields (ENG)', {
             'classes': ('collapse', ),
@@ -151,6 +150,10 @@ class ProductAdmin(AutoSlugAdmin):
         ('Price (HRK, USD, EUR, GBP)', {
             'classes': ('collapse', ),
             'fields': ('price_hrk', 'price_usd', 'price_eur', 'price_gbp', ),
+        }),
+        ('Old price (HRK, USD, EUR, GBP)', {
+            'classes': ('collapse', ),
+            'fields': ('old_price_hrk', 'old_price_usd', 'old_price_eur', 'old_price_gbp', ),
         }),
     )
     inlines = [GalleryItemInline, SingleGalleryItemInline]
@@ -211,6 +214,11 @@ class InstallmentOptionAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'range_from', 'range_to', 'installment_number', )
 
 
+class CustomLabelAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(CustomLabel, CustomLabelAdmin)
 admin.site.register(EmailAudit, EmailAuditAdmin)
 admin.site.register(GalleryItem, GalleryItemAdmin)
 admin.site.register(Invoice, InvoiceAdmin)
