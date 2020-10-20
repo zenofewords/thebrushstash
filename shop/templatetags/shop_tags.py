@@ -135,7 +135,7 @@ def get_formatted_discount(value):
 
 @register.simple_tag()
 def get_localized_item_price(obj, key, currency, multiply=1, discount=None):
-    price = getattr(obj, '{}_{}'.format(key, currency)) * multiply
+    price = (getattr(obj, '{}_{}'.format(key, currency)) or 0) * multiply
     if discount:
         price = round(price - price * Decimal(discount) / 100, 2)
     return get_price_with_currency(price, currency)
