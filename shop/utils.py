@@ -203,4 +203,3 @@ def create_installment_code(installment):
     else:
         installments = str(installment.installment_number)
     installment.installment_code = 'Y02{}'.format(installments)
-    installment.save()
