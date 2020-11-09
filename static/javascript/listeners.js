@@ -64,6 +64,10 @@ import {
   navigationWrapper,
   navMobileCloseButton,
   navMobileOpenButton,
+  paypalRadio,
+  paypalWrapper,
+  paypalSubmitButton,
+  paypalSubmitWrapper,
   phoneNumberInput,
   previousStepLink,
   productDescription,
@@ -158,6 +162,7 @@ ready(() => {
     checkoutPaymentTitle.classList.add('inactive')
     checkoutPaymentWrapper.classList.add('inactive')
     checkoutIpgWrapper.classList.add('inactive')
+    paypalSubmitWrapper.classList.add('inactive')
     updateShippingCostForCountry(invoiceFormCountryInput.value)
 
     creditCardRadio.checked = false
@@ -234,6 +239,26 @@ ready(() => {
 
       shippingAddressChoice.hidden = true
       shippingAddressWrapper.hidden = true
+      paypalSubmitWrapper.hidden = true
+      invoiceFormShippingFirstNameInput.required = false
+      invoiceFormShippingLastNameInput.required = false
+      invoiceFormShippingCountryInput.required = false
+      invoiceFormShippingAddressInput.required = false
+      invoiceFormShippingCityInput.required = false
+      invoiceFormShippingZipCodeInput.required = false
+    }
+  })
+
+  paypalWrapper && paypalWrapper.addEventListener('click', (event) => {
+    if (!paypalRadio.checked) {
+      paypalRadio.checked = true
+      updateShippingCostForCountry(
+        invoiceFormCountryInput.value, () => updatePaymentMethod(paypalRadio.value)
+      )
+
+      paypalSubmitWrapper.hidden = false
+      shippingAddressChoice.hidden = true
+      shippingAddressWrapper.hidden = true
       invoiceFormShippingFirstNameInput.required = false
       invoiceFormShippingLastNameInput.required = false
       invoiceFormShippingCountryInput.required = false
@@ -248,6 +273,7 @@ ready(() => {
       creditCardRadio.checked = true
 
       shippingAddressChoice.hidden = false
+      paypalSubmitWrapper.hidden = true
       sameShippingAddressInput.checked = true
       updatePaymentMethod(creditCardRadio.value)
 
@@ -327,6 +353,20 @@ ready(() => {
       continueToPayment(invoiceFormCountryInput.value)
     } else {
       continueToPaymentButton.disabled = false
+    }
+  })
+
+  paypalSubmitButton && paypalSubmitButton.addEventListener('click', (event) => {
+    event.preventDefault()
+
+    paypalSubmitButton.disabled = true
+    clearErrorMessages()
+    const valid = checkoutAddressForm.reportValidity()
+
+    if (valid) {
+      // submit paypal
+    } else {
+      paypalSubmitButton.disabled = false
     }
   })
 

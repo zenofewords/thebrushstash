@@ -30,6 +30,23 @@
     </button>
   </div>
 
+  <div class="paypal-wrapper">
+    <span class="checkout-radio-wrapper">
+      <input type="radio" id="paypal" name="payment-method" value="paypal">
+      <label for="paypal">
+        {% trans "Use PayPal" %}
+      </label>
+      <span class="pp-logo-icon">
+        {% include 'thebrushstash/icons/paypal-logo.html' %}
+      </span>
+    </span>
+  </div>
+  <div id="paypal-submit-wrapper">
+    <button id="paypal-submit-button">
+      {% trans "Place order" %}
+    </button>
+  </div>
+
   <div class="credit-card-wrapper">
     <span class="checkout-radio-wrapper">
       <input type="radio" id="credit-card" name="payment-method" value="credit-card">

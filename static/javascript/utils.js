@@ -56,6 +56,7 @@ import {
   newSummaryTotal,
   newSummaryWrapper,
   nonFieldError,
+  paypalSubmitWrapper,
   productRatingCount,
   productRatingGauge,
   productReviewsWrapper,
@@ -130,6 +131,12 @@ export const updatePaymentMethod = (paymentMethod) => {
 
       ipgFormSubmitButton.classList.add('hidden')
       cashOnDeliverySubmitWrapper.classList.remove('hidden')
+    } else if (response.payment_method === 'paypal') {
+      summaryRowFees.classList.add('hidden')
+      summaryRowFeesValue.innerHTML = null
+
+      cashOnDeliverySubmitWrapper.classList.add('hidden')
+      ipgFormSubmitButton.classList.add('hidden')
     } else {
       summaryRowFees.classList.add('hidden')
       summaryRowFeesValue.innerHTML = null
@@ -192,6 +199,10 @@ export const continueToPayment = (country) => {
   continueToPaymentRequest(country).then(
     (data) => data.json()
   ).then((response) => {
+    if (paypalSubmitWrapper) {
+      paypalSubmitWrapper.hidden = true
+    }
+
     if (response.show_cod) {
       cashOnDeliveryWrapper.hidden = false
       cashOnDeliverySubmitWrapper.hidden = false
