@@ -66,9 +66,10 @@ class SingleGalleryItemInlineFormSet(BaseGenericInlineFormSet):
     def save_new_objects(self, commit=True):
         saved_instances = super().save_new_objects(commit)
         if commit and len(saved_instances) > 0:
-            instance = saved_instances[0]
-            instance.standalone = True
-            instance.save()
+            for saved_instance in saved_instances:
+                instance = saved_instance
+                instance.standalone = True
+                instance.save()
         return saved_instances
 
 
@@ -77,8 +78,7 @@ class SingleGalleryItemInline(GenericTabularInline):
     formset = SingleGalleryItemInlineFormSet
     fields = ('name', 'image', 'image_preview_thumb', )
     readonly_fields = ('image_preview_thumb', )
-    extra = 2
-    max_num = 2
+    extra = 3
     verbose_name = 'Image'
     verbose_name_plural = 'Images'
 

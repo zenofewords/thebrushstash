@@ -158,9 +158,9 @@
       </div>
     </div>
     <div class="media-wrapper">
-      {% get_images_for_model obj=product standalone=True number=2 as body_images %}
+      {% get_images_for_model obj=product standalone=True number=10 as body_images %}
       {% for body_image in body_images %}
-        {% media_object obj=body_image shape='square' %}
+        {% media_object obj=body_image shape='flexible' %}
       {% endfor %}
     </div>
   </div>

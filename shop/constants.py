@@ -22,6 +22,8 @@ SQUARE = 'square'
 SQUARE_WIDTH = 480
 THUMBNAIL = 'thumbnail'
 THUMBNAIL_WIDTH = 70
+FLEXIBLE = 'flexible'
+FLEXIBLE_WIDTH = 480
 
 VARIATIONS = ['webp_desktop', 'webp_mobile', 'jpg_desktop', 'jpg_mobile']
 SLOTS = [
@@ -51,6 +53,15 @@ SLOTS = [
             'medium': THUMBNAIL_WIDTH * 2,
             'small': THUMBNAIL_WIDTH,
         },
+    },
+    {
+        'shape': FLEXIBLE,
+        'ratio': 0,
+        'dimensions': {
+            'large': FLEXIBLE_WIDTH * 3,
+            'medium': FLEXIBLE_WIDTH * 2,
+            'small': FLEXIBLE_WIDTH,
+        }
     },
 ]
 

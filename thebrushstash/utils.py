@@ -133,6 +133,10 @@ def create_variations(path, cropped_image, slot):
 
         if slot_ratio == 1:
             new_width, new_height = dimension, dimension
+        elif slot_ratio == 0:
+            new_width = dimension
+            ratio = cropped_image.width / cropped_image.height
+            new_height = int(new_width / ratio)
         else:
             new_width = dimension
             new_height = dimension / slot_ratio
@@ -142,13 +146,14 @@ def create_variations(path, cropped_image, slot):
             (int(new_width), int(new_height)), resample=Image.BICUBIC,
         )
 
-        # create jpg image
-        resized_image_path = get_resized_path(path, slot_shape, size, 'jpg')
-        resized_image.save(resized_image_path, 'JPEG', optimize=True, quality=DEFAULT_IMAGE_QUALITY)
-
         # create webp image
         webp_image_path = get_resized_path(path, slot_shape, size, 'webp')
         resized_image.save(webp_image_path, 'webp', quality=DEFAULT_IMAGE_QUALITY)
+
+        # create jpg image
+        resized_image = resized_image.convert('RGB')
+        resized_image_path = get_resized_path(path, slot_shape, size, 'jpg')
+        resized_image.save(resized_image_path, 'JPEG', optimize=True, quality=DEFAULT_IMAGE_QUALITY)
 
 
 def generate_srcsets(path, url, original, slots):
@@ -162,7 +167,7 @@ def generate_srcsets(path, url, original, slots):
         height = 0
         slot_ratio = slot.get('ratio')
 
-        if slot_ratio - 0.15 < original_ratio < slot_ratio + 0.15:
+        if slot_ratio == 0 or (slot_ratio - 0.15 < original_ratio < slot_ratio + 0.15):
             create_variations(path, original, slot)
         else:
             if original_ratio >= 1 and slot_ratio < 1:

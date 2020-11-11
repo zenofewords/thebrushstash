@@ -4,7 +4,10 @@ from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import get_language
 
-from shop.constants import VARIATIONS
+from shop.constants import (
+    SQUARE,
+    VARIATIONS,
+)
 from shop.models import (
     GalleryItem,
     Showcase,
@@ -75,18 +78,22 @@ def media_object(obj, shape, selected=False, hidden=False, preview=False, exclud
     if not hasattr(obj, 'srcsets') or not getattr(obj, 'srcsets'):
         return
 
+    srcsets = {}
+    for variation in VARIATIONS:
+        # set fallback shape for old gallery item
+        if not '{}_{}'.format(variation, shape) in obj.srcsets:
+            shape = SQUARE
+
+        srcsets['{}_srcset'.format(variation)] = ', '.join(
+            obj.srcsets['{}_{}'.format(variation, shape)]
+        )
+
     classes = ['image-wrapper', shape]
     if hasattr(obj, 'youtube_video_id') and obj.youtube_video_id:
         classes.append('play-icon')
     if selected:
         classes.append('selected')
     class_list = 'class=\"{}\"'.format(' '.join(classes))
-
-    srcsets = {}
-    for variation in VARIATIONS:
-        srcsets['{}_srcset'.format(variation)] = ', '.join(
-            obj.srcsets['{}_{}'.format(variation, shape)]
-        )
 
     data = {
         'object': obj,
