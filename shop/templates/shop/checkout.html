@@ -8,6 +8,12 @@
 {% endblock title %}
 
 {% block content %}
+  {% if region != 'hr' %}
+    <script
+      src="https://www.paypal.com/sdk/js?client-id=ARh0yWZJ-Q9YWHNTGNNXwM-mzk4yDPuJtAxLQ_tz8BIkc4S1dDpjgP2Thm8ncBDdRkFybUluhETQtZ4p&disable-funding=credit,card">
+    </script>
+  {% endif %}
+
   <div class="checkout-wrapper">
     <div class="checkout-form-wrapper">
       <p class="non-field-error" hidden></p>

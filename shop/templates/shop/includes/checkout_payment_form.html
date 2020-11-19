@@ -30,22 +30,47 @@
     </button>
   </div>
 
-  <div class="paypal-wrapper">
-    <span class="checkout-radio-wrapper">
-      <input type="radio" id="paypal" name="payment-method" value="paypal">
-      <label for="paypal">
-        {% trans "Use PayPal" %}
-      </label>
-      <span class="pp-logo-icon">
-        {% include 'thebrushstash/icons/paypal-logo.html' %}
+  {% if region != 'hr' %}
+    <div class="paypal-wrapper">
+      <span class="checkout-radio-wrapper">
+        <input type="radio" id="paypal" name="payment-method" value="paypal">
+        <label for="paypal">
+          {% trans "Use PayPal" %}
+        </label>
+        <span class="pp-logo-icon">
+          {% include 'thebrushstash/icons/paypal-logo.html' %}
+        </span>
       </span>
-    </span>
-  </div>
-  <div id="paypal-submit-wrapper">
-    <button id="paypal-submit-button">
-      {% trans "Place order" %}
-    </button>
-  </div>
+    </div>
+    <div id="paypal-submit-wrapper" class="paypal-submit-wrapper">
+      <div id="paypal-button-container" class="paypal-button-container"></div>
+      <script>
+        paypal.Buttons({
+          style: {
+            size: 'responsive',
+            height: 54,
+            color: 'blue',
+            shape: 'rect'
+          },
+          createOrder: function(data, actions) {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: getPaymentInfo('total'),
+                  currency: getPaymentInfo('currency')
+                }
+              }]
+            });
+          },
+          onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+              processPaypalOrder()
+            });
+          }
+        }).render('#paypal-button-container');
+      </script>
+    </div>
+  {% endif %}
 
   <div class="credit-card-wrapper">
     <span class="checkout-radio-wrapper">

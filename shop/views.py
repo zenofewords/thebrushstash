@@ -127,6 +127,11 @@ class PurchaseCompletedView(TemplateView):
             user_information = {
                 'user_information': get_user_information(request, invoice)
             }
+        if request.POST.get('payment-method') == InvoicePaymentMethod.PAYPAL:
+            invoice = complete_purchase(request.POST.get('order_number'), InvoiceStatus.PAID, request)
+            user_information = {
+                'user_information': get_user_information(request, invoice)
+            }
         return render(request, self.template_name, user_information)
 
 

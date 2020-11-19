@@ -611,3 +611,17 @@ export const processPromoCode = (code) => {
     console.log(error)
   })
 }
+
+export const getPaymentInfo = (infoType) => {
+  if (infoType === 'total') {
+    const newGrandTotal = newSummaryGrandTotal.innerHTML.substring(1)
+
+    if (!isNaN(parseFloat(newGrandTotal)) && isFinite(newGrandTotal)) {
+      return newGrandTotal
+    }
+    return summaryGrandTotal.innerHTML.substring(1)
+  } else if (infoType === 'currency') {
+    const currencySymbol = summaryGrandTotal.innerHTML.slice(0, 1)
+    return Object.keys(currencySymbolMapping).find(key => currencySymbolMapping[key] === currencySymbol).toUpperCase()
+  }
+}

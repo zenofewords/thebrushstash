@@ -66,7 +66,6 @@ import {
   navMobileOpenButton,
   paypalRadio,
   paypalWrapper,
-  paypalSubmitButton,
   paypalSubmitWrapper,
   phoneNumberInput,
   previousStepLink,
@@ -353,20 +352,6 @@ ready(() => {
       continueToPayment(invoiceFormCountryInput.value)
     } else {
       continueToPaymentButton.disabled = false
-    }
-  })
-
-  paypalSubmitButton && paypalSubmitButton.addEventListener('click', (event) => {
-    event.preventDefault()
-
-    paypalSubmitButton.disabled = true
-    clearErrorMessages()
-    const valid = checkoutAddressForm.reportValidity()
-
-    if (valid) {
-      // submit paypal
-    } else {
-      paypalSubmitButton.disabled = false
     }
   })
 

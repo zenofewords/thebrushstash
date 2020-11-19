@@ -4,6 +4,7 @@ import {
   setRegion,
 } from './requests'
 import {
+  checkoutAddressForm,
   imagesWithPreview,
   languageForm,
   languageInput,
@@ -13,6 +14,8 @@ import {
   videoWrappers,
 } from './selectors'
 import {
+  getPaymentInfo,
+  processPaymentAddressData,
   refreshBag,
 } from './utils'
 
@@ -37,6 +40,14 @@ ready(() => {
     if (!location.hash) {
       window.location = event.target.location.origin
     }
+  }
+
+  window.getPaymentInfo = (infoType) => {
+    return getPaymentInfo(infoType)
+  }
+
+  window.processPaypalOrder = () => {
+    processPaymentAddressData(checkoutAddressForm, () => checkoutAddressForm.submit())
   }
 
   const onSelectFocus = (event) => {
