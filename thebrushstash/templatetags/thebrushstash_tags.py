@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 from django.utils.translation import get_language
 
 from shop.constants import EMPTY_BAG
@@ -106,3 +107,12 @@ def credit_card_logos_tag(css=''):
 @register.inclusion_tag('thebrushstash/tags/newsletter_tag.html')
 def newsletter_tag():
     pass
+
+
+@register.inclusion_tag('thebrushstash/tags/paypal_script_tag.html')
+def paypal_script_tag():
+    return {
+        'paypal_sdk_url': settings.PAYPAL_SDK_URL,
+        'paypal_client_id': settings.PAYPAL_CLIENT_ID,
+        'paypal_options': settings.PAYPAL_OPTIONS,
+    }

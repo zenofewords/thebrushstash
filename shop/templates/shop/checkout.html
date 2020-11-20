@@ -9,9 +9,7 @@
 
 {% block content %}
   {% if region != 'hr' %}
-    <script
-      src="https://www.paypal.com/sdk/js?client-id=ARh0yWZJ-Q9YWHNTGNNXwM-mzk4yDPuJtAxLQ_tz8BIkc4S1dDpjgP2Thm8ncBDdRkFybUluhETQtZ4p&disable-funding=credit,card">
-    </script>
+    {% paypal_script_tag %}
   {% endif %}
 
   <div class="checkout-wrapper">
