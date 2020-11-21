@@ -356,13 +356,13 @@ def start_audit(source, email, payment_method=''):
 
 
 def get_logo_attachement():
-    logo_path = finders.find('images/tbs-email-logo.png')
+    logo_path = finders.find('images/tbs_email_logo_banner.jpg')
 
     with Image.open(logo_path, mode='r') as tbs_logo_image:
         image_byte_array = io.BytesIO()
-        tbs_logo_image.save(image_byte_array, format='png')
+        tbs_logo_image.save(image_byte_array, format='jpeg')
 
-        image = MIMEImage(image_byte_array.getvalue(), 'png')
+        image = MIMEImage(image_byte_array.getvalue(), 'jpeg')
         image.add_header('Content-ID', '<0>')
         image.add_header('Content-Disposition', 'inline', filename='The Brush Stash logo')
     return logo_path, image
