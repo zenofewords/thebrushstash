@@ -44,8 +44,10 @@ class RegionView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        request.session['region'] = serializer.data.get('region', DEFAULT_REGION)
-        request.session['currency'] = Region.objects.get(name=request.session['region']).currency
+        region = Region.objects.get(name=serializer.data.get('region', DEFAULT_REGION))
+        request.session['region'] = region.name
+        request.session['currency'] = region.currency
+
         return response.Response({
             'region': request.session['region'],
             'currency': request.session['currency'],

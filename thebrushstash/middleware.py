@@ -5,15 +5,17 @@ from django.middleware.locale import LocaleMiddleware
 from django.urls import get_script_prefix, is_valid_path
 from django.utils import translation
 from django.utils.cache import patch_vary_headers
-from django.utils.deprecation import MiddlewareMixin
 
 
 def set_currency_middleware(get_response):
     def middleware(request):
         language = translation.get_language()
 
+        # set default values on first visit / clean session
         if not request.session.get('currency'):
             request.session['currency'] = 'eur' if language != 'hr' else 'hrk'
+        if not request.session.get('region'):
+            request.session['region'] = 'eu' if language != 'hr' else 'hr'
         response = get_response(request)
         return response
 
@@ -27,6 +29,7 @@ class LocaleMiddlewareOverride(LocaleMiddleware):
         language = translation.get_language_from_request(request, check_path=i18n_patterns_used)
         language_from_path = translation.get_language_from_path(request.path_info)
 
+        # replaced language_from_path with language
         if not language and i18n_patterns_used and not prefixed_default_language:
             language = settings.LANGUAGE_CODE
         translation.activate(language)
@@ -38,6 +41,7 @@ class LocaleMiddlewareOverride(LocaleMiddleware):
         urlconf = getattr(request, 'urlconf', settings.ROOT_URLCONF)
         i18n_patterns_used, prefixed_default_language = is_language_prefix_patterns_used(urlconf)
 
+        # replaced prefixed_default_language with language != settings.LANGUAGE_CODE)
         if (response.status_code == 404 and not language_from_path and
                 i18n_patterns_used and language != settings.LANGUAGE_CODE):
             # Maybe the language code is missing in the URL? Try adding the

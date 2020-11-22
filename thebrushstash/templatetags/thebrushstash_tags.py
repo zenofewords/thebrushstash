@@ -39,32 +39,18 @@ def navigation_tag(context):
 def ship_to_tag(context, prefix=''):
     session = context['request'].session
     regions = Region.published_objects.all()
-    default = regions.get(name=DEFAULT_REGION)
-
-    language = get_language()
-    if language != session.get('_language'):
-        session['_language'] = language
-
-    default_region = default if language == default.name else regions.first()
-    region = session.get('region')
-
-    if not region or language == default.name:
-        session['region'] = default_region.name
-        selected_region = default_region
-    else:
-        selected_region = regions.get(name=region)
 
     bag = session.get('bag')
     if not bag:
         session['bag'] = EMPTY_BAG
 
-    session['currency'] = selected_region.currency
     set_tax(session['bag'])
     session.modified = True
 
+    region_name = session.get('region')
     return {
-        'selected_region': selected_region,
-        'regions': regions.exclude(name=selected_region.name),
+        'selected_region': regions.get(name=region_name),
+        'regions': regions.exclude(name=region_name),
         'bag': session['bag'],
         'prefix': prefix,
     }
