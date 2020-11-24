@@ -752,7 +752,7 @@ def assemble_order_response(session, cart, grand_total, data):
         'grand_total': grand_total,
         'user_information': session['user_information'],
         'region': session['region'],
-        'language': session[settings.LANGUAGE_COOKIE_NAME],
+        'language': session[settings.LANG_COOKIE_NAME_INTERNAL],
         'payment_maestro': installment_option,
         'payment_master': installment_option,
         'payment_visa': installment_option,
@@ -761,7 +761,7 @@ def assemble_order_response(session, cart, grand_total, data):
             **map_ipg_fields(data),  # noqa
             'cart': cart,
             'currency': 'HRK',
-            'language': session[settings.LANGUAGE_COOKIE_NAME],
+            'language': session[settings.LANG_COOKIE_NAME_INTERNAL],
             'order_number': session['order_number'],
             'payment_all_dynamic': settings.IPG_PAYMENT_ALL_DYNAMIC,
             'payment_maestro': installment_option,

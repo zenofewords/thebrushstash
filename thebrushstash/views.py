@@ -143,6 +143,10 @@ class RegionView(View):
         request.session['currency'] = region.currency
         translation.activate(region.language)
 
-        response = HttpResponseRedirect('/')
+        next_url = request.GET.get('next', '/')
+        if region.language != 'hr':
+            next_url = next_url.replace('/hr', '')
+        response = HttpResponseRedirect(next_url)
         response.set_cookie(settings.LANGUAGE_COOKIE_NAME, region.language)
+
         return response

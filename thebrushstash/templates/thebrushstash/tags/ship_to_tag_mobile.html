@@ -5,7 +5,7 @@
     {% trans 'Region:' %}
   </label>
 
-  <form class="language-forms-mobile" action="{% url 'region' %}" method="post">
+  <form class="language-forms-mobile" action="{% url 'region' %}?next={{ next }}" method="post">
     {% csrf_token %}
 
     <select name="region" id="{{ prefix }}language-form-select">

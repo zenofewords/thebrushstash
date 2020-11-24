@@ -26,7 +26,7 @@ def navigation_tag(context):
         exchange_rates[exchange_rate.currency.lower()] = exchange_rate.middle_rate
 
     return {
-        'LANGUAGE_CODE': request.session.get(settings.LANGUAGE_COOKIE_NAME),
+        'LANGUAGE_CODE': request.session.get(settings.LANG_COOKIE_NAME_INTERNAL),
         'bag': request.session.get('bag'),
         'currency': request.session.get('currency', 'hrk'),
         'current_url': request.path,
@@ -38,7 +38,8 @@ def navigation_tag(context):
 
 @register.inclusion_tag('thebrushstash/tags/ship_to_tag.html', takes_context=True)
 def ship_to_tag(context, prefix=''):
-    session = context['request'].session
+    request = context['request']
+    session = request.session
     regions = Region.published_objects.all()
 
     bag = session.get('bag')
@@ -49,11 +50,13 @@ def ship_to_tag(context, prefix=''):
     session.modified = True
 
     region_name = session.get('region')
+
     return {
         'selected_region': regions.get(name=region_name),
         'regions': regions.exclude(name=region_name),
         'bag': session['bag'],
         'prefix': prefix,
+        'next': request.get_full_path(),
     }
 
 
@@ -69,7 +72,7 @@ def footer_tag(context, hide_social=False):
         'hide_social': hide_social,
         'footer_items': FooterItem.published_objects.all(),
         'footer_share_links': FooterShareLink.published_objects.all(),
-        'LANGUAGE_CODE': request.session.get(settings.LANGUAGE_COOKIE_NAME),
+        'LANGUAGE_CODE': request.session.get(settings.LANG_COOKIE_NAME_INTERNAL),
     }
 
 
