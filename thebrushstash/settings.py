@@ -140,8 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_COOKIE_NAME = 'lang'
-# do not change, Django uses in request.session regardless of LANGUAGE_COOKIE_NAME
+# do not change, Django uses _language in request.session regardless of LANGUAGE_COOKIE_NAME
 LANG_COOKIE_NAME_INTERNAL = '_language'
 LANGUAGE_CODE = 'en'
 LANGUAGES = [

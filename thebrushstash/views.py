@@ -147,6 +147,6 @@ class RegionView(View):
         if region.language != 'hr':
             next_url = next_url.replace('/hr', '')
         response = HttpResponseRedirect(next_url)
-        response.set_cookie(settings.LANGUAGE_COOKIE_NAME, region.language)
+        response.set_cookie(settings.LANG_COOKIE_NAME_INTERNAL, region.language)
 
         return response
