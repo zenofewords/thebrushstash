@@ -140,6 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LANGUAGE_COOKIE_NAME = 'lang'
 LANGUAGE_CODE = 'en'
 LANGUAGES = [
     ('en', 'English'),
@@ -200,34 +201,35 @@ REST_FRAMEWORK = {
     'COERCE_DECIMAL_TO_STRING': False,
 }
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'mail_admins': {
-            'class': 'django.utils.log.AdminEmailHandler',
-            'level': 'ERROR',
+if not DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'mail_admins': {
+                'class': 'django.utils.log.AdminEmailHandler',
+                'level': 'ERROR',
+            },
+            'logfile': {
+                'class': 'logging.handlers.WatchedFileHandler',
+                'filename': os.path.join(BASE_DIR, 'error.log')
+            },
         },
-        'logfile': {
-            'class': 'logging.handlers.WatchedFileHandler',
-            'filename': os.path.join(BASE_DIR, 'error.log')
+        'loggers': {
+            'django': {
+                'handlers': ['logfile'],
+                'level': 'ERROR',
+                'propagate': False,
+            },
+            'shop': {
+                'handlers': ['logfile'],
+                'level': 'ERROR',
+                'propagate': False
+            },
+            'thebrushstash': {
+                'handlers': ['logfile'],
+                'level': 'ERROR',
+                'propagate': False
+            },
         },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['logfile'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-        'shop': {
-            'handlers': ['logfile'],
-            'level': 'ERROR',
-            'propagate': False
-        },
-        'thebrushstash': {
-            'handlers': ['logfile'],
-            'level': 'ERROR',
-            'propagate': False
-        },
-    },
-}
+    }

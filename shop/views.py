@@ -103,7 +103,7 @@ class CheckoutView(FormView):
             'api_version': settings.IPG_API_VERSION,
             'bag': bag,
             'region': session.get('region'),
-            'language': session.get('_language'),
+            'language': session.get(settings.LANGUAGE_COOKIE_NAME),
             'currency': currency,
             'ipg_url': settings.IPG_URL,
             'store_id': settings.IPG_STORE_ID,

@@ -54,7 +54,6 @@ import {
   ipgFormSubmitButton,
   joinNewsletterMessage,
   languageFormsMobile,
-  languageInputsMobile,
   languageOptions,
   loginButton,
   logingFormPasswordInput,
@@ -488,9 +487,10 @@ ready(() => {
 
   for (let i = languageFormsMobile.length - 1; i >= 0; i--) {
     languageFormsMobile[i].addEventListener('change', (event) => {
-      languageInputsMobile[i].value = event.target.value === 'hr' ? 'hr' : 'en'
+      const dataset = event.target.options[event.target.selectedIndex].dataset
+      console.log(dataset)
 
-      setRegion(event.target.value).then((data) => data.json().then((response) => {
+      setRegion(dataset['region']).then((data) => data.json().then((response) => {
         refreshBag(response)
         languageFormsMobile[i].submit()
       }))

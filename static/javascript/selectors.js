@@ -75,7 +75,6 @@ export const joinNewsletterMessage = document.getElementById('join-newsletter-me
 export const languageForm = document.querySelector('.language-form')
 export const languageFormsMobile = document.getElementsByClassName('language-forms-mobile')
 export const languageInput = document.querySelector('.language-input')
-export const languageInputsMobile = document.getElementsByClassName('language-inputs-mobile')
 export const languageOptions = document.getElementsByClassName('language-option')
 export const loginButton = document.getElementById('login-button')
 export const logingFormPasswordInput = document.getElementById('id_password')

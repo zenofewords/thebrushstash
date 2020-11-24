@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 from django.utils.translation import get_language
 
 from shop.constants import EMPTY_BAG
@@ -25,7 +26,7 @@ def navigation_tag(context):
         exchange_rates[exchange_rate.currency.lower()] = exchange_rate.middle_rate
 
     return {
-        'LANGUAGE_CODE': request.session.get('_language'),
+        'LANGUAGE_CODE': request.session.get(settings.LANGUAGE_COOKIE_NAME),
         'bag': request.session.get('bag'),
         'currency': request.session.get('currency', 'hrk'),
         'current_url': request.path,
@@ -68,7 +69,7 @@ def footer_tag(context, hide_social=False):
         'hide_social': hide_social,
         'footer_items': FooterItem.published_objects.all(),
         'footer_share_links': FooterShareLink.published_objects.all(),
-        'LANGUAGE_CODE': request.session.get('_language'),
+        'LANGUAGE_CODE': request.session.get(settings.LANGUAGE_COOKIE_NAME),
     }
 
 

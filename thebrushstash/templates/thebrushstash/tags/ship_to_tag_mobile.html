@@ -7,12 +7,11 @@
 
   <form class="language-forms-mobile" action="{% url 'set_language' %}" method="post">
     {% csrf_token %}
-    <input class="language-inputs-mobile" name="language" type="hidden" value="hr">
 
-    <select id="{{ prefix }}language-form-select">
+    <select name="language" id="{{ prefix }}language-form-select">
       <option value="{{ selected_region.name }}">{{ selected_region.name|upper }}</option>
       {% for region in regions %}
-        <option value="{{ region.name }}">
+        <option value="{{ region.language }}" data-region="{{ region.name }}">
           {{ region.name|upper }}
         </option>
       {% endfor %}
