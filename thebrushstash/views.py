@@ -1,19 +1,27 @@
-from django.http import Http404
+from django.conf import settings
+from django.http import (
+    Http404,
+    HttpResponse,
+    HttpResponseRedirect,
+)
 from django.views.generic.list import ListView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
+from django.utils import translation
 
 from thebrushstash.constants import (
     ABOUT,
     COMPLAINTS,
     CONTACT,
+    DEFAULT_REGION,
     PAYMENT_DELIVERY,
     TOS,
     BRUSH_CARE,
 )
 from thebrushstash.models import (
+    QandAPair,
+    Region,
     StaticPageContent,
     TestImage,
-    QandAPair,
 )
 
 
@@ -126,3 +134,15 @@ class TestImageView(ListView):
         if request.user.is_authenticated and request.user.is_staff:
             return super().dispatch(request, *args, **kwargs)
         raise Http404
+
+
+class RegionView(View):
+    def post(self, request, *args, **kwargs):
+        region = Region.objects.get(name=request.POST.get('region', DEFAULT_REGION))
+        request.session['region'] = region.name
+        request.session['currency'] = region.currency
+        translation.activate(region.language)
+
+        response = HttpResponseRedirect('/')
+        response.set_cookie(settings.LANGUAGE_COOKIE_NAME, region.language)
+        return response

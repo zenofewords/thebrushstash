@@ -488,12 +488,12 @@ ready(() => {
   for (let i = languageFormsMobile.length - 1; i >= 0; i--) {
     languageFormsMobile[i].addEventListener('change', (event) => {
       const dataset = event.target.options[event.target.selectedIndex].dataset
-      console.log(dataset)
+      languageFormsMobile[i].submit()
 
-      setRegion(dataset['region']).then((data) => data.json().then((response) => {
-        refreshBag(response)
-        languageFormsMobile[i].submit()
-      }))
+      // setRegion(dataset['region']).then((data) => data.json().then((response) => {
+      //   refreshBag(response)
+      //   languageFormsMobile[i].submit()
+      // }))
     })
   }
 

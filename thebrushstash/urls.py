@@ -33,6 +33,7 @@ from thebrushstash.views import (
     ReturnsAndComplaintsView,
     TakingCareOfYourBrushView,
     TestImageView,
+    RegionView,
 )
 
 # may not be suffixed by language code
@@ -48,6 +49,7 @@ urlpatterns = [
     path('api/', include((shop_api_urls + thebrushstash_api_urls, 'api'), namespace='api')),
     path('test-images/', TestImageView.as_view(), name='other-images'),
     path('i18n/', include('django.conf.urls.i18n')),
+    path('region/', RegionView.as_view(), name='region'),
 
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('review-bag/', ReviewBagView.as_view(), name='review-bag'),
