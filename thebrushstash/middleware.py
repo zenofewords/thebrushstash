@@ -18,6 +18,8 @@ def set_currency_middleware(get_response):
             request.session['region'] = 'eu' if language != 'hr' else 'hr'
         if request.session.get('region') == 'hr' and language != 'hr':
             translation.activate('hr')
+        if not request.session.get('_language'):
+            request.session['_language'] = language
         response = get_response(request)
         return response
 
