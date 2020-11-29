@@ -315,6 +315,9 @@ class UpdateShippingCostView(GenericAPIView):
             request.session['region'],
             serializer.data.get('country_name')
         )
+        if bag.get('new_grand_total'):
+            bag.update(**get_grandtotals(bag, key_prefix='new_'))
+
         currency = request.session['currency']
         exchange_rate = ExchangeRate.objects.get(currency=currency.upper()).middle_rate
 
@@ -334,35 +337,32 @@ class UpdatePaymentMethodView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         session = request.session
+        bag = session['bag']
 
-        total = Decimal(session['bag'].get('total'))
-        new_total = Decimal(session['bag'].get('new_total', 0))
-        shipping_cost = Decimal(session['bag']['shipping_cost'])
-        fee = session['bag'].get('fees')
+        total = Decimal(bag.get('total'))
+        new_total = Decimal(bag.get('new_total', 0))
+        shipping_cost = Decimal(bag['shipping_cost'])
+        fee = bag.get('fees')
         session['payment_method'] = serializer.data.get('payment_method')
 
         if session['payment_method'] == InvoicePaymentMethod.CASH_ON_DELIVERY:
-            session['bag']['fees'] = str(GLS_FEE)
-            grand_total = total + shipping_cost + GLS_FEE
-
-            if new_total > 0:
-                new_grand_total = new_total + shipping_cost + GLS_FEE
+            bag['fees'] = str(GLS_FEE)
         else:
-            session['bag']['fees'] = 0
-            grand_total = total + shipping_cost
+            bag['fees'] = 0
 
-            if new_total > 0:
-                new_grand_total = new_total + shipping_cost
-
-        session['bag']['grand_total'] = str(grand_total)
+        bag.update({
+            **get_grandtotals(bag),
+        })
         if new_total > 0:
-            session['bag']['new_grand_total'] = str(new_grand_total)
+            bag.update({
+                **get_grandtotals(bag, key_prefix='new_'),
+            })
         session.modified = True
         currency = request.session['currency']
         exchange_rate = ExchangeRate.objects.get(currency=currency.upper()).middle_rate
 
         return response.Response({
-            'bag': session['bag'],
+            'bag': bag,
             'currency': currency,
             'exchange_rate': exchange_rate,
             'payment_method': session['payment_method'],

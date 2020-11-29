@@ -68,10 +68,10 @@
       <input class="promo-code-input" type="text" name="promo_code" placeholder="{% trans 'Enter promo code' %}" value="{{ bag.promo_code }}">
       <button class="promo-code-submit" name="submit_promo_code">{% trans 'Activate' %}</button>
     </div>
-    <div class="new-summary-wrapper {% if not bag.promo_code %}hidden{% endif %}">
+    <div class="new-summary-wrapper{% if not bag.promo_code %} hidden{% endif %}">
       <div class="summary-row">
         <span class="summary-label">
-           {% trans "New total:" %}
+          {% trans "New total:" %}
         </span>
         <span id="new-summary-total" class="summary-value">
           {% get_price_in_currency bag 'new_total' exchange_rates currency %}
@@ -85,6 +85,7 @@
           {% get_price_in_currency bag 'new_tax' exchange_rates currency %}
         </span>
       </div>
+
       <div class="summary-row">
         <span class="summary-grand-total-label">
            {% trans "New grand total:" %}

@@ -67,8 +67,10 @@ def set_shipping_cost(bag, region, country_name=None):
         cost = country.shipping_cost if country and country.shipping_cost else cost
 
     shipping_cost = Decimal('0.00') if free_shipping else Decimal(cost)
+
     bag['shipping_cost'] = str(shipping_cost)
     bag['grand_total'] = str(Decimal(bag.get('total', 0)) + shipping_cost)
+
 
 
 def set_tax(bag, key_prefix=''):
@@ -93,11 +95,15 @@ def get_totals(data, key, operator, product={}, quantity=None):
 
 
 def get_grandtotals(data, key_prefix=''):
-    return {'{}{}'.format(key_prefix, 'grand_total'): str(
+    grand_total = (
         Decimal(data.get('{}{}'.format(key_prefix, 'total')))
         + Decimal(data.get('shipping_cost'))
         + Decimal(data.get('fees'))
-    )}
+    )
+    if data.get('flat_discount_amount') and key_prefix != '':
+        discounted_grand_total = grand_total - Decimal(data.get('flat_discount_amount'))
+        grand_total = discounted_grand_total if discounted_grand_total > 0 else 0
+    return {'{}{}'.format(key_prefix, 'grand_total'): str(grand_total)}
 
 
 def get_price_with_currency(price, currency):
@@ -118,11 +124,16 @@ def create_promo_code_products(promo_code):
         pcp.save()
 
 
-def apply_discount(code, eligible_products, bag):
-    PromoCodeProduct = apps.get_model('shop', 'PromoCodeProduct')
+def apply_discount(promo_code, eligible_products, bag):
+    if promo_code.flat_discount:
+        bag.update({
+            'flat_discount_amount': str(promo_code.flat_discount_amount),
+        })
+        return bag
 
+    PromoCodeProduct = apps.get_model('shop', 'PromoCodeProduct')
     for product in eligible_products:
-        discount = PromoCodeProduct.objects.get(promo_code__code=code, product=product).discount
+        discount = PromoCodeProduct.objects.get(promo_code=promo_code, product=product).discount
         discounted_price = round(product.price_hrk - product.price_hrk * discount / 100, 2)
 
         bag_product = bag['products'][product.slug]
@@ -151,18 +162,18 @@ def update_discount(bag, promo_code, session):
     discounted_products = promo_code.product_list.all()
     message = ''
 
-    eligilbe_products = []
+    eligible_products = []
     for promo_code_product in discounted_products:
         if promo_code_product.slug in bag_products:
-            eligilbe_products.append(promo_code_product)
+            eligible_products.append(promo_code_product)
 
-    if len(eligilbe_products) < 1:
+    if len(eligible_products) < 1 and not promo_code.flat_discount:
         message = _('This code does not apply to items in your bag.')
 
-    if len(eligilbe_products) > 0 and promo_code.code == bag.get('promo_code'):
+    if (len(eligible_products) > 0 or promo_code.flat_discount) and promo_code.code == bag.get('promo_code'):
         message = _('The code is already applied.')
 
-    bag = apply_discount(promo_code.code, eligilbe_products, bag)
+    bag = apply_discount(promo_code, eligible_products, bag)
     session.modified = True
 
     new_total = Decimal('0.00')

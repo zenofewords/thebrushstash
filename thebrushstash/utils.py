@@ -728,6 +728,7 @@ def update_inventory(invoice):
 
             if invoice.promo_code.single_use:
                 invoice.promo_code.published = False
+                invoice.promo_code.used = True
                 invoice.promo_code.save()
 
 

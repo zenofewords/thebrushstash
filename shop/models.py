@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.core.validators import (
     MinValueValidator,
     MaxValueValidator,
@@ -377,6 +378,17 @@ class PromoCode(TimeStampMixin, PublishedMixin):
     single_use = models.BooleanField(
         default=False, help_text='Check if the code is intended for one use only.'
     )
+    used = models.BooleanField(
+        default=False, help_text='Checked when a customer redeems the code.'
+    )
+    flat_discount = models.BooleanField(
+        default=False, help_text='Check for single use, flat discount, applied to bag total.'
+    )
+    flat_discount_amount = models.DecimalField(
+        max_digits=14, decimal_places=2, blank=True, null=True,
+        help_text='Amount to apply (in HRK), must also check the "Flat discount" checkbox.',
+        validators=[MinValueValidator(1)]
+    )
     auto_apply_discount = models.DecimalField(
         max_digits=14, decimal_places=2, blank=True, null=True,
         help_text='Input to apply the same discount to all products.'
@@ -394,8 +406,16 @@ class PromoCode(TimeStampMixin, PublishedMixin):
     def __str__(self):
         return self.code
 
+    def clean(self):
+        if self.flat_discount and not self.flat_discount_amount:
+            raise ValidationError('The flat discount amount must be defined and greater than 0.')
+        if self.flat_discount_amount and not self.flat_discount:
+            raise ValidationError('The flat discount amount will not work unless "Flat discount" is checked.')
+
     def save(self, *args, **kwargs):
-        if self.pk is None and self.auto_apply_discount:
+        if self.flat_discount:
+            self.single_use = True
+        if self.pk is None and self.auto_apply_discount and not self.flat_discount:
             super().save(*args, **kwargs)
             create_promo_code_products(self)
         else:

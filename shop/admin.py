@@ -3,6 +3,7 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from django.contrib.contenttypes.forms import BaseGenericInlineFormSet
 from django.utils.text import slugify
 
+
 from shop.models import (
     CustomLabel,
     EmailAudit,
@@ -206,7 +207,23 @@ class PromoCodeInline(admin.TabularInline):
 
 class PromoCodeAdmin(admin.ModelAdmin):
     exclude = ('product_list', )
-    list_display = ('code', 'published', 'expires', 'single_use', )
+    list_display = (
+        'code', 'published', 'expires', 'single_use', 'flat_discount', 'flat_discount_amount', 'used',
+    )
+    readonly_fields = ('used', )
+    fieldsets = (
+        (None, {
+            'fields': ( 'published', 'code', 'expires', ),
+        }),
+        ('Flat discount', {
+            'classes': ('collapse', ),
+            'fields': ('single_use', 'flat_discount', 'flat_discount_amount', 'used', ),
+        }),
+        ('Percentage based discount', {
+            'classes': ('collapse', ),
+            'fields': ('auto_apply_discount', ),
+        }),
+    )
     inlines = [PromoCodeInline]
 
 
