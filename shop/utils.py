@@ -150,8 +150,7 @@ def update_bag_with_discount(bag, code, session):
     PromoCode = apps.get_model('shop', 'PromoCode')
 
     promo_code = PromoCode.published_objects.filter(code=code).first()
-    discount_valid = promo_code.flat_discount and promo_code.flat_discount_amount < Decimal(bag.get('grand_total'))
-    if promo_code and discount_valid:
+    if promo_code and promo_code.flat_discount and promo_code.flat_discount_amount < Decimal(bag.get('grand_total')):
         update_discount(bag, promo_code, session)
     else:
         clear_discount_data(bag)
