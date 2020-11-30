@@ -56,6 +56,8 @@ import {
   newSummaryTotal,
   newSummaryWrapper,
   nonFieldError,
+  promoCodeMessage,
+  promoCodeMessageCloseIcon,
   productRatingCount,
   productRatingGauge,
   productReviewsWrapper,
@@ -594,7 +596,10 @@ export const processPromoCode = (code) => {
     }
 
     if (response.code) {
-      promoCodeInput.value = response.code
+      promoCodeMessage.innerHTML = ''
+      promoCodeMessage.innerHTML = response.code
+      promoCodeMessage.appendChild(promoCodeMessageCloseIcon)
+      promoCodeMessage.classList.remove('hidden')
     }
   }).catch((error) => {
     console.log(error)

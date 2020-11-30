@@ -65,6 +65,9 @@
 
   {% if not review %}
     <div class="summary-row promo-code-row">
+      <div class="promo-code-message hidden">
+        <div class="promo-code-message-close-icon">&times;</div>
+      </div>
       <input class="promo-code-input" type="text" name="promo_code" placeholder="{% trans 'Enter promo code' %}" value="{{ bag.promo_code }}">
       <button class="promo-code-submit" name="submit_promo_code">{% trans 'Activate' %}</button>
     </div>

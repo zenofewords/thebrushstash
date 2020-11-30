@@ -74,6 +74,8 @@ import {
   productReview,
   productReviewForm,
   promoCodeInput,
+  promoCodeMessage,
+  promoCodeMessageCloseIcon,
   promoCodeSubmitButton,
   r1ReceiptCheckbox,
   ratingLink,
@@ -583,5 +585,9 @@ ready(() => {
       window.location.replace(search.get('next') ? search.get('next') : '/')
     }
     setTimeout(redirect, 5000)
+  })
+
+  promoCodeMessageCloseIcon && promoCodeMessageCloseIcon.addEventListener('click', event => {
+    promoCodeMessage.classList.add('hidden')
   })
 })

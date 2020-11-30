@@ -150,7 +150,8 @@ def update_bag_with_discount(bag, code, session):
     PromoCode = apps.get_model('shop', 'PromoCode')
 
     promo_code = PromoCode.published_objects.filter(code=code).first()
-    if promo_code:
+    discount_valid = promo_code.flat_discount and promo_code.flat_discount_amount < Decimal(bag.get('grand_total'))
+    if promo_code and discount_valid:
         update_discount(bag, promo_code, session)
     else:
         clear_discount_data(bag)
@@ -169,6 +170,11 @@ def update_discount(bag, promo_code, session):
 
     if len(eligible_products) < 1 and not promo_code.flat_discount:
         message = _('This code does not apply to items in your bag.')
+        return message
+
+    if promo_code.flat_discount and promo_code.flat_discount_amount >= Decimal(bag.get('grand_total')):
+        message = _('Grand total must exceed the gift card amount.')
+        return message
 
     if (len(eligible_products) > 0 or promo_code.flat_discount) and promo_code.code == bag.get('promo_code'):
         message = _('The code is already applied.')
