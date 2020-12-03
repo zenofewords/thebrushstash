@@ -3,7 +3,7 @@ from django.conf.urls import include
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth.views import LoginView, PasswordResetConfirmView
+from django.contrib.auth.views import PasswordResetConfirmView
 from django.urls import path, reverse_lazy
 
 from shop.api.urls import shop_api_urls

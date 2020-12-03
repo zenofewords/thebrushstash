@@ -8,7 +8,10 @@ cryptography==3.2.1
 django-anymail==8.1
 django-webpack-loader==0.7.0
 djangorestframework==3.12.1
+factory-boy==3.1.0
 psycopg2-binary==2.8.6
+pytest-django==4.1.0
+pytest==6.1.2
 python-dotenv==0.15.0
 python-memcached==1.59
 pytz==2020.4
