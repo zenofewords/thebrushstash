@@ -7,7 +7,6 @@ from rest_framework import (
 )
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
-from django.conf import settings
 from django.utils.timezone import now
 from django.utils.translation import gettext as _
 
@@ -18,6 +17,7 @@ from shop.api.serializers import (
     PromoCodeSerializer,
     ReviewSerializer,
     ShippingAddressSerializer,
+    ShippingCostSerializer,
     SimpleProductSerializer,
     UserInformationSerializer,
 )
@@ -33,7 +33,6 @@ from shop.models import (
     Review,
 )
 from shop.utils import (
-    apply_discount,
     get_grandtotals,
     get_totals,
     set_shipping_cost,
@@ -43,8 +42,6 @@ from shop.utils import (
 )
 from thebrushstash.constants import (
     DEFAULT_COUNTRY,
-    ipg_fields,
-    form_mandatory_fields,
 )
 from thebrushstash.utils import (
     assemble_order_response,
@@ -56,7 +53,6 @@ from thebrushstash.utils import (
 )
 from thebrushstash.models import (
     ExchangeRate,
-    Region,
 )
 
 
@@ -267,8 +263,9 @@ class ProcessOrderView(GenericAPIView):
         session['user_information']['newsletter_email_in_use'] = not created
 
         return response.Response(
-            assemble_order_response(session, cart, grand_total, serializer.data)
-        , status=status.HTTP_200_OK)
+            assemble_order_response(session, cart, grand_total, serializer.data),
+            status=status.HTTP_200_OK
+        )
 
 
 class UpdateShippingAddressView(GenericAPIView):
@@ -297,13 +294,14 @@ class UpdateShippingAddressView(GenericAPIView):
         cart = get_cart(bag)
 
         return response.Response(
-            assemble_order_response(session, cart, grand_total, session['user_information'])
-        , status=status.HTTP_200_OK)
+            assemble_order_response(session, cart, grand_total, session['user_information']),
+            status=status.HTTP_200_OK
+        )
 
 
 class UpdateShippingCostView(GenericAPIView):
     permission_classes = (AllowAny, )
-    serializer_class = CountryNameSerializer
+    serializer_class = ShippingCostSerializer
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -314,6 +312,9 @@ class UpdateShippingCostView(GenericAPIView):
             bag,
             request.session['region'],
             serializer.data.get('country_name')
+        )
+        bag.update(
+            {'in_person_pickup': serializer.data.get('in_person_pickup', False)}
         )
         if bag.get('new_grand_total'):
             bag.update(**get_grandtotals(bag, key_prefix='new_'))
@@ -339,10 +340,7 @@ class UpdatePaymentMethodView(GenericAPIView):
         session = request.session
         bag = session['bag']
 
-        total = Decimal(bag.get('total'))
         new_total = Decimal(bag.get('new_total', 0))
-        shipping_cost = Decimal(bag['shipping_cost'])
-        fee = bag.get('fees')
         session['payment_method'] = serializer.data.get('payment_method')
 
         if session['payment_method'] == InvoicePaymentMethod.CASH_ON_DELIVERY:

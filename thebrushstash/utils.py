@@ -337,6 +337,7 @@ def create_or_update_invoice(session, grand_total, data, cart, user):
     bag = session.get('bag', {})
     invoice.bag_dump = json.loads(json.dumps(bag))
     invoice.promo_code = PromoCode.objects.filter(code=bag.get('promo_code')).first()
+    invoice.in_person_pickup = bag.get('in_person_pickup', False)
 
     invoice.status = InvoiceStatus.PENDING
     invoice.cart = cart

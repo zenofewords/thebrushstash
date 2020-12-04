@@ -39,6 +39,12 @@
         {% trans "Use a different address" %}
       </label>
     </span>
+    <span id="in-person-pickup-input-wrapper" class="checkout-radio-wrapper">
+      <input id="in-person-pickup" type="radio" name="shipping-address">
+      <label for="in-person-pickup">
+        {% trans "In person pickup at the studio" %} - {{ studio_address }}
+      </label>
+    </span>
   </div>
 
   <div id="shipping-address" class="checkout-formfields" hidden>

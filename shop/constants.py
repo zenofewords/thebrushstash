@@ -79,3 +79,4 @@ FREE_SHIPPING_PRODUCTS = free_shipping_products.value if free_shipping_products 
 FREE_SHIPPING_PRICE = free_shipping_price.value if free_shipping_price else '800'
 GLS_FEE = gle_fee.value if gle_fee else '6'
 TAX = tax.value if tax else '0.25'
+STUDIO_ADDRESS = 'Draškovićeva 60, Zagreb'

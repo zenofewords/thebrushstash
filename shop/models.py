@@ -170,6 +170,7 @@ class Invoice(TimeStampMixin):
     installment_number = models.PositiveIntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(60)], blank=True, null=True
     )
+    in_person_pickup = models.BooleanField(default=False)
 
     shipping_first_name = models.CharField(max_length=500, blank=True)
     shipping_last_name = models.CharField(max_length=500, blank=True)

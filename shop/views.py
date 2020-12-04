@@ -16,7 +16,10 @@ from account.forms import AddressForm
 from account.models import (
     NewsletterRecipient,
 )
-from shop.constants import GLS_FEE
+from shop.constants import (
+    GLS_FEE,
+    STUDIO_ADDRESS,
+)
 from shop.models import (
     Invoice,
     InvoiceItem,
@@ -115,6 +118,7 @@ class CheckoutView(FormView):
             'subscribed_to_newsletter': subscribed_to_newsletter,
             'gls_fee': get_price_with_currency(gls_fee, currency),
             'exchange_rates': exchange_rates,
+            'studio_address': STUDIO_ADDRESS,
         })
         return context
 

@@ -158,7 +158,8 @@ def update_bag_with_discount(bag, code, session):
     PromoCode = apps.get_model('shop', 'PromoCode')
 
     promo_code = PromoCode.published_objects.filter(code=code).first()
-    if promo_code and promo_code.flat_discount and promo_code.flat_discount_amount < Decimal(bag.get('grand_total')):
+    gt = Decimal(bag.get('grand_total'))
+    if promo_code and promo_code.flat_discount and promo_code.flat_discount_amount < gt:
         update_discount(bag, promo_code, session)
     else:
         clear_discount_data(bag)
@@ -215,7 +216,7 @@ def clear_discount_data(bag):
     bag.pop('new_grand_total', None)
     bag.pop('new_tax', None)
 
-    for _, product in bag.get('products', {}).items():
+    for foo, product in bag.get('products', {}).items():
         product.pop('discount', None)
         product.pop('new_price_hrk', None)
         product.pop('new_subtotal', None)

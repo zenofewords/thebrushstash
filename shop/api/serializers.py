@@ -67,6 +67,11 @@ class CountryNameSerializer(serializers.Serializer):
     country_name = serializers.CharField(required=True, max_length=50)
 
 
+class ShippingCostSerializer(serializers.Serializer):
+    country_name = serializers.CharField(required=False, max_length=50)
+    in_person_pickup = serializers.BooleanField(required=False)
+
+
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review

@@ -34,6 +34,8 @@ import {
   emailInputs,
   fieldInfo,
   fieldInfoIcon,
+  inPersonPickupInput,
+  inPersonPickupInputWrapper,
   invoiceFormAddressInput,
   invoiceFormAgreeToTermsInput,
   invoiceFormCityInput,
@@ -60,19 +62,19 @@ import {
   logingFormPasswordInput1,
   logingFormPasswordInput2,
   logingFormUsernameInput,
-  navigationWrapper,
   navMobileCloseButton,
   navMobileOpenButton,
+  navigationWrapper,
   phoneNumberInput,
   previousStepLink,
-  productDescription,
   productAboutTab,
+  productDescription,
+  productReview,
   productReviewContent,
   productReviewContentErrorMessage,
+  productReviewForm,
   productReviewRatingErrorMessage,
   productReviewTab,
-  productReview,
-  productReviewForm,
   promoCodeInput,
   promoCodeMessage,
   promoCodeMessageCloseIcon,
@@ -84,9 +86,9 @@ import {
   removeProductButtons,
   sameShippingAddressInput,
   sameShippingAddressInputWrapper,
+  shipToMenu,
   shippingAddressChoice,
   shippingAddressWrapper,
-  shipToMenu,
   starScoreInputs,
   submitReviewButton,
   subscribeToNewsletterButton,
@@ -281,6 +283,21 @@ ready(() => {
       sameShippingAddressInput.checked = true
       shippingAddressWrapper.hidden = true
       updateShippingCostForCountry(invoiceFormCountryInput.value)
+
+      invoiceFormShippingFirstNameInput.required = false
+      invoiceFormShippingLastNameInput.required = false
+      invoiceFormShippingCountryInput.required = false
+      invoiceFormShippingAddressInput.required = false
+      invoiceFormShippingCityInput.required = false
+      invoiceFormShippingZipCodeInput.required = false
+    }
+  })
+
+  inPersonPickupInputWrapper && inPersonPickupInputWrapper.addEventListener('click', (event) => {
+    if (!inPersonPickupInput.checked) {
+      inPersonPickupInput.checked = true
+      shippingAddressWrapper.hidden = true
+      updateShippingCostForCountry(null, null, true)
 
       invoiceFormShippingFirstNameInput.required = false
       invoiceFormShippingLastNameInput.required = false

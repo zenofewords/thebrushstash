@@ -85,11 +85,9 @@ export const updateShippingAddress = (data) => fetchRequest(
   data,
 )
 
-export const updateShippingCost = (countryName) => fetchRequest(
+export const updateShippingCost = (data) => fetchRequest(
   '/api/update-shipping-cost/',
-  {
-    country_name: countryName,
-  }
+  data,
 )
 
 export const subscribeToNewsletter = (emailData) => fetchRequest(

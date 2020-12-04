@@ -497,8 +497,13 @@ export const clearErrorMessages = () => {
   }
 }
 
-export const updateShippingCostForCountry = (countryName, callback = null) => {
-  updateShippingCost(countryName).then((data) => data.json().then((response) => {
+export const updateShippingCostForCountry = (countryName, callback = null, inPersonPickup = false) => {
+  const shippingCostData = inPersonPickup ? {
+    in_person_pickup: true,
+  } : {
+    country_name: countryName,
+  }
+  updateShippingCost(shippingCostData).then((data) => data.json().then((response) => {
     summaryShippingCost.innerHTML = formatPrice(
       response.bag['shipping_cost'], response.exchange_rate, response.currency
     )

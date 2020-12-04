@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-30 09:29+0000\n"
+"POT-Creation-Date: 2020-12-07 11:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -171,7 +171,7 @@ msgstr ""
 "Niste postavili lozinku. Kliknite na \"Zaboravili ste lozinku?\" kako biste "
 "dobili link za reset."
 
-#: shop/api/views.py:125
+#: shop/api/views.py:121
 msgid "The code you used is invalid or inactive."
 msgstr "Unijeli ste neispravan ili neaktivan kod."
 
@@ -260,7 +260,11 @@ msgstr "Isto kao i adresa naplate"
 msgid "Use a different address"
 msgstr "Koristite drugu adresu za dostavu"
 
-#: shop/templates/shop/includes/checkout_ipg_form.html:62
+#: shop/templates/shop/includes/checkout_ipg_form.html:45
+msgid "In person pickup at the studio"
+msgstr "Osobno preuzimanje u studiju"
+
+#: shop/templates/shop/includes/checkout_ipg_form.html:68
 #: shop/templates/shop/includes/checkout_payment_form.html:29
 msgid "Place order"
 msgstr "Potvrdite narudžbu"
@@ -428,7 +432,17 @@ msgstr ""
 "se samo u slučaju dolaska novih proizvoda ili kako bismo vas obavijestiti o "
 "eventualnim posebnim ponudama."
 
-#: shop/templates/shop/purchase_complete_email.html:112
+#: shop/templates/shop/purchase_complete_email.html:113
+msgid ""
+"Thank you for your order and for choosing The Brush Stash! As requested, "
+"your parcel will be waiting for you at our studio (Draškovićeva 60, Zagreb) "
+"from the next business day."
+msgstr ""
+"Hvala Vam na kupnji i povjerenju koje ste nam ukazali odabirom The Brush "
+"Stash kistova! Vaš paket će biti spreman za preuzimanje na adresi studia "
+"(Draškovićeva 60, Zagreb) od sljedećeg radnog dana."
+
+#: shop/templates/shop/purchase_complete_email.html:115
 #: shop/templates/shop/purchase_complete_email.txt:12
 msgid ""
 "Thank you for your order and for choosing The Brush Stash! Your parcel will "
@@ -438,114 +452,114 @@ msgstr ""
 "Stash kistova! Paketić ćemo pripremiti i poslati na Vašu adresu u najkraćem "
 "mogućem roku."
 
-#: shop/templates/shop/purchase_complete_email.html:113
+#: shop/templates/shop/purchase_complete_email.html:117
 #: shop/templates/shop/purchase_complete_email.txt:13
 msgid "Your order number is:"
 msgstr "Broj Vaše narudžbe je:"
 
-#: shop/templates/shop/purchase_complete_email.html:131
+#: shop/templates/shop/purchase_complete_email.html:135
 #: shop/templates/shop/purchase_complete_email.txt:15
 msgid "BILLING TO:"
 msgstr "ADRESA ZA NAPLATU:"
 
-#: shop/templates/shop/purchase_complete_email.html:134
+#: shop/templates/shop/purchase_complete_email.html:138
 #: shop/templates/shop/purchase_complete_email.txt:26
 msgid "SHIPPING TO:"
 msgstr "ADRESA DOSTAVE:"
 
-#: shop/templates/shop/purchase_complete_email.html:264
+#: shop/templates/shop/purchase_complete_email.html:268
 #: shop/templates/shop/purchase_complete_email.txt:37
 msgid "ITEMS ORDERED"
 msgstr "NARUČENI PROIZVODI:"
 
-#: shop/templates/shop/purchase_complete_email.html:276
+#: shop/templates/shop/purchase_complete_email.html:280
 #: shop/templates/shop/purchase_complete_email.txt:38
 msgid "PRODUCT"
 msgstr "PROIZVOD"
 
-#: shop/templates/shop/purchase_complete_email.html:279
+#: shop/templates/shop/purchase_complete_email.html:283
 #: shop/templates/shop/purchase_complete_email.txt:39
 msgid "PRICE"
 msgstr "CIJENA"
 
-#: shop/templates/shop/purchase_complete_email.html:282
+#: shop/templates/shop/purchase_complete_email.html:286
 #: shop/templates/shop/purchase_complete_email.txt:40
 msgid "QTY"
 msgstr "KOL"
 
-#: shop/templates/shop/purchase_complete_email.html:285
+#: shop/templates/shop/purchase_complete_email.html:289
 #: shop/templates/shop/purchase_complete_email.txt:41
 msgid "TOTAL"
 msgstr "UKUPNO"
 
-#: shop/templates/shop/purchase_complete_email.html:340
+#: shop/templates/shop/purchase_complete_email.html:344
 #: shop/templates/shop/purchase_complete_email.txt:48
 msgid "PAYMENT:"
 msgstr "NAPLATA:"
 
-#: shop/templates/shop/purchase_complete_email.html:344
+#: shop/templates/shop/purchase_complete_email.html:348
 #: shop/templates/shop/purchase_complete_email.txt:50
 msgid "INSTALLMENTS:"
 msgstr "RATE:"
 
-#: shop/templates/shop/purchase_complete_email.html:369
+#: shop/templates/shop/purchase_complete_email.html:373
 #: shop/templates/shop/purchase_complete_email.txt:52
 #: thebrushstash/templates/thebrushstash/includes/bag.html:38
 msgid "Subtotal:"
 msgstr "Cijena kistova:"
 
-#: shop/templates/shop/purchase_complete_email.html:378
-#: shop/templates/shop/purchase_complete_email.html:406
+#: shop/templates/shop/purchase_complete_email.html:382
+#: shop/templates/shop/purchase_complete_email.html:410
 #: shop/templates/shop/purchase_complete_email.txt:54
 #: shop/templates/shop/purchase_complete_email.txt:61
 msgid "VAT included:"
 msgstr "Uključen PDV:"
 
-#: shop/templates/shop/purchase_complete_email.html:395
+#: shop/templates/shop/purchase_complete_email.html:399
 #: shop/templates/shop/purchase_complete_email.txt:57
 msgid "New subtotal:"
 msgstr "Cijena kistova s popustom:"
 
-#: shop/templates/shop/purchase_complete_email.html:423
+#: shop/templates/shop/purchase_complete_email.html:427
 #: shop/templates/shop/purchase_complete_email.txt:64
 #: shop/templates/shop/tags/purchase_summary_tag.html:24
 msgid "Shipping:"
 msgstr "Dostava:"
 
-#: shop/templates/shop/purchase_complete_email.html:434
+#: shop/templates/shop/purchase_complete_email.html:438
 #: shop/templates/shop/purchase_complete_email.txt:66
 msgid "GLS (cash on delivery):"
 msgstr "GLS (plaćanje pouzećem):"
 
-#: shop/templates/shop/purchase_complete_email.html:451
+#: shop/templates/shop/purchase_complete_email.html:455
 #: shop/templates/shop/purchase_complete_email.txt:69
-#: shop/templates/shop/tags/purchase_summary_tag.html:91
+#: shop/templates/shop/tags/purchase_summary_tag.html:94
 msgid "New grand total:"
 msgstr "Ukupna cijena s popustom:"
 
-#: shop/templates/shop/purchase_complete_email.html:460
+#: shop/templates/shop/purchase_complete_email.html:464
 #: shop/templates/shop/purchase_complete_email.txt:72
 #: shop/templates/shop/tags/purchase_summary_tag.html:40
 msgid "Grand total:"
 msgstr "Ukupna cijena:"
 
-#: shop/templates/shop/purchase_complete_email.html:472
+#: shop/templates/shop/purchase_complete_email.html:476
 #: shop/templates/shop/purchase_complete_email.txt:77
 msgid "New grand total (HRK):"
 msgstr "Ukupna cijena s popustom (HRK):"
 
-#: shop/templates/shop/purchase_complete_email.html:482
+#: shop/templates/shop/purchase_complete_email.html:486
 #: shop/templates/shop/purchase_complete_email.txt:80
 #: shop/templates/shop/tags/purchase_summary_tag.html:49
 msgid "Grand total (HRK):"
 msgstr "Ukupna cijena (HRK):"
 
-#: shop/templates/shop/purchase_complete_email.html:504
+#: shop/templates/shop/purchase_complete_email.html:508
 #: shop/templates/shop/purchase_complete_email.txt:84
 msgid "Thank you for using The Brush Stash products!"
 msgstr "Hvala Vam što koristite The Brush Stash proizvode!"
 
-#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:502
+#: shop/templates/shop/purchase_completed.html:6 thebrushstash/utils.py:503
 msgid "Purchase complete"
 msgstr "Vaša narudžba je izvršena!"
 
@@ -624,7 +638,7 @@ msgid "Total:"
 msgstr "Cijena proizvoda:"
 
 #: shop/templates/shop/tags/purchase_summary_tag.html:16
-#: shop/templates/shop/tags/purchase_summary_tag.html:82
+#: shop/templates/shop/tags/purchase_summary_tag.html:85
 msgid "VAT (included in price):"
 msgstr "PDV (uključen u cijenu):"
 
@@ -640,31 +654,31 @@ msgstr "Plaćanje"
 msgid "Continue shopping"
 msgstr "Nastavak kupnje"
 
-#: shop/templates/shop/tags/purchase_summary_tag.html:68
+#: shop/templates/shop/tags/purchase_summary_tag.html:71
 msgid "Enter promo code"
 msgstr "Unesite promotivni kod"
 
-#: shop/templates/shop/tags/purchase_summary_tag.html:69
+#: shop/templates/shop/tags/purchase_summary_tag.html:72
 msgid "Activate"
 msgstr "Aktiviraj"
 
-#: shop/templates/shop/tags/purchase_summary_tag.html:74
+#: shop/templates/shop/tags/purchase_summary_tag.html:77
 msgid "New total:"
 msgstr "Cijena s popustom:"
 
-#: shop/templates/shop/tags/purchase_summary_tag.html:101
+#: shop/templates/shop/tags/purchase_summary_tag.html:104
 msgid "New grand total (hrk):"
 msgstr "Nova ukupna cijena (HRK):"
 
-#: shop/utils.py:171
+#: shop/utils.py:180
 msgid "This code does not apply to items in your bag."
 msgstr "Ovaj kod se ne odnosi na sadržaj Vaše košarice."
 
-#: shop/utils.py:174
+#: shop/utils.py:184
 msgid "Grand total must exceed the gift card amount."
 msgstr "Ukupan iznos mora biti veći od iznosa poklon bona."
 
-#: shop/utils.py:177
+#: shop/utils.py:188
 msgid "The code is already applied."
 msgstr "Kod je već unešen i aktiviran."
 
@@ -1034,19 +1048,19 @@ msgstr "Prijavljeni ste, hvala!"
 msgid "You've been subscribed!"
 msgstr "Prijavljeni ste, hvala!"
 
-#: thebrushstash/utils.py:420
+#: thebrushstash/utils.py:421
 msgid "Activate your account"
 msgstr "Aktivirajte svoj korisnički račun"
 
-#: thebrushstash/utils.py:446
+#: thebrushstash/utils.py:447
 msgid "Subscribe to newsletter"
 msgstr "Pretplatite se na newsletter"
 
-#: thebrushstash/utils.py:685
+#: thebrushstash/utils.py:686
 msgid "There's nothing in your bag."
 msgstr "Vaša košarica je prazna."
 
-#: thebrushstash/utils.py:693
+#: thebrushstash/utils.py:694
 msgid ""
 "Looks like {} is all sold out.\n"
 "                You'll have to remove it from your bag to continue."
@@ -1054,7 +1068,7 @@ msgstr ""
 "Čini se da je {} rasprodan. Morat ćete ga ukloniti iz košarice da bi mogli "
 "nastaviti."
 
-#: thebrushstash/utils.py:698
+#: thebrushstash/utils.py:699
 msgid ""
 "We've got only {} {} left, please remove at least {}\n"
 "                from your bag to continue."
@@ -1062,7 +1076,7 @@ msgstr ""
 "Ostalo nam je samo {} {}, molimo uklonite barem {} iz košarice da bi mogli "
 "nastaviti."
 
-#: thebrushstash/utils.py:703
+#: thebrushstash/utils.py:704
 msgid ""
 "{}'s price has changed, please remove it from your bag to continue.\n"
 "                You can readd it from the home or product page."
