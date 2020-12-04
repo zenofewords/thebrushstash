@@ -736,17 +736,29 @@ def get_random_string():
     return '{}-{}'.format(secrets.token_urlsafe(12), now().time().microsecond)
 
 
-def get_installment_option(grand_total):
-    installment_option = InstallmentOption.objects.filter(
-        range_from__lte=grand_total, range_to__gte=grand_total
-    ).first()
-    if installment_option:
-        return installment_option.installment_code
+def get_installment_option(bag, grand_total):
+    if installments_allowed(bag):
+        installment_option = InstallmentOption.objects.filter(
+            range_from__lte=grand_total, range_to__gte=grand_total
+        ).first()
+        if installment_option:
+            return installment_option.installment_code
     return DEFAULT_INSTALLMENT_CODE
 
 
+def installments_allowed(bag):
+    allow_installments = True
+    for product_name in bag.get('products'):
+        product = Product.objects.filter(slug=slugify(product_name)).first()
+
+        if product and not product.allow_installments:
+            allow_installments = False
+            break
+    return not bag.get('flat_discount_amount') and allow_installments
+
+
 def assemble_order_response(session, cart, grand_total, data):
-    installment_option = get_installment_option(grand_total)
+    installment_option = get_installment_option(session['bag'], grand_total)
     return {
         'order_number': session['order_number'],
         'cart': cart,

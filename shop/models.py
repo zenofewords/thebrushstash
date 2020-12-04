@@ -29,6 +29,7 @@ class Product(ShopObjectMixin, TimeStampMixin, PublishedMixin):
     foreword = models.TextField(
         max_length=300, blank=True, help_text='Short decription',
     )
+    allow_installments = models.BooleanField(default=True)
     free_shipping = models.BooleanField(default=False)
     new = models.BooleanField(default=True)
     custom_label = models.ForeignKey(

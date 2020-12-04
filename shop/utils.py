@@ -1,7 +1,7 @@
-import operator
 from decimal import Decimal
 
 from django.apps import apps
+from django.utils.text import slugify
 from django.utils.translation import gettext as _
 
 from shop.constants import (
@@ -12,13 +12,11 @@ from shop.constants import (
 from thebrushstash.constants import (
     DEFAULT_COUNTRY,
     DEFAULT_CURRENCY,
-    DEFAULT_REGION,
     currency_symbol_mapping,
 )
 from thebrushstash.models import (
     Country,
     ExchangeRate,
-    Region,
 )
 
 defaultProductType = 'brush'
@@ -59,7 +57,18 @@ def update_product_rating(product):
 def set_shipping_cost(bag, region, country_name=None):
     quantity_condition = int(bag.get('total_quantity', 0)) >= int(FREE_SHIPPING_PRODUCTS)
     cost_condition = Decimal(bag.get('total', 0)) >= Decimal(FREE_SHIPPING_PRICE)
-    free_shipping = (quantity_condition or cost_condition) and country_name == DEFAULT_COUNTRY
+
+    product_condition = False
+    Product = apps.get_model('shop', 'Product')
+
+    for product_name in bag.get('products'):
+        product = Product.objects.filter(slug=slugify(product_name)).first()
+
+        if product and product.free_shipping:
+            product_condition = True
+            break
+    conditions = (quantity_condition or cost_condition or product_condition)
+    free_shipping = conditions and country_name == DEFAULT_COUNTRY
 
     cost = 0
     if country_name:
@@ -72,13 +81,12 @@ def set_shipping_cost(bag, region, country_name=None):
     bag['grand_total'] = str(Decimal(bag.get('total', 0)) + shipping_cost)
 
 
-
 def set_tax(bag, key_prefix=''):
     total = Decimal(bag.get('{}{}'.format(key_prefix, 'total'), 0))
     bag['{}{}'.format(key_prefix, 'tax')] = str(round(total - total / (Decimal(TAX) + 1), 2))
 
 
-def get_totals(data, key, operator, product={}, quantity=None):
+def get_totals(data, key, operator_param, product={}, quantity=None):
     quantity = quantity if quantity else data.get('quantity')
 
     price_hrk = Decimal(data.get('price_hrk'))
@@ -86,7 +94,7 @@ def get_totals(data, key, operator, product={}, quantity=None):
     prices = {'price_hrk': str(price_hrk)} if key == 'subtotal' else {}
 
     if product:
-        return {'{}'.format(key): str(operator(Decimal(product.get('{}'.format(key))), subototal))}
+        return {'{}'.format(key): str(operator_param(Decimal(product.get('{}'.format(key))), subototal))}
     else:
         return {
             '{}'.format(key): str(subototal),

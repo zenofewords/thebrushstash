@@ -137,7 +137,7 @@ class ProductAdmin(AutoSlugAdmin):
         (None, {
             'fields': (
                 'product_type', 'name', 'slug', 'in_stock', 'ordering', 'published',
-                'new', 'custom_label',
+                'allow_installments', 'free_shipping', 'new', 'custom_label',
             )
         }),
         ('Text fields (ENG)', {
