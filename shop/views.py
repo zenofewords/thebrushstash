@@ -94,7 +94,7 @@ class CheckoutView(FormView):
 
         if user_information:
             country_name = user_information.get('country')
-        elif user.is_authenticated:
+        elif user.is_authenticated and user.country:
             country_name = user.country.name
         bag = session.get('bag')
         set_shipping_cost(bag, session['region'], country_name)
