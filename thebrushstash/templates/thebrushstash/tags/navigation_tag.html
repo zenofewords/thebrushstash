@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load thebrushstash_tags %}
 
-<ul class="inner-wrapper">
+<ul class="navigation-inner-wrapper">
   {% for navigation_item in navigation_items %}
     <li class="nav-item{% if navigation_item.css_class %} {{ navigation_item.css_class }}{% endif %}">
       <a href="{{ navigation_item.location }}" {% if current_url == navigation_item.location %} class="active"{% endif %}>

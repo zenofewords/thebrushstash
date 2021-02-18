@@ -8,9 +8,6 @@
   border-top: $discreet-grey-border
   position: relative
 
-  .navigation-mobile-controls
-    display: none
-
   &.sticky-nav
     border-bottom: $tbs-border
     margin-top: -$header-height
@@ -18,48 +15,169 @@
     width: 100%
     z-index: 2
 
-  .inner-wrapper
-    @extend %content-wrapper
-    justify-content: space-between
+.navigation-mobile-controls
+  display: none
 
-    li
-      padding: 10px 0 0
+.navigation-inner-wrapper
+  @extend %content-wrapper
+  justify-content: space-between
+
+  li
+    padding: 10px 0 0
+
+    &:first-child
+      margin-left: 5.5%
+
+    &:last-child
+      margin-right: $gutter * 2.5
+
+    a
+      color: $color-white
+
+  .nav-item
+    font-family: $header-font
+    position: relative
+    text-transform: uppercase
+    white-space: nowrap
+
+    a
+      padding: 10px
+
+      &:hover
+        opacity: $hover-opacity
+
+  .nav-item-log-in-register,
+  .nav-item-bag
+    @include nav-item-bag
+
+    .user-link,
+    .bag-link
+      &:hover
+        opacity: $hover-opacity
+
+    .user-icon
+      background: url('data:image/svg+xml;base64,#{$userIcon}') no-repeat center
+      margin-right: 4px
+      padding: 16px
+      position: relative
+
+  .bag-item-count
+    @include bag-item-count
+
+
+@media only screen and (max-width: $media-mobile)
+  .navigation-wrapper
+    height: 100vh
+    left: -100%
+    margin-top: 0
+    max-width: 300px
+    min-height: 420px
+    position: absolute
+    top: 0
+    transition: left $transition-duration-short
+    width: 80%
+    z-index: 1
+
+    &.nav-mobile-open
+      left: 0
+
+      &::before
+        background-color: $hover-black
+        content: ''
+        height: 100%
+        left: 0
+        position: fixed
+        top: 0
+        width: 100%
+
+  .navigation-mobile-controls
+    display: flex
+    justify-content: space-between
+    padding: 20px 15px
+
+    .ship-to-wrapper
+      @include ship-to-wrapper
+      left: 0
+      position: relative
+      top: 0
+
+      &::after
+        @include input-arrow
+        left: 83%
+        top: 8px
+
+  .language-forms-mobile
+    display: inline
+
+    #language-form-select
+      background-color: $color-black
+      border: 0
+      color: $color-white
+      font-size: 12px
+      height: 20px
+      line-height: 14px
+      margin: 0 0 0 5px
+      padding: 0 0 1px 7px
+      width: 45px
+
+  .nav-mobile-close-button
+    color: $color-white
+    font-size: 40px
+    font-weight: 100
+    line-height: 13px
+    position: absolute
+    right: 20px
+    top: 23px
+
+  .navigation-inner-wrapper
+    .nav-item
+      padding: 0
+      width: 100%
 
       &:first-child
-        margin-left: 5.5%
+        margin: 0 auto
+
+      a
+        display: flex
+        justify-content: center
+        padding: 15px 0
+
+    .nav-item-log-in-register
+      border-top: $discreet-grey-border
+      bottom: 60px
+      left: 0
+      margin: 0 5%
+      padding: 25px 0 30px
+      position: absolute
+      text-align: center
+      width: 90%
+
+    .nav-item-bag
+      position: fixed
+      right: 6px
+      top: 6px
 
       &:last-child
-        margin-right: $gutter * 2.5
+        margin-right: 20px
 
-      a
-        color: $color-white
-
-    .nav-item
-      font-family: $header-font
-      position: relative
-      text-transform: uppercase
-      white-space: nowrap
-
-      a
-        padding: 10px
-
-        &:hover
-          opacity: $hover-opacity
-
-    .nav-item-log-in-register,
-    .nav-item-bag
-      @include nav-item-bag
-
-      .user-link,
       .bag-link
         &:hover
-          opacity: $hover-opacity
+          opacity: 1
 
-      .user-icon
-        background: url('data:image/svg+xml;base64,#{$userIcon}') no-repeat center
-        margin-right: 4px
-        padding: 16px
-        position: relative
+      .bag-icon-label
+        display: none
 
-    .bag-item-count
-      @include bag-item-count
+      .bag-item-count
+        margin: 0
+
+  #bag
+    opacity: 1
+    top: 51px
+    transform: translate(100%, 0)
+    transition: transform $transition-duration-short
+
+    &.bag-show
+      transform: translate(-3%, 0)
+
+    .bag-product-remove
+      padding: 0 3px

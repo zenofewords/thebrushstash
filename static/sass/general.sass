@@ -259,3 +259,84 @@ button
   font-weight: $heavy
   line-height: 15px
   max-width: 480px
+
+
+@media only screen and (max-width: $media-mobile)
+  .main-wrapper
+    margin-top: 80px
+
+    &.sticky-nav-margin
+      margin-top: 80px
+
+  %content-wrapper
+    flex-direction: column
+
+  .header-wrapper
+    background: radial-gradient(ellipse at center, $color-gradient 0%, $color-black 200px)
+    background-size: 100% 100%
+    border-bottom: $discreet-grey-border
+    position: fixed
+    width: 100%
+    z-index: 1
+
+    .header
+      height: 56px
+
+      .ship-to-wrapper
+        display: none
+
+    .nav-mobile-open-button
+      border-bottom: 1px solid $color-white
+      border-top: 1px solid $color-white
+      color: $color-white
+      display: initial
+      height: 9px
+      left: 5px
+      margin: 15px
+      position: fixed
+      top: 7px
+      width: 14px
+
+      hr
+        border: 0
+        border-top: 1px solid $color-white
+        margin: 4px 0 0
+
+    .header-logo
+      height: 20px
+      width: 170px
+
+  iframe
+    border: 0
+    height: 50vh
+    width: 100vw
+
+  .auth-wrapper
+    .errorlist
+      left: auto
+      padding: 5px 0 0
+      position: relative
+      top: auto
+
+
+@media only screen and (orientation: portrait) and (min-width: 768px)
+  .header-wrapper
+    background-position: 50% 50%
+    background-size: 100% 220%
+
+@media only screen and (orientation: landscape) and (max-height: 440px)
+  .header-wrapper
+    background-position: 50% 50%
+    background-size: 100% 220%
+
+
+@media only screen and (orientation: landscape)
+  iframe
+    border: 0
+    height: 90vh
+    width: 90vw
+
+
+@media (prefers-reduced-motion: reduce)
+  html
+    scroll-behavior: auto

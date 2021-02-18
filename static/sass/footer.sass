@@ -188,3 +188,51 @@
   font-weight: $heavy
   line-height: 15px
   padding: 27px 0
+
+
+@media only screen and (max-width: $media-mobile)
+  .social-wrapper
+    border: 0
+    border-top: $discreet-grey-border
+    margin-top: 15px
+
+  .social-inner-wrapper
+    &::after
+      display: none
+
+  .social-link
+    margin: 20px auto
+
+  .newsletter-info-wrapper
+    margin: 0
+    text-align: center
+    width: 100%
+
+  .newsletter-join-text
+    margin: 0 0 20px
+    padding: 0 24px
+
+  .newsletter-info-text
+    margin: 0 0 20px
+    padding: 0 $gutter
+
+  .newsletter-join-wrapper
+    margin: 0 auto
+    max-width: 500px
+    width: calc(100% - #{$gutter} * 2)
+
+  .footer-inner-wrapper
+    a
+      margin: 20px 15px 0
+      padding: 10px
+      width: fit-content
+
+      &:last-child
+        margin-bottom: 20px
+
+  .credit-card-logos-wrapper
+    a
+      margin: 1%
+
+    &.preview
+      padding: 10px 0

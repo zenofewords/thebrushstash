@@ -352,3 +352,59 @@
   .more-products-wrapper
     @extend .products-wrapper
     margin: 40px 0
+
+
+@media only screen and (max-width: $media-mobile)
+  .product-detail-wrapper
+    flex-direction: column
+
+    .gallery-wrapper
+      padding: 0
+
+      .images-with-preview
+        pointer-events: none
+
+      .image-wrapper
+        .picture
+          height: auto
+          width: 100%
+
+        &.play-icon
+          &::before
+            left: 30%
+            top: 37%
+
+    .detail-wrapper
+      margin-top: 30px
+
+  .product-description-wrapper
+    flex-direction: column-reverse
+    margin-top: 30px
+
+    .text-wrapper
+      margin-top: 20px
+      min-width: 0
+      padding: 0
+
+    .media-wrapper
+      .image-wrapper
+        height: 100%
+        width: auto
+
+  .more-from-shop-wrapper
+    margin-top: 30px
+
+
+@media only screen and (orientation: portrait) and (max-width: 687px)
+  .product-detail-wrapper
+    .gallery-wrapper
+      .image-wrapper
+        width: auto
+
+  .products-wrapper
+    .product
+      height: 100%
+      padding-bottom: 15px
+
+      p
+        height: auto
