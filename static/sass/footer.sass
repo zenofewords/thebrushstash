@@ -1,191 +1,190 @@
-@import './icons/footerIcons.sass'
-@import './variables.sass'
+@import './icons/footerIcons'
+@import './variables'
+
 
 .cookie-wrappper
-  position: fixed
+  background-color: $color-white
   bottom: 0
+  box-shadow: $box-shadow
+  position: fixed
   right: 0
   width: 100%
   z-index: 1
-  background-color: #fff
-  box-shadow: $boxShadow
 
-  .info
-    margin: 0
-    padding: 20px 50px
+.cookie-info
+  margin: 0
+  padding: 20px 50px
 
-  .accept-cookie
-    position: absolute
-    top: 10px
-    right: 30px
-    font-size: 30px
-    cursor: pointer
+.cookie-accept
+  cursor: pointer
+  font-size: 30px
+  position: absolute
+  right: 30px
+  top: 10px
 
 .social-wrapper
-  border: $discreetGreyBorder
+  border: $discreet-grey-border
   margin-top: 40px
 
-  .inner-wrapper
-    @extend %content-wrapper
-    position: relative
+.social-inner-wrapper
+  @extend %content-wrapper
+  position: relative
 
-    &:after
-      content: ''
-      position: absolute
-      top: 9px
-      left: 50%
-      height: 32px
-      width: 1px
-      opacity: 0.2
-      background-color: #000
+  &::after
+    background-color: $color-black
+    content: ''
+    height: 32px
+    left: 50%
+    opacity: .2
+    position: absolute
+    top: 9px
+    width: 1px
 
-    .social-link
-      position: relative
-      display: inline-block
-      font-size: 16px
-      font-weight: $heavy
-      line-height: 20px
-      margin: 16px auto
+.social-link
+  display: inline-block
+  font-size: 16px
+  font-weight: $heavy
+  line-height: 20px
+  margin: 16px auto
+  position: relative
 
-      &:hover
-        opacity: $hoverOpacity
+  &:hover
+    opacity: $hover-opacity
 
-      .icon
-        padding: 10px 16px
-        margin-right: 7px
-        height: 31px
-        width: 31px
+.social-icon
+  height: 31px
+  margin-right: 7px
+  padding: 10px 16px
+  width: 31px
 
-      .facebook-icon
-        background: url('data:image/svg+xml;base64,#{$facebookIcon}') no-repeat center
+.facebook-icon
+  background: url('data:image/svg+xml;base64,#{$facebookIcon}') no-repeat center
 
-      .instagram-icon
-        background: url('data:image/svg+xml;base64,#{$instagramIcon}') no-repeat center
+.instagram-icon
+  background: url('data:image/svg+xml;base64,#{$instagramIcon}') no-repeat center
 
 .newsletter-wrapper
-  background-color: #f1f6ff
+  background-color: $color-dirty-white
 
-  .inner-wrapper
-    @extend %content-wrapper
-    align-items: center
-    padding: 28px 0
+.newsletter-inner-wrapper
+  @extend %content-wrapper
+  align-items: center
+  padding: 28px 0
 
-    .info-wrapper
-      margin: 15px 0 18px $gutter
-      width: calc(50% - #{$gutter})
+.newsletter-info-wrapper
+  margin: 15px 0 18px $gutter
+  width: calc(50% - #{$gutter})
 
-      .join-text
-        margin: 0 50px 0 0
-        font-size: 18px
-        font-weight: $heavy
-        line-height: 15px
-        line-height: 24px
+.newsletter-join-text
+  font-size: 18px
+  font-weight: $heavy
+  line-height: 24px
+  margin: 0 50px 0 0
 
-      .info-text
-        margin: 10px 50px 0 0
-        font-size: 14px
-        font-weight: $heavy
-        line-height: 20px
+.newsletter-info-text
+  font-size: 14px
+  font-weight: $heavy
+  line-height: 20px
+  margin: 10px 50px 0 0
 
-    .join-wrapper
-      position: relative
-      display: flex
-      flex-flow: row nowrap
-      margin-right: $gutter
-      width: calc(50% - #{$gutter})
+.newsletter-join-wrapper
+  display: flex
+  flex-flow: row nowrap
+  margin-right: $gutter
+  position: relative
+  width: calc(50% - #{$gutter})
 
-      .email-input
-        border-top-left-radius: 1px
-        border-bottom-left-radius: 1px
-        border: 0
-        width: 100%
-        padding: 18px
-        font-family: $bodyFont
-        font-size: 16px
-        font-style: italic
-        font-weight: $heavy
-        line-height: 20px
+  button
+    font-family: $header-font
+    line-height: 21px
+    padding: 19px 33px 16px
 
-        &::placeholder,
-        &::-webkit-input-placeholder
-          font-family: $bodyFont
-          font-size: 16px
-          font-style: italic
-          font-weight: $heavy
-          line-height: 19px
-          color: #000
-          opacity: 0.4
+    &:disabled
+      cursor: not-allowed
+      opacity: .3
 
-        &.confirm
-          width: 0
-          height: 0
-          padding: 0
+    &:hover
+      background-color: $hover-black
+      color: $color-white
 
-      button
-        font-family: $headerFont
-        line-height: 21px
-        padding: 19px 33px 16px
+.newsletter-email-input
+  border: 0
+  border-bottom-left-radius: 1px
+  border-top-left-radius: 1px
+  font-family: $body-font
+  font-size: 16px
+  font-style: italic
+  font-weight: $heavy
+  line-height: 20px
+  padding: 18px
+  width: 100%
 
-        &:disabled
-          opacity: 0.3
-          cursor: not-allowed
+  &::placeholder
+    color: $color-black
+    font-family: $body-font
+    font-size: 16px
+    font-style: italic
+    font-weight: $heavy
+    line-height: 19px
+    opacity: .4
 
-        &:hover
-          color: #fff
-          background-color: $hoverBlack
+.newsletter-input-confirm
+  height: 0
+  padding: 0
+  width: 0
 
-      .join-newsletter-message
-        position: absolute
-        top: 61px
-        left: 1px
+.newsletter-join-message
+  left: 1px
+  position: absolute
+  top: 61px
 
 .footer-nav-wrapper
-  border-top: $discreetGreyBorder
-  border-bottom: $discreetGreyBorder
+  border-bottom: $discreet-grey-border
+  border-top: $discreet-grey-border
 
-  .inner-wrapper
-    @extend %content-wrapper
-    flex-wrap: wrap
+.footer-inner-wrapper
+  @extend %content-wrapper
+  flex-wrap: wrap
 
-    a
-      font-size: 12px
-      line-height: 15px
-      margin: 17px 14px
-      padding: 10px
-      text-transform: uppercase
+  a
+    font-size: 12px
+    line-height: 15px
+    margin: 17px 14px
+    padding: 10px
+    text-transform: uppercase
 
-      &:hover
-        opacity: $hoverOpacity
+    &:hover
+      opacity: $hover-opacity
 
 .credit-card-logos-wrapper
-  margin: 27px 0
   display: flex
   flex-direction: row
   justify-content: center
+  margin: 27px 0
 
   &.preview
-    position: absolute
-    left: 0
+    background-color: $color-light-grey
     bottom: 0
-    padding: 10px 0
+    left: 0
     margin: 0
+    padding: 10px 0
+    position: absolute
     width: 100%
-    background-color: $colorLightGrey
 
   a
-    width: 60px
     height: 40px
-    padding: 0 1px
     margin: 0 10px
+    padding: 0 1px
+    width: 60px
 
 .copyright-wrapper
-  width: 100%
-  color: #fff
-  background-color: #000
+  background-color: $color-black
+  color: $color-white
   text-align: center
+  width: 100%
 
-  .copyright-claim
-    padding: 27px 0
-    font-size: 12px
-    font-weight: $heavy
-    line-height: 15px
+.copyright-claim
+  font-size: 12px
+  font-weight: $heavy
+  line-height: 15px
+  padding: 27px 0

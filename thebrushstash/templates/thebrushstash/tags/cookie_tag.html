@@ -2,11 +2,11 @@
 
 {% if not accepted %}
   <div class="cookie-wrappper">
-    <p class="info">
+    <p class="cookie-info">
       {% url 'general-terms-and-conditions' as terms_url %}
       {% blocktrans %}The Brush Stash uses cookies to ensure a better user experience and the functionality of the site. By continuing to browse you agree to the use of cookies.
       <a class="link-in-text" href="{{ terms_url }}">Learn more here</a>.{% endblocktrans %}
-      <span class="accept-cookie">
+      <span id="cookie-accept" class="cookie-accept">
         &times;
       </span>
     </p>

@@ -1,7 +1,8 @@
-@import './footer.sass'
-@import './mixins.sass'
-@import './navigation.sass'
-@import './variables.sass'
+@import './footer'
+@import './mixins'
+@import './navigation'
+@import './variables'
+
 
 html,
 body
@@ -11,11 +12,11 @@ html
   scroll-behavior: smooth
 
 body
-  margin: 0
-  font-family: $bodyFont
-  font-size: 16px
   display: flex
   flex-direction: column
+  font-family: $body-font
+  font-size: 16px
+  margin: 0
 
   &.lock-scroll
     overflow: hidden
@@ -24,32 +25,34 @@ main
   flex: 1 0 auto
 
 footer
-  flex: 0 0 0px
+  flex: 0 0 0
+
+input,
+select
+  &:invalid
+    border: $error-border
 
 input,
 select,
 h1,
 h2,
 h3
-  margin: 0
-  font-family: $headerFont
+  font-family: $header-font
   font-weight: $heavy
-
-  &:invalid
-    border: $errorBorder
+  margin: 0
 
 ul,
 li
+  font-weight: $heavy
+  list-style: none
   margin: 0
   padding: 0
-  list-style: none
-  font-weight: $heavy
 
 a
+  color: $color-black
   font-weight: $heavy
   text-decoration: none
-  color: #000
-  transition-duration: $transitionDuration
+  transition-duration: $transition-duration
   transition-property: opacity
 
 p
@@ -57,205 +60,202 @@ p
 
 button,
 select
-  text-transform: none
-  -webkit-appearance: none
   -moz-appearance: none
   -ms-appearance: none
+  -webkit-appearance: none
+  text-transform: none
 
 button
-  font-family: $bodyFont
-  font-weight: $heavy
+  background-color: $color-black
+  border: 0
+  color: $color-white
+  cursor: pointer
+  font-family: $body-font
   font-size: 15px
+  font-weight: $heavy
   line-height: 19px
   padding: 0 0 3px
-  cursor: pointer
   text-transform: uppercase
-  color: #fff
-  background-color: #000
-  border: 0
-  transition-duration: $transitionDuration
+  transition-duration: $transition-duration
   transition-property: color, background-color
 
   &:hover
-    color: #000
-    background: $hoverLightGrey
+    background: $hover-light-grey
+    color: $color-black
 
   &:focus
-    outline: $greyBorder
+    outline: $grey-border
     outline-offset: -2px
 
 .image-preview
+  background-color: $hover-black
+  height: 100%
+  left: 0
   position: fixed
   top: 0
-  left: 0
   width: 100%
-  height: 100%
-  top: 0
-  left: 0
-  background-color: rgba(0, 0, 0, .8)
 
-  &:after
+  &::after
+    color: $color-white
     content: '\00D7'
-    font-size: 40px
-    position: absolute
-    width: 30px
-    height: 30px
-    top: 10px
-    right: 20px
-    color: #fff
     cursor: pointer
+    font-size: 40px
+    height: 30px
+    position: absolute
+    right: 20px
+    top: 10px
+    width: 30px
 
   img
+    left: 50%
     position: absolute
     top: 50%
-    left: 50%
     transform: translate(-50%, -50%)
 
 .main-wrapper
-  max-width: $contentWidth
-  margin: $mainWrapperTopMargin auto 30px
+  margin: $main-wrapper-top-margin auto 30px
+  max-width: $content-width
 
   &.sticky-nav-margin
-    margin-top: calc(#{$mainWrapperTopMargin} + #{$navbarHeight})
+    margin-top: calc(#{$main-wrapper-top-margin} + #{$navbar-height})
 
   .content-wrapper
-    margin: 0 $gutter 0
+    margin: 0 $gutter
 
 .header-wrapper
-  position: relative
-  background: radial-gradient(ellipse at center, #367dff 0%, #000 550px)
-  background-size: 100% 250%
+  background: radial-gradient(ellipse at center, $color-gradient 0%, $color-black 550px)
   background-position: 50% 55%
+  background-size: 100% 250%
+  position: relative
 
   .header
-    position: relative
-    display: flex
     align-items: center
+    display: flex
+    height: $header-height
     justify-content: center
-    max-width: $contentWidth
     margin: 0 auto
-    height: $headerHeight
+    max-width: $content-width
+    position: relative
 
-    .logo
-      width: 510px
-      height: 58px
+.header-logo
+  height: 58px
+  width: 510px
 
-      svg
-        width: 100%
-        height: auto
+  svg
+    height: auto
+    width: 100%
 
-    .ship-to-wrapper
-      @include ship-to-wrapper
+.ship-to-wrapper
+  @include ship-to-wrapper
 
-    .nav-mobile-open-button
-      display: none
+.nav-mobile-open-button
+  display: none
 
 .link-in-text
   text-decoration: underline
 
 .picture
-  width: auto
   height: 100%
+  width: auto
 
 .auth-wrapper
-  position: relative
+  align-items: center
   display: flex
   flex-direction: column
-  align-items: center
+  margin: 80px auto 170px
+  min-width: 280px
+  position: relative
   text-align: center
   width: 49%
-  min-width: 280px
-  margin: 80px auto 170px
 
   h1
     font-size: 38px
     line-height: 51px
 
   p
-    margin-top: 20px
     font-size: 16px
     line-height: 18px
+    margin-top: 20px
 
   form
     width: 100%
 
+  button
+    background-color: $color-green
+    font-size: 16px
+    height: 54px
+    text-align: center
+    width: 100%
+
+    &.disabled
+      background-color: $color-dark-green
+      pointer-events: none
+
+    &:hover
+      background-color: $color-dark-green
+      color: $color-white
+
   .register
-    color: $colorBlue
+    color: $color-blue
     text-transform: initial
 
   .field-wrapper
     @extend %field-wrapper
-
-  button
-    background-color: $colorGreen
-    font-size: 16px
-    text-align: center
-    height: 54px
-    width: 100%
-
-    &.disabled
-      pointer-events: none
-      background-color: $colorDarkGreen
-
-    &:hover
-      color: #fff
-      background-color: $colorDarkGreen
 
   .reset-password
     margin-top: 28px
     text-align: center
 
     a
-      color: $colorGrey
-      font-family: $bodyFont
+      color: $color-grey
+      font-family: $body-font
       font-size: 11px
       line-height: 13px
       padding-bottom: 2px
-      text-transform: uppercase
       text-decoration: underline
+      text-transform: uppercase
 
       &:hover
-        opacity: $hoverOpacity
+        opacity: $hover-opacity
+
+  .errorlist
+    left: auto
+    padding: 5px 0 0
+    position: relative
+    top: auto
 
 .screen-reader-only
+  -webkit-clip-path: polygon(0 0, 0 0, 0 0)
   border: 0
   clip: rect(0 0 0 0)
-  clip-path: polygon(0px 0px, 0px 0px, 0px 0px)
-  -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px)
+  clip-path: polygon(0 0, 0 0, 0 0)
   height: 1px
   margin: -1px
   overflow: hidden
   padding: 0
   position: absolute
-  width: 1px
   white-space: nowrap
+  width: 1px
 
 .error
+  color: $color-red
+  font-size: 12px
+  left: 0
+  line-height: 15px
   position: absolute
   top: 60px
-  left: 0
-  color: #f00
-  font-size: 12px
-  line-height: 15px
 
 .errorlist
+  color: $color-red
+  font-size: 12px
+  left: 0
+  line-height: 15px
   position: absolute
   top: 60px
-  left: 0
-  color: #f00
-  font-size: 12px
-  line-height: 15px
 
 .non-field-error
-  color: #f00
+  color: $color-red
   font-size: 15px
   font-weight: $heavy
   line-height: 15px
   max-width: 480px
-
-.auth-wrapper
-  .errorlist
-    position: relative
-    top: auto
-    left: auto
-    paddgin: 5px 0 0

@@ -1,22 +1,22 @@
 {% load i18n %}
 
 <div class="newsletter-wrapper">
-  <div class="inner-wrapper">
-    <div class="info-wrapper">
-      <p class="join-text">
+  <div class="newsletter-inner-wrapper">
+    <div class="newsletter-info-wrapper">
+      <p class="newsletter-join-text">
          {% trans 'Join our newsletter...' %}
       </p>
-      <p class="info-text">
+      <p class="newsletter-info-text">
          {% trans 'Learn about new products and special offers!' %}
       </p>
     </div>
-    <div class="join-wrapper">
+    <div class="newsletter-join-wrapper">
       <label for="email-input" class="screen-reader-only">{% trans "E-mail address" %}</label>
-      <input id="email-input" class="email-input" type="email" name="email" placeholder="{% trans 'Enter your e-mail' %}" maxlength="50">
+      <input id="email-input" class="newsletter-email-input" type="email" name="email" placeholder="{% trans 'Enter your e-mail' %}" maxlength="50">
       <label for="email-input-confirm" class="screen-reader-only">{% trans "E-mail address" %}</label>
-      <input id="email-input-confirm" class="email-input confirm" type="email" name="email" placeholder="{% trans 'Enter your e-mail' %}" maxlength="50" tabindex="-1">
-      <button id="subscribe-to-newsletter-button">{% trans 'Join' %}</button>
-      <div id="join-newsletter-message" class="join-newsletter-message" hidden></div>
+      <input id="email-input-confirm" class="newsletter-email-input newsletter-input-confirm" type="email" name="email" placeholder="{% trans 'Enter your e-mail' %}" maxlength="50" tabindex="-1">
+      <button id="newsletter-subscribe-button">{% trans 'Join' %}</button>
+      <div id="newsletter-join-message" class="newsletter-join-message" hidden></div>
     </div>
   </div>
 </div>

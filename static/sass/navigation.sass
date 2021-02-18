@@ -1,21 +1,22 @@
-@import './icons/navIcons.sass'
-@import './variables.sass'
+@import './icons/navIcons'
+@import './variables'
+
 
 .navigation-wrapper
+  background-color: $color-black
+  border-bottom: $grey-border
+  border-top: $discreet-grey-border
   position: relative
-  background-color: #000
-  border-top: $discreetGreyBorder
-  border-bottom: $greyBorder
 
   .navigation-mobile-controls
     display: none
 
   &.sticky-nav
+    border-bottom: $tbs-border
+    margin-top: -$header-height
     position: fixed
-    margin-top: -$headerHeight
     width: 100%
     z-index: 2
-    border-bottom: $tbsBorder
 
   .inner-wrapper
     @extend %content-wrapper
@@ -31,19 +32,19 @@
         margin-right: $gutter * 2.5
 
       a
-        color: #fff
+        color: $color-white
 
     .nav-item
+      font-family: $header-font
       position: relative
-      font-family: $headerFont
-      white-space: nowrap
       text-transform: uppercase
+      white-space: nowrap
 
       a
         padding: 10px
 
         &:hover
-          opacity: $hoverOpacity
+          opacity: $hover-opacity
 
     .nav-item-log-in-register,
     .nav-item-bag
@@ -52,13 +53,13 @@
       .user-link,
       .bag-link
         &:hover
-          opacity: $hoverOpacity
+          opacity: $hover-opacity
 
       .user-icon
-        position: relative
-        padding: 16px
-        margin-right: 4px
         background: url('data:image/svg+xml;base64,#{$userIcon}') no-repeat center
+        margin-right: 4px
+        padding: 16px
+        position: relative
 
     .bag-item-count
       @include bag-item-count

@@ -3,10 +3,10 @@
 
 {% if not hide_social %}
   <div class="social-wrapper">
-    <div class="inner-wrapper">
+    <div class="social-inner-wrapper">
       {% for footer_share_link in footer_share_links %}
         <a class="social-link" href="{{ footer_share_link.location }}" target="_blank" rel="noopener noreferrer">
-          <span class="icon {{ footer_share_link.css_class }}"></span>
+          <span class="social-icon {{ footer_share_link.css_class }}"></span>
           {% trans 'Follow us on' %}
           {% if LANGUAGE_CODE == 'hr' %}
             {{ footer_share_link.name_cro }}
@@ -22,7 +22,7 @@
 {% endif %}
 
 <div class="footer-nav-wrapper">
-  <div class="inner-wrapper">
+  <div class="footer-inner-wrapper">
     {% for footer_item in footer_items %}
       <a href="{{ footer_item.location }}">
         {% if LANGUAGE_CODE == 'hr' %}

@@ -1,63 +1,64 @@
-@import './variables.sass'
+@import './variables'
+
 
 @mixin input-arrow
-  position: absolute
+  border-color: $color-white transparent transparent
+  border-style: solid
+  border-width: 5px
   content: ''
   height: 0
-  width: 0
-  top: 5px
   left: 93%
   pointer-events: none
-  border-style: solid
-  border-color: #fff transparent transparent
-  border-width: 5px
+  position: absolute
+  top: 5px
+  width: 0
+
 
 %input-arrow
   @include input-arrow
 
 %play-icon
-  position: absolute
+  border-color: transparent transparent transparent $color-white
+  border-style: solid
+  border-width: 12px 18px
   content: ''
   height: 0
-  width: 0
-  top: 50%
   left: 50%
-  transform: translate(-20%, -50%)
   pointer-events: none
-  border-style: solid
-  border-color: transparent transparent transparent #fff
-  border-width: 12px 18px
+  position: absolute
+  top: 50%
+  transform: translate(-20%, -50%)
+  width: 0
 
 %label
-  position: absolute
-  top: 35px
-  left: 18px
-  color: #fff
-  padding: 5px 9px
-  background-color: $colorBlue
-  border-radius: $borderRadius
-  text-transform: uppercase
-  pointer-events: none
-
-  font-family: $bodyFont
+  background-color: $color-blue
+  border-radius: $border-radius
+  color: $color-white
+  font-family: $body-font
   font-size: 13px
   font-weight: $heavy
+  left: 18px
   line-height: 13px
+  padding: 5px 9px
+  pointer-events: none
+  position: absolute
+  text-transform: uppercase
+  top: 35px
 
 %content-wrapper
   display: flex
   justify-content: space-between
-  max-width: $contentWidth
   margin: 0 auto
+  max-width: $content-width
 
 %old-price
-  color: $colorGrey
+  color: $color-grey
   font-size: 18px
   margin: 0 5px 0 0
   position: relative
 
   &::after
-    background-color: $colorGrey
+    background-color: $color-grey
     content: ''
     height: 1px
     left: 0
@@ -66,130 +67,128 @@
     width: 95%
 
 %price-tag
-  font-family: $headerFont
+  font-family: $header-font
   font-size: 23px
   font-weight: $regular
   line-height: 29px
   margin-top: 13px
 
 %field-wrapper
-  position: relative
   margin: 23px 0 29px
+  position: relative
 
   input
-    height: 50px
-    width: 99.3%
-    font-family: $bodyFont
+    border: $input-border
+    border-radius: 0
+    font-family: $body-font
     font-size: 16px
+    height: 50px
     line-height: 19px
     text-indent: 20px
-
-    border: $inputBorder
-    border-radius: 0
-    transition-duration: $transitionDurationShort
+    transition-duration: $transition-duration-short
     transition-property: height, padding
+    width: 99.3%
 
-    &::placeholder,
-    &::-webkit-input-placeholder
-      opacity: 0.48
-      color: #000
-      font-family: $bodyFont
+    &::placeholder
+      color: $color-black
+      font-family: $body-font
       font-size: 16px
       font-style: italic
+      opacity: .48
 
     &.show-label
-      padding: 22px 1px 11px
       height: 19px
+      padding: 22px 1px 11px
 
   .field-info-icon
     cursor: pointer
 
-    &:after
-      position: absolute
-      top: 18px
-      right: 30px
-      content: '?'
-      color: #fff
-      padding: 0 6px
-      background-color: #000
+    &::after
+      background-color: $color-black
       border-radius: 50%
+      color: $color-white
+      content: '?'
+      padding: 0 6px
+      position: absolute
+      right: 30px
+      top: 18px
 
   .field-info
-    font-family: $bodyFont
+    background-color: $hover-black
+    border-radius: 5px
+    color: $color-white
+    font-family: $body-font
     font-size: 12px
+    left: 0
+    max-width: 400px
+    padding: 5px 15px 5px 5px
     position: absolute
     top: 0
-    left: 0
-    color: #fff
-    padding: 5px 15px 5px 5px
-    max-width: 400px
-    border-radius: 5px
-    background-color: rgba(0, 0, 0, .7)
 
     .field-info-close-icon
-      position: absolute
-      top: 0
-      right: 6px
-      color: #fff
+      color: $color-white
       cursor: pointer
       font-size: 20px
       line-height: 20px
       padding: 1px
+      position: absolute
+      right: 6px
+      top: 0
 
   .field-label
+    font-size: 12px
+    font-style: italic
+    left: 21px
+    opacity: 0
     position: absolute
     top: 7px
-    left: 21px
-    font-size: 12px
-    opacity: 0
-    font-style: italic
-    transition: opacity $transitionDuration
+    transition: opacity $transition-duration
 
     &.show-label
-      opacity: $hoverOpacity
+      opacity: $hover-opacity
 
 %summary-check-out-button
-  display: flex
   align-items: center
-  justify-content: center
-  position: relative
-  color: #fff
-  background-color: $colorGreen
+  background-color: $color-green
+  color: $color-white
+  display: flex
   font-size: 16px
-  text-transform: uppercase
   height: 54px
+  justify-content: center
   margin: 0 25px 15px
+  position: relative
+  text-transform: uppercase
   transition-property: color, background-color, opacity
 
   &:hover
-    background: $colorDarkGreen
+    background: $color-dark-green
 
 %summary-wrapper
-  flex: 4 1 0px
-  background-color: #000
-  text-align: center
+  background-color: $color-black
+  border-bottom: $tbs-border
+  flex: 4 1 0
   height: 100%
-  border-bottom: $tbsBorder
+  text-align: center
 
   h2
-    font-family: $bodyFont
-    text-transform: uppercase
-    color: #fff
-    text-align: left
+    color: $color-white
+    font-family: $body-font
     font-size: 20px
     line-height: 24px
     padding: 25px 25px 16px
+    text-align: left
+    text-transform: uppercase
 
   .summary-row
+    border-bottom: $discreet-grey-border
+    color: $color-white
     display: flex
     justify-content: space-between
-    color: #fff
     margin: 0 25px
-    border-bottom: $discreetGreyBorder
     text-align: left
 
     &.no-border-row
-      border: none
+      border: 0
 
     &.hidden
       display: none
@@ -218,43 +217,42 @@
       line-height: 23px
 
       &:first-child
-        text-transform: uppercase
         padding: 20px 10px 20px 0
+        text-transform: uppercase
 
     .summary-grand-total-value
-      display: flex
       align-items: flex-end
+      display: flex
       white-space: nowrap
 
     .promo-code-input
-      width: 100%
-      height: 50px
-      font-family: $bodyFont
+      border: $input-border
+      border-radius: 0
+      font-family: $body-font
       font-size: 16px
+      height: 50px
       line-height: 19px
       text-indent: 3px
-
-      border: $inputBorder
-      border-radius: 0
-      transition-duration: $transitionDurationShort
+      transition-duration: $transition-duration-short
       transition-property: border, box-shadow
+      width: 100%
 
       &.promo-code-error
-        border: 1px solid #f00
-        box-shadow: inset 0 0 1px 1px rgba(255, 0, 0, .7)
+        border: 1px solid $color-red
+        box-shadow: inset 0 0 1px 1px $color-red-70
 
     .promo-code-submit
       @extend %summary-check-out-button
+      border: 0
       cursor: pointer
-      border: none
-      padding: 0 10px
       margin: 0 0 20px
+      padding: 0 10px
 
   .promo-code-message
-    background-color: rgba(255, 255, 255, .8)
+    background-color: $color-white-80
     border-radius: 5px
-    color: #000
-    font-family: $bodyFont
+    color: $color-black
+    font-family: $body-font
     font-size: 12px
     left: 0
     max-width: 400px
@@ -266,7 +264,7 @@
       display: none
 
     .promo-code-message-close-icon
-      color: #000
+      color: $color-black
       cursor: pointer
       font-size: 20px
       line-height: 20px
@@ -276,66 +274,67 @@
       top: 0
 
   .promo-code-row
+    border: 0
     padding: 30px 0 0
-    border: none
     position: relative
 
   .summary-check-out-button
     @extend %summary-check-out-button
 
     &.disabled
-      opacity: 0.3
       cursor: not-allowed
+      opacity: .3
       pointer-events: none
 
       &:hover
-        background-color: $colorGreen
+        background-color: $color-green
 
   .summary-continue-shopping-link
+    color: $color-grey
     display: block
-    color: $colorGrey
-    font-family: $bodyFont
+    font-family: $body-font
     font-size: 11px
     line-height: 13px
-    text-transform: uppercase
-    text-decoration: underline
     margin: 5px 0 25px
     padding: 5px
+    text-decoration: underline
+    text-transform: uppercase
 
     &:hover
-      opacity: $hoverOpacity
+      opacity: $hover-opacity
 
   .new-summary-wrapper
     &.hidden
       display: none
 
 @mixin hollow-select
-  width: 83px
+  background-color: $color-white
+  border: $input-border
+  border-radius: 0
+  font-family: $body-font
+  font-size: 16px
   height: 54px
+  line-height: 19px
+  margin: 0 29px 0 0
   padding: 0 0 1px
   text-indent: 20px
-  margin: 0 29px 0 0
-  border: $inputBorder
-  border-radius: 0
-  background-color: #fff
-  font-family: $bodyFont
-  font-size: 16px
-  line-height: 19px
+  width: 83px
+
 
 %hollow-select
   @include hollow-select
 
 @mixin ship-to-wrapper
-  position: absolute
-  top: 12px
-  right: 34px
-  color: #fff
-  font-family: $bodyFont
+  color: $color-white
+  font-family: $body-font
   font-size: 12px
   line-height: 15px
+  position: absolute
+  right: 34px
   text-transform: uppercase
+  top: 12px
 
-  &:after
+  &::after
     @include input-arrow
 
   .ship-to-select-wrapper
@@ -347,53 +346,53 @@
       width: 65px
 
   .ship-to-select
-    width: 65px
-    color: #fff
+    color: $color-white
     display: flex
+    width: 65px
 
   .ship-to-menu
-    position: absolute
-    top: 20px
-    right: 15px
     margin-top: 5px
+    position: absolute
+    right: 15px
+    top: 20px
     z-index: 1
 
     .language-option
+      color: $color-white
       display: flex
-      color: #fff
       z-index: 1
 
   .flag-icon
-    width: 20px
     height: 13px
     margin: 2px 7px 11px 6px
     pointer-events: none
+    width: 20px
 
 @mixin nav-item-bag
-  position: relative
-  font-family: $bodyFont
+  font-family: $body-font
   font-size: 12px
   font-weight: $regular
   line-height: 10px
+  padding: 17px 0
+  position: relative
   text-transform: uppercase
   white-space: nowrap
-  padding: 17px 0
 
   a
     padding: 12px 5px 12px 0
 
   .bag-icon
-    padding: 7px 15px
-    margin-right: 4px
     background: url('data:image/svg+xml;base64,#{$bagIcon}') no-repeat top
+    margin-right: 4px
+    padding: 7px 15px
 
 @mixin bag-item-count
+  background-color: $color-blue
+  border-radius: $border-radius
+  color: $color-white
+  font-family: $body-font
+  font-weight: $heavy
+  margin-left: 5px
+  padding: 4px 6px
   position: absolute
   top: 13px
-  color: #fff
-  font-family: $bodyFont
-  font-weight: $heavy
-  padding: 4px 6px
-  margin-left: 5px
-  background-color: $colorBlue
-  border-radius: $borderRadius

@@ -1,114 +1,115 @@
-@import './general.sass'
-@import './bag.sass'
-@import './pages.sass'
-@import './product.sass'
+@import './general'
+@import './bag'
+@import './pages'
+@import './product'
+
 
 .showcase-wrapper
+  background-color: $color-black
+  border: 1px solid $color-black
+  box-shadow: $box-shadow
   display: flex
   flex-direction: row
-  background-color: #000
-  margin: -$navbarHeight $gutter 70px
+  margin: -$navbar-height $gutter 70px
   max-height: 435px
-  box-shadow: $boxShadow
-  border: 1px solid #000
-
-  .text-wrapper
-    flex: 1 1 0px
-    color: #fff
-    border-right: $discreetGreyBorder
-    text-align: center
-    display: flex
-    flex-direction: column
-    justify-content: center
-
-    h1
-      font-size: 41px
-      line-height: 47px
-      padding: 0 26px
-
-    p
-      font-size: 16px
-      line-height: 25px
-      padding: 0 26px
-      margin-bottom: 0
 
   .image-wrapper
-    flex: 3 1 0px
+    flex: 3 1 0
 
     .picture
-      width: 100%
       height: 100%
       object-fit: cover
+      width: 100%
+
+.showcase-text-wrapper
+  border-right: $discreet-grey-border
+  color: $color-white
+  display: flex
+  flex: 1 1 0
+  flex-direction: column
+  justify-content: center
+  text-align: center
+
+  h1
+    font-size: 41px
+    line-height: 47px
+    padding: 0 26px
+
+  p
+    font-size: 16px
+    line-height: 25px
+    margin-bottom: 0
+    padding: 0 26px
 
 .products-wrapper
   display: grid
-  grid-template-columns: repeat(auto-fit, 310px)
   grid-gap: 70px 22px
+  grid-template-columns: repeat(auto-fit, 310px)
   justify-content: center
 
-  .product
-    position: relative
-    height: 600px
-    text-align: center
-    transition: box-shadow $transitionDuration
+.product
+  height: 600px
+  position: relative
+  text-align: center
+  transition: box-shadow $transition-duration
 
-    &:hover
-      box-shadow: $hoverShadow
+  &:hover
+    box-shadow: $hover-shadow
 
-    h2
-      font-weight: $light
-      line-height: 30px
-      font-size: 24px
-      margin-top: 15px
-      padding: 0 20px
-      text-transform: uppercase
-      height: 40px
+  h2
+    font-size: 24px
+    font-weight: $light
+    height: 40px
+    line-height: 30px
+    margin-top: 15px
+    padding: 0 20px
+    text-transform: uppercase
 
-    p
-      font-size: 16px
-      line-height: 24px
-      max-width: 300px
-      height: 97px
-      margin: 0 auto
-      padding: 0 20px
+  p
+    font-size: 16px
+    height: 97px
+    line-height: 24px
+    margin: 0 auto
+    max-width: 300px
+    padding: 0 20px
 
-    button
-      color: #000
-      background-color: #fff
-      margin-top: 12px
-      width: 270px
-      height: 50px
-      border: $discreetGreyBorder
+  button
+    background-color: $color-white
+    border: $discreet-grey-border
+    color: $color-black
+    height: 50px
+    margin-top: 12px
+    width: 270px
 
-      &:disabled
-        opacity: 0.3
-        pointer-events: none
-
-        &:hover
-          background-color: #fff
+    &:disabled
+      opacity: .3
+      pointer-events: none
 
       &:hover
-        color: #000
-        background: $hoverLightGrey
+        background-color: $color-white
 
-    .label-new
-      @extend %label
-      top: 18px
+    &:hover
+      background: $hover-light-grey
+      color: $color-black
 
-    .label-out-of-stock
-      @extend %label
-      top: 18px
-      background-color: $colorGrey
+  .label-new
+    @extend %label
+    top: 18px
 
-    .old-price
-      @extend %old-price
+  .label-out-of-stock
+    @extend %label
+    background-color: $color-grey
+    top: 18px
 
-    .price-tag
-      @extend %price-tag
+  .old-price
+    @extend %old-price
 
-    .image-wrapper
-      img
-        width: 310px
-        height: 310px
+  .price-tag
+    @extend %price-tag
 
-@import './queries.sass'
+  .image-wrapper
+    img
+      height: 310px
+      width: 310px
+
+@import './queries'

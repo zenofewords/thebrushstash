@@ -1,74 +1,75 @@
-@import './icons/starIcon.sass'
+@import './icons/starIcon'
+
 
 .product-detail-wrapper
-  position: relative
   display: flex
   height: 100%
-  margin: 0 $gutter 0
+  margin: 0 $gutter
+  position: relative
 
   .gallery-wrapper
-    flex: 1 0 0px
+    flex: 1 0 0
     flex-direction: column
     justify-content: center
     padding: 0 20px 0 0
 
     .image-wrapper
-      width: 470px
       height: 100%
-      max-height: 470px
       margin: 0 auto 30px
+      max-height: 470px
+      width: 470px
 
       &.play-icon
-        position: relative
         cursor: pointer
+        position: relative
 
-        &:before
-          position: absolute
-          content: ''
-          top: 50%
-          left: 50%
-          transform: translate(-50%, -50%)
-          width: 120px
-          height: 120px
-          pointer-events: none
+        &::before
           background-color: rgba(0, 0, 0, .5)
           border-radius: 50%
+          content: ''
+          height: 120px
+          left: 50%
+          pointer-events: none
+          position: absolute
+          top: 50%
+          transform: translate(-50%, -50%)
+          width: 120px
 
-        &:after
+        &::after
           @extend %play-icon
           border-width: 24px 38px
 
     .video-wrapper
-      position: absolute
-      width: 100%
       height: 100%
-      top: 0
       left: 0
+      position: absolute
+      top: 0
+      width: 100%
       z-index: 1
 
       &.fade
-        position: fixed
-        width: 100%
-        height: 100%
-        top: 0
-        left: 0
-        display: flex
-        justify-content: center
         align-items: center
         background-color: rgba(0, 0, 0, .8)
-        z-index: 1
         cursor: initial
+        display: flex
+        height: 100%
+        justify-content: center
+        left: 0
+        position: fixed
+        top: 0
+        width: 100%
+        z-index: 1
 
-        &:after
+        &::after
+          color: $color-white
           content: '\00D7'
-          font-size: 40px
-          position: absolute
-          width: 30px
-          height: 30px
-          top: 10px
-          right: 20px
-          color: #fff
           cursor: pointer
+          font-size: 40px
+          height: 30px
+          position: absolute
+          right: 20px
+          top: 10px
+          width: 30px
 
     .thumbnails-wrapper
       display: flex
@@ -79,40 +80,40 @@
         margin: 15px 10px
 
       .image-wrapper
-        width: 62px
+        border: 1px solid rgba(0, 0, 0, .3)
+        cursor: pointer
         height: 62px
         margin: 0
         padding: 3px
-        border: 1px solid rgba(0, 0, 0, .3)
-        cursor: pointer
-        transition: box-shadow $transitionDuration
+        transition: box-shadow $transition-duration
+        width: 62px
 
         &:hover
-          box-shadow: $hoverShadow
+          box-shadow: $hover-shadow
 
         &.selected
-          box-shadow: $hoverShadow
+          box-shadow: $hover-shadow
 
         &.play-icon
           position: relative
 
-          &:before
-            position: absolute
-            content: ''
-            width: 70%
-            height: 70%
-            top: 50%
-            left: 50%
-            transform: translate(-50%, -50%)
-            pointer-events: none
+          &::before
             background-color: rgba(0, 0, 0, .5)
             border-radius: 50%
+            content: ''
+            height: 70%
+            left: 50%
+            pointer-events: none
+            position: absolute
+            top: 50%
+            transform: translate(-50%, -50%)
+            width: 70%
 
-          &:after
+          &::after
             @extend %play-icon
 
   .detail-wrapper
-    flex: 1 1 0px
+    flex: 1 1 0
     flex-direction: column
     margin-top: 5px
 
@@ -125,16 +126,16 @@
       text-transform: uppercase
 
       li
-        position: relative
         margin-right: 30px
+        position: relative
 
         &:first-child
-          &:after
+          &::after
             @extend %input-arrow
-            top: 0
-            left: 60px
-            border-color: transparent transparent transparent #000
+            border-color: transparent transparent transparent $color-black
             border-width: 4px
+            left: 60px
+            top: 0
 
       a:hover
         text-decoration: underline
@@ -154,22 +155,22 @@
       margin-bottom: 20px
 
     .product-rating-wrapper
-      width: 140px
-      position: relative
       display: inline-block
+      position: relative
+      width: 140px
 
       .product-rating-gauge
+        background-color: $color-blue
+        height: 24px
+        left: 0
         position: absolute
         top: 5px
-        left: 0
         z-index: -1
-        background-color: $colorBlue
-        height: 24px
 
       .product-rating-count
+        left: 105%
         position: absolute
         top: 5px
-        left: 105%
 
     .foreword
       font-size: 18px
@@ -184,32 +185,32 @@
       span
         position: relative
 
-        &:after
+        &::after
           @extend %input-arrow
-          top: 25px
+          border-color: $color-black transparent transparent
           left: 46%
-          border-color: #000 transparent transparent
+          top: 25px
 
       select
         @extend %hollow-select
 
       button
-        width: 100%
-        max-width: 300px
         height: 54px
+        max-width: 300px
+        width: 100%
 
         &:disabled
-          opacity: 0.3
+          opacity: .3
           pointer-events: none
 
         &:hover
-          color: #fff
-          background-color: $hoverBlack
+          background-color: $hover-black
+          color: $color-white
 
     .fine-copy
-      opacity: 0.5
       font-size: 11px
       line-height: 13px
+      opacity: .5
       text-transform: uppercase
 
       .link
@@ -222,10 +223,10 @@
 
   .text-wrapper
     display: flex
+    flex: 1 0 0
     flex-direction: column
-    flex: 1 0 0px
-    padding: 0 20px 0 0
     min-width: 423px
+    padding: 0 20px 0 0
 
     .product-description-headers
       display: flex
@@ -234,13 +235,13 @@
       #product-review-tab
         color: #aaa
         cursor: pointer
-        margin: 0 30px 25px 0
         font-size: 16px
         line-height: 22px
+        margin: 0 30px 25px 0
         text-transform: uppercase
 
         &.active
-          color: #000
+          color: $color-black
           cursor: initial
 
       #product-review-tab
@@ -250,37 +251,36 @@
         font-size: 19px
 
     h2
-      padding: 0 0 20px
       font-size: 16px
       line-height: 22px
+      padding: 0 0 20px
       text-transform: uppercase
 
     p
-      margin: 0 35px 30px 0
       font-size: 18px
       line-height: 30px
+      margin: 0 35px 30px 0
 
     button
       @extend %summary-check-out-button
-      width: 100%
       margin: 0 auto
+      width: 100%
 
       &:disabled
-        background-color: $colorDarkGreen
+        background-color: $color-dark-green
         cursor: not-allowed
 
     textarea
-      width: calc(100% - 22px)
-      max-width: calc(100% - 22px)
-      height: 200px
-      font-family: $bodyFont
-      font-size: 16px
-      line-height: 19px
-
-      padding: 12px 0 1px 20px
-      border: $inputBorder
+      border: $input-border
       border-radius: 0
+      font-family: $body-font
+      font-size: 16px
+      height: 200px
+      line-height: 19px
       margin: 0 0 20px
+      max-width: calc(100% - 22px)
+      padding: 12px 0 1px 20px
+      width: calc(100% - 22px)
 
     #product-review-form
       margin-bottom: 25px
@@ -296,57 +296,57 @@
 
     .product-reviews-wrapper
       h3
-        &.stars-1:after,
-        &.stars-2:after,
-        &.stars-3:after,
-        &.stars-4:after,
-        &.stars-5:after
+        &.stars-1::after,
+        &.stars-2::after,
+        &.stars-3::after,
+        &.stars-4::after,
+        &.stars-5::after
+          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
           content: ''
-          padding: 2px 12px 0
           margin: 0 0 0 10px
-          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
+          padding: 2px 12px 0
 
-        &.stars-2:after
+        &.stars-2::after
+          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
           padding: 2px 24px 0
-          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
 
-        &.stars-3:after
+        &.stars-3::after
+          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
           padding: 2px 36px 0
-          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
 
-        &.stars-4:after
+        &.stars-4::after
+          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
           padding: 2px 48px 0
-          background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
 
-        &.stars-5:after
-          padding: 2px 60px 0
+        &.stars-5::after
           background: url('data:image/svg+xml;base64,#{$starIcon}') repeat-x right
+          padding: 2px 60px 0
 
       p
+        border-bottom: $discreet-grey-border
         margin: 0 0 20px
         padding-bottom: 20px
-        border-bottom: $discreetGreyBorder
 
         &:last-of-type
           border-bottom: 0
 
   .media-wrapper
-    flex: 1 1 0px
+    flex: 1 1 0
 
     .image-wrapper
       margin-bottom: 15px
 
       .picture
-        max-width: 100%
         height: auto
+        max-width: 100%
 
 .more-from-shop-wrapper
   margin-top: 107px
 
   h3
-    padding: 0 30px
     font-size: 38px
     line-height: 51px
+    padding: 0 30px
     text-align: center
 
   .more-products-wrapper

@@ -14,32 +14,32 @@
   h1
     font-size: 38px
     line-height: 51px
-    padding: 0 20%
     margin-bottom: 50px
+    padding: 0 20%
 
   h2
-    font-family: $bodyFont
+    font-family: $body-font
     font-size: 20px
     line-height: 24px
-    text-transform: uppercase
-    padding: 0 20%
     margin-bottom: 20px
+    padding: 0 20%
+    text-transform: uppercase
 
   h4
     padding: 0 10%
     text-align: left
 
   p
-    padding: 0 10% 10px
     font-size: 18px
     line-height: 30px
+    padding: 0 10% 10px
     text-align: left
 
   ul,
   li
-    margin: 0 0 0 7%
     font-weight: $light
     list-style: initial
+    margin: 0 0 0 7%
     text-align: left
 
 .purchase-completed-wrapper,
@@ -52,8 +52,8 @@
 
 .credit-card-secure-logo-wrapper
   display: flex
-  position: relative
   margin: 0 10%
+  position: relative
 
   img
     height: 50px
@@ -65,15 +65,15 @@
     pointer-events: none
 
   .credit-card-secure-modal
-    position: absolute
-    top: 0
+    background-color: $color-white
+    box-shadow: $box-shadow
     left: 50%
-    transform: translate(-50%, -50%)
-    background-color: #fff
-    width: 80vw
     max-width: 600px
     padding: 25px
-    box-shadow: $boxShadow
+    position: absolute
+    top: 0
+    transform: translate(-50%, -50%)
+    width: 80vw
     z-index: 1
 
     h1
@@ -84,22 +84,22 @@
       height: 40px
 
     .close-modal-button
-      position: absolute
-      top: 10px
-      right: 20px
-      font-size: 30px
-      font-family: $bodyFont
       cursor: pointer
+      font-family: $body-font
+      font-size: 30px
+      position: absolute
+      right: 20px
+      top: 10px
 
     .fine-copy
       font-size: 11px
 
 .customer-address-wrapper
+  left: 20%
   position: absolute
   top: 20%
-  left: 20%
 
 .shop-address-wrapper
-  position: absolute
   bottom: 20%
+  position: absolute
   right: 20%

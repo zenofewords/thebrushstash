@@ -1,6 +1,7 @@
-@import './variables.sass'
+@import './variables'
 
-@media only screen and (max-width: $mediaMobile)
+
+@media only screen and (max-width: $media-mobile)
   .main-wrapper
     margin-top: 80px
 
@@ -11,64 +12,64 @@
     flex-direction: column
 
   .header-wrapper
+    background: radial-gradient(ellipse at center, $color-gradient 0%, $color-black 200px)
+    background-size: 100% 100%
+    border-bottom: $discreet-grey-border
     position: fixed
     width: 100%
-    background: radial-gradient(ellipse at center, #367dff 0%, #000 200px)
-    background-size: 100% 100%
     z-index: 1
-    border-bottom: $discreetGreyBorder
 
     .header
       height: 56px
 
       .nav-mobile-open-button
+        border-bottom: 1px solid $color-white
+        border-top: 1px solid $color-white
+        color: $color-white
         display: initial
+        height: 9px
+        left: 5px
+        margin: 15px
         position: fixed
         top: 7px
-        left: 5px
-        color: #fff
-        border-top: 1px solid #fff
-        border-bottom: 1px solid #fff
         width: 14px
-        height: 9px
-        margin: 15px
 
         hr
           border: 0
+          border-top: 1px solid $color-white
           margin: 4px 0 0
-          border-top: 1px solid #fff
 
       .logo
-        width: 170px
         height: 20px
+        width: 170px
 
       .ship-to-wrapper
         display: none
 
   .navigation-wrapper,
   .navigation-wrapper.sticky-nav
-    position: absolute
-    top: 0
+    height: 100vh
     left: -100%
+    margin-top: 0
     max-width: 300px
     min-height: 420px
+    position: absolute
+    top: 0
+    transition: left $transition-duration-short
     width: 80%
-    height: 100vh
     z-index: 1
-    margin-top: 0
-    transition: left $transitionDurationShort
 
     &.nav-mobile-open
       left: 0
 
-      &:before
+      &::before
+        background-color: $hover-black
+        content: ''
+        height: 100%
+        left: 0
         position: fixed
         top: 0
-        left: 0
-        content: ''
-        background-color: rgba(0, 0, 0, .5)
         width: 100%
-        height: 100%
 
     .navigation-mobile-controls
       display: flex
@@ -79,35 +80,35 @@
         display: inline
 
         #language-form-select
-          height: 20px
-          width: 45px
-          padding: 0 0 1px 7px
-          margin: 0 0 0 5px
-          font-size: 12px
-          line-height: 14px
-          color: #fff
+          background-color: $color-black
           border: 0
-          background-color: #000
+          color: $color-white
+          font-size: 12px
+          height: 20px
+          line-height: 14px
+          margin: 0 0 0 5px
+          padding: 0 0 1px 7px
+          width: 45px
 
       .nav-mobile-close-button
-        position: absolute
-        top: 23px
-        right: 20px
-        color: #fff
+        color: $color-white
         font-size: 40px
-        line-height: 13px
         font-weight: 100
+        line-height: 13px
+        position: absolute
+        right: 20px
+        top: 23px
 
       .ship-to-wrapper
         @include ship-to-wrapper
+        left: 0
         position: relative
         top: 0
-        left: 0
 
-        &:after
+        &::after
           @include input-arrow
-          top: 8px
           left: 83%
+          top: 8px
 
     .inner-wrapper
       .nav-item
@@ -123,19 +124,19 @@
           padding: 15px 0
 
       .nav-item-log-in-register
-        border-top: $discreetGreyBorder
-        position: absolute
+        border-top: $discreet-grey-border
         bottom: 60px
         left: 0
-        width: 90%
         margin: 0 5%
         padding: 25px 0 30px
+        position: absolute
         text-align: center
+        width: 90%
 
       .nav-item-bag
         position: fixed
-        top: 6px
         right: 6px
+        top: 6px
 
         &:last-child
           margin-right: 20px
@@ -153,8 +154,8 @@
     #bag
       opacity: 1
       top: 51px
-      transition: transform $transitionDurationShort
       transform: translate(100%, 0)
+      transition: transform $transition-duration-short
 
       &.bag-show
         transform: translate(-3%, 0)
@@ -172,18 +173,18 @@
     .ship-to-wrapper
       position: relative
 
-      &:after
+      &::after
         @include input-arrow
-        top: 10px
+        border-color: $color-black transparent transparent
         left: 83%
-        border-color: #000 transparent transparent
+        top: 10px
 
     .review-bag-mobile-ship-to-wrapper
+      background-color: $color-light-grey
       display: flex
       justify-content: center
       margin-top: -25px
       padding: 10px
-      background-color: $colorLightGrey
 
       .label-text
         font-size: 12px
@@ -194,21 +195,21 @@
         display: inline
 
         #review-language-form-select
-          height: 20px
-          width: 47px
-          padding: 0 0 0 7px
-          margin: 0 0 0 5px
-          font-size: 12px
-          line-height: 14px
-          color: #000
-          border: $inputBorder
+          background-color: $color-white
+          border: $input-border
           border-radius: 0
-          background-color: #fff
-          font-family: $bodyFont
+          color: $color-black
+          font-family: $body-font
+          font-size: 12px
+          height: 20px
+          line-height: 14px
+          margin: 0 0 0 5px
+          padding: 0 0 0 7px
+          width: 47px
 
         .ship-to-menu
           .language-option
-            color: #000
+            color: $color-black
 
     .bag-content-wrapper
       margin: 0 5px 0 0
@@ -229,20 +230,20 @@
 
           .bag-product-price
             font-size: 14px
-            letter-spacing: -0.35px
+            letter-spacing: -.35px
             line-height: 17px
 
         .bag-subtotal
           .bag-product-subtotal
             font-size: 14px
-            letter-spacing: -0.35px
+            letter-spacing: -.35px
             line-height: 17px
             white-space: nowrap
 
         .image-wrapper
-          width: 78px
           height: 78px
           margin: 12px 5px 12px 0
+          width: 78px
 
     .summary-wrapper
       h2
@@ -297,21 +298,21 @@
         line-height: 15px
 
   .showcase-wrapper
-    flex-flow: column-reverse
-    max-height: 100%
-    margin: 80px 0 50px
     box-shadow: none
+    flex-flow: column-reverse
+    margin: 80px 0 50px
+    max-height: 100%
 
     .image-wrapper
       img
-        border-bottom: $discreetGreyBorder
+        border-bottom: $discreet-grey-border
 
     .text-wrapper
-      text-align: center
+      border-right: 0
       margin: 0 auto 20px
       max-width: 500px
-      border-right: 0
       min-height: 150px
+      text-align: center
 
       h1
         font-size: 23px
@@ -321,15 +322,15 @@
       p
         font-size: 14px
         line-height: 20px
-        padding: 0 30px 0
+        padding: 0 30px
 
   .social-wrapper
+    border: 0
+    border-top: $discreet-grey-border
     margin-top: 15px
-    border: none
-    border-top: $discreetGreyBorder
 
     .inner-wrapper
-      &:after
+      &::after
         display: none
 
       .social-link
@@ -338,22 +339,22 @@
   .newsletter-wrapper
     .inner-wrapper
       .info-wrapper
+        margin: 0
         text-align: center
         width: 100%
-        margin: 0
 
         .join-text
           margin: 0 0 20px
           padding: 0 24px
 
         .info-text
-          padding: 0 $gutter
           margin: 0 0 20px
+          padding: 0 $gutter
 
       .join-wrapper
-        width: calc(100% - #{$gutter} * 2)
-        max-width: 500px
         margin: 0 auto
+        max-width: 500px
+        width: calc(100% - #{$gutter} * 2)
 
   .product-detail-wrapper
     flex-direction: column
@@ -366,25 +367,25 @@
 
       .image-wrapper
         .picture
-          width: 100%
           height: auto
+          width: 100%
 
         &.play-icon
-          &:before
-            top: 37%
+          &::before
             left: 30%
+            top: 37%
 
     .detail-wrapper
       margin-top: 30px
 
   .product-description-wrapper
-    margin-top: 30px
     flex-direction: column-reverse
+    margin-top: 30px
 
     .text-wrapper
       margin-top: 20px
-      padding: 0
       min-width: 0
+      padding: 0
 
     .media-wrapper
       .image-wrapper
@@ -427,15 +428,15 @@
 
   iframe
     border: 0
-    width: 100vw
     height: 50vh
+    width: 100vw
 
   .auth-wrapper
     .errorlist
-      position: relative
-      top: auto
       left: auto
       padding: 5px 0 0
+      position: relative
+      top: auto
 
 
 @media only screen and (orientation: portrait) and (max-width: 687px)
@@ -454,19 +455,19 @@
 
 @media only screen and (orientation: portrait) and (min-width: 768px)
   .header-wrapper
-    background-size: 100% 220%
     background-position: 50% 50%
+    background-size: 100% 220%
 
 @media only screen and (orientation: landscape) and (max-height: 440px)
   .header-wrapper
-    background-size: 100% 220%
     background-position: 50% 50%
+    background-size: 100% 220%
 
 @media only screen and (orientation: landscape)
   iframe
     border: 0
-    width: 90vw
     height: 90vh
+    width: 90vw
 
 @media (prefers-reduced-motion: reduce)
   html
